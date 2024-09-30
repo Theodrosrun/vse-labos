@@ -1,0 +1,64 @@
+<?xml version="1.0" ?>
+<rmdb version="1.0" toprunnables="directed">
+  <!-- ============== -->
+  <!-- DIRECTED TESTS -->
+  <!-- ============== -->
+  <runnable name="directed" type="group">
+    <parameters>
+        <parameter name="ucdbfile">../(%INSTANCE%).ucdb</parameter>
+        <parameter name="mergefile">(%DATADIR%)/merge.ucdb</parameter>
+        <parameter name="tplanfile">(%RMDBDIR%)/adder_testplan.xml</parameter>
+        <parameter name="tplanoptions">-format Excel</parameter>
+    </parameters>
+    <members>
+      <member>dirtest8_0</member>
+      <member>dirtest8_1</member>
+      <member>dirtest16_0</member>
+      <member>dirtest16_1</member>
+    </members>
+
+    <execScript>
+      <command>file delete -force work</command>
+      <command>set Path_DUV     "(%RMDBDIR%)/src_vhdl"</command>
+      <command>set Path_TB       "(%RMDBDIR%)/src_tb"</command>
+      <command>global Path_DUV</command>
+      <command>global Path_TB</command>
+      <command>vlib work</command>
+      <command>vcom +cover -2008 $Path_DUV/adder.vhd</command>
+      <command>vlog +cover -sv $Path_TB/adder_tb.sv</command>
+      <command>vsim -coverage -t 10ps -GDATASIZE=(%datasize%) -GTESTCASE=(%testcase%) work.adder_tb</command>
+      <command>set StdArithNoWarnings 1</command>
+      <command>set NumericStdNoWarnings 1</command>
+      <command>run 2 ns</command>
+      <command>set StdArithNoWarnings 0</command>
+      <command>set NumericStdNoWarnings 0</command>
+      <command>run -all</command>
+      <command>coverage attribute -name TESTNAME -value (%INSTANCE%)</command>
+      <command>coverage save (%ucdbfile%)</command>
+    </execScript>
+  </runnable>
+  <runnable name="dirtest8_0" type="task">
+    <parameters>
+      <parameter name="testcase">0</parameter>
+      <parameter name="datasize">8</parameter>
+    </parameters>
+  </runnable>
+  <runnable name="dirtest8_1" type="task">
+    <parameters>
+      <parameter name="testcase">1</parameter>
+      <parameter name="datasize">8</parameter>
+    </parameters>
+  </runnable>
+  <runnable name="dirtest16_0" type="task">
+    <parameters>
+      <parameter name="testcase">0</parameter>
+      <parameter name="datasize">16</parameter>
+    </parameters>
+  </runnable>
+  <runnable name="dirtest16_1" type="task">
+    <parameters>
+      <parameter name="testcase">1</parameter>
+      <parameter name="datasize">16</parameter>
+    </parameters>
+  </runnable>
+</rmdb>

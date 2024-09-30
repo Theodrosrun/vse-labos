@@ -1,0 +1,11 @@
+<html><head><script type="text/javascript">function toggle(theid){  var elements = document.getElementsByClassName(theid);  for (var i in elements) {    if (elements.hasOwnProperty(i)) {      if (elements[i].style.display=='none')        elements[i].style.display='';      else        elements[i].style.display = 'none';    }  }}</script><style type="text/css"><!--body { margin: 0; padding: 0;}.note {background-color: rgb(240,240,240);font-size: 12px;font-family: Arial;padding: 3px;margin:3px;}.warning {background-color: rgb(200,200,200);font-size: 12px;font-family: Arial}.error {background-color: rgb(255,160,160);font-size: 12px;font-family: Arial}.failure {background-color: rgb(255,80,80);font-size: 12px;font-family: Arial}--></style></head><body><h1>
+Simulation with HTML logger
+</h1><p>Date: no date</p>Show/Hide : <input id="note_button" type="button" value="Note" name="showNote" onclick="toggle('note')"; ><input id="warning_button" type="button" value="Warning" name="showWarning" onclick="toggle('warning')"; ><input id="error_button" type="button" value="Error" name="showError" onclick="toggle('error')"; ><input id="failure_button" type="button" value="Failure" name="showFailure" onclick="toggle('failure')"; ><center><table cellpadding="7"><tr><td>Type</td><td>Time</td><td>Description</td></tr>
+<tr class='note'><td>Note</td><td>15046000 ns</td><td>
+[NOTE] @ 15046000 ns +--------------------+| FINAL REPORT       ||--------------------+| Nb warnings = 0| Nb errors   = 0|| Verbosity level is : note|| END OF SIMULATION
+</td></tr>
+</table></center></body></html>
+<tr class='note'><td>Note</td><td>15100000 ns</td><td>
+[NOTE] @ 15100000 ns +--------------------+| FINAL REPORT       ||--------------------+| Nb warnings = 0| Nb errors   = 0|| Verbosity level is : note|| END OF SIMULATION
+</td></tr>
+</table></center></body></html>

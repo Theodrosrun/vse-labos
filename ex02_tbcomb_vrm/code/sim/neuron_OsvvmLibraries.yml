@@ -1,0 +1,10 @@
+Version: 1.0
+Build:
+  Name: neuron_OsvvmLibraries
+  Date: 2024-04-23T22:23+0200
+  Simulator: QuestaSim
+  Version: QuestaSim-2020.01
+Run:
+  Start:    2024-04-23T22:23+0200
+  Finish:   2024-04-23T22:23+0200
+  Elapsed:  3.529

@@ -134,3 +134,4 @@ module min_max_top_tb#(int VALSIZE, int TESTCASE, int ERRNO);
     end
 
 endmodule
+

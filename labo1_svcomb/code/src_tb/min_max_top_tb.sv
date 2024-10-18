@@ -78,7 +78,30 @@ module min_max_top_tb#(int VALSIZE, int TESTCASE, int ERRNO);
     endtask
 
     task compute_reference(logic[1:0] com, input_t min, input_t max, input_t value, logic osci, output output_t leds);
+        integer i;
+        leds = 0;
 
+        case (com)
+            2'b00: 
+            begin 
+                if (value >= min && value <= max) begin
+                    for (i = min; i <= value; i++) begin
+                        leds[i] = 1;
+                    end
+                    for (i = value + 1; i <= max; i++) begin
+                        leds[i] = osci;
+                    end
+                end
+            end
+            2'b01: 
+            begin
+                for (i = 0; i <= value; i++) begin
+                    leds[i] = 1;
+                end
+            end
+            2'b10: leds = 0;
+            2'b11: leds = {2**VALSIZE{1'b1}};
+        endcase
     endtask
 
     task compute_reference_task;

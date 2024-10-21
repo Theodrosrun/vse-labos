@@ -166,7 +166,11 @@ module min_max_top_tb#(int VALSIZE, int TESTCASE, int ERRNO);
         join_any
 
         $display("Ending simulation");
-    
+        if (nb_errors > 0)
+            $display("Number of errors : %d", nb_errors);
+        else
+            $display("No errors");
+                
         $finish;
     end
 

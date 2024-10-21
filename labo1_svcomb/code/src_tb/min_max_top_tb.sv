@@ -87,9 +87,6 @@ module min_max_top_tb#(int VALSIZE, int TESTCASE, int ERRNO);
         constraint c_min_max {
             max > min;
         }
-        constraint c_value_in_range {
-            value >= min && value <= max;
-        }
 
         covergroup cg;
             coverpoint com { 
@@ -130,7 +127,7 @@ module min_max_top_tb#(int VALSIZE, int TESTCASE, int ERRNO);
         endtask
     endclass
 
-    task test_case_randomized();
+    task test_scenario_randomized();
         automatic RTest rt = new();
         int generation_count = 0;
 
@@ -147,7 +144,7 @@ module min_max_top_tb#(int VALSIZE, int TESTCASE, int ERRNO);
                 input_itf.osci = rt.osci;
                 input_itf.value = rt.value;
                 @(posedge(synchro));
-                
+
                 rt.sample_coverage();
                 $display("Coverage rate: %0.2f%%", rt.cg.get_coverage());
             end

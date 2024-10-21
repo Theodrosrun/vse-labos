@@ -81,17 +81,14 @@ module min_max_top_tb#(int VALSIZE, int TESTCASE, int ERRNO);
         input_itf.value = 8;
         input_itf.com = 2'b00;
         input_itf.osci = 1;
-        compute_reference(input_itf.com, input_itf.min, input_itf.max, input_itf.value, input_itf.osci, leds_ref);
         @(posedge(synchro));
     endtask
 
     task test_scenario1;
-        compute_reference(input_itf.com, input_itf.min, input_itf.max, input_itf.value, input_itf.osci, leds_ref);
         @(posedge(synchro));
     endtask
 
     task test_scenario2;
-        compute_reference(input_itf.com, input_itf.min, input_itf.max, input_itf.value, input_itf.osci, leds_ref);
         @(posedge(synchro));
     endtask
 

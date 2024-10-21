@@ -72,6 +72,7 @@ module min_max_top_tb#(int VALSIZE, int TESTCASE, int ERRNO);
                                      .val_i(input_itf.value),
                                      .leds_o(output_itf.leds));
 
+    // Basic value
     task test_scenario0;
         input_itf.min = 3;
         input_itf.max = 12;
@@ -81,7 +82,13 @@ module min_max_top_tb#(int VALSIZE, int TESTCASE, int ERRNO);
         @(posedge(synchro));
     endtask
 
+    // Random values
     task test_scenario1;
+        input_itf.min = $urandom_range(0, 2**VALSIZE - 2);
+        input_itf.max = $urandom_range(input_itf.min + 1, 2**VALSIZE - 1);
+        input_itf.value = $urandom_range(input_itf.min, input_itf.max);
+        input_itf.com = $urandom_range(0, 3);
+        input_itf.osci = $urandom_range(0, 1);
         @(posedge(synchro));
     endtask
 

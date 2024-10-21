@@ -78,7 +78,7 @@ module min_max_top_tb#(int VALSIZE, int TESTCASE, int ERRNO);
     // ******************** Params *******************
     // ***********************************************
 
-    int TARGET_COVERAGE_PERCENT = 100;
+    int TARGET_COVERAGE_PERCENT = 95;
 
     // ***********************************************
     // ************** Randomized class ***************
@@ -114,7 +114,8 @@ module min_max_top_tb#(int VALSIZE, int TESTCASE, int ERRNO);
                 bins mid = {[6:10]};
                 bins high = {[11:2**VALSIZE-1]}; 
             }
-            // cross com, max, min, osci, value;
+            
+            cross com, max, min, osci, value;
         endgroup
 
         function new();

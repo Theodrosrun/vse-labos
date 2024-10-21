@@ -78,7 +78,7 @@ module min_max_top_tb#(int VALSIZE, int TESTCASE, int ERRNO);
     // ******************** Params *******************
     // ***********************************************
 
-    int TARGET_COVERAGE_PERCENT = 95;
+    int TARGET_COVERAGE_PERCENT = 100;
 
     // ***********************************************
     // ************** Randomized class ***************
@@ -114,7 +114,7 @@ module min_max_top_tb#(int VALSIZE, int TESTCASE, int ERRNO);
                 bins mid = {[6:10]};
                 bins high = {[11:2**VALSIZE-1]}; 
             }
-            cross com, max, min, osci, value;
+            // cross com, max, min, osci, value;
         endgroup
 
         function new();
@@ -279,7 +279,7 @@ module min_max_top_tb#(int VALSIZE, int TESTCASE, int ERRNO);
                 5: test_scenario5();
                 6: test_scenario_randomized();
                 default: begin
-                    $display("Invalid TESTCASE: %d", TESTCASE);
+                    $error("Invalid TESTCASE: %d", TESTCASE);
                     $finish;
                 end
             endcase
@@ -338,8 +338,8 @@ module min_max_top_tb#(int VALSIZE, int TESTCASE, int ERRNO);
         forever begin
             if (output_itf.leds !== leds_ref) begin
                 nb_errors++;
-                $display("Error for com = %b, min = %d, max = %d, value = %d", input_itf.com, input_itf.min, input_itf.max, input_itf.value);
-                $display("Expected: %b, Observed: %b", leds_ref, output_itf.leds);
+                $error("Error for com = %b, min = %d, max = %d, value = %d", input_itf.com, input_itf.min, input_itf.max, input_itf.value);
+                $error("Expected: %b, Observed: %b\n", leds_ref, output_itf.leds);
                 error_signal = 1;
                 #pulse;
                 error_signal = 0;
@@ -349,7 +349,7 @@ module min_max_top_tb#(int VALSIZE, int TESTCASE, int ERRNO);
     endtask
 
     initial begin
-        $display("Starting simulation");
+        $display("Starting simulation...\n");
         fork
             test_scenarios(TESTCASE);
             compute_reference_task;

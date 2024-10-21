@@ -51,15 +51,16 @@ module min_max_top_tb#(int VALSIZE, int TESTCASE, int ERRNO);
     time sim_step = 10ns;
     time pulse = 0ns;
     logic synchro = 0;
+   
+    always #(sim_step/2) synchro = ~synchro;
+   
+    // Interfaces
+    min_max_in_itf input_itf();
+    min_max_out_itf output_itf();
 
     // Erros values
     logic error_signal = 0;
     int nb_errors = 0;
-   
-    always #(sim_step/2) synchro = ~synchro;
-   
-    min_max_in_itf input_itf();
-    min_max_out_itf output_itf();
 
     typedef logic[VALSIZE-1:0] input_t;
     typedef logic[2**VALSIZE-1:0] output_t;

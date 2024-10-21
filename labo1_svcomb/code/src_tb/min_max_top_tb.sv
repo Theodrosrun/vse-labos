@@ -118,14 +118,20 @@ module min_max_top_tb#(int VALSIZE, int TESTCASE, int ERRNO);
         @(posedge(synchro));
     endtask
 
-    // Value bigger than max
+    // Value smaller than min and bigger than max
     task test_scenario4;
-        input_itf.min = 0;
-        input_itf.max = 2**VALSIZE - 2;
-        input_itf.value = 2**VALSIZE - 1;
+        input_itf.min = 5;
+        input_itf.max = 10;
+        input_itf.value = 4;
         input_itf.com = 2'b00;
         input_itf.osci = 0;
+        
         @(posedge(synchro));
+        assert (output_itf.leds == 0) else $error("All LEDs should be off, value is smaller than min");
+        input_itf.value = 11; 
+
+        @(posedge(synchro));
+        assert (output_itf.leds == 0) else $error("All LEDs should be off, value is bigger than max");
     endtask
 
     // ***********************************************

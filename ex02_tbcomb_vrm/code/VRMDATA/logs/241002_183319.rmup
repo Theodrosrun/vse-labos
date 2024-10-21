@@ -1,0 +1,19 @@
+20241002T183319 begin 34397@reds-vmeda /home/reds/Desktop/Labos/VSE/ex02_tbcomb_vrm/code/default.rmdb /home/reds/Desktop/Labos/VSE/ex02_tbcomb_vrm/code/VRMDATA
+20241002T183400 done directed/deleteScript skipped {} {} {} {}
+20241002T183400 done directed/dirtest16_0/deleteScript skipped {} {} {} {}
+20241002T183322 done directed/dirtest16_0/execScript passed/ok reds-vmeda directed/dirtest16_0.ucdb ok 0 44.42 {} 2
+20240930T175147 done directed/dirtest16_0/mergeScript passed reds-vmeda merge.ucdb {} {} 44.42 {} {}
+20241002T183400 done directed/dirtest16_1/deleteScript skipped {} {} {} {}
+20241002T183322 done directed/dirtest16_1/execScript passed/ok reds-vmeda directed/dirtest16_1.ucdb ok 0 44.42 {} 2
+20240930T175148 done directed/dirtest16_1/mergeScript passed reds-vmeda merge.ucdb {} {} 44.42 100.00 {}
+20240930T175116 done directed/dirtest16_1/tplanScript passed reds-vmeda merge_adder_testplan.ucdb {} {} 0.00 {} {}
+20241002T183400 done directed/dirtest8_0/deleteScript skipped {} {} {} {}
+20241002T183322 done directed/dirtest8_0/execScript passed/ok reds-vmeda directed/dirtest8_0.ucdb ok 0 44.42 {} 2
+20241002T183355 done directed/dirtest8_0/mergeScript passed reds-vmeda merge.ucdb {} {} 44.42 100.00 {}
+20241002T183323 done directed/dirtest8_0/tplanScript passed reds-vmeda merge_adder_testplan.ucdb {} {} 0.00 {} {}
+20241002T183400 done directed/dirtest8_1/deleteScript skipped {} {} {} {}
+20241002T183322 done directed/dirtest8_1/execScript passed/ok reds-vmeda directed/dirtest8_1.ucdb ok 0 44.42 {} 2
+20241002T183354 done directed/dirtest8_1/mergeScript passed reds-vmeda merge.ucdb {} {} 44.42 {} {}
+20241002T183355 done directed/postScript empty {} {} {} {}
+20241002T183319 done directed/preScript empty {} {} {} {}
+20241002T183401 end

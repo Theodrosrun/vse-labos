@@ -1,0 +1,15 @@
+# xml2ucdb -ucdbfilename /home/reds/Desktop/Labos/VSE/ex02_tbcomb_vrm/code/VRMDATA/merge_adder_testplan.ucdb -format Excel /home/reds/Desktop/Labos/VSE/ex02_tbcomb_vrm/code/adder_testplan.xml
+# Format 'Excel' read from parameter file.
+# ** Error: (xml2ucdb-17113) Section number '1.1' appears multiple times
+#   in scope '/testplan/Usage/S8T0' (file: /home/reds/Desktop/Labos/VSE/ex02_tbcomb_vrm/code/adder_testplan.xml, line: 2).
+# ** Error: (xml2ucdb-17113) Section number '1.2' appears multiple times
+#   in scope '/testplan/Usage/S8T1' (file: /home/reds/Desktop/Labos/VSE/ex02_tbcomb_vrm/code/adder_testplan.xml, line: 2).
+# ** Error: (xml2ucdb-17113) Section number '1.3' appears multiple times
+#   in scope '/testplan/Usage/S16T0' (file: /home/reds/Desktop/Labos/VSE/ex02_tbcomb_vrm/code/adder_testplan.xml, line: 2).
+# ** Error: (xml2ucdb-17113) Section number '1.4' appears multiple times
+#   in scope '/testplan/Usage/S16T1' (file: /home/reds/Desktop/Labos/VSE/ex02_tbcomb_vrm/code/adder_testplan.xml, line: 2).
+# 11 testplan section(s) added.
+# Database '/home/reds/Desktop/Labos/VSE/ex02_tbcomb_vrm/code/VRMDATA/merge_adder_testplan.ucdb' written.
+# 4 errors occurred during import.
+# Executing ONERROR command at macro ./tplanScript.do line 1
+# quit -f

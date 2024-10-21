@@ -1,0 +1,10 @@
+# xml2ucdb -ucdbfilename /home/reds/Desktop/Labos/VSE/ex01_plan_verification/code/VRMDATA/merge_uart_testplan.ucdb -format Excel /home/reds/Desktop/Labos/VSE/ex01_plan_verification/code/uart_testplan.xml
+# Format 'Excel' read from parameter file.
+# ** Error: (xml2ucdb-17126) Duplicate section title ''
+#   in scope '/testplan/Some section title 3' (file: /home/reds/Desktop/Labos/VSE/ex01_plan_verification/code/uart_testplan.xml, line: 367).
+# Child scope <unknown> already exists in parent /testplan/Some section title 3.
+# 12 testplan section(s) added.
+# Database '/home/reds/Desktop/Labos/VSE/ex01_plan_verification/code/VRMDATA/merge_uart_testplan.ucdb' written.
+# 2 errors occurred during import.
+# Executing ONERROR command at macro ./tplanScript.do line 1
+# quit -f

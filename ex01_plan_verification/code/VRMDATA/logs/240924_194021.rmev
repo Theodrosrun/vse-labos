@@ -1,0 +1,37 @@
+20240924T194021 selects {I /directed}
+20240924T194021 options -mseed 0
+20240924T194021 vrundir /home/reds/Desktop/Labos/VSE/ex01_plan_verification/code
+20240924T194021 vrmdata /home/reds/Desktop/Labos/VSE/ex01_plan_verification/code/VRMDATA
+20240924T194021 logfile /home/reds/Desktop/Labos/VSE/ex01_plan_verification/code/VRMDATA/logs/240924_194021.rmev
+20240924T194021 begin 40227@reds-vmeda /home/reds/Desktop/Labos/VSE/ex01_plan_verification/code/default.rmdb /home/reds/Desktop/Labos/VSE/ex01_plan_verification/code/VRMDATA
+20240924T194021 eligible directed/preScript {}
+20240924T194021 done directed/preScript empty
+20240924T194021 eligible directed/test0/execScript {}
+20240924T194021 eligible directed/test1/execScript {}
+20240924T194021 launched directed/test0/execScript
+20240924T194021 launched directed/test1/execScript
+20240924T194022 running directed/test0/execScript reds-vmeda
+20240924T194022 running directed/test1/execScript reds-vmeda
+20240924T194023 done directed/test1/execScript failed/error reds-vmeda directed/test1.ucdb error 0 6.75 {} {}
+20240924T194023 eligible directed/test1/deleteScript {}
+20240924T194023 done directed/test0/execScript passed/ok reds-vmeda directed/test0.ucdb ok 0 6.44 {} 1
+20240924T194023 eligible directed/test0/tplanScript {}
+20240924T194024 launched directed/test0/tplanScript
+20240924T194025 running directed/test0/tplanScript reds-vmeda
+20240924T194025 done directed/test0/tplanScript failed/script reds-vmeda merge_uart_testplan.ucdb {} {} 0.00 {} {}
+20240924T194028 running directed/test1/deleteScript reds-vmeda
+20240924T194028 done directed/test1/deleteScript skipped
+20240924T194055 eligible directed/test0/mergeScript {}
+20240924T194055 launched directed/test0/mergeScript
+20240924T194056 running directed/test0/mergeScript reds-vmeda
+20240924T194056 merge directed/test0/tplanScript directed/test0/mergeScript /home/reds/Desktop/Labos/VSE/ex01_plan_verification/code/VRMDATA/merge.ucdb {} {}
+20240924T194056 done directed/test0/mergeScript passed reds-vmeda merge.ucdb {} {} 6.44 9.21 {}
+20240924T194056 eligible directed/postScript {}
+20240924T194056 eligible directed/test0/deleteScript {}
+20240924T194056 done directed/postScript empty
+20240924T194056 eligible directed/deleteScript {}
+20240924T194101 running directed/test0/deleteScript reds-vmeda
+20240924T194101 done directed/test0/deleteScript skipped
+20240924T194101 running directed/deleteScript reds-vmeda
+20240924T194101 done directed/deleteScript skipped
+20240924T194101 end

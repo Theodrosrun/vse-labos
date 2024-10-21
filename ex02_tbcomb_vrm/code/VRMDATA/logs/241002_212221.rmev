@@ -1,0 +1,90 @@
+20241002T212221 selects {I /directed}
+20241002T212221 options -mseed 0
+20241002T212221 vrundir /home/reds/Desktop/Labos/VSE/ex02_tbcomb_vrm/code
+20241002T212221 vrmdata /home/reds/Desktop/Labos/VSE/ex02_tbcomb_vrm/code/VRMDATA
+20241002T212221 logfile /home/reds/Desktop/Labos/VSE/ex02_tbcomb_vrm/code/VRMDATA/logs/241002_212221.rmev
+20241002T212221 begin 33463@reds-vmeda /home/reds/Desktop/Labos/VSE/ex02_tbcomb_vrm/code/default.rmdb /home/reds/Desktop/Labos/VSE/ex02_tbcomb_vrm/code/VRMDATA
+20241002T212221 eligible directed/preScript {}
+20241002T212221 done directed/preScript empty
+20241002T212221 eligible directed/dirtest8_0/execScript {}
+20241002T212221 eligible directed/dirtest8_1/execScript {}
+20241002T212221 eligible directed/dirtest16_0/execScript {}
+20241002T212221 eligible directed/dirtest16_1/execScript {}
+20241002T212221 eligible directed/dirtest32_0/execScript {}
+20241002T212221 eligible directed/dirtest32_1/execScript {}
+20241002T212221 eligible directed/dirtest32_2/execScript {}
+20241002T212221 eligible directed/dirtest32_3/execScript {}
+20241002T212221 launched directed/dirtest8_0/execScript
+20241002T212221 launched directed/dirtest8_1/execScript
+20241002T212221 launched directed/dirtest16_0/execScript
+20241002T212221 launched directed/dirtest16_1/execScript
+20241002T212221 launched directed/dirtest32_0/execScript
+20241002T212221 launched directed/dirtest32_1/execScript
+20241002T212221 launched directed/dirtest32_2/execScript
+20241002T212221 launched directed/dirtest32_3/execScript
+20241002T212222 running directed/dirtest8_0/execScript reds-vmeda
+20241002T212222 running directed/dirtest16_0/execScript reds-vmeda
+20241002T212222 running directed/dirtest16_1/execScript reds-vmeda
+20241002T212222 running directed/dirtest8_1/execScript reds-vmeda
+20241002T212222 running directed/dirtest32_2/execScript reds-vmeda
+20241002T212222 running directed/dirtest32_0/execScript reds-vmeda
+20241002T212222 running directed/dirtest32_3/execScript reds-vmeda
+20241002T212222 running directed/dirtest32_1/execScript reds-vmeda
+20241002T212223 done directed/dirtest16_1/execScript passed/ok reds-vmeda directed/dirtest16_1.ucdb ok 0 35.90 {} 1
+20241002T212223 eligible directed/dirtest16_1/tplanScript {}
+20241002T212223 done directed/dirtest8_1/execScript passed/ok reds-vmeda directed/dirtest8_1.ucdb ok 0 34.89 {} 1
+20241002T212224 done directed/dirtest16_0/execScript passed/ok reds-vmeda directed/dirtest16_0.ucdb ok 0 33.78 {} 2
+20241002T212224 done directed/dirtest32_3/execScript passed/ok reds-vmeda directed/dirtest32_3.ucdb ok 0 18.11 {} 2
+20241002T212224 done directed/dirtest32_1/execScript passed/ok reds-vmeda directed/dirtest32_1.ucdb ok 0 36.57 {} 2
+20241002T212224 done directed/dirtest32_2/execScript passed/ok reds-vmeda directed/dirtest32_2.ucdb ok 0 49.12 {} 2
+20241002T212224 eligible directed/dirtest8_1/mergeScript {}
+20241002T212224 done directed/dirtest8_0/execScript passed/ok reds-vmeda directed/dirtest8_0.ucdb ok 0 49.25 {} 2
+20241002T212224 done directed/dirtest32_0/execScript passed/ok reds-vmeda directed/dirtest32_0.ucdb ok 0 30.91 {} 2
+20241002T212224 launched directed/dirtest16_1/tplanScript
+20241002T212224 launched directed/dirtest8_1/mergeScript
+20241002T212225 running directed/dirtest8_1/mergeScript reds-vmeda
+20241002T212225 running directed/dirtest16_1/tplanScript reds-vmeda
+20241002T212225 merge directed/dirtest8_1/execScript directed/dirtest8_1/mergeScript /home/reds/Desktop/Labos/VSE/ex02_tbcomb_vrm/code/VRMDATA/merge.ucdb {} {}
+20241002T212225 merge directed/dirtest16_0/execScript directed/dirtest8_1/mergeScript /home/reds/Desktop/Labos/VSE/ex02_tbcomb_vrm/code/VRMDATA/merge.ucdb {} {}
+20241002T212225 merge directed/dirtest32_3/execScript directed/dirtest8_1/mergeScript /home/reds/Desktop/Labos/VSE/ex02_tbcomb_vrm/code/VRMDATA/merge.ucdb {} {}
+20241002T212225 merge directed/dirtest32_1/execScript directed/dirtest8_1/mergeScript /home/reds/Desktop/Labos/VSE/ex02_tbcomb_vrm/code/VRMDATA/merge.ucdb {} {}
+20241002T212225 merge directed/dirtest32_2/execScript directed/dirtest8_1/mergeScript /home/reds/Desktop/Labos/VSE/ex02_tbcomb_vrm/code/VRMDATA/merge.ucdb {} {}
+20241002T212225 done directed/dirtest8_1/mergeScript passed reds-vmeda merge.ucdb {} {} 76.77 {} {}
+20241002T212225 eligible directed/dirtest16_0/deleteScript {}
+20241002T212225 eligible directed/dirtest32_1/deleteScript {}
+20241002T212225 eligible directed/dirtest32_2/deleteScript {}
+20241002T212225 eligible directed/dirtest32_3/deleteScript {}
+20241002T212225 eligible directed/dirtest8_1/deleteScript {}
+20241002T212225 done directed/dirtest16_1/tplanScript failed/script reds-vmeda merge_adder_testplan.ucdb {} {} 0.00 {} {}
+20241002T212230 running directed/dirtest16_0/deleteScript reds-vmeda
+20241002T212230 done directed/dirtest16_0/deleteScript skipped
+20241002T212230 running directed/dirtest32_1/deleteScript reds-vmeda
+20241002T212230 done directed/dirtest32_1/deleteScript skipped
+20241002T212230 running directed/dirtest32_2/deleteScript reds-vmeda
+20241002T212230 done directed/dirtest32_2/deleteScript skipped
+20241002T212230 running directed/dirtest32_3/deleteScript reds-vmeda
+20241002T212230 done directed/dirtest32_3/deleteScript skipped
+20241002T212230 running directed/dirtest8_1/deleteScript reds-vmeda
+20241002T212230 done directed/dirtest8_1/deleteScript skipped
+20241002T212255 eligible directed/dirtest8_0/mergeScript {}
+20241002T212255 launched directed/dirtest8_0/mergeScript
+20241002T212256 running directed/dirtest8_0/mergeScript reds-vmeda
+20241002T212256 merge directed/dirtest8_0/execScript directed/dirtest8_0/mergeScript /home/reds/Desktop/Labos/VSE/ex02_tbcomb_vrm/code/VRMDATA/merge.ucdb {} {}
+20241002T212256 merge directed/dirtest32_0/execScript directed/dirtest8_0/mergeScript /home/reds/Desktop/Labos/VSE/ex02_tbcomb_vrm/code/VRMDATA/merge.ucdb {} {}
+20241002T212256 merge directed/dirtest16_1/tplanScript directed/dirtest8_0/mergeScript /home/reds/Desktop/Labos/VSE/ex02_tbcomb_vrm/code/VRMDATA/merge.ucdb {} {}
+20241002T212256 done directed/dirtest8_0/mergeScript passed reds-vmeda merge.ucdb {} {} 77.53 100.00 {}
+20241002T212256 eligible directed/dirtest16_1/deleteScript {}
+20241002T212256 eligible directed/dirtest32_0/deleteScript {}
+20241002T212256 eligible directed/dirtest8_0/deleteScript {}
+20241002T212256 eligible directed/postScript {}
+20241002T212256 done directed/postScript empty
+20241002T212256 eligible directed/deleteScript {}
+20241002T212301 running directed/dirtest16_1/deleteScript reds-vmeda
+20241002T212301 done directed/dirtest16_1/deleteScript skipped
+20241002T212301 running directed/dirtest32_0/deleteScript reds-vmeda
+20241002T212301 done directed/dirtest32_0/deleteScript skipped
+20241002T212301 running directed/dirtest8_0/deleteScript reds-vmeda
+20241002T212301 done directed/dirtest8_0/deleteScript skipped
+20241002T212301 running directed/deleteScript reds-vmeda
+20241002T212301 done directed/deleteScript skipped
+20241002T212301 end

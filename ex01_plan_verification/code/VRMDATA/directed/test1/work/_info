@@ -1,0 +1,110 @@
+m255
+K4
+z2
+!s11e vcom 2020.1_1 2020.03, Mar  4 2020
+13
+!s112 1.1
+!i10d 8192
+!i10e 25
+!i10f 100
+cModel Technology
+Z0 d/home/reds/Desktop/Labos/VSE/ex01_plan_verification/code/VRMDATA/directed/test1
+T_opt
+!s110 1727199623
+VWi?9UmNz82H^`^dAC4haR2
+04 7 9 work uart_tb testbench 1
+=1-000ae431a4f1-66f2f986-ba58a-29fb
+o-quiet -auto_acc_if_foreign -work work -G TESTCASE=1 -G LOGFILENAME=\"log.txt\" -G FIFOSIZE=8
+tCvgOpt 0
+n@_opt
+OL;O;2020.1_1;71
+Euart
+Z1 w1727124324
+Z2 DPx4 ieee 11 numeric_std 0 22 aU^R8eGcicLcUFIaBQSL>3
+Z3 DPx3 std 6 textio 0 22 zE1`LPoLg^DX3Oz^4Fj1K3
+Z4 DPx4 ieee 14 std_logic_1164 0 22 cVAk:aDinOX8^VGI1ekP<3
+!i122 0
+R0
+Z5 8/home/reds/Desktop/Labos/VSE/ex01_plan_verification/code/src_vhdl/uart.vhd
+Z6 F/home/reds/Desktop/Labos/VSE/ex01_plan_verification/code/src_vhdl/uart.vhd
+l0
+Z7 L22 1
+Vailn`BJQP5kWf:bdTBYJm1
+!s100 n>0ng_I;SY8WcOHLGZHP[3
+Z8 OL;C;2020.1_1;71
+33
+Z9 !s110 1727199622
+!i10b 1
+Z10 !s108 1727199622.000000
+Z11 !s90 +cover|-2008|/home/reds/Desktop/Labos/VSE/ex01_plan_verification/code/src_vhdl/uart.vhd|
+Z12 !s107 /home/reds/Desktop/Labos/VSE/ex01_plan_verification/code/src_vhdl/uart.vhd|
+!i113 0
+Z13 !s102 +cover
+Z14 o+cover -2008
+Z15 tExplicit 1 CvgOpt 0
+Abehave
+R2
+R3
+R4
+DEx4 work 4 uart 0 22 ailn`BJQP5kWf:bdTBYJm1
+!i122 0
+l73
+L45 290
+V<_Aio@c>@ZhCY:>d05Dn`2
+!s100 1;I6@XMEB0[K0X<6HbRRI0
+R8
+33
+R9
+!i10b 1
+R10
+R11
+R12
+!i113 0
+R13
+R14
+R15
+Euart_tb
+R1
+R2
+R3
+R4
+!i122 1
+R0
+Z16 8/home/reds/Desktop/Labos/VSE/ex01_plan_verification/code/src_tb/uart_tb.vhd
+Z17 F/home/reds/Desktop/Labos/VSE/ex01_plan_verification/code/src_tb/uart_tb.vhd
+l0
+R7
+V2k<H;Hi_9KP37]^kC?1]63
+!s100 z:lLD@fz1NF:^6KZ`UHl>0
+R8
+33
+R9
+!i10b 1
+R10
+Z18 !s90 +cover|-2008|/home/reds/Desktop/Labos/VSE/ex01_plan_verification/code/src_tb/uart_tb.vhd|
+Z19 !s107 /home/reds/Desktop/Labos/VSE/ex01_plan_verification/code/src_tb/uart_tb.vhd|
+!i113 0
+R13
+R14
+R15
+Atestbench
+R2
+R3
+R4
+DEx4 work 7 uart_tb 0 22 2k<H;Hi_9KP37]^kC?1]63
+!i122 1
+l79
+L31 153
+V6ZY2Q^4b9PYco7RDHoME20
+!s100 E8nniZdl;_ShzLhmJDPSl3
+R8
+33
+R9
+!i10b 1
+R10
+R18
+R19
+!i113 0
+R13
+R14
+R15

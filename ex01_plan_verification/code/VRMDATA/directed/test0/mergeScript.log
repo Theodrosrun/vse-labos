@@ -1,0 +1,22 @@
+# set mergefile /home/reds/Desktop/Labos/VSE/ex01_plan_verification/code/VRMDATA/merge.ucdb
+# /home/reds/Desktop/Labos/VSE/ex01_plan_verification/code/VRMDATA/merge.ucdb
+# set cmd [list vcover merge  -out $mergefile]
+# vcover merge -out /home/reds/Desktop/Labos/VSE/ex01_plan_verification/code/VRMDATA/merge.ucdb
+# if {[file readable $mergefile]} {lappend cmd $mergefile}
+# eval $cmd -inputs /home/reds/Desktop/Labos/VSE/ex01_plan_verification/code/VRMDATA/directed/test0/mergeScript.files
+# QuestaSim-64 vcover 2020.1_1 Coverage Utility 2020.03 Mar  4 2020
+# Start time: 19:40:56 on Sep 24,2024
+# vcover merge -out /home/reds/Desktop/Labos/VSE/ex01_plan_verification/code/VRMDATA/merge.ucdb -inputs /home/reds/Desktop/Labos/VSE/ex01_plan_verification/code/VRMDATA/directed/test0/mergeScript.files 
+# QuestaSim-64 vcover 2020.1_1 Coverage Utility 2020.03 Mar  4 2020
+# Merging file /home/reds/Desktop/Labos/VSE/ex01_plan_verification/code/VRMDATA/merge_uart_testplan.ucdb
+# Merging file /home/reds/Desktop/Labos/VSE/ex01_plan_verification/code/VRMDATA/directed/test0.ucdb
+# Writing merged result to /home/reds/Desktop/Labos/VSE/ex01_plan_verification/code/VRMDATA/merge.ucdb
+# 
+# Applying tag commands ...
+# ===== Testplan item: /testplan/Some section title 2/Une autre feature
+# (Tag command: -tagname testplan.2.2 -testrecord test1 )
+# Warning: Potential test record "test1" created!
+# All tags are applied successfully.
+# End time: 19:40:56 on Sep 24,2024, Elapsed time: 0:00:00
+# Errors: 0, Warnings: 0
+# quit -f

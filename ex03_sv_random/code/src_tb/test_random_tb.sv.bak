@@ -1,0 +1,133 @@
+/******************************************************************************
+Project Math_computer
+
+File : test_random_tb.sv
+Description : This module is meant to test some random constructs.
+              Currently it is far from being efficient nor useful.
+
+Author : Y. Thoma
+Team   : REDS institute
+
+Date   : 07.11.2022
+
+| Modifications |--------------------------------------------------------------
+Ver    Date         Who    Description
+1.0    07.11.2022   YTA    First version
+
+******************************************************************************/
+
+module test_random_tb;
+
+    logic clk = 0;
+
+    logic[15:0] a;
+    logic[15:0] b;
+    logic[15:0] c;
+    logic[1:0]  m;
+
+    // clock generation
+    always #5 clk = ~clk;
+
+    // clocking block
+    default clocking cb @(posedge clk);
+    endclocking
+
+    class STest;
+        rand bit[7:0] sa;
+        rand bit[7:0] sb;
+
+        constraint sa_sb_constraint {
+            if (sa % 2 == 0) sb % 2 == 0;
+        }
+    endclass
+
+    class RTest;
+        rand bit[15:0] a;
+        rand bit[15:0] b;
+        rand bit[15:0] c;
+        rand bit[1:0]  m;
+
+        STest stest;
+        STest stest_array[];
+
+        const int max_stest_array_size = 5;
+
+        function new();
+            stest = new();
+            stest_array = new[$urandom_range(1, max_stest_array_size)];
+            foreach (stest_array[i])
+                stest_array[i] = new();
+        endfunction
+
+        constraint m_constraint {
+            m inside {[0, 1, 2]};
+        }
+
+        constraint a_constraint {
+            if (m == 0)
+                a < 10;
+        }
+
+        constraint b_constraint {
+            if (m == 1)
+                b inside {[12:16]};
+        }
+
+        constraint c_constraint {
+            c > a + b;
+        }
+
+        // Contrainte pour le tableau de STest : ajouter un biais
+        constraint stest_array_bias {
+            foreach (stest_array[i]) {
+                if (i == 0)
+                    stest_array[i].sa < 128;
+            }
+        }
+    endclass
+
+    task validate_constraints(RTest rt);
+        // Vérification des contraintes pour RTest
+        assert (rt.m inside {0, 1, 2}) else $error("m out of bounds");
+        if (rt.m == 0) assert (rt.a < 10) else $error("a constraint violated when m == 0");
+        if (rt.m == 1) assert (rt.b inside {[12:16]}) else $error("b constraint violated when m == 1");
+        assert (rt.c > rt.a + rt.b) else $error("c constraint violated");
+
+        // Vérification des contraintes pour STest
+        assert ((rt.stest.sa % 2 == 0 && rt.stest.sb % 2 == 0) || (rt.stest.sa % 2 != 0))
+            else $error("STest constraint violated");
+
+        // Vérification des contraintes pour chaque élément du tableau STest
+        foreach (rt.stest_array[i]) begin
+            assert ((rt.stest_array[i].sa % 2 == 0 && rt.stest_array[i].sb % 2 == 0) || (rt.stest_array[i].sa % 2 != 0))
+                else $error("STest array constraint violated at index %0d", i);
+        end
+    endtask
+
+    task test_case0();
+        automatic RTest rt = new();
+        repeat (10) begin
+            if (!rt.randomize()) begin
+                $error("Randomization failed");
+            end
+            else begin
+                validate_constraints(rt);
+            end
+            
+            a = rt.a;
+            b = rt.b;
+            c = rt.c;
+            m = rt.m;
+
+            ##1;
+        end
+    endtask
+
+    program TestSuite;
+        initial begin
+            test_case0();
+            $stop;
+        end
+    endprogram
+
+endmodule

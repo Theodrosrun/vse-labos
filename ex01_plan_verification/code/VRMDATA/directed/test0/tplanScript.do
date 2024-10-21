@@ -1,0 +1,1 @@
+xml2ucdb -ucdbfilename /home/reds/Desktop/Labos/VSE/ex01_plan_verification/code/VRMDATA/merge_uart_testplan.ucdb -format Excel /home/reds/Desktop/Labos/VSE/ex01_plan_verification/code/uart_testplan.xml

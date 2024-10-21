@@ -1,0 +1,20 @@
+# set mergefile /home/reds/Desktop/Labos/VSE/ex02_tbcomb_vrm/code/VRMDATA/merge.ucdb
+# /home/reds/Desktop/Labos/VSE/ex02_tbcomb_vrm/code/VRMDATA/merge.ucdb
+# set cmd [list vcover merge  -out $mergefile]
+# vcover merge -out /home/reds/Desktop/Labos/VSE/ex02_tbcomb_vrm/code/VRMDATA/merge.ucdb
+# if {[file readable $mergefile]} {lappend cmd $mergefile}
+# eval $cmd -inputs /home/reds/Desktop/Labos/VSE/ex02_tbcomb_vrm/code/VRMDATA/directed/dirtest8_1/mergeScript.files
+# QuestaSim-64 vcover 2020.1_1 Coverage Utility 2020.03 Mar  4 2020
+# Start time: 21:22:25 on Oct 02,2024
+# vcover merge -out /home/reds/Desktop/Labos/VSE/ex02_tbcomb_vrm/code/VRMDATA/merge.ucdb -inputs /home/reds/Desktop/Labos/VSE/ex02_tbcomb_vrm/code/VRMDATA/directed/dirtest8_1/mergeScript.files 
+# QuestaSim-64 vcover 2020.1_1 Coverage Utility 2020.03 Mar  4 2020
+# Merging file /home/reds/Desktop/Labos/VSE/ex02_tbcomb_vrm/code/VRMDATA/directed/dirtest8_1.ucdb
+# Merging file /home/reds/Desktop/Labos/VSE/ex02_tbcomb_vrm/code/VRMDATA/directed/dirtest16_0.ucdb
+# Merging file /home/reds/Desktop/Labos/VSE/ex02_tbcomb_vrm/code/VRMDATA/directed/dirtest32_3.ucdb
+# Merging file /home/reds/Desktop/Labos/VSE/ex02_tbcomb_vrm/code/VRMDATA/directed/dirtest32_1.ucdb
+# Merging file /home/reds/Desktop/Labos/VSE/ex02_tbcomb_vrm/code/VRMDATA/directed/dirtest32_2.ucdb
+# Writing merged result to /home/reds/Desktop/Labos/VSE/ex02_tbcomb_vrm/code/VRMDATA/merge.ucdb
+# 
+# End time: 21:22:25 on Oct 02,2024, Elapsed time: 0:00:00
+# Errors: 0, Warnings: 0
+# quit -f

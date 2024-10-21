@@ -1,0 +1,158 @@
+m255
+K4
+z2
+!s11e vcom 2020.1_1 2020.03, Mar  4 2020
+13
+!s112 1.1
+!i10d 8192
+!i10e 25
+!i10f 100
+cModel Technology
+Z0 d/home/reds/Desktop/Labos/VSE/labo1_svcomb/code/sim
+EBwngrkWdZIKHpW9cCo9NQw==
+Z1 w1729260854
+Z2 DPx4 ieee 11 numeric_std 0 22 aU^R8eGcicLcUFIaBQSL>3
+Z3 DPx3 std 6 textio 0 22 zE1`LPoLg^DX3Oz^4Fj1K3
+Z4 DPx4 ieee 14 std_logic_1164 0 22 cVAk:aDinOX8^VGI1ekP<3
+!i122 8
+R0
+Z5 8../src_vhdl/affichage.vhd
+Z6 F../src_vhdl/affichage.vhd
+l0
+Z7 L17 1
+Vn]3WkN0nXkUC1Vh<iY;b11
+!s100 FDn3QF75M2QWnZ5VlfA;`1
+Z8 OL;C;2020.1_1;71
+!i119 1
+!i8a 1088592240
+33
+Z9 !s110 1729263220
+!i10b 1
+Z10 !s108 1729263220.000000
+Z11 !s90 -2008|-work|Aff_Min_Max|../src_vhdl/affichage.vhd|
+Z12 !s107 ../src_vhdl/affichage.vhd|
+!i113 0
+Z13 o-2008 -work Aff_Min_Max
+Z14 tExplicit 1 CvgOpt 0
+ncf98015
+A8rwtf3FuqQ7CE7qkolQoZA==
+R2
+R3
+R4
+Z15 DEx4 work 9 affichage 0 22 n]3WkN0nXkUC1Vh<iY;b11
+!i122 8
+l17
+R7
+Z16 VbiFNj_`<i8idWB9;hAla@2
+Z17 !s100 o85<fdPTlge2@IEIMS16l0
+R8
+!i119 1
+!i8a 1110279344
+33
+R9
+!i10b 1
+R10
+R11
+R12
+!i113 0
+R13
+R14
+Z18 na6476f5
+E/x4/h+Dzr7OlxgkNwwI6qw==
+R1
+R2
+R3
+R4
+!i122 6
+R0
+Z19 8../src_vhdl/bin_lin.vhd
+Z20 F../src_vhdl/bin_lin.vhd
+l0
+R7
+VH:cZg7A`j4A0_1B?879Uo2
+!s100 ?:i=WOJ0N=_ceDE]CHhld2
+R8
+!i119 1
+!i8a 1721343888
+33
+R9
+!i10b 1
+R10
+Z21 !s90 -2008|-work|Aff_Min_Max|../src_vhdl/bin_lin.vhd|
+Z22 !s107 ../src_vhdl/bin_lin.vhd|
+!i113 0
+R13
+R14
+n904629e
+A3E2uJJwajzskRw+gKpJlkw==
+R2
+R3
+R4
+DEx4 work 7 bin_lin 0 22 H:cZg7A`j4A0_1B?879Uo2
+!i122 6
+l17
+R7
+VgIS@U3Y`eHjU=P=FDMcTn3
+!s100 Ac_`kBO0i7R4`bIoGiFO]1
+R8
+!i119 1
+!i8a 88073520
+33
+R9
+!i10b 1
+R10
+R21
+R22
+!i113 0
+R13
+R14
+n68be8c5
+EXNgsRJ4jwzRz+3KJ7+HlaSQds4jlVltmctmggiXtnLI=
+R1
+R2
+R3
+R4
+!i122 7
+R0
+Z23 8../src_vhdl/comparator_nbits.vhd
+Z24 F../src_vhdl/comparator_nbits.vhd
+l0
+R7
+V7@_DfZA3Y3IT8JYQPY=3X1
+!s100 NW4ST0388VFQii]Sf`BQ10
+R8
+!i119 1
+!i8a 1233694976
+33
+R9
+!i10b 1
+R10
+Z25 !s90 -2008|-work|Aff_Min_Max|../src_vhdl/comparator_nbits.vhd|
+Z26 !s107 ../src_vhdl/comparator_nbits.vhd|
+!i113 0
+R13
+R14
+n2eabd93
+Abdn6172LZR7PtGBmSOCqeg==
+R2
+R3
+R4
+DEx4 work 16 comparator_nbits 0 22 7@_DfZA3Y3IT8JYQPY=3X1
+!i122 7
+l17
+R7
+VX=9fJ8]Q=VV;ibjkXQViI3
+!s100 3CIdTQLU4hb<35ZSEleGI2
+R8
+!i119 1
+!i8a 1145872560
+33
+R9
+!i10b 1
+R10
+R25
+R26
+!i113 0
+R13
+R14
+na6476f4

@@ -1,0 +1,147 @@
+<?xml version="1.0" ?>
+<drill>
+  <sample type="vrm" version="3.0" timestamp="2024-09-24 19:40:21">
+    <table name="summary">
+      <row>
+        <logfile>/home/reds/Desktop/Labos/VSE/ex01_plan_verification/code/VRMDATA/logs/240924_194021.rmev</logfile>
+        <starttime>2024-09-24 19:40:21</starttime>
+        <endtime>2024-09-24 19:41:01</endtime>
+        <rmdb>/home/reds/Desktop/Labos/VSE/ex01_plan_verification/code/default.rmdb</rmdb>
+        <vrmdata>/home/reds/Desktop/Labos/VSE/ex01_plan_verification/code/VRMDATA</vrmdata>
+        <actions>6</actions>
+        <options>-eventlog /home/reds/Desktop/Labos/VSE/ex01_plan_verification/code/VRMDATA/logs/240924_194021.rmev -mseed 0 -rmdb /home/reds/Desktop/Labos/VSE/ex01_plan_verification/code/default.rmdb -vrmdata /home/reds/Desktop/Labos/VSE/ex01_plan_verification/code/VRMDATA</options>
+        <passed>2</passed>
+        <failed>2</failed>
+        <notrun>0</notrun>
+        <coverage>6.44</coverage>
+        <tplancov>9.21</tplancov>
+      </row>
+    </table>
+    <table name="details">
+      <row>
+        <action>directed/preScript</action>
+        <coverage></coverage>
+        <cputime></cputime>
+        <datetime>2024-09-24 19:40:21</datetime>
+        <elapsed></elapsed>
+        <event>20240924T194021 done directed/preScript empty</event>
+        <hostname></hostname>
+        <queued></queued>
+        <status>empty</status>
+        <reason></reason>
+        <seed></seed>
+        <simtime></simtime>
+        <tplancov></tplancov>
+        <tstime></tstime>
+        <ucdbfile></ucdbfile>
+        <username></username>
+        <donetime>2024-09-24 19:40:21</donetime>
+        <extstatus></extstatus>
+        <launchtime></launchtime>
+        <mergefile>/home/reds/Desktop/Labos/VSE/ex01_plan_verification/code/VRMDATA/merge.ucdb</mergefile>
+        <properties>Non-sequential Group Runnable</properties>
+        <runid></runid>
+        <runstatus>empty</runstatus>
+        <starttime></starttime>
+        <testname></testname>
+        <teststatus></teststatus>
+        <timeunit></timeunit>
+        <triagefile></triagefile>
+        <ucdbproxy></ucdbproxy>
+      </row>
+      <row>
+        <action>directed/test0/execScript</action>
+        <coverage>6.44</coverage>
+        <cputime>0.00</cputime>
+        <datetime>2024-09-24 19:40:23</datetime>
+        <elapsed>1</elapsed>
+        <event>20240924T194023 done directed/test0/execScript passed/ok reds-vmeda directed/test0.ucdb ok 0 6.44 {} 1</event>
+        <hostname>reds-vmeda</hostname>
+        <queued>1</queued>
+        <status>passed/ok</status>
+        <reason></reason>
+        <seed>0</seed>
+        <simtime>1000.00</simtime>
+        <tplancov></tplancov>
+        <tstime></tstime>
+        <ucdbfile>directed/test0.ucdb</ucdbfile>
+        <username>reds</username>
+        <donetime>2024-09-24 19:40:23</donetime>
+        <extstatus>ok</extstatus>
+        <launchtime>2024-09-24 19:40:21</launchtime>
+        <mergefile>/home/reds/Desktop/Labos/VSE/ex01_plan_verification/code/VRMDATA/merge.ucdb</mergefile>
+        <properties>Task Runnable</properties>
+        <runid></runid>
+        <runstatus>passed</runstatus>
+        <starttime>2024-09-24 19:40:22</starttime>
+        <testname>test0</testname>
+        <teststatus>ok</teststatus>
+        <timeunit>ps</timeunit>
+        <triagefile></triagefile>
+        <ucdbproxy></ucdbproxy>
+      </row>
+      <row>
+        <action>directed/test1/execScript</action>
+        <coverage>6.75</coverage>
+        <cputime>0.00</cputime>
+        <datetime>2024-09-24 19:40:23</datetime>
+        <elapsed>1</elapsed>
+        <event>20240924T194023 done directed/test1/execScript failed/error reds-vmeda directed/test1.ucdb error 0 6.75 {} {}</event>
+        <hostname>reds-vmeda</hostname>
+        <queued>1</queued>
+        <status>failed/error</status>
+        <reason>Error in the DUV</reason>
+        <seed>0</seed>
+        <simtime>1000.00</simtime>
+        <tplancov></tplancov>
+        <tstime>0.00</tstime>
+        <ucdbfile>directed/test1.ucdb</ucdbfile>
+        <username>reds</username>
+        <donetime>2024-09-24 19:40:23</donetime>
+        <extstatus>error</extstatus>
+        <launchtime>2024-09-24 19:40:21</launchtime>
+        <mergefile>/home/reds/Desktop/Labos/VSE/ex01_plan_verification/code/VRMDATA/merge.ucdb</mergefile>
+        <properties>Task Runnable</properties>
+        <runid></runid>
+        <runstatus>failed</runstatus>
+        <starttime>2024-09-24 19:40:22</starttime>
+        <testname>test1</testname>
+        <teststatus>error</teststatus>
+        <timeunit>ps</timeunit>
+        <triagefile></triagefile>
+        <ucdbproxy></ucdbproxy>
+      </row>
+      <row>
+        <action>directed/postScript</action>
+        <coverage></coverage>
+        <cputime></cputime>
+        <datetime>2024-09-24 19:40:56</datetime>
+        <elapsed></elapsed>
+        <event>20240924T194056 done directed/postScript empty</event>
+        <hostname></hostname>
+        <queued></queued>
+        <status>empty</status>
+        <reason></reason>
+        <seed></seed>
+        <simtime></simtime>
+        <tplancov></tplancov>
+        <tstime></tstime>
+        <ucdbfile></ucdbfile>
+        <username></username>
+        <donetime>2024-09-24 19:40:56</donetime>
+        <extstatus></extstatus>
+        <launchtime></launchtime>
+        <mergefile>/home/reds/Desktop/Labos/VSE/ex01_plan_verification/code/VRMDATA/merge.ucdb</mergefile>
+        <properties>Non-sequential Group Runnable</properties>
+        <runid></runid>
+        <runstatus>empty</runstatus>
+        <starttime></starttime>
+        <testname></testname>
+        <teststatus></teststatus>
+        <timeunit></timeunit>
+        <triagefile></triagefile>
+        <ucdbproxy></ucdbproxy>
+      </row>
+    </table>
+  </sample>
+</drill>

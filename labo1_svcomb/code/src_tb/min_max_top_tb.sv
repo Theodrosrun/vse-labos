@@ -75,6 +75,88 @@ module min_max_top_tb#(int VALSIZE, int TESTCASE, int ERRNO);
                                      .leds_o(output_itf.leds));
 
     // ***********************************************
+    // ************** Randomized class ***************
+    // ***********************************************
+    class RTest;
+        rand logic[1:0] com;
+        rand input_t max;
+        rand input_t min;
+        rand logic osci;
+        rand input_t value;
+
+        constraint c_min_max {
+            max > min;
+        }
+        constraint c_value_in_range {
+            value >= min && value <= max;
+        }
+
+        covergroup cg;
+            coverpoint com { 
+                bins com_values[] = {0, 1, 2, 3}; 
+            }
+            coverpoint max { 
+                bins low_max = {[0:5]};
+                bins high_max = {[6:2**VALSIZE-1]}; 
+            }
+            coverpoint min { 
+                bins low_min = {[0:5]}; 
+                bins high_min = {[6:2**VALSIZE-1]}; 
+            }
+            coverpoint osci { 
+                bins osc_values[] = {0, 1}; 
+            }
+            coverpoint value { 
+                bins low_val = {[0:5]};
+                bins mid_val = {[6:10]};
+                bins high_val = {[11:2**VALSIZE-1]}; 
+            }
+            cross min, max, value, com, osci;
+        endgroup
+
+        function new();
+            cg = new();
+        endfunction
+
+        function void sample_coverage();
+            cg.sample();
+        endfunction
+
+        task validate_constraints();
+            assert (com inside {0, 1, 2, 3}) else $error("com out of bounds");
+            assert (osci inside {0, 1}) else $error("osci out of bounds");
+            assert (max > min) else $error("max should be greater than min");
+            if (value < min || value > max) $error("value out of range: %0d is not between %0d and %0d", value, min, max);
+        endtask
+    endclass
+
+    task test_case_randomized();
+        automatic RTest rt = new();
+        int generation_count = 0;
+
+        while (rt.cg.get_coverage() < 100) begin
+            generation_count++;
+
+            if (!rt.randomize()) begin
+                $error("Randomization failed");
+            end else begin
+                rt.validate_constraints();
+                input_itf.com = rt.com;
+                input_itf.max = rt.max;
+                input_itf.min = rt.min;
+                input_itf.osci = rt.osci;
+                input_itf.value = rt.value;
+                @(posedge(synchro));
+                
+                rt.sample_coverage();
+                $display("Coverage rate: %0.2f%%", rt.cg.get_coverage());
+            end
+        end
+
+        $display("Number of generations to reach 100%% : %d", generation_count);
+    endtask
+
+    // ***********************************************
     // ***************** Normal mode *****************
     // ***********************************************
 

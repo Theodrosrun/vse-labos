@@ -154,6 +154,10 @@ module min_max_top_tb#(int VALSIZE, int TESTCASE, int ERRNO);
         assert (Leds_o[10:8] == 3'b000) else $error("LEDs should be off again");
     endtask
 
+    // ***********************************************
+    // ******************* ... *******************
+    // ***********************************************
+
     // Utiliser une validation des contraites pour la randomisation comme lexo2
 
     // ***********************************************

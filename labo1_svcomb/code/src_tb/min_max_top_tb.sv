@@ -215,7 +215,7 @@ module min_max_top_tb#(int VALSIZE, int TESTCASE, int ERRNO);
             
             2'b01: // Linear mode
             begin
-                for (i = 0; i <= value; i++) begin
+                for (i = 0; i <= value; i++) begin // TODO - Set the rest to 0?
                     leds[i] = 1;
                 end
             end

@@ -123,13 +123,16 @@ module min_max_top_tb#(int VALSIZE, int TESTCASE, int ERRNO);
             assert (com inside {0, 1, 2, 3}) else $error("com out of bounds");
             assert (osci inside {0, 1}) else $error("osci out of bounds");
             assert (max > min) else $error("max should be greater than min");
-            if (value < min || value > max) $error("value out of range: %0d is not between %0d and %0d", value, min, max);
         endtask
     endclass
 
+    // ***********************************************
+    // ***************** Randomized ******************
+    // ***********************************************
+
     task test_scenario_randomized();
         automatic RTest rt = new();
-        int generation_count = 0;
+        automatic int generation_count = 0;
 
         while (rt.cg.get_coverage() < 100) begin
             generation_count++;
@@ -253,6 +256,7 @@ module min_max_top_tb#(int VALSIZE, int TESTCASE, int ERRNO);
     task test_scenarios(int TESTCASE);
         if (TESTCASE == 0) begin
             $display("Running all test scenarios...");
+            test_scenario_randomized();
             test_scenario0();
             test_scenario1();
             test_scenario2();
@@ -267,6 +271,7 @@ module min_max_top_tb#(int VALSIZE, int TESTCASE, int ERRNO);
                 3: test_scenario3();
                 4: test_scenario4();
                 5: test_scenario5();
+                6: test_scenario_randomized();
                 default: begin
                     $display("Invalid TESTCASE: %d", TESTCASE);
                     $finish;

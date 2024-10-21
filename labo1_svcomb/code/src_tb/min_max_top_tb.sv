@@ -125,12 +125,12 @@ module min_max_top_tb#(int VALSIZE, int TESTCASE, int ERRNO);
         input_itf.value = 4;
         input_itf.com = 2'b00;
         input_itf.osci = 0;
-        
         @(posedge(synchro));
+
         assert (output_itf.leds == 0) else $error("All LEDs should be off, value is smaller than min");
         input_itf.value = 11; 
-
         @(posedge(synchro));
+
         assert (output_itf.leds == 0) else $error("All LEDs should be off, value is bigger than max");
     endtask
 
@@ -142,22 +142,22 @@ module min_max_top_tb#(int VALSIZE, int TESTCASE, int ERRNO);
     // ******************** Osci *********************
     // ***********************************************
 
-    task test_scenario5;
+    task test_scenario5;§
         input_itf.min = 5;
         input_itf.max = 10;
         input_itf.value = 7;
         input_itf.com = 2'b00;
         input_itf.osci = 1'b0;
-
         @(posedge(synchro));
+
         assert (output_itf.leds[10:8] == 3'b000) else $error("LEDs should be off");
         input_itf.osci = 1'b1;  
-
         @(posedge(synchro));
+
         assert (output_itf.leds[10:8] == 3'b111) else $error("LEDs should be on with low intensity");
         input_itf.osci = 1'b0;
-
         @(posedge(synchro));
+
         assert (output_itf.leds[10:8] == 3'b000) else $error("LEDs should be off again");
     endtask
 

@@ -127,8 +127,8 @@ module min_max_top_tb#(int VALSIZE, int TESTCASE, int ERRNO);
 
         task validate_constraints();
             assert (com inside {0, 1, 2, 3}) else $error("com out of bounds");
-            assert (osci inside {0, 1}) else $error("osci out of bounds");
             assert (max > min) else $error("max should be greater than min");
+            assert (osci inside {0, 1}) else $error("osci out of bounds");
         endtask
     endclass
 

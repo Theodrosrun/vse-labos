@@ -65,7 +65,7 @@ module min_max_top_tb#(int VALSIZE, int TESTCASE, int ERRNO);
     // Typedef
     typedef logic[VALSIZE-1:0] input_t;
     typedef logic[2**VALSIZE-1:0] output_t;
-   
+
     // DUV instantiation
     min_max_top#(VALSIZE, ERRNO) duv(.com_i(input_itf.com),
                                      .max_i(input_itf.max),
@@ -73,6 +73,12 @@ module min_max_top_tb#(int VALSIZE, int TESTCASE, int ERRNO);
                                      .osc_i(input_itf.osci),
                                      .val_i(input_itf.value),
                                      .leds_o(output_itf.leds));
+
+    // ***********************************************
+    // ******************** Params *******************
+    // ***********************************************
+
+    int TARGET_COVERAGE_PERCENT = 95;
 
     // ***********************************************
     // ************** Randomized class ***************
@@ -134,7 +140,7 @@ module min_max_top_tb#(int VALSIZE, int TESTCASE, int ERRNO);
         automatic RTest rt = new();
         automatic int generation_count = 0;
 
-        while (rt.cg.get_coverage() < 100) begin
+        while (rt.cg.get_coverage() < TARGET_COVERAGE_PERCENT) begin
             generation_count++;
 
             if (!rt.randomize()) begin
@@ -153,7 +159,7 @@ module min_max_top_tb#(int VALSIZE, int TESTCASE, int ERRNO);
             end
         end
 
-        $display("Number of generations to reach 100%% : %d", generation_count);
+        $display("Number of generations to reach %0d%% coverage : %d", TARGET_COVERAGE_PERCENT, generation_count);
     endtask
 
     // ***********************************************

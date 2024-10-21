@@ -27,7 +27,6 @@ Ver   Date        Person     Comments
 
 *******************************************************************************/
 
-
 interface min_max_in_itf#(int VALSIZE);
     logic[1:0] com;
     logic[VALSIZE-1:0] max;

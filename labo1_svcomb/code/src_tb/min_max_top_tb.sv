@@ -156,7 +156,7 @@ module min_max_top_tb#(int VALSIZE, int TESTCASE, int ERRNO);
     endtask
 
     // ***********************************************
-    // ******************* ... *******************
+    // ******************** ERRNO ********************
     // ***********************************************
 
     // Utiliser une validation des contraites pour la randomisation comme lexo2

@@ -142,7 +142,7 @@ module min_max_top_tb#(int VALSIZE, int TESTCASE, int ERRNO);
     // ******************** Osci *********************
     // ***********************************************
 
-    task test_scenario5;§
+    task test_scenario5;
         input_itf.min = 5;
         input_itf.max = 10;
         input_itf.value = 7;

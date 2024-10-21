@@ -113,15 +113,24 @@ module min_max_top_tb#(int VALSIZE, int TESTCASE, int ERRNO);
     endtask
 
     task test_scenarios(int TESTCASE);
-        case(TESTCASE)
-            0: test_scenario0();
-            1: test_scenario1();
-            2: test_scenario2();
-            default: begin
-                $display("Invalid TESTCASE: %d", TESTCASE);
-                $finish;
-            end
-        endcase
+        if (TESTCASE == 0) begin
+            $display("Running all test scenarios...");
+            test_scenario0();
+            test_scenario1();
+            test_scenario2();
+            test_scenario3();
+        end
+        else begin
+            case(TESTCASE)
+                1: test_scenario1();
+                2: test_scenario2();
+                3: test_scenario3();
+                default: begin
+                    $display("Invalid TESTCASE: %d", TESTCASE);
+                    $finish;
+                end
+            endcase
+        end
     endtask
 
     task compute_reference(logic[1:0] com, input_t min, input_t max, input_t value, logic osci, output output_t leds);

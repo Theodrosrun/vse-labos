@@ -116,8 +116,18 @@ module min_max_top_tb#(int VALSIZE, int TESTCASE, int ERRNO);
         @(posedge(synchro));
     endtask
 
+    // Value bigger than max
+    task test_scenario4;
+        input_itf.min = 0;
+        input_itf.max = 2**VALSIZE - 2;
+        input_itf.value = 2**VALSIZE - 1;
+        input_itf.com = 2'b00;
+        input_itf.osci = 0;
+        @(posedge(synchro));
+    endtask
+
     // ***********************************************
-    // ******************** Com **********************
+    // ******************** Mode *********************
     // ***********************************************
 
     task test_scenarios(int TESTCASE);
@@ -127,12 +137,14 @@ module min_max_top_tb#(int VALSIZE, int TESTCASE, int ERRNO);
             test_scenario1();
             test_scenario2();
             test_scenario3();
+            test_scenario4();
         end
         else begin
             case(TESTCASE)
                 1: test_scenario1();
                 2: test_scenario2();
                 3: test_scenario3();
+                4: test_scenario4();
                 default: begin
                     $display("Invalid TESTCASE: %d", TESTCASE);
                     $finish;

@@ -72,37 +72,37 @@ module min_max_top_tb#(int VALSIZE, int TESTCASE, int ERRNO);
                                      .val_i(input_itf.value),
                                      .leds_o(output_itf.leds));
 
-
-    task test_scenario_something;
-        // Déclarations locales
-        logic[VALSIZE-1:0] test_min, test_max, test_value;
-        logic[1:0] test_com;
-        logic test_osci;
-
-        // Scénario de test simple
-        $display("Test scenario: Value within range of min and max, com = 00");
-        test_com = 2'b00;           // Commande
-        test_min = 'd3;             // Valeur minimum
-        test_max = 'd8;             // Valeur maximum
-        test_value = 'd5;           // Valeur courante
-        test_osci = 1'b0;           // Oscillateur
-
-        // Appliquer les stimuli sur l'interface
-        input_itf.com = test_com;
-        input_itf.min = test_min;
-        input_itf.max = test_max;
-        input_itf.value = test_value;
-        input_itf.osci = test_osci;
-
-        // Attendre un cycle pour synchronisation
+    task test_scenario0;
+        input_itf.min = 3;
+        input_itf.max = 12;
+        input_itf.value = 8;
+        input_itf.com = 2'b00;
+        input_itf.osci = 1;
+        compute_reference(input_itf.com, input_itf.min, input_itf.max, input_itf.value, input_itf.osci, leds_ref);
         @(posedge(synchro));
-        #1;
-
-        // Affichage des résultats
-        $display("Input: min=%d, max=%d, value=%d, com=%b, osci=%b", test_min, test_max, test_value, test_com, test_osci);
-        $display("Output leds: %b", output_itf.leds);
     endtask
 
+    task test_scenario1;
+        compute_reference(input_itf.com, input_itf.min, input_itf.max, input_itf.value, input_itf.osci, leds_ref);
+        @(posedge(synchro));
+    endtask
+
+    task test_scenario2;
+        compute_reference(input_itf.com, input_itf.min, input_itf.max, input_itf.value, input_itf.osci, leds_ref);
+        @(posedge(synchro));
+    endtask
+
+    task test_scenarios(int TESTCASE);
+        case(TESTCASE)
+            0: test_scenario0();
+            1: test_scenario1();
+            2: test_scenario2();
+            default: begin
+                $display("Invalid TESTCASE: %d", TESTCASE);
+                $finish;
+            end
+        endcase
+    endtask
 
     task compute_reference(logic[1:0] com, input_t min, input_t max, input_t value, logic osci, output output_t leds);
         integer i;
@@ -142,15 +142,22 @@ module min_max_top_tb#(int VALSIZE, int TESTCASE, int ERRNO);
     task verification;
         @(negedge(synchro));
         forever begin
+            if (output_itf.leds !== leds_ref) begin
+                nb_errors++;
+                $display("Error for com = %b, min = %d, max = %d, value = %d", input_itf.com, input_itf.min, input_itf.max, input_itf.value);
+                $display("Expected: %b, Observed: %b", leds_ref, output_itf.leds);
+                error_signal = 1;
+                #pulse;
+                error_signal = 0;
+            end
             @(negedge(synchro));
         end
     endtask
 
     initial begin
-
         $display("Starting simulation");
         fork
-            test_scenario_something;
+            test_scenarios(TESTCASE);
             compute_reference_task;
             verification;
         join_any
@@ -161,4 +168,3 @@ module min_max_top_tb#(int VALSIZE, int TESTCASE, int ERRNO);
     end
 
 endmodule
-

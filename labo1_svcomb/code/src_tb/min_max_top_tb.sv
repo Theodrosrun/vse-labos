@@ -90,25 +90,25 @@ module min_max_top_tb#(int VALSIZE, int TESTCASE, int ERRNO);
 
         covergroup cg;
             coverpoint com { 
-                bins com_values[] = {0, 1, 2, 3}; 
+                bins values[] = {0, 1, 2, 3}; 
             }
             coverpoint max { 
-                bins low_max = {[0:5]};
-                bins high_max = {[6:2**VALSIZE-1]}; 
+                bins low = {[0:5]};
+                bins high = {[6:2**VALSIZE-1]}; 
             }
             coverpoint min { 
-                bins low_min = {[0:5]}; 
-                bins high_min = {[6:2**VALSIZE-1]}; 
+                bins low = {[0:5]}; 
+                bins high = {[6:2**VALSIZE-1]}; 
             }
             coverpoint osci { 
-                bins osc_values[] = {0, 1}; 
+                bins values[] = {0, 1}; 
             }
             coverpoint value { 
-                bins low_val = {[0:5]};
-                bins mid_val = {[6:10]};
-                bins high_val = {[11:2**VALSIZE-1]}; 
+                bins low = {[0:5]};
+                bins mid = {[6:10]};
+                bins high = {[11:2**VALSIZE-1]}; 
             }
-            cross min, max, value, com, osci;
+            cross com, max, min, osci, value;
         endgroup
 
         function new();

@@ -57,9 +57,6 @@ module min_max_top_tb#(int VALSIZE, int TESTCASE, int ERRNO);
     logic synchro = 0;
    
     always #(sim_step/2) synchro = ~synchro;
-
-    // Integer to keep track of the number of errors
-    int nb_errors = 0;
    
     min_max_in_itf input_itf();
     min_max_out_itf output_itf();
@@ -74,6 +71,9 @@ module min_max_top_tb#(int VALSIZE, int TESTCASE, int ERRNO);
                                      .osc_i(input_itf.osci),
                                      .val_i(input_itf.value),
                                      .leds_o(output_itf.leds));
+
+    // Integer to keep track of the number of errors
+    int nb_errors = 0;
 
     task test_scenario0;
         input_itf.min = 3;

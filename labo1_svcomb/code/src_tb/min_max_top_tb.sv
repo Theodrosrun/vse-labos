@@ -126,9 +126,9 @@ module min_max_top_tb#(int VALSIZE, int TESTCASE, int ERRNO);
         endfunction
 
         task validate_constraints();
-            assert (com inside {0, 1, 2, 3}) else $error("com out of bounds");
-            assert (max > min) else $error("max should be greater than min");
-            assert (osci inside {0, 1}) else $error("osci out of bounds");
+            assert (com inside {0, 1, 2, 3}) else $error("%m: com out of bounds");
+            assert (max > min) else $error("%m: max should be greater than min");
+            assert (osci inside {0, 1}) else $error("%m: osci out of bounds");
         endtask
     endclass
 
@@ -144,7 +144,7 @@ module min_max_top_tb#(int VALSIZE, int TESTCASE, int ERRNO);
             generation_count++;
 
             if (!rt.randomize()) begin
-                $error("Randomization failed");
+                $error("%m: Randomization failed");
             end else begin
                 rt.validate_constraints();
                 input_itf.com = rt.com;
@@ -215,11 +215,11 @@ module min_max_top_tb#(int VALSIZE, int TESTCASE, int ERRNO);
         input_itf.osci = 0;
         @(posedge(synchro));
 
-        assert (output_itf.leds == 0) else $error("All LEDs should be off, value is smaller than min");
+        assert (output_itf.leds == 0) else $error("%m: All LEDs should be off, value is smaller than min");
         input_itf.value = 11; 
         @(posedge(synchro));
 
-        assert (output_itf.leds == 0) else $error("All LEDs should be off, value is bigger than max");
+        assert (output_itf.leds == 0) else $error("%m: All LEDs should be off, value is bigger than max");
     endtask
 
     // ***********************************************
@@ -238,15 +238,15 @@ module min_max_top_tb#(int VALSIZE, int TESTCASE, int ERRNO);
         input_itf.osci = 1'b0;
         @(posedge(synchro));
 
-        assert (output_itf.leds[10:8] == 3'b000) else $error("LEDs should be off");
+        assert (output_itf.leds[10:8] == 3'b000) else $error("%m: LEDs should be off");
         input_itf.osci = 1'b1;  
         @(posedge(synchro));
 
-        assert (output_itf.leds[10:8] == 3'b111) else $error("LEDs should be on with low intensity");
+        assert (output_itf.leds[10:8] == 3'b111) else $error("%m: LEDs should be on with low intensity");
         input_itf.osci = 1'b0;
         @(posedge(synchro));
 
-        assert (output_itf.leds[10:8] == 3'b000) else $error("LEDs should be off again");
+        assert (output_itf.leds[10:8] == 3'b000) else $error("%m: LEDs should be off again");
     endtask
 
     // ***********************************************
@@ -338,8 +338,8 @@ module min_max_top_tb#(int VALSIZE, int TESTCASE, int ERRNO);
         forever begin
             if (output_itf.leds !== leds_ref) begin
                 nb_errors++;
-                $error("Error for com = %b, min = %d, max = %d, value = %d", input_itf.com, input_itf.min, input_itf.max, input_itf.value);
-                $error("Expected: %b, Observed: %b\n", leds_ref, output_itf.leds);
+                $error("%m: Error for com = %b, min = %d, max = %d, value = %d \nExpected: %b \nObserved: %b", 
+                       input_itf.com, input_itf.min, input_itf.max, input_itf.value, leds_ref, output_itf.leds);
                 error_signal = 1;
                 #pulse;
                 error_signal = 0;
@@ -349,19 +349,19 @@ module min_max_top_tb#(int VALSIZE, int TESTCASE, int ERRNO);
     endtask
 
     initial begin
-        $display("Starting simulation...\n");
+        $display("\nStarting simulation");
         fork
             test_scenarios(TESTCASE);
             compute_reference_task;
             verification;
         join_any
 
-        $display("Ending simulation");
         if (nb_errors > 0)
             $display("Number of errors : %d", nb_errors);
         else
             $display("No errors");
-                
+
+        $display("Simulation finished\n");
         $finish;
     end
 

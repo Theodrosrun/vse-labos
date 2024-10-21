@@ -205,6 +205,12 @@ module min_max_top_tb#(int VALSIZE, int TESTCASE, int ERRNO);
                         leds[i] = osci;
                     end
                 end
+                else if (value < min || value > max) begin
+                    leds = 0;
+                end
+                else begin
+                    // Do nothing
+                end
             end
             
             2'b01: // Linear mode

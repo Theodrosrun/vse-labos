@@ -50,10 +50,11 @@ module min_max_top_tb#(int VALSIZE, int TESTCASE, int ERRNO);
     // Timings definitions
     time sim_step = 10ns;
     time pulse = 0ns;
-   
+    logic synchro = 0;
+
+    // Erros values
     logic error_signal = 0;
     int nb_errors = 0;
-    logic synchro = 0;
    
     always #(sim_step/2) synchro = ~synchro;
    
@@ -116,7 +117,7 @@ module min_max_top_tb#(int VALSIZE, int TESTCASE, int ERRNO);
     endtask
 
     // ***********************************************
-    // ***************** ... mode *****************
+    // ******************** Com **********************
     // ***********************************************
 
     task test_scenarios(int TESTCASE);

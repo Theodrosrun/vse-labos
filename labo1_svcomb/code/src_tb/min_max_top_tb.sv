@@ -112,7 +112,7 @@ module min_max_top_tb#(int VALSIZE, int TESTCASE, int ERRNO);
         leds = 0;
 
         case (com)
-            2'b00: 
+            2'b00: // Normal mode
             begin 
                 if (value >= min && value <= max) begin
                     for (i = min; i <= value; i++) begin
@@ -123,14 +123,23 @@ module min_max_top_tb#(int VALSIZE, int TESTCASE, int ERRNO);
                     end
                 end
             end
-            2'b01: 
+            
+            2'b01: // Linear mode
             begin
                 for (i = 0; i <= value; i++) begin
                     leds[i] = 1;
                 end
             end
-            2'b10: leds = 0;
-            2'b11: leds = {2**VALSIZE{1'b1}};
+
+            2'b10: // Test all OFF 
+            begin
+                leds = 0;
+            end
+
+            2'b11: // Test all ON
+            begin
+                leds = {2**VALSIZE{1'b1}}; 
+            end
         endcase
     endtask
 

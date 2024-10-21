@@ -57,6 +57,9 @@ module min_max_top_tb#(int VALSIZE, int TESTCASE, int ERRNO);
     logic synchro = 0;
    
     always #(sim_step/2) synchro = ~synchro;
+
+    // Integer to keep track of the number of errors
+    int nb_errors = 0;
    
     min_max_in_itf input_itf();
     min_max_out_itf output_itf();

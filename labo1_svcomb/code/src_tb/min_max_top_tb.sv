@@ -71,12 +71,16 @@ module min_max_top_tb#(int VALSIZE, int TESTCASE, int ERRNO);
                                      .val_i(input_itf.value),
                                      .leds_o(output_itf.leds));
 
+    // ***********************************************
+    // ***************** Normal mode *****************
+    // ***********************************************
+
     // Basic value
     task test_scenario0;
         input_itf.min = 3;
         input_itf.max = 12;
         input_itf.value = 8;
-        input_itf.com = 2'b00; // Normal mode
+        input_itf.com = 2'b00;
         input_itf.osci = 1;
         @(posedge(synchro));
     endtask
@@ -86,7 +90,7 @@ module min_max_top_tb#(int VALSIZE, int TESTCASE, int ERRNO);
         input_itf.min = $urandom_range(0, 2**VALSIZE - 2);
         input_itf.max = $urandom_range(input_itf.min + 1, 2**VALSIZE - 1);
         input_itf.value = $urandom_range(input_itf.min, input_itf.max);
-        input_itf.com = $urandom_range(0, 3);
+        input_itf.com = 2'b00;
         input_itf.osci = $urandom_range(0, 1);
         @(posedge(synchro));
     endtask
@@ -96,7 +100,7 @@ module min_max_top_tb#(int VALSIZE, int TESTCASE, int ERRNO);
         input_itf.min = 100;
         input_itf.max = 1000;
         input_itf.value = 500;
-        input_itf.com = 2'b00; // Normal mode
+        input_itf.com = 2'b00;
         input_itf.osci = 1;
         @(posedge(synchro));
     endtask
@@ -106,10 +110,14 @@ module min_max_top_tb#(int VALSIZE, int TESTCASE, int ERRNO);
         input_itf.min = 0;
         input_itf.max = 2**VALSIZE - 1;
         input_itf.value = 2**VALSIZE - 1;
-        input_itf.com = 2'b01; // Linear mode
+        input_itf.com = 2'b00;
         input_itf.osci = 0;
         @(posedge(synchro));
     endtask
+
+    // ***********************************************
+    // ***************** ... mode *****************
+    // ***********************************************
 
     task test_scenarios(int TESTCASE);
         if (TESTCASE == 0) begin

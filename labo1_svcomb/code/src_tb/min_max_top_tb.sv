@@ -135,6 +135,27 @@ module min_max_top_tb#(int VALSIZE, int TESTCASE, int ERRNO);
     // ******************** Osci *********************
     // ***********************************************
 
+    task test_scenario5;
+        input_itf.min = 5;
+        input_itf.max = 10;
+        input_itf.value = 7;
+        input_itf.com = 2'b00;
+        input_itf.osci = 1'b0;
+
+        @(posedge(synchro));
+        assert (Leds_o[10:8] == 3'b000) else $error("LEDs should be off");
+        input_itf.osci = 1'b1;  
+
+        @(posedge(synchro));
+        assert (Leds_o[10:8] == 3'b111) else $error("LEDs should be on with low intensity");
+        input_itf.osci = 1'b0;
+
+        @(posedge(synchro));
+        assert (Leds_o[10:8] == 3'b000) else $error("LEDs should be off again");
+    endtask
+
+    // Utiliser une validation des contraites pour la randomisation comme lexo2
+
     // ***********************************************
     // ******************* Program *******************
     // ***********************************************
@@ -147,6 +168,7 @@ module min_max_top_tb#(int VALSIZE, int TESTCASE, int ERRNO);
             test_scenario2();
             test_scenario3();
             test_scenario4();
+            test_scenario5();
         end
         else begin
             case(TESTCASE)
@@ -154,6 +176,7 @@ module min_max_top_tb#(int VALSIZE, int TESTCASE, int ERRNO);
                 2: test_scenario2();
                 3: test_scenario3();
                 4: test_scenario4();
+                5: test_scenario5();
                 default: begin
                     $display("Invalid TESTCASE: %d", TESTCASE);
                     $finish;

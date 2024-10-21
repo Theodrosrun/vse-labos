@@ -62,6 +62,7 @@ module min_max_top_tb#(int VALSIZE, int TESTCASE, int ERRNO);
     logic error_signal = 0;
     int nb_errors = 0;
 
+    // Typedef
     typedef logic[VALSIZE-1:0] input_t;
     typedef logic[2**VALSIZE-1:0] output_t;
    

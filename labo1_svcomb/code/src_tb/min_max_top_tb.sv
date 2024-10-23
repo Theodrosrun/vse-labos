@@ -75,6 +75,13 @@ module min_max_top_tb#(int VALSIZE, int TESTCASE, int ERRNO);
                                      .leds_o(output_itf.leds));
 
     // ***********************************************
+    // ********************* Parm ********************
+    // ***********************************************
+
+    int COVERAGE_RATE = 100;
+    int MAX_ITERATION = 10000;
+
+    // ***********************************************
     // ******************** class ********************
     // ***********************************************
 
@@ -144,7 +151,7 @@ module min_max_top_tb#(int VALSIZE, int TESTCASE, int ERRNO);
         task start();
             automatic int generation_count = 0;
 
-            for(integer i = 0; i < 1000; i++)begin
+            for(integer i = 0; i < min(2**VALSIZE, MAX_ITERATION); i++)begin
                 generation_count++;
                 if (!randomize()) begin
                     $display("%m: randomization failed");

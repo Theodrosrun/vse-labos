@@ -132,6 +132,29 @@ module min_max_top_tb#(int VALSIZE, int TESTCASE, int ERRNO);
             assert (osci inside {0, 1}) else $error("%m: osci out of bounds");
             return;
         endfunction
+
+        task test_scenario_generic();
+            automatic int generation_count = 0;
+
+            while (this.cg.get_coverage() < TARGET_COVERAGE_PERCENT) begin
+                generation_count++;
+                if (!this.randomize()) begin
+                    $error("%m: Randomization failed");
+                end else begin
+                    this.validate_constraints();
+                    input_itf.com = this.com;
+                    input_itf.max = this.max;
+                    input_itf.min = this.min;
+                    input_itf.osci = this.osci;
+                    input_itf.value = this.value;
+                    @(posedge(synchro));
+
+                    this.sample_coverage();
+                    $display("Coverage rate: %0.2f%%", this.cg.get_coverage());
+                end
+            end
+
+        endtask
     endclass
 
     class RTestOutOfRangeMin extends RTest;
@@ -178,54 +201,29 @@ module min_max_top_tb#(int VALSIZE, int TESTCASE, int ERRNO);
         endfunction
     endclass
 
-    task test_scenario_generic(input RTest rt);
-        automatic int generation_count = 0;
-
-        while (rt.cg.get_coverage() < TARGET_COVERAGE_PERCENT) begin
-            generation_count++;
-
-            if (!rt.randomize()) begin
-                $error("%m: Randomization failed");
-            end else begin
-                rt.validate_constraints();
-                input_itf.com = rt.com;
-                input_itf.max = rt.max;
-                input_itf.min = rt.min;
-                input_itf.osci = rt.osci;
-                input_itf.value = rt.value;
-                @(posedge(synchro));
-
-                rt.sample_coverage();
-                $display("Coverage rate: %0.2f%%", rt.cg.get_coverage());
-            end
-        end
-
-        $display("Number of generations to reach %0d%% coverage : %d", TARGET_COVERAGE_PERCENT, generation_count);
-    endtask
-
     task test_scenario_randomized();
         automatic RTest rt = new();
-        test_scenario_generic(rt);
+        rt.test_scenario_generic();
     endtask
 
     task test_scenario_randomized_out_of_range_min();
         automatic RTestOutOfRangeMin rt = new();
-        test_scenario_generic(rt);
+        rt.test_scenario_generic();
     endtask
 
     task test_scenario_randomized_out_of_range_max();
         automatic RTestOutOfRangeMax rt = new();
-        test_scenario_generic(rt);
+        rt.test_scenario_generic();
     endtask
 
     task test_scenario_randomized_boundaries_min();
         automatic RTestBoundariesMin rt = new();
-        test_scenario_generic(rt);
+        rt.test_scenario_generic();
     endtask
 
     task test_scenario_randomized_boundaries_max();
         automatic RTestBoundariesMax rt = new();
-        test_scenario_generic(rt);
+        rt.test_scenario_generic();
     endtask
 
     // ***********************************************

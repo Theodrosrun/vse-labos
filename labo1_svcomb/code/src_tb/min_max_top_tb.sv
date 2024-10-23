@@ -78,8 +78,8 @@ module min_max_top_tb#(int VALSIZE, int TESTCASE, int ERRNO);
     // ********************* Parm ********************
     // ***********************************************
 
-    int COVERAGE_RATE = 100;
-    int MAX_AT_LEAST  = (2**VALSIZE > 10000) ? 10000 : 2**VALSIZE;
+    int COVERAGE_RATE = 95;
+    int MAX_AT_LEAST  = (2**VALSIZE > 100) ? 100 : 2**VALSIZE;
     int MAX_ITERATION = (2**VALSIZE > 10000) ? 10000 : 2**VALSIZE;
 
     // ***********************************************

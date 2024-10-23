@@ -129,7 +129,7 @@ module min_max_top_tb#(int VALSIZE, int TESTCASE, int ERRNO);
             return;
         endfunction
 
-        task test_scenario_generic();
+        task test_generic();
             automatic int generation_count = 0;
 
             while (cg.get_coverage() < TARGET_COVERAGE_PERCENT) begin
@@ -197,37 +197,32 @@ module min_max_top_tb#(int VALSIZE, int TESTCASE, int ERRNO);
         endfunction
     endclass
 
-    task test_scenario_randomized();
+    task test_randomized();
         automatic RTest rt = new();
-        rt.test_scenario_generic();
+        rt.test_generic();
     endtask
 
-    task test_scenario_randomized_out_of_range_min();
+    task test_randomized_out_of_range_min();
         automatic RTestOutOfRangeMin rt = new();
-        rt.test_scenario_generic();
+        rt.test_generic();
     endtask
 
-    task test_scenario_randomized_out_of_range_max();
+    task test_randomized_out_of_range_max();
         automatic RTestOutOfRangeMax rt = new();
-        rt.test_scenario_generic();
+        rt.test_generic();
     endtask
 
-    task test_scenario_randomized_boundaries_min();
+    task test_randomized_boundaries_min();
         automatic RTestBoundariesMin rt = new();
-        rt.test_scenario_generic();
+        rt.test_generic();
     endtask
 
-    task test_scenario_randomized_boundaries_max();
+    task test_randomized_boundaries_max();
         automatic RTestBoundariesMax rt = new();
-        rt.test_scenario_generic();
+        rt.test_generic();
     endtask
 
-    // ***********************************************
-    // ***************** Normal mode *****************
-    // ***********************************************
-
-    // Value equals max
-    task test_scenario3;
+    task test_value_equals_max();
         input_itf.min = 0;
         input_itf.max = 2**VALSIZE - 1;
         input_itf.value = 2**VALSIZE - 1;
@@ -236,11 +231,7 @@ module min_max_top_tb#(int VALSIZE, int TESTCASE, int ERRNO);
         @(posedge(synchro));
     endtask
 
-    // ***********************************************
-    // ******************** Osci *********************
-    // ***********************************************
-
-    task test_scenario5;
+    task test_osci();
         input_itf.min = 5;
         input_itf.max = 10;
         input_itf.value = 7;
@@ -263,26 +254,26 @@ module min_max_top_tb#(int VALSIZE, int TESTCASE, int ERRNO);
     // ******************* Program *******************
     // ***********************************************
 
-    task test_scenarios(int TESTCASE);
+    task tests(int TESTCASE);
         if (TESTCASE == 0) begin
             $display("Running all test scenarios...");
-            test_scenario_randomized();
-            test_scenario_randomized_out_of_range_min();
-            test_scenario_randomized_out_of_range_max();
-            test_scenario_randomized_boundaries_min();
-            test_scenario_randomized_boundaries_max();
-            test_scenario3();
-            test_scenario5();
+            test_randomized();
+            test_randomized_out_of_range_min();
+            test_randomized_out_of_range_max();
+            test_randomized_boundaries_min();
+            test_randomized_boundaries_max();
+            test_value_equals_max();
+            test_osci();
         end
         else begin
             case(TESTCASE)
-                1: test_scenario_randomized();
-                2: test_scenario_randomized_out_of_range_min();
-                3: test_scenario_randomized_out_of_range_max();
-                4: test_scenario_randomized_boundaries_min();
-                5: test_scenario_randomized_boundaries_max();
-                6: test_scenario3();
-                7: test_scenario5();
+                1: test_randomized();
+                2: test_randomized_out_of_range_min();
+                3: test_randomized_out_of_range_max();
+                4: test_randomized_boundaries_min();
+                5: test_randomized_boundaries_max();
+                6: test_value_equals_max();
+                7: test_osci();
                 default: begin
                     $error("Invalid TESTCASE: %d", TESTCASE);
                     $finish;
@@ -352,7 +343,7 @@ module min_max_top_tb#(int VALSIZE, int TESTCASE, int ERRNO);
     initial begin
         $display("\nStarting simulation");
         fork
-            test_scenarios(TESTCASE);
+            tests(TESTCASE);
             compute_reference_task;
             verification;
         join_any

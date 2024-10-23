@@ -153,7 +153,7 @@ module min_max_top_tb#(int VALSIZE, int TESTCASE, int ERRNO);
                     $display("Coverage rate: %0.2f%%", this.cg.get_coverage());
                 end
             end
-
+            $display("coveraged finished\n");
         endtask
     endclass
 

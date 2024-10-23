@@ -100,7 +100,7 @@ module min_max_top_tb#(int VALSIZE, int TESTCASE, int ERRNO);
                 bins values[] = {0, 1, 2, 3}; 
             }
             coverpoint max { 
-                bins low = {[0:5]};
+                bins low = {[0:]};
                 bins high = {[6:2**VALSIZE-1]}; 
             }
             coverpoint min { 
@@ -198,7 +198,7 @@ module min_max_top_tb#(int VALSIZE, int TESTCASE, int ERRNO);
         @(posedge(synchro));
     endtask
 
-    // Boundaries
+    // Value equals max
     task test_scenario3;
         input_itf.min = 0;
         input_itf.max = 2**VALSIZE - 1;

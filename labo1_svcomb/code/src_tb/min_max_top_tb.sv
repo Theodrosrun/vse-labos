@@ -115,8 +115,7 @@ module min_max_top_tb#(int VALSIZE, int TESTCASE, int ERRNO);
                 bins values[VALSIZE] = {[0:2**VALSIZE-1]};
             }
             
-            // TODO - Add cross
-            // cross com, max, min, osci, value;
+            cross com, max, min, osci, value;
         endgroup
 
         function new();
@@ -129,42 +128,55 @@ module min_max_top_tb#(int VALSIZE, int TESTCASE, int ERRNO);
 
         virtual function void validate_constraints();
             assert (com inside {0, 1, 2, 3}) else $error("%m: com out of bounds");
+            assert (max > min) else $error("%m: max should be greater than min");
             assert (osci inside {0, 1}) else $error("%m: osci out of bounds");
             return;
         endfunction
     endclass
 
-    class RTestOutOfRange extends RTest;
-        constraint max_bigger_than_min {
-            // Cancel condition for this class
-        }
-
-        constraint value_bigger_than_max {
-            value > max;
-        }
-
+    class RTestOutOfRangeMin extends RTest;
         constraint value_smaller_than_min {
             value < min;
         }
 
         virtual function void validate_constraints();
             super.validate_constraints();
-            assert (value > max) else $error("%m: value should be greater than max");
             assert (value < min) else $error("%m: value should be smaller than min");
         endfunction
     endclass
 
-    class RTestBoundaries extends RTest;
-        constraint bounaries {
-            (value == min) || (value == max);
+    class RTestOutOfRangeMax extends RTest;
+        constraint value_bigger_than_max {
+            value > max;
         }
 
         virtual function void validate_constraints();
             super.validate_constraints();
-            assert ((value == min) || (value == max) ) else $error("%m: value should be equal to min or max");
+            assert (value > max) else $error("%m: value should be bigger than max");
+        endfunction
+    endclass
+    
+    class RTestBoundariesMin extends RTest;
+        constraint boundaries {
+            value == min;
+        }
+
+        virtual function void validate_constraints();
+            super.validate_constraints();
+            assert (value == min) else $error("%m: value should be equal to min");
         endfunction
     endclass
 
+    class RTestBoundariesMax extends RTest;
+        constraint boundaries {
+            value == max;
+        }
+
+        virtual function void validate_constraints();
+            super.validate_constraints();
+            assert (value == max) else $error("%m: value should be equal to max");
+        endfunction
+    endclass
 
     task test_scenario_generic(input RTest rt);
         automatic int generation_count = 0;
@@ -196,13 +208,23 @@ module min_max_top_tb#(int VALSIZE, int TESTCASE, int ERRNO);
         test_scenario_generic(rt);
     endtask
 
-    task test_scenario_randomized_out_of_range();
-        automatic RTestOutOfRange rt = new();
+    task test_scenario_randomized_out_of_range_min();
+        automatic RTestOutOfRangeMin rt = new();
         test_scenario_generic(rt);
     endtask
 
-    task test_scenario_randomized_boundaries();
-        automatic RTestBoundaries rt = new();
+    task test_scenario_randomized_out_of_range_max();
+        automatic RTestOutOfRangeMax rt = new();
+        test_scenario_generic(rt);
+    endtask
+
+    task test_scenario_randomized_boundaries_min();
+        automatic RTestBoundariesMin rt = new();
+        test_scenario_generic(rt);
+    endtask
+
+    task test_scenario_randomized_boundaries_max();
+        automatic RTestBoundariesMax rt = new();
         test_scenario_generic(rt);
     endtask
 
@@ -256,18 +278,22 @@ module min_max_top_tb#(int VALSIZE, int TESTCASE, int ERRNO);
         if (TESTCASE == 0) begin
             $display("Running all test scenarios...");
             test_scenario_randomized();
-            test_scenario_randomized_out_of_range();
-            test_scenario_randomized_boundaries();
+            test_scenario_randomized_out_of_range_min();
+            test_scenario_randomized_out_of_range_max();
+            test_scenario_randomized_boundaries_min();
+            test_scenario_randomized_boundaries_max();
             test_scenario3();
             test_scenario5();
         end
         else begin
             case(TESTCASE)
                 1: test_scenario_randomized();
-                2: test_scenario_randomized_out_of_range();
-                3: test_scenario_randomized_boundaries();
-                4: test_scenario3();
-                5: test_scenario5();
+                2: test_scenario_randomized_out_of_range_min();
+                3: test_scenario_randomized_out_of_range_max();
+                4: test_scenario_randomized_boundaries_min();
+                5: test_scenario_randomized_boundaries_max();
+                6: test_scenario3();
+                7: test_scenario5();
                 default: begin
                     $error("Invalid TESTCASE: %d", TESTCASE);
                     $finish;
@@ -301,7 +327,7 @@ module min_max_top_tb#(int VALSIZE, int TESTCASE, int ERRNO);
 
             2'b10: // Test all OFF 
             begin
-                leds = {2**VALSIZE{1'b0}};
+                // Set to by default
             end
 
             2'b11: // Test all ON

@@ -236,29 +236,29 @@ module min_max_top_tb#(int VALSIZE, int TESTCASE, int ERRNO);
     // ******************* Program *******************
     // ***********************************************
 
+    task test(int TESTCASE);
+        case(TESTCASE)
+            0: test_coverage();
+            1: test_randomized_out_of_range_min();
+            2: test_randomized_out_of_range_max();
+            3: test_randomized_boundaries_min();
+            4: test_randomized_boundaries_max();
+            5: test_value_equals_maximal_number();
+            default: begin
+                $display("Invalid TESTCASE: %d", TESTCASE);
+                $finish;
+            end
+        endcase
+    endtask
+
     task tests(int TESTCASE);
         if (TESTCASE == 0) begin
-            $display("Running all test scenarios...");
-            test_coverage();
-            test_randomized_out_of_range_min();
-            test_randomized_out_of_range_max();
-            test_randomized_boundaries_min();
-            test_randomized_boundaries_max();
-            test_value_equals_maximal_number();
+            for(integer i = 0; i < 6; i++) begin
+               test(i); 
+            end
         end
         else begin
-            case(TESTCASE)
-                1: test_coverage();
-                2: test_randomized_out_of_range_min();
-                3: test_randomized_out_of_range_max();
-                4: test_randomized_boundaries_min();
-                5: test_randomized_boundaries_max();
-                6: test_value_equals_maximal_number();
-                default: begin
-                    $display("Invalid TESTCASE: %d", TESTCASE);
-                    $finish;
-                end
-            endcase
+            test(TESTCASE);
         end
     endtask
 

@@ -79,7 +79,7 @@ module min_max_top_tb#(int VALSIZE, int TESTCASE, int ERRNO);
     // ***********************************************
 
     int COVERAGE_RATE = 100;
-    int MAX_ITERATION = 10000;
+    int MAX_ITERATION = (2**VALSIZE > 10000) ? 10000 : 2**VALSIZE;
 
     // ***********************************************
     // ******************** class ********************
@@ -106,11 +106,11 @@ module min_max_top_tb#(int VALSIZE, int TESTCASE, int ERRNO);
             }
 
             coverpoint max { 
-                bins values[VALSIZE] = {[0:2**VALSIZE-1]};
+                bins values[VALSIZE*2] = {[0:2**VALSIZE-1]};
             }
 
             coverpoint min { 
-                bins values[VALSIZE] = {[0:2**VALSIZE-1]};
+                bins values[VALSIZE*2] = {[0:2**VALSIZE-1]};
             }
 
             coverpoint osci { 
@@ -118,7 +118,7 @@ module min_max_top_tb#(int VALSIZE, int TESTCASE, int ERRNO);
             }
 
             coverpoint value { 
-                bins values[VALSIZE] = {[0:2**VALSIZE-1]};
+                bins values[VALSIZE*2] = {[0:2**VALSIZE-1]};
             }
         endgroup
 
@@ -151,7 +151,7 @@ module min_max_top_tb#(int VALSIZE, int TESTCASE, int ERRNO);
         task start();
             automatic int generation_count = 0;
 
-            for(integer i = 0; i < min(2**VALSIZE, MAX_ITERATION); i++)begin
+            for(integer i = 0; i < MAX_ITERATION; i++) begin
                 generation_count++;
                 if (!randomize()) begin
                     $display("%m: randomization failed");

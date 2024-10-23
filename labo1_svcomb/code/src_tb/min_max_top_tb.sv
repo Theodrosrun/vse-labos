@@ -292,7 +292,7 @@ module min_max_top_tb#(int VALSIZE, int TESTCASE, int ERRNO);
                     end
                 end
                 else if (value < min || value > max) begin
-                    leds = 0;
+                    leds = {2**VALSIZE{1'b0}};
                 end
                 else begin
                     // Do nothing
@@ -312,7 +312,7 @@ module min_max_top_tb#(int VALSIZE, int TESTCASE, int ERRNO);
 
             2'b10: // Test all OFF 
             begin
-                leds = 0;
+                leds = {2**VALSIZE{1'b0}};
             end
 
             2'b11: // Test all ON

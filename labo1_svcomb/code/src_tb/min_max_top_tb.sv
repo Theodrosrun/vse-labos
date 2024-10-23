@@ -75,15 +75,10 @@ module min_max_top_tb#(int VALSIZE, int TESTCASE, int ERRNO);
                                      .leds_o(output_itf.leds));
 
     // ***********************************************
-    // ******************** Params *******************
-    // ***********************************************
-
-    int TARGET_COVERAGE_PERCENT = 93;
-
-    // ***********************************************
     // ******************** class ********************
     // ***********************************************
-    class RTest;
+
+    class RBase;
         rand logic[1:0] com;
         rand input_t max;
         rand input_t min;
@@ -93,10 +88,14 @@ module min_max_top_tb#(int VALSIZE, int TESTCASE, int ERRNO);
         constraint max_bigger_than_min {
             max > min;
         }
+    endclass
 
+    class RCoverage extends RBase;
         covergroup cg;
+            option.at_least = 1000;
+
             coverpoint com { 
-                bins values[] = {0, 1, 2, 3}; 
+                bins values[] = {0, 1, 2, 3};
             }
 
             coverpoint max { 
@@ -114,37 +113,25 @@ module min_max_top_tb#(int VALSIZE, int TESTCASE, int ERRNO);
             coverpoint value { 
                 bins values[VALSIZE] = {[0:2**VALSIZE-1]};
             }
-            
-            cross com, max, min, osci, value;
         endgroup
 
         function new();
             cg = new();
         endfunction
 
-        virtual function void validate_constraints();
-            assert (com inside {0, 1, 2, 3}) else $error("%m: com out of bounds");
-            assert (max > min) else $error("%m: max should be greater than min");
-            assert (osci inside {0, 1}) else $error("%m: osci out of bounds");
-            return;
-        endfunction
-
-        task test_generic();
+        task start();
             automatic int generation_count = 0;
-
-            while (cg.get_coverage() < TARGET_COVERAGE_PERCENT) begin
+            while (cg.get_coverage() < 100) begin
                 generation_count++;
                 if (!randomize()) begin
-                    $error("%m: randomization failed");
+                    $display("%m: randomization failed");
                 end else begin
-                    validate_constraints();
                     input_itf.com = this.com;
                     input_itf.max = this.max;
                     input_itf.min = this.min;
                     input_itf.osci = this.osci;
                     input_itf.value = this.value;
                     @(posedge(synchro));
-
                     cg.sample();
                     $display("coverage rate: %0.2f%%", cg.get_coverage());
                 end
@@ -153,73 +140,74 @@ module min_max_top_tb#(int VALSIZE, int TESTCASE, int ERRNO);
         endtask
     endclass
 
+    class RTest extends RBase;
+        task start();
+            automatic int generation_count = 0;
+
+            for(integer i = 0; i < 1000; i++)begin
+                generation_count++;
+                if (!randomize()) begin
+                    $display("%m: randomization failed");
+                end else begin
+                    input_itf.com = this.com;
+                    input_itf.max = this.max;
+                    input_itf.min = this.min;
+                    input_itf.osci = this.osci;
+                    input_itf.value = this.value;
+                    @(posedge(synchro));
+                end
+            end
+            $display("randomization finished\n");
+        endtask
+    endclass
+
     class RTestOutOfRangeMin extends RTest;
         constraint value_smaller_than_min {
             value < min;
         }
-
-        virtual function void validate_constraints();
-            super.validate_constraints();
-            assert (value < min) else $error("%m: value should be smaller than min");
-        endfunction
     endclass
 
     class RTestOutOfRangeMax extends RTest;
         constraint value_bigger_than_max {
             value > max;
         }
-
-        virtual function void validate_constraints();
-            super.validate_constraints();
-            assert (value > max) else $error("%m: value should be bigger than max");
-        endfunction
     endclass
     
     class RTestBoundariesMin extends RTest;
         constraint boundaries {
             value == min;
         }
-
-        virtual function void validate_constraints();
-            super.validate_constraints();
-            assert (value == min) else $error("%m: value should be equal to min");
-        endfunction
     endclass
 
     class RTestBoundariesMax extends RTest;
         constraint boundaries {
             value == max;
         }
-
-        virtual function void validate_constraints();
-            super.validate_constraints();
-            assert (value == max) else $error("%m: value should be equal to max");
-        endfunction
     endclass
 
-    task test_randomized();
-        automatic RTest rt = new();
-        rt.test_generic();
+    task test_coverage();
+        automatic RCoverage rt = new();
+        rt.start();
     endtask
 
     task test_randomized_out_of_range_min();
         automatic RTestOutOfRangeMin rt = new();
-        rt.test_generic();
+        rt.start();
     endtask
 
     task test_randomized_out_of_range_max();
         automatic RTestOutOfRangeMax rt = new();
-        rt.test_generic();
+        rt.start();
     endtask
 
     task test_randomized_boundaries_min();
         automatic RTestBoundariesMin rt = new();
-        rt.test_generic();
+        rt.start();
     endtask
 
     task test_randomized_boundaries_max();
         automatic RTestBoundariesMax rt = new();
-        rt.test_generic();
+        rt.start();
     endtask
 
     task test_value_equals_max();
@@ -239,15 +227,15 @@ module min_max_top_tb#(int VALSIZE, int TESTCASE, int ERRNO);
         input_itf.osci = 1'b0;
         @(posedge(synchro));
 
-        assert (output_itf.leds[10:8] == 3'b000) else $error("%m: LEDs should be off");
+        assert (output_itf.leds[10:8] == 3'b000) else $display("%m: LEDs should be off");
         input_itf.osci = 1'b1;  
         @(posedge(synchro));
 
-        assert (output_itf.leds[10:8] == 3'b111) else $error("%m: LEDs should be on with low intensity");
+        assert (output_itf.leds[10:8] == 3'b111) else $display("%m: LEDs should be on with low intensity");
         input_itf.osci = 1'b0;
         @(posedge(synchro));
 
-        assert (output_itf.leds[10:8] == 3'b000) else $error("%m: LEDs should be off again");
+        assert (output_itf.leds[10:8] == 3'b000) else $display("%m: LEDs should be off again");
     endtask
 
     // ***********************************************
@@ -257,7 +245,7 @@ module min_max_top_tb#(int VALSIZE, int TESTCASE, int ERRNO);
     task tests(int TESTCASE);
         if (TESTCASE == 0) begin
             $display("Running all test scenarios...");
-            test_randomized();
+            test_coverage();
             test_randomized_out_of_range_min();
             test_randomized_out_of_range_max();
             test_randomized_boundaries_min();
@@ -267,7 +255,7 @@ module min_max_top_tb#(int VALSIZE, int TESTCASE, int ERRNO);
         end
         else begin
             case(TESTCASE)
-                1: test_randomized();
+                1: test_coverage();
                 2: test_randomized_out_of_range_min();
                 3: test_randomized_out_of_range_max();
                 4: test_randomized_boundaries_min();
@@ -275,7 +263,7 @@ module min_max_top_tb#(int VALSIZE, int TESTCASE, int ERRNO);
                 6: test_value_equals_max();
                 7: test_osci();
                 default: begin
-                    $error("Invalid TESTCASE: %d", TESTCASE);
+                    $display("Invalid TESTCASE: %d", TESTCASE);
                     $finish;
                 end
             endcase

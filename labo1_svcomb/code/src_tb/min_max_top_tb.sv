@@ -103,10 +103,9 @@ module min_max_top_tb#(int VALSIZE, int TESTCASE, int ERRNO);
             }
             coverpoint min { 
                 bins values[VALSIZE] = {[0:2**VALSIZE-1]};
-
             }
             coverpoint osci { 
-                bins values[VALSIZE] = {[0:2**VALSIZE-1]};
+                bins values = {0,1};
             }
             coverpoint value { 
                 bins values[VALSIZE] = {[0:2**VALSIZE-1]};

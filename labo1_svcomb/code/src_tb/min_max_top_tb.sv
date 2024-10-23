@@ -96,6 +96,22 @@ module min_max_top_tb#(int VALSIZE, int TESTCASE, int ERRNO);
         constraint max_bigger_than_min {
             max > min;
         }
+
+        task process_iteration();
+            input_itf.min = this.min;
+            input_itf.max = this.max;
+            input_itf.value = this.value;
+            input_itf.com = this.com;
+            input_itf.osci = this.osci;
+
+            @(posedge(synchro));
+            input_itf.osci = ~this.osci;
+
+            @(posedge(synchro));
+            input_itf.osci = ~this.osci;
+            
+            @(posedge(synchro));
+        endtask
     endclass
 
     class RCoverage extends RBase;
@@ -134,19 +150,7 @@ module min_max_top_tb#(int VALSIZE, int TESTCASE, int ERRNO);
                 if (!randomize()) begin
                     $display("%m: randomization failed");
                 end else begin
-                    input_itf.min = this.min;
-                    input_itf.max = this.max;
-                    input_itf.value = this.value;
-                    input_itf.com = this.com;
-                    input_itf.osci = this.osci;
-                    @(posedge(synchro));
-
-                    input_itf.osci = ~this.osci;
-                    @(posedge(synchro));
-
-                    input_itf.osci = ~this.osci;
-                    @(posedge(synchro));
-
+                    process_iteration();
                     cg.sample();
                     $display("coverage rate: %0.2f%%", cg.get_coverage());
                 end
@@ -163,18 +167,7 @@ module min_max_top_tb#(int VALSIZE, int TESTCASE, int ERRNO);
                 if (!randomize()) begin
                     $display("%m: randomization failed");
                 end else begin
-                    input_itf.min = this.min;
-                    input_itf.max = this.max;
-                    input_itf.value = this.value;
-                    input_itf.com = this.com;
-                    input_itf.osci = this.osci;
-                    @(posedge(synchro));
-
-                    input_itf.osci = ~this.osci;
-                    @(posedge(synchro));
-
-                    input_itf.osci = ~this.osci;
-                    @(posedge(synchro));
+                    process_iteration();
                 end
             end
             $display("randomization finished\n");

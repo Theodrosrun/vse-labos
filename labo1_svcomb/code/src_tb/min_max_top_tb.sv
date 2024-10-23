@@ -87,11 +87,11 @@ module min_max_top_tb#(int VALSIZE, int TESTCASE, int ERRNO);
     // ***********************************************
 
     class RBase;
-        rand logic[1:0] com;
-        rand input_t max;
         rand input_t min;
-        rand logic osci;
+        rand input_t max;
         rand input_t value;
+        rand logic[1:0] com;
+        rand logic osci;
 
         constraint max_bigger_than_min {
             max > min;
@@ -102,24 +102,24 @@ module min_max_top_tb#(int VALSIZE, int TESTCASE, int ERRNO);
         covergroup cg;
             option.at_least = MAX_AT_LEAST;
 
-            coverpoint com { 
-                bins values[] = {0, 1, 2, 3};
+            coverpoint min {
+                bins values[VALSIZE*2] = {[0:2**VALSIZE-1]};
             }
 
             coverpoint max { 
                 bins values[VALSIZE*2] = {[0:2**VALSIZE-1]};
             }
 
-            coverpoint min { 
+            coverpoint value {
                 bins values[VALSIZE*2] = {[0:2**VALSIZE-1]};
+            }
+
+            coverpoint com { 
+                bins values[] = {0, 1, 2, 3};
             }
 
             coverpoint osci { 
                 bins values = {0,1};
-            }
-
-            coverpoint value { 
-                bins values[VALSIZE*2] = {[0:2**VALSIZE-1]};
             }
         endgroup
 
@@ -134,12 +134,19 @@ module min_max_top_tb#(int VALSIZE, int TESTCASE, int ERRNO);
                 if (!randomize()) begin
                     $display("%m: randomization failed");
                 end else begin
-                    input_itf.com = this.com;
-                    input_itf.max = this.max;
                     input_itf.min = this.min;
-                    input_itf.osci = this.osci;
+                    input_itf.max = this.max;
                     input_itf.value = this.value;
+                    input_itf.com = this.com;
+                    input_itf.osci = this.osci;
                     @(posedge(synchro));
+
+                    input_itf.osci = ~this.osci;
+                    @(posedge(synchro));
+
+                    input_itf.osci = ~this.osci;
+                    @(posedge(synchro));
+
                     cg.sample();
                     $display("coverage rate: %0.2f%%", cg.get_coverage());
                 end
@@ -156,11 +163,17 @@ module min_max_top_tb#(int VALSIZE, int TESTCASE, int ERRNO);
                 if (!randomize()) begin
                     $display("%m: randomization failed");
                 end else begin
-                    input_itf.com = this.com;
-                    input_itf.max = this.max;
                     input_itf.min = this.min;
-                    input_itf.osci = this.osci;
+                    input_itf.max = this.max;
                     input_itf.value = this.value;
+                    input_itf.com = this.com;
+                    input_itf.osci = this.osci;
+                    @(posedge(synchro));
+
+                    input_itf.osci = ~this.osci;
+                    @(posedge(synchro));
+
+                    input_itf.osci = ~this.osci;
                     @(posedge(synchro));
                 end
             end
@@ -224,25 +237,6 @@ module min_max_top_tb#(int VALSIZE, int TESTCASE, int ERRNO);
         input_itf.com = 2'b00;
         input_itf.osci = 0;
         @(posedge(synchro));
-    endtask
-
-    task test_osci();
-        input_itf.min = 5;
-        input_itf.max = 10;
-        input_itf.value = 7;
-        input_itf.com = 2'b00;
-        input_itf.osci = 1'b0;
-        @(posedge(synchro));
-
-        assert (output_itf.leds[10:8] == 3'b000) else $display("%m: LEDs should be off");
-        input_itf.osci = 1'b1;  
-        @(posedge(synchro));
-
-        assert (output_itf.leds[10:8] == 3'b111) else $display("%m: LEDs should be on with low intensity");
-        input_itf.osci = 1'b0;
-        @(posedge(synchro));
-
-        assert (output_itf.leds[10:8] == 3'b000) else $display("%m: LEDs should be off again");
     endtask
 
     // ***********************************************

@@ -134,7 +134,7 @@ module min_max_top_tb#(int VALSIZE, int TESTCASE, int ERRNO);
         endfunction
     endclass
 
-    class RTestBound extends RTest;
+    class RTestOutOfRange extends RTest;
         constraint max_bigger_than_min {
             // Cancel condition for this class
         }
@@ -179,15 +179,13 @@ module min_max_top_tb#(int VALSIZE, int TESTCASE, int ERRNO);
         $display("Number of generations to reach %0d%% coverage : %d", TARGET_COVERAGE_PERCENT, generation_count);
     endtask
 
-    // Utilisation pour RTest
     task test_scenario_randomized();
         automatic RTest rt = new();
         test_scenario_generic(rt);
     endtask
 
-    // Utilisation pour RTestBound
-    task test_scenario_randomized_bound();
-        automatic RTestBound rt = new();
+    task test_scenario_randomized_out_of_range();
+        automatic RTestOutOfRange rt = new();
         test_scenario_generic(rt);
     endtask
 
@@ -241,14 +239,14 @@ module min_max_top_tb#(int VALSIZE, int TESTCASE, int ERRNO);
         if (TESTCASE == 0) begin
             $display("Running all test scenarios...");
             test_scenario_randomized();
-            test_scenario_randomized_bound();
+            test_scenario_randomized_out_of_range();
             test_scenario3();
             test_scenario5();
         end
         else begin
             case(TESTCASE)
                 1: test_scenario_randomized();
-                2: test_scenario_randomized_bound();
+                2: test_scenario_randomized_out_of_range();
                 3: test_scenario3();
                 4: test_scenario5();
                 default: begin

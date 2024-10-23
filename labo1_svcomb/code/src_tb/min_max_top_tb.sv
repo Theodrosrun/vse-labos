@@ -79,6 +79,7 @@ module min_max_top_tb#(int VALSIZE, int TESTCASE, int ERRNO);
     // ***********************************************
 
     int COVERAGE_RATE = 100;
+    int MAX_AT_LEAST  = (2**VALSIZE > 10000) ? 10000 : 2**VALSIZE;
     int MAX_ITERATION = (2**VALSIZE > 10000) ? 10000 : 2**VALSIZE;
 
     // ***********************************************
@@ -99,7 +100,7 @@ module min_max_top_tb#(int VALSIZE, int TESTCASE, int ERRNO);
 
     class RCoverage extends RBase;
         covergroup cg;
-            option.at_least = 1000;
+            option.at_least = MAX_AT_LEAST;
 
             coverpoint com { 
                 bins values[] = {0, 1, 2, 3};
@@ -150,7 +151,6 @@ module min_max_top_tb#(int VALSIZE, int TESTCASE, int ERRNO);
     class RTest extends RBase;
         task start();
             automatic int generation_count = 0;
-
             for(integer i = 0; i < MAX_ITERATION; i++) begin
                 generation_count++;
                 if (!randomize()) begin

@@ -98,15 +98,19 @@ module min_max_top_tb#(int VALSIZE, int TESTCASE, int ERRNO);
             coverpoint com { 
                 bins values[] = {0, 1, 2, 3}; 
             }
+
             coverpoint max { 
                 bins values[VALSIZE] = {[0:2**VALSIZE-1]};
             }
+
             coverpoint min { 
                 bins values[VALSIZE] = {[0:2**VALSIZE-1]};
             }
+
             coverpoint osci { 
                 bins values = {0,1};
             }
+
             coverpoint value { 
                 bins values[VALSIZE] = {[0:2**VALSIZE-1]};
             }
@@ -123,11 +127,32 @@ module min_max_top_tb#(int VALSIZE, int TESTCASE, int ERRNO);
             cg.sample();
         endfunction
 
-        task validate_constraints();
+        virtual function void validate_constraints();
             assert (com inside {0, 1, 2, 3}) else $error("%m: com out of bounds");
             assert (max > min) else $error("%m: max should be greater than min");
             assert (osci inside {0, 1}) else $error("%m: osci out of bounds");
-        endtask
+            return;
+        endfunction
+    endclass
+
+    class RTestBound extends RTest;
+        constraint max_bigger_han_min {
+            // Cancel condition for this class
+        }
+
+        constraint value_bigger_than_max {
+            value > max;
+        }
+
+        constraint value_smaller_than_min {
+            value < min;
+        }
+
+        virtual function void validate_constraints();
+            super.validate_constraints();
+            assert (value > max) else $error("%m: value should be greater than max");
+            assert (value < min) else $error("%m: value should be smaller than min");
+        endfunction
     endclass
 
     // ***********************************************
@@ -160,39 +185,36 @@ module min_max_top_tb#(int VALSIZE, int TESTCASE, int ERRNO);
         $display("Number of generations to reach %0d%% coverage : %d", TARGET_COVERAGE_PERCENT, generation_count);
     endtask
 
+    // Value smaller than min and bigger than max
+    task test_scenario_randomized_bound();
+        automatic RTestBound rt = new();
+        automatic int generation_count = 0;
+
+        while (rt.cg.get_coverage() < TARGET_COVERAGE_PERCENT) begin
+            generation_count++;
+
+            if (!rt.randomize()) begin
+                $error("%m: Randomization failed");
+            end else begin
+                rt.validate_constraints();
+                input_itf.com = rt.com;
+                input_itf.max = rt.max;
+                input_itf.min = rt.min;
+                input_itf.osci = rt.osci;
+                input_itf.value = rt.value;
+                @(posedge(synchro));
+
+                rt.sample_coverage();
+                $display("Coverage rate: %0.2f%%", rt.cg.get_coverage());
+            end
+        end
+
+        $display("Number of generations to reach %0d%% coverage : %d", TARGET_COVERAGE_PERCENT, generation_count);
+    endtask
+
     // ***********************************************
     // ***************** Normal mode *****************
     // ***********************************************
-
-    // Basic value
-    task test_scenario0;
-        input_itf.min = 3;
-        input_itf.max = 12;
-        input_itf.value = 8;
-        input_itf.com = 2'b00;
-        input_itf.osci = 1;
-        @(posedge(synchro));
-    endtask
-
-    // Random values
-    task test_scenario1;
-        input_itf.min = $urandom_range(0, 2**VALSIZE - 2);
-        input_itf.max = $urandom_range(input_itf.min + 1, 2**VALSIZE - 1);
-        input_itf.value = $urandom_range(input_itf.min, input_itf.max);
-        input_itf.com = 2'b00;
-        input_itf.osci = $urandom_range(0, 1);
-        @(posedge(synchro));
-    endtask
-
-    // Large values
-    task test_scenario2;
-        input_itf.min = 100;
-        input_itf.max = 1000;
-        input_itf.value = 500;
-        input_itf.com = 2'b00;
-        input_itf.osci = 1;
-        @(posedge(synchro));
-    endtask
 
     // Value equals max
     task test_scenario3;
@@ -204,21 +226,6 @@ module min_max_top_tb#(int VALSIZE, int TESTCASE, int ERRNO);
         @(posedge(synchro));
     endtask
 
-    // Value smaller than min and bigger than max
-    task test_scenario4;
-        input_itf.min = 5;
-        input_itf.max = 10;
-        input_itf.value = 4;
-        input_itf.com = 2'b00;
-        input_itf.osci = 0;
-        @(posedge(synchro));
-
-        assert (output_itf.leds == 0) else $error("%m: All LEDs should be off, value is smaller than min");
-        input_itf.value = 11; 
-        @(posedge(synchro));
-
-        assert (output_itf.leds == 0) else $error("%m: All LEDs should be off, value is bigger than max");
-    endtask
 
     // ***********************************************
     // ******************** Mode *********************
@@ -255,21 +262,16 @@ module min_max_top_tb#(int VALSIZE, int TESTCASE, int ERRNO);
         if (TESTCASE == 0) begin
             $display("Running all test scenarios...");
             test_scenario_randomized();
-            test_scenario0();
-            test_scenario1();
-            test_scenario2();
+            test_scenario_randomized_bound();
             test_scenario3();
-            test_scenario4();
             test_scenario5();
         end
         else begin
             case(TESTCASE)
-                1: test_scenario1();
-                2: test_scenario2();
+                1: test_scenario_randomized();
+                2: test_scenario_randomized_bound();
                 3: test_scenario3();
-                4: test_scenario4();
-                5: test_scenario5();
-                6: test_scenario_randomized();
+                4: test_scenario5();
                 default: begin
                     $error("Invalid TESTCASE: %d", TESTCASE);
                     $finish;

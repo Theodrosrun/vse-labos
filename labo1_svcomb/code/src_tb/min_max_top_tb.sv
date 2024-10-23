@@ -100,23 +100,20 @@ module min_max_top_tb#(int VALSIZE, int TESTCASE, int ERRNO);
                 bins values[] = {0, 1, 2, 3}; 
             }
             coverpoint max { 
-                bins low = {[0:]};
-                bins high = {[6:2**VALSIZE-1]}; 
+                bins values[VALSIZE] = {[0:2**VALSIZE-1]};
             }
             coverpoint min { 
-                bins low = {[0:5]}; 
-                bins high = {[6:2**VALSIZE-1]}; 
+                bins values[VALSIZE] = {[0:2**VALSIZE-1]};
+
             }
             coverpoint osci { 
-                bins values[] = {0, 1}; 
+                bins values[VALSIZE] = {[0:2**VALSIZE-1]};
             }
             coverpoint value { 
-                bins low = {[0:5]};
-                bins mid = {[6:10]};
-                bins high = {[11:2**VALSIZE-1]}; 
+                bins values[VALSIZE] = {[0:2**VALSIZE-1]};
             }
             
-            cross com, max, min, osci, value;
+            // cross com, max, min, osci, value;
         endgroup
 
         function new();
@@ -304,8 +301,12 @@ module min_max_top_tb#(int VALSIZE, int TESTCASE, int ERRNO);
             
             2'b01: // Linear mode
             begin
-                for (integer i = 0; i <= value; i++) begin // TODO - Set the rest to 0?
+                for (integer i = 0; i <= value; i++) begin
                     leds[i] = 1;
+                end
+
+               for (integer i = value + 1; i < 2**VALSIZE; i++) begin
+                    leds[i] = 0;
                 end
             end
 

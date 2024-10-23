@@ -94,7 +94,6 @@ module min_max_top_tb#(int VALSIZE, int TESTCASE, int ERRNO);
             max > min;
         }
 
-        // TODO - Improve bins
         covergroup cg;
             coverpoint com { 
                 bins values[] = {0, 1, 2, 3}; 
@@ -113,6 +112,7 @@ module min_max_top_tb#(int VALSIZE, int TESTCASE, int ERRNO);
                 bins values[VALSIZE] = {[0:2**VALSIZE-1]};
             }
             
+            // TODO - Add cross
             // cross com, max, min, osci, value;
         endgroup
 

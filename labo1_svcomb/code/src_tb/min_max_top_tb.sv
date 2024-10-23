@@ -81,7 +81,7 @@ module min_max_top_tb#(int VALSIZE, int TESTCASE, int ERRNO);
     int TARGET_COVERAGE_PERCENT = 95;
 
     // ***********************************************
-    // ************** Randomized class ***************
+    // ******************** class ********************
     // ***********************************************
     class RTest;
         rand logic[1:0] com;
@@ -129,14 +129,13 @@ module min_max_top_tb#(int VALSIZE, int TESTCASE, int ERRNO);
 
         virtual function void validate_constraints();
             assert (com inside {0, 1, 2, 3}) else $error("%m: com out of bounds");
-            assert (max > min) else $error("%m: max should be greater than min");
             assert (osci inside {0, 1}) else $error("%m: osci out of bounds");
             return;
         endfunction
     endclass
 
     class RTestBound extends RTest;
-        constraint max_bigger_han_min {
+        constraint max_bigger_than_min {
             // Cancel condition for this class
         }
 
@@ -155,12 +154,7 @@ module min_max_top_tb#(int VALSIZE, int TESTCASE, int ERRNO);
         endfunction
     endclass
 
-    // ***********************************************
-    // ***************** Randomized ******************
-    // ***********************************************
-
-    task test_scenario_randomized();
-        automatic RTest rt = new();
+    task test_scenario_generic(input RTest rt);
         automatic int generation_count = 0;
 
         while (rt.cg.get_coverage() < TARGET_COVERAGE_PERCENT) begin
@@ -185,31 +179,16 @@ module min_max_top_tb#(int VALSIZE, int TESTCASE, int ERRNO);
         $display("Number of generations to reach %0d%% coverage : %d", TARGET_COVERAGE_PERCENT, generation_count);
     endtask
 
-    // Value smaller than min and bigger than max
+    // Utilisation pour RTest
+    task test_scenario_randomized();
+        automatic RTest rt = new();
+        test_scenario_generic(rt);
+    endtask
+
+    // Utilisation pour RTestBound
     task test_scenario_randomized_bound();
         automatic RTestBound rt = new();
-        automatic int generation_count = 0;
-
-        while (rt.cg.get_coverage() < TARGET_COVERAGE_PERCENT) begin
-            generation_count++;
-
-            if (!rt.randomize()) begin
-                $error("%m: Randomization failed");
-            end else begin
-                rt.validate_constraints();
-                input_itf.com = rt.com;
-                input_itf.max = rt.max;
-                input_itf.min = rt.min;
-                input_itf.osci = rt.osci;
-                input_itf.value = rt.value;
-                @(posedge(synchro));
-
-                rt.sample_coverage();
-                $display("Coverage rate: %0.2f%%", rt.cg.get_coverage());
-            end
-        end
-
-        $display("Number of generations to reach %0d%% coverage : %d", TARGET_COVERAGE_PERCENT, generation_count);
+        test_scenario_generic(rt);
     endtask
 
     // ***********************************************

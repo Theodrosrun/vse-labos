@@ -122,10 +122,6 @@ module min_max_top_tb#(int VALSIZE, int TESTCASE, int ERRNO);
             cg = new();
         endfunction
 
-        function void sample_coverage();
-            cg.sample();
-        endfunction
-
         virtual function void validate_constraints();
             assert (com inside {0, 1, 2, 3}) else $error("%m: com out of bounds");
             assert (max > min) else $error("%m: max should be greater than min");
@@ -149,7 +145,7 @@ module min_max_top_tb#(int VALSIZE, int TESTCASE, int ERRNO);
                     input_itf.value = this.value;
                     @(posedge(synchro));
 
-                    this.sample_coverage();
+                    this.cg.sample();
                     $display("Coverage rate: %0.2f%%", this.cg.get_coverage());
                 end
             end

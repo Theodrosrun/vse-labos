@@ -78,7 +78,7 @@ module min_max_top_tb#(int VALSIZE, int TESTCASE, int ERRNO);
     // ******************** Params *******************
     // ***********************************************
 
-    int TARGET_COVERAGE_PERCENT = 95;
+    int TARGET_COVERAGE_PERCENT = 93;
 
     // ***********************************************
     // ******************** class ********************

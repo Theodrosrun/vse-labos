@@ -230,7 +230,7 @@ module min_max_top_tb#(int VALSIZE, int TESTCASE, int ERRNO);
         rt.start();
     endtask
 
-    task test_value_equals_max();
+    task test_value_equals_maximal_number();
         input_itf.min = 0;
         input_itf.max = 2**VALSIZE - 1;
         input_itf.value = 2**VALSIZE - 1;
@@ -251,7 +251,7 @@ module min_max_top_tb#(int VALSIZE, int TESTCASE, int ERRNO);
             test_randomized_out_of_range_max();
             test_randomized_boundaries_min();
             test_randomized_boundaries_max();
-            test_value_equals_max();
+            test_value_equals_maximal_number();
             test_osci();
         end
         else begin
@@ -261,8 +261,7 @@ module min_max_top_tb#(int VALSIZE, int TESTCASE, int ERRNO);
                 3: test_randomized_out_of_range_max();
                 4: test_randomized_boundaries_min();
                 5: test_randomized_boundaries_max();
-                6: test_value_equals_max();
-                7: test_osci();
+                6: test_value_equals_maximal_number();
                 default: begin
                     $display("Invalid TESTCASE: %d", TESTCASE);
                     $finish;

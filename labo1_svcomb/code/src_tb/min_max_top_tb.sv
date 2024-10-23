@@ -90,7 +90,7 @@ module min_max_top_tb#(int VALSIZE, int TESTCASE, int ERRNO);
         rand logic osci;
         rand input_t value;
 
-        constraint c_min_max {
+        constraint max_bigger_than_min {
             max > min;
         }
 

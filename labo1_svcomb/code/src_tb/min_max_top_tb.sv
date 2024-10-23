@@ -154,6 +154,18 @@ module min_max_top_tb#(int VALSIZE, int TESTCASE, int ERRNO);
         endfunction
     endclass
 
+    class RTestBoundaries extends RTest;
+        constraint bounaries {
+            (value == min) || (value == max);
+        }
+
+        virtual function void validate_constraints();
+            super.validate_constraints();
+            assert ((value == min) || (value == max) ) else $error("%m: value should be equal to min or max");
+        endfunction
+    endclass
+
+
     task test_scenario_generic(input RTest rt);
         automatic int generation_count = 0;
 
@@ -186,6 +198,11 @@ module min_max_top_tb#(int VALSIZE, int TESTCASE, int ERRNO);
 
     task test_scenario_randomized_out_of_range();
         automatic RTestOutOfRange rt = new();
+        test_scenario_generic(rt);
+    endtask
+
+    task test_scenario_randomized_boundaries();
+        automatic RTestBoundaries rt = new();
         test_scenario_generic(rt);
     endtask
 
@@ -240,6 +257,7 @@ module min_max_top_tb#(int VALSIZE, int TESTCASE, int ERRNO);
             $display("Running all test scenarios...");
             test_scenario_randomized();
             test_scenario_randomized_out_of_range();
+            test_scenario_randomized_boundaries();
             test_scenario3();
             test_scenario5();
         end
@@ -247,8 +265,9 @@ module min_max_top_tb#(int VALSIZE, int TESTCASE, int ERRNO);
             case(TESTCASE)
                 1: test_scenario_randomized();
                 2: test_scenario_randomized_out_of_range();
-                3: test_scenario3();
-                4: test_scenario5();
+                3: test_scenario_randomized_boundaries();
+                4: test_scenario3();
+                5: test_scenario5();
                 default: begin
                     $error("Invalid TESTCASE: %d", TESTCASE);
                     $finish;
@@ -258,6 +277,8 @@ module min_max_top_tb#(int VALSIZE, int TESTCASE, int ERRNO);
     endtask
 
     task compute_reference(logic[1:0] com, input_t min, input_t max, input_t value, logic osci, output output_t leds);
+        leds = {2**VALSIZE{1'b0}};
+        
         case (com)
             2'b00: // Normal mode
             begin 
@@ -269,22 +290,12 @@ module min_max_top_tb#(int VALSIZE, int TESTCASE, int ERRNO);
                         leds[i] = osci;
                     end
                 end
-                else if (value < min || value > max) begin
-                    leds = {2**VALSIZE{1'b0}};
-                end
-                else begin
-                    // Do nothing
-                end
             end
             
             2'b01: // Linear mode
             begin
                 for (integer i = 0; i <= value; i++) begin
                     leds[i] = 1;
-                end
-
-               for (integer i = value + 1; i < 2**VALSIZE; i++) begin
-                    leds[i] = 0;
                 end
             end
 

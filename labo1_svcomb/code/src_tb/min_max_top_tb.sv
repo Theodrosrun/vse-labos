@@ -236,11 +236,6 @@ module min_max_top_tb#(int VALSIZE, int TESTCASE, int ERRNO);
         @(posedge(synchro));
     endtask
 
-
-    // ***********************************************
-    // ******************** Mode *********************
-    // ***********************************************
-
     // ***********************************************
     // ******************** Osci *********************
     // ***********************************************
@@ -321,7 +316,7 @@ module min_max_top_tb#(int VALSIZE, int TESTCASE, int ERRNO);
 
             2'b10: // Test all OFF 
             begin
-                // Set to by default
+                // Set to 0 by default
             end
 
             2'b11: // Test all ON

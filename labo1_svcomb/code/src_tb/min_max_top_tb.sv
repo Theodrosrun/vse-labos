@@ -98,7 +98,7 @@ module min_max_top_tb#(int VALSIZE, int TESTCASE, int ERRNO);
         }
 
         constraint order_constraints {
-            solve max before min; // TODO - Check relevance
+            solve min before max; // TODO - Check relevance
         }
 
         task process_iteration();

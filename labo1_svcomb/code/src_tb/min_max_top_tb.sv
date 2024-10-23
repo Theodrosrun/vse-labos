@@ -132,12 +132,12 @@ module min_max_top_tb#(int VALSIZE, int TESTCASE, int ERRNO);
         task test_scenario_generic();
             automatic int generation_count = 0;
 
-            while (this.cg.get_coverage() < TARGET_COVERAGE_PERCENT) begin
+            while (cg.get_coverage() < TARGET_COVERAGE_PERCENT) begin
                 generation_count++;
-                if (!this.randomize()) begin
-                    $error("%m: Randomization failed");
+                if (!randomize()) begin
+                    $error("%m: randomization failed");
                 end else begin
-                    this.validate_constraints();
+                    validate_constraints();
                     input_itf.com = this.com;
                     input_itf.max = this.max;
                     input_itf.min = this.min;
@@ -145,8 +145,8 @@ module min_max_top_tb#(int VALSIZE, int TESTCASE, int ERRNO);
                     input_itf.value = this.value;
                     @(posedge(synchro));
 
-                    this.cg.sample();
-                    $display("Coverage rate: %0.2f%%", this.cg.get_coverage());
+                    cg.sample();
+                    $display("coverage rate: %0.2f%%", cg.get_coverage());
                 end
             end
             $display("coveraged finished\n");

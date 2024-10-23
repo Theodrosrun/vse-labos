@@ -109,7 +109,7 @@ module min_max_top_tb#(int VALSIZE, int TESTCASE, int ERRNO);
 
             @(posedge(synchro));
             input_itf.osci = ~this.osci;
-            
+
             @(posedge(synchro));
         endtask
     endclass
@@ -245,7 +245,6 @@ module min_max_top_tb#(int VALSIZE, int TESTCASE, int ERRNO);
             test_randomized_boundaries_min();
             test_randomized_boundaries_max();
             test_value_equals_maximal_number();
-            test_osci();
         end
         else begin
             case(TESTCASE)

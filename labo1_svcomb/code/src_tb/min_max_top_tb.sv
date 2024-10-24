@@ -155,56 +155,63 @@ module min_max_top_tb#(int VALSIZE, int TESTCASE, int ERRNO);
 
     // Test class for mode 00
     class Mode00 extends RandomTest;
-        constraint mode {
+        constraint c {
             com == 2'b00;
         }
     endclass
 
     // Test class for mode 01
     class Mode01 extends RandomTest;
-        constraint mode {
+        constraint c {
             com == 2'b01;
         }
     endclass
     
     // Test class for mode 10
     class Mode10 extends RandomTest;
-        constraint mode {
+        constraint c {
             com == 2'b10;
         }
     endclass
 
     // Test class for mode 11
     class Mode11 extends RandomTest;
-        constraint mode {
+        constraint c {
             com == 2'b11;
+        }
+    endclass
+
+    // Test class for value equals upper limit
+    class ValueUpperLimit extends RandomTest;
+        constraint c {
+            value == 2**VALSIZE - 1;
         }
     endclass
 
     // Test class for values below minimum
     class ValueBelowMin extends RandomTest;
-        constraint value_below_min {
+        constraint c {
             value < min;
         }
     endclass
 
     // Test class for values above maximum
     class ValueAboveMax extends RandomTest;
-        constraint value_above_max {
+        constraint c {
             value > max;
         }
     endclass
     
     // Test class for boundary value at minimum
     class ValueEqualsMin extends RandomTest;
-        constraint value_equals_min {
+        constraint c {
             value == min;
         }
     endclass
 
     // Test class for boundary value at maximum
     class ValueEqualsMax extends RandomTest;
-        constraint value_equals_max {
+        constraint c {
             value == max;
         }
     endclass
@@ -301,13 +308,9 @@ module min_max_top_tb#(int VALSIZE, int TESTCASE, int ERRNO);
         rt.execute();
     endtask
 
-    task test_value_equals_maximal_number();
-        input_itf.min   = 0;
-        input_itf.max   = 2**VALSIZE - 1;
-        input_itf.value = 2**VALSIZE - 1;
-        input_itf.com   = 2'b00;
-        input_itf.osci  = 0;
-        @(posedge(synchro));
+    task test_value_upper_limit();
+        automatic ValueUpperLimit rt = new();
+        rt.execute();
     endtask
 
     task test_value_below_min();
@@ -346,7 +349,7 @@ module min_max_top_tb#(int VALSIZE, int TESTCASE, int ERRNO);
             1: test_mode_01();                     // Test linear mode
             2: test_mode_10();                     // Test all OFF mode
             3: test_mode_11();                     // Test all ON mode
-            4: test_value_equals_maximal_number(); // Test max value
+            4: test_value_upper_limit();           // Test value equals to upper limits
             5: test_value_below_min();             // Test values below min
             6: test_value_above_max();             // Test values above max
             7: test_value_equals_min();            // Test minimum boundary

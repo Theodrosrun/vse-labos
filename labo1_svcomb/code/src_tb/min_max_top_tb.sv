@@ -78,7 +78,7 @@ module min_max_top_tb#(int VALSIZE, int TESTCASE, int ERRNO);
     // ********************* Parm ********************
     // ***********************************************
 
-    int MAX_ITERATION = 1000;
+    int MAX_ITERATION = 100;
 
     // ***********************************************
     // ******************** class ********************
@@ -154,6 +154,7 @@ module min_max_top_tb#(int VALSIZE, int TESTCASE, int ERRNO);
 
         task start();
             automatic int generation_count = 0;
+            $display("\nstarting coverage");
             while ((cg.get_coverage() < 100) && (generation_count < MAX_ITERATION)) begin
                 generation_count++;
                 if (!randomize()) begin
@@ -161,9 +162,10 @@ module min_max_top_tb#(int VALSIZE, int TESTCASE, int ERRNO);
                 end else begin
                     process_iteration();
                     cg.sample();
-                    $display("coverage rate: %0.2f%%", cg.get_coverage());
                 end
             end
+            $display("nb iterations: %d", generation_count);
+            $display("coverage rate: %0.2f%%", cg.get_coverage());
             $display("coveraged finished\n");
         endtask
     endclass
@@ -171,6 +173,7 @@ module min_max_top_tb#(int VALSIZE, int TESTCASE, int ERRNO);
     class RTest extends RBase;
         task start();
             automatic int generation_count = 0;
+            $display("\nstarting randomization");
             for(integer i = 0; i < MAX_ITERATION; i++) begin
                 generation_count++;
                 if (!randomize()) begin
@@ -179,6 +182,7 @@ module min_max_top_tb#(int VALSIZE, int TESTCASE, int ERRNO);
                     process_iteration();
                 end
             end
+            $display("nb iterations: %d", generation_count);
             $display("randomization finished\n");
         endtask
     endclass

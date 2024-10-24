@@ -114,6 +114,25 @@ module min_max_top_tb#(int VALSIZE, int TESTCASE, int ERRNO);
 
             @(posedge(synchro));
         endtask
+
+        task test_mode(logic[1:0] com);
+            automatic int generation_count = 0;
+            this.com.rand_mode(0); // Deactivate random for com
+            this.com = com;        // Set the com to specific parm
+
+            $display("\nStarting randomization for mode %b", com);
+            for (integer i = 0; i < MAX_ITERATION; i++) begin
+                generation_count++;
+                if (!this.randomize()) begin
+                    $display("%m: randomization failed");
+                end else begin
+                    process_iteration();
+                end
+            end
+            $display("nb iterations: %d", generation_count);
+            $display("Randomization finished for mode %b\n", com);
+            this.com.rand_mode(1); // Reactivate random for com
+        endtask
     endclass
 
     class RCoverage extends RBase;
@@ -215,21 +234,24 @@ module min_max_top_tb#(int VALSIZE, int TESTCASE, int ERRNO);
     // ******************** Task *********************
     // ***********************************************
 
-    task test_mode(logic[1:0] com);
+    task test_mode00();
         automatic RBase rb = new();
-        automatic int generation_count = 0;
-        $display("\nStarting randomization for mode %b", com);
-        for (integer i = 0; i < MAX_ITERATION; i++) begin
-            generation_count++;
-            if (!rb.randomize()) begin
-                $display("%m: randomization failed");
-            end else begin
-                input_itf.com = com;
-                rb.process_iteration();
-            end
-        end
-        $display("nb iterations: %d", generation_count);
-        $display("Randomization finished for mode %b\n", com);
+        rb.test_mode(2'b00);
+    endtask
+
+    task test_mode01();
+        automatic RBase rb = new();
+        rb.test_mode(2'b01);
+    endtask
+
+    task test_mode10();
+        automatic RBase rb = new();
+        rb.test_mode(2'b10);
+    endtask
+
+    task test_mode11();
+        automatic RBase rb = new();
+        rb.test_mode(2'b11);
     endtask
 
     task test_value_equals_maximal_number();
@@ -262,8 +284,8 @@ module min_max_top_tb#(int VALSIZE, int TESTCASE, int ERRNO);
     endtask
 
     task test_coverage();
-        automatic RCoverage rt = new();
-        rt.start();
+        automatic RCoverage rc = new();
+        rc.start();
     endtask
 
     // ***********************************************
@@ -272,16 +294,16 @@ module min_max_top_tb#(int VALSIZE, int TESTCASE, int ERRNO);
 
     task test(int TESTCASE);
         case(TESTCASE)
-            0: test_coverage();
-            1: test_randomized_out_of_range_min();
-            2: test_randomized_out_of_range_max();
-            3: test_randomized_boundaries_min();
-            4: test_randomized_boundaries_max();
-            5: test_mode(2'b00);
-            6: test_mode(2'b01);
-            7: test_mode(2'b10);
-            8: test_mode(2'b11);
-            9: test_value_equals_maximal_number();
+            0: test_mode00();
+            1: test_mode01();
+            2: test_mode10();
+            3: test_mode11();
+            4: test_value_equals_maximal_number();
+            5: test_randomized_out_of_range_min();
+            6: test_randomized_out_of_range_max();
+            7: test_randomized_boundaries_min();
+            8: test_randomized_boundaries_max();
+            9: test_coverage();
             default: begin
                 $display("Invalid TESTCASE: %d", TESTCASE);
                 $finish;

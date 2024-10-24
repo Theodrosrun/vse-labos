@@ -117,8 +117,8 @@ module min_max_top_tb#(int VALSIZE, int TESTCASE, int ERRNO);
             input_itf.osci  = this.osci;
         endtask
 
-        // Process a complete test iteration by modifying osci otherwise test is incomplete
-        task process_iteration();
+        // Update osci twice otherwise validation it incomplete
+        task update_osci();
             @(posedge(synchro));
             input_itf.osci = ~this.osci;
 
@@ -145,7 +145,7 @@ module min_max_top_tb#(int VALSIZE, int TESTCASE, int ERRNO);
                     $display("%m: randomization failed");
                 end else begin
                     update_interface();
-                    process_iteration();
+                    update_osci();
                 end
             end
             $display("nb iterations: %d", generation_count);
@@ -273,7 +273,7 @@ module min_max_top_tb#(int VALSIZE, int TESTCASE, int ERRNO);
                     $display("%m: randomization failed");
                 end else begin
                     update_interface();
-                    process_iteration();
+                    update_osci();
                     cg.sample();
                 end
             end

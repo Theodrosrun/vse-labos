@@ -62,7 +62,7 @@ module min_max_top_tb#(int VALSIZE, int TESTCASE, int ERRNO);
 
     // Error tracking variables
     logic error_signal = 0;
-    int nb_errors     = 0;
+    int nb_errors      = 0;
 
     // Type definitions for easier handling
     typedef logic[VALSIZE-1:0] input_t;

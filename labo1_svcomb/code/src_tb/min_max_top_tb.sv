@@ -28,7 +28,6 @@ Ver   Date        Person     Comments
 
 *******************************************************************************/
 
-// Interface for input signals with parameterizable size
 interface min_max_in_itf#(int VALSIZE);
     logic[1:0] com;          // Command signal (operation mode)
     logic[VALSIZE-1:0] max;  // Maximum value
@@ -37,7 +36,6 @@ interface min_max_in_itf#(int VALSIZE);
     logic[VALSIZE-1:0] value;// Input value
 endinterface
 
-// Interface for output signals with parameterizable size
 interface min_max_out_itf#(int VALSIZE);
     logic[2**VALSIZE-1:0] leds; // LED output array
 endinterface
@@ -80,9 +78,16 @@ module min_max_top_tb#(int VALSIZE, int TESTCASE, int ERRNO);
         .leds_o(output_itf.leds)
     );
 
-    // Test configuration parameters
+    // ***********************************************
+    // ******************* Params ********************
+    // ***********************************************
+
     int MAX_ITERATION = 100;  // Maximum number of iterations per test
     int NB_TESTCASE   = 10;   // Total number of test cases
+
+    // ***********************************************
+    // ***************** Base Class ******************
+    // ***********************************************
 
     // Base class for test generation
     class Base;
@@ -124,6 +129,10 @@ module min_max_top_tb#(int VALSIZE, int TESTCASE, int ERRNO);
         endtask
     endclass
 
+    // ***********************************************
+    // ************** Random Test Class **************
+    // ***********************************************
+
     // Random test class for general test scenarios
     class RandomTest extends Base;
         // Execute random test sequence
@@ -143,7 +152,7 @@ module min_max_top_tb#(int VALSIZE, int TESTCASE, int ERRNO);
             $display("randomization finished\n");
         endtask
 
-        // Execute test with fixed command mode
+        // Execute random test sequence with fixed command mode
         task execute_with_fixed_mode(logic[1:0] com);
             this.com.rand_mode(0);  // Disable com randomization
             this.com = com;         // Set fixed com
@@ -179,6 +188,10 @@ module min_max_top_tb#(int VALSIZE, int TESTCASE, int ERRNO);
             value == max;
         }
     endclass
+
+    // ***********************************************
+    // ************* Coverage Test Class *************
+    // ***********************************************
 
     // Coverage test class for functional coverage analysis
     class CoverageTest extends Base;
@@ -243,6 +256,10 @@ module min_max_top_tb#(int VALSIZE, int TESTCASE, int ERRNO);
         endtask
     endclass
 
+    // ***********************************************
+    // **************** Task scenarios ***************
+    // ***********************************************
+
     // Individual test tasks for different scenarios
     task test_mode_00();
         automatic RandomTest rt = new();
@@ -297,6 +314,10 @@ module min_max_top_tb#(int VALSIZE, int TESTCASE, int ERRNO);
         automatic CoverageTest ct = new();
         ct.execute();
     endtask
+
+    // ***********************************************
+    // ****************** Program ********************
+    // ***********************************************
 
     // Test selection and execution
     task test(int TESTCASE);

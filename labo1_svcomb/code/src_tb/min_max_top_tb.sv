@@ -151,14 +151,34 @@ module min_max_top_tb#(int VALSIZE, int TESTCASE, int ERRNO);
             $display("nb iterations: %d", generation_count);
             $display("randomization finished\n");
         endtask
+    endclass
 
-        // Execute random test sequence with fixed command mode
-        task execute_with_fixed_mode(logic[1:0] com);
-            this.com.rand_mode(0);  // Disable com randomization
-            this.com = com;         // Set fixed com
-            execute();
-            this.com.rand_mode(1);  // Re-enable com randomization
-        endtask
+    // Test class for mode 00
+    class Mode00 extends RandomTest;
+        constraint mode {
+            com == 2'b00;
+        }
+    endclass
+
+    // Test class for mode 01
+    class Mode01 extends RandomTest;
+        constraint mode {
+            com == 2'b01;
+        }
+    endclass
+    
+    // Test class for mode 10
+    class Mode10 extends RandomTest;
+        constraint mode {
+            com == 2'b10;
+        }
+    endclass
+
+    // Test class for mode 11
+    class Mode11 extends RandomTest;
+        constraint mode {
+            com == 2'b11;
+        }
     endclass
 
     // Test class for values below minimum
@@ -262,23 +282,23 @@ module min_max_top_tb#(int VALSIZE, int TESTCASE, int ERRNO);
 
     // Individual test tasks for different scenarios
     task test_mode_00();
-        automatic RandomTest rt = new();
-        rt.execute_with_fixed_mode(2'b00);
+        automatic Mode00 rt = new();
+        rt.execute();
     endtask
 
     task test_mode_01();
-        automatic RandomTest rt = new();
-        rt.execute_with_fixed_mode(2'b01);
+        automatic Mode01 rt = new();
+        rt.execute();
     endtask
 
     task test_mode_10();
-        automatic RandomTest rt = new();
-        rt.execute_with_fixed_mode(2'b10);
+        automatic Mode10 rt = new();
+        rt.execute();
     endtask
 
     task test_mode_11();
-        automatic RandomTest rt = new();
-        rt.execute_with_fixed_mode(2'b11);
+        automatic Mode11 rt = new();
+        rt.execute();
     endtask
 
     task test_value_equals_maximal_number();

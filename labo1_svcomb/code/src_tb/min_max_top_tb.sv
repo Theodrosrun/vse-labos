@@ -158,7 +158,7 @@ module min_max_top_tb#(int VALSIZE, int TESTCASE, int ERRNO);
 
         task start();
             automatic int generation_count = 0;
-            while (cg.get_coverage() < 100) begin
+            while ((cg.get_coverage() < 100) && (generation_count < MAX_ITERATION)) begin
                 generation_count++;
                 if (!randomize()) begin
                     $display("%m: randomization failed");

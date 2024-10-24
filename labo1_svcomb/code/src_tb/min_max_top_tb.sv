@@ -82,7 +82,7 @@ module min_max_top_tb#(int VALSIZE, int TESTCASE, int ERRNO);
     int NB_TESTCASE   = 10;
 
     // ***********************************************
-    // ******************** Class ********************
+    // ***************** Base Class ******************
     // ***********************************************
 
     class Base;
@@ -101,11 +101,11 @@ module min_max_top_tb#(int VALSIZE, int TESTCASE, int ERRNO);
         }
 
         task update_interface();
-            input_itf.min = this.min;
-            input_itf.max = this.max;
+            input_itf.min   = this.min;
+            input_itf.max   = this.max;
             input_itf.value = this.value;
-            input_itf.com = this.com;
-            input_itf.osci = this.osci;
+            input_itf.com   = this.com;
+            input_itf.osci  = this.osci;
         endtask
 
         task process_iteration();
@@ -119,34 +119,12 @@ module min_max_top_tb#(int VALSIZE, int TESTCASE, int ERRNO);
         endtask
     endclass
 
-    class TestMode extends Base;
-        function new(logic[1:0] com);
-            this.com.rand_mode(0);  // Deactivate randomization for com
-            this.com = com;         // Set com to specific value
-        endfunction
-
-        task start();
-            automatic int generation_count = 0;
-            $display("\nStarting randomization for mode %b", this.com);
-            for (integer i = 0; i < MAX_ITERATION; i++) begin
-                generation_count++;
-                if (!this.randomize()) begin
-                    $display("%m: randomization failed");
-                end else begin
-                    update_interface();
-                    process_iteration();
-                end
-            end
-
-            $display("nb iterations: %d", generation_count);
-            $display("Randomization finished for mode %b\n", this.com);
-
-            this.com.rand_mode(1); // Reactivate randomization for com
-        endtask
-    endclass
+    // ***********************************************
+    // ************** Random Test Class **************
+    // ***********************************************
 
     class RandomTest extends Base;
-        task start();
+        task execute();
             automatic int generation_count = 0;
             $display("\nstarting randomization");
             for(integer i = 0; i < MAX_ITERATION; i++) begin
@@ -160,6 +138,13 @@ module min_max_top_tb#(int VALSIZE, int TESTCASE, int ERRNO);
             end
             $display("nb iterations: %d", generation_count);
             $display("randomization finished\n");
+        endtask
+
+        task execute_with_fixed_mode(logic[1:0] com);
+            this.com.rand_mode(0);  // Deactivate randomization for com
+            this.com = com;         // Set com to specific value
+            execute();
+            this.com.rand_mode(1); // Reactivate randomization for com
         endtask
     endclass
 
@@ -186,6 +171,10 @@ module min_max_top_tb#(int VALSIZE, int TESTCASE, int ERRNO);
             value == max;
         }
     endclass
+
+    // ***********************************************
+    // ************* Coverage Test Class *************
+    // ***********************************************
 
     class CoverageTest extends Base;
         covergroup cg;
@@ -223,7 +212,7 @@ module min_max_top_tb#(int VALSIZE, int TESTCASE, int ERRNO);
             cg = new();
         endfunction
 
-        task start();
+        task execute();
             automatic int generation_count = 0;
             $display("\nstarting coverage");
             while ((cg.get_coverage() < 100) && (generation_count < MAX_ITERATION)) begin
@@ -247,57 +236,57 @@ module min_max_top_tb#(int VALSIZE, int TESTCASE, int ERRNO);
     // ***********************************************
 
     task test_mode_00();
-        automatic TestMode tm = new(2'b00);
-        tm.start();
+        automatic RandomTest rt = new();
+        rt.execute_with_fixed_mode(2'b00);
     endtask
 
     task test_mode_01();
-        automatic TestMode tm = new(2'b01);
-        tm.start();
+        automatic RandomTest rt = new();
+        rt.execute_with_fixed_mode(2'b01);
     endtask
 
     task test_mode_10();
-        automatic TestMode tm = new(2'b10);
-        tm.start();
+        automatic RandomTest rt = new();
+        rt.execute_with_fixed_mode(2'b10);
     endtask
 
     task test_mode_11();
-        automatic TestMode tm = new(2'b11);
-        tm.start();
+        automatic RandomTest rt = new();
+        rt.execute_with_fixed_mode(2'b11);
     endtask
 
-    task test_value_equals_maximal_number();
-        input_itf.min = 0;
-        input_itf.max = 2**VALSIZE - 1;
-        input_itf.value = 2**VALSIZE - 1;
-        input_itf.com = 2'b00;
-        input_itf.osci = 0;
-        @(posedge(synchro));
-    endtask
-
-    task test_randomized_out_of_range_min();
+    task test_out_of_range_min();
         automatic OutOfRangeMin rt = new();
-        rt.start();
+        rt.execute();
     endtask
 
-    task test_randomized_out_of_range_max();
+    task test_out_of_range_max();
         automatic OutOfRangeMax rt = new();
-        rt.start();
+        rt.execute();
     endtask
 
-    task test_randomized_boundaries_min();
+    task test_boundaries_min();
         automatic BoundariesMin rt = new();
-        rt.start();
+        rt.execute();
     endtask
 
-    task test_randomized_boundaries_max();
+    task test_boundaries_max();
         automatic BoundariesMax rt = new();
-        rt.start();
+        rt.execute();
     endtask
 
     task test_coverage();
         automatic CoverageTest ct = new();
-        ct.start();
+        ct.execute();
+    endtask
+
+    task test_value_equals_maximal_number();
+        input_itf.min   = 0;
+        input_itf.max   = 2**VALSIZE - 1;
+        input_itf.value = 2**VALSIZE - 1;
+        input_itf.com   = 2'b00;
+        input_itf.osci  = 0;
+        @(posedge(synchro));
     endtask
 
     // ***********************************************
@@ -310,12 +299,12 @@ module min_max_top_tb#(int VALSIZE, int TESTCASE, int ERRNO);
             1: test_mode_01();
             2: test_mode_10();
             3: test_mode_11();
-            4: test_value_equals_maximal_number();
-            5: test_randomized_out_of_range_min();
-            6: test_randomized_out_of_range_max();
-            7: test_randomized_boundaries_min();
-            8: test_randomized_boundaries_max();
-            9: test_coverage();
+            4: test_out_of_range_min();
+            5: test_out_of_range_max();
+            6: test_boundaries_min();
+            7: test_boundaries_max();
+            8: test_coverage();
+            9: test_value_equals_maximal_number();
             default: begin
                 $display("Invalid TESTCASE: %d", TESTCASE);
                 $finish;

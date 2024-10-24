@@ -49,7 +49,7 @@ module min_max_top_tb#(int VALSIZE, int TESTCASE, int ERRNO);
    
     // Timings definitions
     time sim_step = 10ns;
-    time pulse = 0ns;
+    time pulse    = 0ns;
     logic synchro = 0;
    
     always #(sim_step/2) synchro = ~synchro;
@@ -60,7 +60,7 @@ module min_max_top_tb#(int VALSIZE, int TESTCASE, int ERRNO);
 
     // Erros values
     logic error_signal = 0;
-    int nb_errors = 0;
+    int nb_errors     = 0;
 
     // Typedef
     typedef logic[VALSIZE-1:0] input_t;
@@ -75,13 +75,13 @@ module min_max_top_tb#(int VALSIZE, int TESTCASE, int ERRNO);
                                      .leds_o(output_itf.leds));
 
     // ***********************************************
-    // ********************* Parm ********************
+    // ******************** Param ********************
     // ***********************************************
 
     int MAX_ITERATION = 100;
 
     // ***********************************************
-    // ******************** class ********************
+    // ******************** Class ********************
     // ***********************************************
 
     class RBase;
@@ -211,9 +211,34 @@ module min_max_top_tb#(int VALSIZE, int TESTCASE, int ERRNO);
         }
     endclass
 
-    task test_coverage();
-        automatic RCoverage rt = new();
-        rt.start();
+    // ***********************************************
+    // ******************** Task *********************
+    // ***********************************************
+
+    task test_mode(logic[1:0] com);
+        automatic RBase rb = new();
+        automatic int generation_count = 0;
+        $display("\nStarting randomization for mode %b", com);
+        for (integer i = 0; i < MAX_ITERATION; i++) begin
+            generation_count++;
+            if (!rb.randomize()) begin
+                $display("%m: randomization failed");
+            end else begin
+                input_itf.com = com;
+                rb.process_iteration();
+            end
+        end
+        $display("nb iterations: %d", generation_count);
+        $display("Randomization finished for mode %b\n", com);
+    endtask
+
+    task test_value_equals_maximal_number();
+        input_itf.min = 0;
+        input_itf.max = 2**VALSIZE - 1;
+        input_itf.value = 2**VALSIZE - 1;
+        input_itf.com = 2'b00;
+        input_itf.osci = 0;
+        @(posedge(synchro));
     endtask
 
     task test_randomized_out_of_range_min();
@@ -236,13 +261,9 @@ module min_max_top_tb#(int VALSIZE, int TESTCASE, int ERRNO);
         rt.start();
     endtask
 
-    task test_value_equals_maximal_number();
-        input_itf.min = 0;
-        input_itf.max = 2**VALSIZE - 1;
-        input_itf.value = 2**VALSIZE - 1;
-        input_itf.com = 2'b00;
-        input_itf.osci = 0;
-        @(posedge(synchro));
+    task test_coverage();
+        automatic RCoverage rt = new();
+        rt.start();
     endtask
 
     // ***********************************************
@@ -256,7 +277,11 @@ module min_max_top_tb#(int VALSIZE, int TESTCASE, int ERRNO);
             2: test_randomized_out_of_range_max();
             3: test_randomized_boundaries_min();
             4: test_randomized_boundaries_max();
-            5: test_value_equals_maximal_number();
+            5: test_mode(2'b00);
+            6: test_mode(2'b01);
+            7: test_mode(2'b10);
+            8: test_mode(2'b11);
+            9: test_value_equals_maximal_number();
             default: begin
                 $display("Invalid TESTCASE: %d", TESTCASE);
                 $finish;
@@ -266,7 +291,7 @@ module min_max_top_tb#(int VALSIZE, int TESTCASE, int ERRNO);
 
     task tests(int TESTCASE);
         if (TESTCASE == 0) begin
-            for(integer i = 0; i < 6; i++) begin
+            for(integer i = 0; i < 10; i++) begin
                test(i); 
             end
         end

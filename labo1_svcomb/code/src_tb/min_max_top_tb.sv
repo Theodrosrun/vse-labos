@@ -79,12 +79,13 @@ module min_max_top_tb#(int VALSIZE, int TESTCASE, int ERRNO);
     // ***********************************************
 
     int MAX_ITERATION = 100;
+    int NB_TESTCASE   = 10;
 
     // ***********************************************
     // ******************** Class ********************
     // ***********************************************
 
-    class RBase;
+    class Base;
         rand input_t min;
         rand input_t max;
         rand input_t value;
@@ -99,13 +100,15 @@ module min_max_top_tb#(int VALSIZE, int TESTCASE, int ERRNO);
             solve min before max;
         }
 
-        task process_iteration();
+        task update_interface();
             input_itf.min = this.min;
             input_itf.max = this.max;
             input_itf.value = this.value;
             input_itf.com = this.com;
             input_itf.osci = this.osci;
+        endtask
 
+        task process_iteration();
             @(posedge(synchro));
             input_itf.osci = ~this.osci;
 
@@ -114,28 +117,77 @@ module min_max_top_tb#(int VALSIZE, int TESTCASE, int ERRNO);
 
             @(posedge(synchro));
         endtask
+    endclass
 
-        task test_mode(logic[1:0] com);
+    class TestMode extends Base;
+        function new(logic[1:0] com);
+            this.com.rand_mode(0);  // Deactivate randomization for com
+            this.com = com;         // Set com to specific value
+        endfunction
+
+        task start();
             automatic int generation_count = 0;
-            this.com.rand_mode(0); // Deactivate random for com
-            this.com = com;        // Set the com to specific parm
-
-            $display("\nStarting randomization for mode %b", com);
+            $display("\nStarting randomization for mode %b", this.com);
             for (integer i = 0; i < MAX_ITERATION; i++) begin
                 generation_count++;
                 if (!this.randomize()) begin
                     $display("%m: randomization failed");
                 end else begin
+                    update_interface();
+                    process_iteration();
+                end
+            end
+
+            $display("nb iterations: %d", generation_count);
+            $display("Randomization finished for mode %b\n", this.com);
+
+            this.com.rand_mode(1); // Reactivate randomization for com
+        endtask
+    endclass
+
+    class RandomTest extends Base;
+        task start();
+            automatic int generation_count = 0;
+            $display("\nstarting randomization");
+            for(integer i = 0; i < MAX_ITERATION; i++) begin
+                generation_count++;
+                if (!randomize()) begin
+                    $display("%m: randomization failed");
+                end else begin
+                    update_interface();
                     process_iteration();
                 end
             end
             $display("nb iterations: %d", generation_count);
-            $display("Randomization finished for mode %b\n", com);
-            this.com.rand_mode(1); // Reactivate random for com
+            $display("randomization finished\n");
         endtask
     endclass
 
-    class RCoverage extends RBase;
+    class OutOfRangeMin extends RandomTest;
+        constraint value_smaller_than_min {
+            value < min;
+        }
+    endclass
+
+    class OutOfRangeMax extends RandomTest;
+        constraint value_bigger_than_max {
+            value > max;
+        }
+    endclass
+    
+    class BoundariesMin extends RandomTest;
+        constraint boundaries {
+            value == min;
+        }
+    endclass
+
+    class BoundariesMax extends RandomTest;
+        constraint boundaries {
+            value == max;
+        }
+    endclass
+
+    class CoverageTest extends Base;
         covergroup cg;
             coverpoint min {
                 bins min    = {0};
@@ -179,6 +231,7 @@ module min_max_top_tb#(int VALSIZE, int TESTCASE, int ERRNO);
                 if (!randomize()) begin
                     $display("%m: randomization failed");
                 end else begin
+                    update_interface();
                     process_iteration();
                     cg.sample();
                 end
@@ -189,69 +242,28 @@ module min_max_top_tb#(int VALSIZE, int TESTCASE, int ERRNO);
         endtask
     endclass
 
-    class RTest extends RBase;
-        task start();
-            automatic int generation_count = 0;
-            $display("\nstarting randomization");
-            for(integer i = 0; i < MAX_ITERATION; i++) begin
-                generation_count++;
-                if (!randomize()) begin
-                    $display("%m: randomization failed");
-                end else begin
-                    process_iteration();
-                end
-            end
-            $display("nb iterations: %d", generation_count);
-            $display("randomization finished\n");
-        endtask
-    endclass
-
-    class RTestOutOfRangeMin extends RTest;
-        constraint value_smaller_than_min {
-            value < min;
-        }
-    endclass
-
-    class RTestOutOfRangeMax extends RTest;
-        constraint value_bigger_than_max {
-            value > max;
-        }
-    endclass
-    
-    class RTestBoundariesMin extends RTest;
-        constraint boundaries {
-            value == min;
-        }
-    endclass
-
-    class RTestBoundariesMax extends RTest;
-        constraint boundaries {
-            value == max;
-        }
-    endclass
-
     // ***********************************************
     // ******************** Task *********************
     // ***********************************************
 
-    task test_mode00();
-        automatic RBase rb = new();
-        rb.test_mode(2'b00);
+    task test_mode_00();
+        automatic TestMode tm = new(2'b00);
+        tm.start();
     endtask
 
-    task test_mode01();
-        automatic RBase rb = new();
-        rb.test_mode(2'b01);
+    task test_mode_01();
+        automatic TestMode tm = new(2'b01);
+        tm.start();
     endtask
 
-    task test_mode10();
-        automatic RBase rb = new();
-        rb.test_mode(2'b10);
+    task test_mode_10();
+        automatic TestMode tm = new(2'b10);
+        tm.start();
     endtask
 
-    task test_mode11();
-        automatic RBase rb = new();
-        rb.test_mode(2'b11);
+    task test_mode_11();
+        automatic TestMode tm = new(2'b11);
+        tm.start();
     endtask
 
     task test_value_equals_maximal_number();
@@ -264,28 +276,28 @@ module min_max_top_tb#(int VALSIZE, int TESTCASE, int ERRNO);
     endtask
 
     task test_randomized_out_of_range_min();
-        automatic RTestOutOfRangeMin rt = new();
+        automatic OutOfRangeMin rt = new();
         rt.start();
     endtask
 
     task test_randomized_out_of_range_max();
-        automatic RTestOutOfRangeMax rt = new();
+        automatic OutOfRangeMax rt = new();
         rt.start();
     endtask
 
     task test_randomized_boundaries_min();
-        automatic RTestBoundariesMin rt = new();
+        automatic BoundariesMin rt = new();
         rt.start();
     endtask
 
     task test_randomized_boundaries_max();
-        automatic RTestBoundariesMax rt = new();
+        automatic BoundariesMax rt = new();
         rt.start();
     endtask
 
     task test_coverage();
-        automatic RCoverage rc = new();
-        rc.start();
+        automatic CoverageTest ct = new();
+        ct.start();
     endtask
 
     // ***********************************************
@@ -294,10 +306,10 @@ module min_max_top_tb#(int VALSIZE, int TESTCASE, int ERRNO);
 
     task test(int TESTCASE);
         case(TESTCASE)
-            0: test_mode00();
-            1: test_mode01();
-            2: test_mode10();
-            3: test_mode11();
+            0: test_mode_00();
+            1: test_mode_01();
+            2: test_mode_10();
+            3: test_mode_11();
             4: test_value_equals_maximal_number();
             5: test_randomized_out_of_range_min();
             6: test_randomized_out_of_range_max();
@@ -313,7 +325,7 @@ module min_max_top_tb#(int VALSIZE, int TESTCASE, int ERRNO);
 
     task tests(int TESTCASE);
         if (TESTCASE == 0) begin
-            for(integer i = 0; i < 10; i++) begin
+            for(integer i = 0; i < NB_TESTCASE; i++) begin
                test(i); 
             end
         end

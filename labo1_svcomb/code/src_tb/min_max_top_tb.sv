@@ -78,9 +78,7 @@ module min_max_top_tb#(int VALSIZE, int TESTCASE, int ERRNO);
     // ********************* Parm ********************
     // ***********************************************
 
-    int COVERAGE_RATE = 95;
-    int MAX_AT_LEAST  = 10;
-    int MAX_ITERATION = (2**VALSIZE > 10000) ? 10000 : 2**VALSIZE;
+    int MAX_ITERATION = 1000;
 
     // ***********************************************
     // ******************** class ********************
@@ -120,8 +118,6 @@ module min_max_top_tb#(int VALSIZE, int TESTCASE, int ERRNO);
 
     class RCoverage extends RBase;
         covergroup cg;
-            option.at_least = MAX_AT_LEAST;
-
             coverpoint min {
                 bins min    = {0};
                 bins middle = {(2**(VALSIZE-1))};

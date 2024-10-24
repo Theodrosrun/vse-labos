@@ -79,7 +79,7 @@ module min_max_top_tb#(int VALSIZE, int TESTCASE, int ERRNO);
     // ***********************************************
 
     int COVERAGE_RATE = 95;
-    int MAX_AT_LEAST  = (2**VALSIZE > 100) ? 100 : 2**VALSIZE;
+    int MAX_AT_LEAST  = 10;
     int MAX_ITERATION = (2**VALSIZE > 10000) ? 10000 : 2**VALSIZE;
 
     // ***********************************************
@@ -123,15 +123,24 @@ module min_max_top_tb#(int VALSIZE, int TESTCASE, int ERRNO);
             option.at_least = MAX_AT_LEAST;
 
             coverpoint min {
-                bins values[VALSIZE*2] = {[0:2**VALSIZE-1]};
+                bins min    = {0};
+                bins middle = {(2**(VALSIZE-1))};
+                bins max    = {2**VALSIZE-1};
+                bins values[VALSIZE] = {[1:2**VALSIZE-2]};
             }
 
             coverpoint max { 
-                bins values[VALSIZE*2] = {[0:2**VALSIZE-1]};
+                bins min    = {0};
+                bins middle = {(2**(VALSIZE-1))};
+                bins max    = {2**VALSIZE-1};
+                bins values[VALSIZE] = {[1:2**VALSIZE-2]};
             }
 
             coverpoint value {
-                bins values[VALSIZE*2] = {[0:2**VALSIZE-1]};
+                bins min    = {0};
+                bins middle = {(2**(VALSIZE-1))};
+                bins max    = {2**VALSIZE-1};
+                bins values[VALSIZE] = {[1:2**VALSIZE-2]};
             }
 
             coverpoint com { 

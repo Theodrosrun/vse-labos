@@ -112,7 +112,7 @@ module min_max_top_tb#(int VALSIZE, int TESTCASE, int ERRNO);
             input_itf.osci  = this.osci;
         endtask
 
-        // Process a single test iteration with clock synchronization
+        // Process a complete test iteration by modifying osci otherwise test is incomplete
         task process_iteration();
             @(posedge(synchro));
             input_itf.osci = ~this.osci;
@@ -153,29 +153,29 @@ module min_max_top_tb#(int VALSIZE, int TESTCASE, int ERRNO);
     endclass
 
     // Test class for values below minimum
-    class OutOfRangeMin extends RandomTest;
-        constraint value_smaller_than_min {
+    class ValueBelowMin extends RandomTest;
+        constraint value_below_min {
             value < min;
         }
     endclass
 
     // Test class for values above maximum
-    class OutOfRangeMax extends RandomTest;
-        constraint value_bigger_than_max {
+    class ValueAboveMax extends RandomTest;
+        constraint value_above_max {
             value > max;
         }
     endclass
     
     // Test class for boundary value at minimum
-    class BoundariesMin extends RandomTest;
-        constraint boundaries {
+    class ValueEqualsMin extends RandomTest;
+        constraint value_equals_min {
             value == min;
         }
     endclass
 
     // Test class for boundary value at maximum
-    class BoundariesMax extends RandomTest;
-        constraint boundaries {
+    class ValueEqualsMax extends RandomTest;
+        constraint value_equals_max {
             value == max;
         }
     endclass
@@ -264,32 +264,6 @@ module min_max_top_tb#(int VALSIZE, int TESTCASE, int ERRNO);
         rt.execute_with_fixed_mode(2'b11);
     endtask
 
-    task test_out_of_range_min();
-        automatic OutOfRangeMin rt = new();
-        rt.execute();
-    endtask
-
-    task test_out_of_range_max();
-        automatic OutOfRangeMax rt = new();
-        rt.execute();
-    endtask
-
-    task test_boundaries_min();
-        automatic BoundariesMin rt = new();
-        rt.execute();
-    endtask
-
-    task test_boundaries_max();
-        automatic BoundariesMax rt = new();
-        rt.execute();
-    endtask
-
-    task test_coverage();
-        automatic CoverageTest ct = new();
-        ct.execute();
-    endtask
-
-    // Test maximum value scenario
     task test_value_equals_maximal_number();
         input_itf.min   = 0;
         input_itf.max   = 2**VALSIZE - 1;
@@ -299,19 +273,44 @@ module min_max_top_tb#(int VALSIZE, int TESTCASE, int ERRNO);
         @(posedge(synchro));
     endtask
 
+    task test_value_below_min();
+        automatic ValueBelowMin rt = new();
+        rt.execute();
+    endtask
+
+    task test_value_above_max();
+        automatic ValueAboveMax rt = new();
+        rt.execute();
+    endtask
+
+    task test_value_equals_min();
+        automatic ValueEqualsMin rt = new();
+        rt.execute();
+    endtask
+
+    task test_value_equals_max();
+        automatic ValueEqualsMax rt = new();
+        rt.execute();
+    endtask
+
+    task test_coverage();
+        automatic CoverageTest ct = new();
+        ct.execute();
+    endtask
+
     // Test selection and execution
     task test(int TESTCASE);
         case(TESTCASE)
-            0: test_mode_00();         // Test normal mode
-            1: test_mode_01();         // Test linear mode
-            2: test_mode_10();         // Test all OFF mode
-            3: test_mode_11();         // Test all ON mode
-            4: test_out_of_range_min();// Test values below min
-            5: test_out_of_range_max();// Test values above max
-            6: test_boundaries_min();   // Test minimum boundary
-            7: test_boundaries_max();   // Test maximum boundary
-            8: test_coverage();         // Test coverage
-            9: test_value_equals_maximal_number(); // Test max value
+            0: test_mode_00();                     // Test normal mode
+            1: test_mode_01();                     // Test linear mode
+            2: test_mode_10();                     // Test all OFF mode
+            3: test_mode_11();                     // Test all ON mode
+            4: test_value_equals_maximal_number(); // Test max value
+            5: test_value_below_min();             // Test values below min
+            6: test_value_above_max();             // Test values above max
+            7: test_value_equals_min();            // Test minimum boundary
+            8: test_value_equals_max();            // Test maximum boundary
+            9: test_coverage();                    // Test coverage
             default: begin
                 $display("Invalid TESTCASE: %d", TESTCASE);
                 $finish;

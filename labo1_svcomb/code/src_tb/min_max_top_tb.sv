@@ -344,7 +344,7 @@ module min_max_top_tb#(int VALSIZE, int TESTCASE, int ERRNO);
     // ***********************************************
 
     // Test selection and execution
-    task test(int TESTCASE);
+    task select_test(int TESTCASE);
         case(TESTCASE)
             1: test_mode_00();                     // Test normal mode
             2: test_mode_01();                     // Test linear mode
@@ -364,14 +364,14 @@ module min_max_top_tb#(int VALSIZE, int TESTCASE, int ERRNO);
     endtask
 
     // Execute single or all tests based on TESTCASE parameter
-    task tests(int TESTCASE);
+    task test(int TESTCASE);
         if (TESTCASE == 0) begin
             for(integer i = 0; i < NB_TESTCASE; i++) begin
-               test(i + 1); 
+               select_test(i + 1); 
             end
         end
         else begin
-            test(TESTCASE);
+            select_test(TESTCASE);
         end
     endtask
 
@@ -440,7 +440,7 @@ module min_max_top_tb#(int VALSIZE, int TESTCASE, int ERRNO);
     initial begin
         $display("\nStarting simulation");
         fork
-            tests(TESTCASE);                // Execute test scenarios
+            test(TESTCASE);                 // Execute test scenarios
             compute_reference_task;         // Compute expected results
             verification;                   // Verify outputs
         join_any

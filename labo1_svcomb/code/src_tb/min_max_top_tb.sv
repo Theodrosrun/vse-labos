@@ -165,6 +165,9 @@ module min_max_top_tb#(int VALSIZE, int TESTCASE, int ERRNO);
             cov_osci: coverpoint osci { 
                 bins values = {0,1};
             }
+
+            // Cross validation with all values
+            cov_cross: cross min, max, value, com, osci;
         endgroup
 
         // Constructor

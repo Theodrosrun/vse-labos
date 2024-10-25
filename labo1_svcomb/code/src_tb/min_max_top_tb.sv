@@ -135,6 +135,7 @@ module min_max_top_tb#(int VALSIZE, int TESTCASE, int ERRNO);
 
     // Random test class for general test scenarios
     class RandomTest extends Base;
+    
         // Execute random test sequence
         task execute();
             automatic int generation_count = 0;

@@ -181,35 +181,35 @@ module min_max_top_tb#(int VALSIZE, int TESTCASE, int ERRNO);
         }
     endclass
 
-    // Test class for value equals upper limit
+    // Test class when value equals upper limit
     class ValueUpperLimit extends RandomTest;
         constraint c {
             value == 2**VALSIZE - 1;
         }
     endclass
 
-    // Test class for values below minimum
+    // Test class when value is below minimum
     class ValueBelowMin extends RandomTest;
         constraint c {
             value < min;
         }
     endclass
 
-    // Test class for values above maximum
+    // Test class when value is above maximum
     class ValueAboveMax extends RandomTest;
         constraint c {
             value > max;
         }
     endclass
     
-    // Test class for boundary value at minimum
+    // Test class when value equals min
     class ValueEqualsMin extends RandomTest;
         constraint c {
             value == min;
         }
     endclass
 
-    // Test class for boundary value at maximum
+    // Test class when value equals max
     class ValueEqualsMax extends RandomTest;
         constraint c {
             value == max;
@@ -350,10 +350,10 @@ module min_max_top_tb#(int VALSIZE, int TESTCASE, int ERRNO);
             2: test_mode_10();                     // Test all OFF mode
             3: test_mode_11();                     // Test all ON mode
             4: test_value_upper_limit();           // Test value equals to upper limits
-            5: test_value_below_min();             // Test values below min
-            6: test_value_above_max();             // Test values above max
-            7: test_value_equals_min();            // Test minimum boundary
-            8: test_value_equals_max();            // Test maximum boundary
+            5: test_value_below_min();             // Test value below min
+            6: test_value_above_max();             // Test value above max
+            7: test_value_equals_min();            // Test value equals min
+            8: test_value_equals_max();            // Test value equals max
             9: test_coverage();                    // Test coverage
             default: begin
                 $display("Invalid TESTCASE: %d", TESTCASE);

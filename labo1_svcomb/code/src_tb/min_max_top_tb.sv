@@ -115,10 +115,8 @@ module min_max_top_tb#(int VALSIZE, int TESTCASE, int ERRNO);
             input_itf.value = this.value;
             input_itf.com   = this.com;
             input_itf.osci  = this.osci;
-        endtask
 
-        // Update osci twice otherwise validation is incomplete
-        task update_osci();
+            // Update osci twice otherwise validation is incomplete
             @(posedge(synchro));
             input_itf.osci = ~this.osci;
 
@@ -144,7 +142,6 @@ module min_max_top_tb#(int VALSIZE, int TESTCASE, int ERRNO);
                     $display("%m: randomization failed");
                 end else begin
                     update_interface();
-                    update_osci();
                     @(posedge(synchro));
                 end
             end
@@ -273,7 +270,6 @@ module min_max_top_tb#(int VALSIZE, int TESTCASE, int ERRNO);
                     $display("%m: randomization failed");
                 end else begin
                     update_interface();
-                    update_osci();
                     @(posedge(synchro));
                     cg.sample();
                 end

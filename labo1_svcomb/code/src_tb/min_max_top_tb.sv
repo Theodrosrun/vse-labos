@@ -124,8 +124,6 @@ module min_max_top_tb#(int VALSIZE, int TESTCASE, int ERRNO);
 
             @(posedge(synchro));
             input_itf.osci = ~this.osci;
-
-            @(posedge(synchro));
         endtask
     endclass
 
@@ -147,6 +145,7 @@ module min_max_top_tb#(int VALSIZE, int TESTCASE, int ERRNO);
                 end else begin
                     update_interface();
                     update_osci();
+                    @(posedge(synchro));
                 end
             end
             $display("nb iterations: %d", generation_count);
@@ -275,6 +274,7 @@ module min_max_top_tb#(int VALSIZE, int TESTCASE, int ERRNO);
                 end else begin
                     update_interface();
                     update_osci();
+                    @(posedge(synchro));
                     cg.sample();
                 end
             end

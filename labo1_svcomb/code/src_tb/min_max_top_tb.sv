@@ -225,7 +225,7 @@ module min_max_top_tb#(int VALSIZE, int TESTCASE, int ERRNO);
     class CoverageTest extends Base;
         covergroup cg;
             // Coverage for minimum value
-            coverpoint min {
+            cov_min: coverpoint min {
                 bins min    = {0};
                 bins middle = {(2**(VALSIZE-1))};
                 bins max    = {2**VALSIZE-1};
@@ -233,7 +233,7 @@ module min_max_top_tb#(int VALSIZE, int TESTCASE, int ERRNO);
             }
 
             // Coverage for maximum value
-            coverpoint max { 
+            cov_max: coverpoint max { 
                 bins min    = {0};
                 bins middle = {(2**(VALSIZE-1))};
                 bins max    = {2**VALSIZE-1};
@@ -241,7 +241,7 @@ module min_max_top_tb#(int VALSIZE, int TESTCASE, int ERRNO);
             }
 
             // Coverage for input value
-            coverpoint value {
+            cov_value: coverpoint value {
                 bins min    = {0};
                 bins middle = {(2**(VALSIZE-1))};
                 bins max    = {2**VALSIZE-1};
@@ -249,12 +249,12 @@ module min_max_top_tb#(int VALSIZE, int TESTCASE, int ERRNO);
             }
 
             // Coverage for command modes
-            coverpoint com { 
+            cov_com: coverpoint com { 
                 bins values[] = {0, 1, 2, 3};
             }
 
             // Coverage for oscillation signal
-            coverpoint osci { 
+            cov_osci: coverpoint osci { 
                 bins values = {0,1};
             }
         endgroup

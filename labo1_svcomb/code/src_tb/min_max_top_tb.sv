@@ -117,7 +117,7 @@ module min_max_top_tb#(int VALSIZE, int TESTCASE, int ERRNO);
             input_itf.osci  = this.osci;
         endtask
 
-        // Update osci twice otherwise validation it incomplete
+        // Update osci twice otherwise validation is incomplete
         task update_osci();
             @(posedge(synchro));
             input_itf.osci = ~this.osci;

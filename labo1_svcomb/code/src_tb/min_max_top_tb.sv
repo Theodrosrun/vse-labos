@@ -135,7 +135,7 @@ module min_max_top_tb#(int VALSIZE, int TESTCASE, int ERRNO);
 
     // Random test class for general test scenarios
     class RandomTest extends Base;
-    
+
         // Execute random test sequence
         task execute();
             automatic int generation_count = 0;
@@ -182,13 +182,6 @@ module min_max_top_tb#(int VALSIZE, int TESTCASE, int ERRNO);
         }
     endclass
 
-    // Test class when value equals upper limit
-    class ValueUpperLimit extends RandomTest;
-        constraint c {
-            value == 2**VALSIZE - 1;
-        }
-    endclass
-
     // Test class when value is below minimum
     class ValueBelowMin extends RandomTest;
         constraint c {
@@ -214,6 +207,13 @@ module min_max_top_tb#(int VALSIZE, int TESTCASE, int ERRNO);
     class ValueEqualsMax extends RandomTest;
         constraint c {
             value == max;
+        }
+    endclass
+
+    // Test class when value equals upper limit
+    class ValueEqualsUpperLimit extends RandomTest;
+        constraint c {
+            value == 2**VALSIZE - 1;
         }
     endclass
 
@@ -309,11 +309,6 @@ module min_max_top_tb#(int VALSIZE, int TESTCASE, int ERRNO);
         rt.execute();
     endtask
 
-    task test_value_upper_limit();
-        automatic ValueUpperLimit rt = new();
-        rt.execute();
-    endtask
-
     task test_value_below_min();
         automatic ValueBelowMin rt = new();
         rt.execute();
@@ -334,6 +329,11 @@ module min_max_top_tb#(int VALSIZE, int TESTCASE, int ERRNO);
         rt.execute();
     endtask
 
+    task test_value_equals_upper_limit();
+        automatic ValueEqualsUpperLimit rt = new();
+        rt.execute();
+    endtask
+
     task test_coverage();
         automatic CoverageTest ct = new();
         ct.execute();
@@ -350,11 +350,11 @@ module min_max_top_tb#(int VALSIZE, int TESTCASE, int ERRNO);
             1: test_mode_01();                     // Test linear mode
             2: test_mode_10();                     // Test all OFF mode
             3: test_mode_11();                     // Test all ON mode
-            4: test_value_upper_limit();           // Test value equals to upper limits
-            5: test_value_below_min();             // Test value below min
-            6: test_value_above_max();             // Test value above max
-            7: test_value_equals_min();            // Test value equals min
-            8: test_value_equals_max();            // Test value equals max
+            4: test_value_below_min();             // Test value below min
+            5: test_value_above_max();             // Test value above max
+            6: test_value_equals_min();            // Test value equals min
+            7: test_value_equals_max();            // Test value equals max
+            8: test_value_equals_upper_limit();    // Test value equals upper limit
             9: test_coverage();                    // Test coverage
             default: begin
                 $display("Invalid TESTCASE: %d", TESTCASE);

@@ -126,94 +126,6 @@ module min_max_top_tb#(int VALSIZE, int TESTCASE, int ERRNO);
     endclass
 
     // ***********************************************
-    // ************** Random Test Class **************
-    // ***********************************************
-
-    // Random test class for general test scenarios
-    class RandomTest extends Base;
-
-        // Execute random test sequence
-        task execute();
-            automatic int generation_count = 0;
-            $display("\nstarting randomization");
-            for(integer i = 0; i < MAX_ITERATION; i++) begin
-                generation_count++;
-                if (!randomize()) begin
-                    $display("%m: randomization failed");
-                end else begin
-                    update_interface();
-                    @(posedge(synchro));
-                end
-            end
-            $display("nb iterations: %d", generation_count);
-            $display("randomization finished\n");
-        endtask
-    endclass
-
-    // Test class for mode 00
-    class Mode00 extends RandomTest;
-        constraint c {
-            com == 2'b00;
-        }
-    endclass
-
-    // Test class for mode 01
-    class Mode01 extends RandomTest;
-        constraint c {
-            com == 2'b01;
-        }
-    endclass
-    
-    // Test class for mode 10
-    class Mode10 extends RandomTest;
-        constraint c {
-            com == 2'b10;
-        }
-    endclass
-
-    // Test class for mode 11
-    class Mode11 extends RandomTest;
-        constraint c {
-            com == 2'b11;
-        }
-    endclass
-
-    // Test class when value is below minimum
-    class ValueBelowMin extends RandomTest;
-        constraint c {
-            value < min;
-        }
-    endclass
-
-    // Test class when value is above maximum
-    class ValueAboveMax extends RandomTest;
-        constraint c {
-            value > max;
-        }
-    endclass
-    
-    // Test class when value equals min
-    class ValueEqualsMin extends RandomTest;
-        constraint c {
-            value == min;
-        }
-    endclass
-
-    // Test class when value equals max
-    class ValueEqualsMax extends RandomTest;
-        constraint c {
-            value == max;
-        }
-    endclass
-
-    // Test class when value equals upper limit
-    class ValueEqualsUpperLimit extends RandomTest;
-        constraint c {
-            value == 2**VALSIZE - 1;
-        }
-    endclass
-
-    // ***********************************************
     // ************* Coverage Test Class *************
     // ***********************************************
 
@@ -281,10 +193,107 @@ module min_max_top_tb#(int VALSIZE, int TESTCASE, int ERRNO);
     endclass
 
     // ***********************************************
+    // ************** Random Test Class **************
+    // ***********************************************
+
+    // Random test class for general test scenarios
+    class RandomTest extends Base;
+
+        // Execute random test sequence
+        task execute();
+            automatic int generation_count = 0;
+            $display("\nstarting randomization");
+            for(integer i = 0; i < MAX_ITERATION; i++) begin
+                generation_count++;
+                if (!randomize()) begin
+                    $display("%m: randomization failed");
+                end else begin
+                    update_interface();
+                    @(posedge(synchro));
+                end
+            end
+            $display("nb iterations: %d", generation_count);
+            $display("randomization finished\n");
+        endtask
+    endclass
+
+    // ***********************************************
+    // ********** Random Test Class Extended *********
+    // ***********************************************
+
+    // Test class for mode 00
+    class Mode00 extends RandomTest;
+        constraint c {
+            com == 2'b00;
+        }
+    endclass
+
+    // Test class for mode 01
+    class Mode01 extends RandomTest;
+        constraint c {
+            com == 2'b01;
+        }
+    endclass
+    
+    // Test class for mode 10
+    class Mode10 extends RandomTest;
+        constraint c {
+            com == 2'b10;
+        }
+    endclass
+
+    // Test class for mode 11
+    class Mode11 extends RandomTest;
+        constraint c {
+            com == 2'b11;
+        }
+    endclass
+
+    // Test class when value is below minimum
+    class ValueBelowMin extends RandomTest;
+        constraint c {
+            value < min;
+        }
+    endclass
+
+    // Test class when value is above maximum
+    class ValueAboveMax extends RandomTest;
+        constraint c {
+            value > max;
+        }
+    endclass
+    
+    // Test class when value equals min
+    class ValueEqualsMin extends RandomTest;
+        constraint c {
+            value == min;
+        }
+    endclass
+
+    // Test class when value equals max
+    class ValueEqualsMax extends RandomTest;
+        constraint c {
+            value == max;
+        }
+    endclass
+
+    // Test class when value equals upper limit
+    class ValueEqualsUpperLimit extends RandomTest;
+        constraint c {
+            value == 2**VALSIZE - 1;
+        }
+    endclass
+
+    // ***********************************************
     // **************** Task scenarios ***************
     // ***********************************************
 
     // Individual test tasks for different scenarios
+    task test_coverage();
+        automatic CoverageTest ct = new();
+        ct.execute();
+    endtask
+
     task test_mode_00();
         automatic Mode00 rt = new();
         rt.execute();
@@ -330,11 +339,6 @@ module min_max_top_tb#(int VALSIZE, int TESTCASE, int ERRNO);
         rt.execute();
     endtask
 
-    task test_coverage();
-        automatic CoverageTest ct = new();
-        ct.execute();
-    endtask
-
     // ***********************************************
     // ****************** Program ********************
     // ***********************************************
@@ -342,16 +346,16 @@ module min_max_top_tb#(int VALSIZE, int TESTCASE, int ERRNO);
     // Test selection and execution
     task select_test(int TESTCASE);
         case(TESTCASE)
-            1: test_mode_00();                     // Test normal mode
-            2: test_mode_01();                     // Test linear mode
-            3: test_mode_10();                     // Test all OFF mode
-            4: test_mode_11();                     // Test all ON mode
-            5: test_value_below_min();             // Test value below min
-            6: test_value_above_max();             // Test value above max
-            7: test_value_equals_min();            // Test value equals min
-            8: test_value_equals_max();            // Test value equals max
-            9: test_value_equals_upper_limit();    // Test value equals upper limit
-            10: test_coverage();                   // Test coverage
+            1: test_coverage();                    // Test coverage
+            2: test_mode_00();                     // Test normal mode
+            3: test_mode_01();                     // Test linear mode
+            4: test_mode_10();                     // Test all OFF mode
+            5: test_mode_11();                     // Test all ON mode
+            6: test_value_below_min();             // Test value below min
+            7: test_value_above_max();             // Test value above max
+            8: test_value_equals_min();            // Test value equals min
+            9: test_value_equals_max();            // Test value equals max
+            10: test_value_equals_upper_limit();   // Test value equals upper limit
             default: begin
                 $display("Invalid TESTCASE: %d", TESTCASE);
                 $finish;

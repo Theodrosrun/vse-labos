@@ -82,15 +82,14 @@ module min_max_top_tb#(int VALSIZE, int TESTCASE, int ERRNO);
     // ******************* Params ********************
     // ***********************************************
 
-    int NB_TESTCASE = 10;   // Total number of test cases
+    int NB_TESTCASE = 9;   // Total number of test cases
 
     // ***********************************************
-    // ************* Coverage Test Class *************
+    // **************** Coverage Class ***************
     // ***********************************************
 
-    // Coverage test class for functional coverage analysis
-    class CoverageTest;
-
+    // Coverage class for functional coverage analysis
+    class Coverage;
         // Random variables for stimulus generation
         rand input_t min;
         rand input_t max;
@@ -113,31 +112,12 @@ module min_max_top_tb#(int VALSIZE, int TESTCASE, int ERRNO);
 
             // Coverage for minimum value
             cov_min: coverpoint min {
-                bins min    = {0};
-                bins middle = {(2**(VALSIZE-1))};
-                bins max    = {2**VALSIZE-1};
-                bins values[VALSIZE] = {[1:2**VALSIZE-2]};
+                bins values[VALSIZE] = {[0:2**VALSIZE-1]};
             }
 
             // Coverage for maximum value
             cov_max: coverpoint max { 
-                bins min    = {0};
-                bins middle = {(2**(VALSIZE-1))};
-                bins max    = {2**VALSIZE-1};
-                bins values[VALSIZE] = {[1:2**VALSIZE-2]};
-            }
-
-            // Coverage for input value
-            cov_value: coverpoint value {
-                bins min    = {0};
-                bins middle = {(2**(VALSIZE-1))};
-                bins max    = {2**VALSIZE-1};
-                bins values[VALSIZE] = {[1:2**VALSIZE-2]};
-            }
-
-            // Coverage for command modes
-            cov_com: coverpoint com { 
-                bins values[] = {0, 1, 2, 3};
+                bins values[VALSIZE] = {[0:2**VALSIZE-1]};
             }
         endgroup
 
@@ -145,159 +125,153 @@ module min_max_top_tb#(int VALSIZE, int TESTCASE, int ERRNO);
         function new();
             cg = new();
         endfunction
-
-        // Execute coverage-driven test
-        task execute();
-            automatic int generation_count = 0;
-            $display("\nstarting coverage");
-            while (cg.get_inst_coverage() < 80) begin
-                generation_count++;
-                if (!randomize()) begin
-                    $display("%m: randomization failed");
-                end else begin
-                    input_itf.min   = this.min;
-                    input_itf.max   = this.max;
-                    input_itf.value = this.value;
-                    input_itf.com   = this.com;
-                    input_itf.osci  = this.osci;
-
-                    // Update osci twice otherwise validation is incomplete
-                    @(posedge(synchro));
-                    input_itf.osci = ~this.osci;
-
-                    @(posedge(synchro));
-                    input_itf.osci = ~this.osci;
-
-                    @(posedge(synchro));
-                    cg.sample();
-                end
-            end
-            $display("nb iterations: %d", generation_count);
-            $display("coverage rate: %0.2f%%", cg.get_inst_coverage());
-            $display("coveraged finished\n");
-        endtask
     endclass
 
-    // ***********************************************
-    // ********** Random Test Class Extended *********
-    // ***********************************************
-
-    // Test class for mode 00
-    class Mode00 extends CoverageTest;
+    // Coverage class for mode 00
+    class Mode00 extends Coverage;
         constraint c {
             com == 2'b00;
         }
     endclass
 
-    // Test class for mode 01
-    class Mode01 extends CoverageTest;
+    // Coverage class for mode 01
+    class Mode01 extends Coverage;
         constraint c {
             com == 2'b01;
         }
     endclass
     
-    // Test class for mode 10
-    class Mode10 extends CoverageTest;
+    // Coverage class for mode 10
+    class Mode10 extends Coverage;
         constraint c {
             com == 2'b10;
         }
     endclass
 
-    // Test class for mode 11
-    class Mode11 extends CoverageTest;
+    // Coverage class for mode 11
+    class Mode11 extends Coverage;
         constraint c {
             com == 2'b11;
         }
     endclass
 
-    // Test class when value is below minimum
-    class ValueBelowMin extends CoverageTest;
+    // Coverage class when value is below minimum
+    class ValueBelowMin extends Coverage;
         constraint c {
             value < min;
         }
     endclass
 
-    // Test class when value is above maximum
-    class ValueAboveMax extends CoverageTest;
+    // Coverage class when value is above maximum
+    class ValueAboveMax extends Coverage;
         constraint c {
             value > max;
         }
     endclass
     
-    // Test class when value equals min
-    class ValueEqualsMin extends CoverageTest;
+    // Coverage class when value equals min
+    class ValueEqualsMin extends Coverage;
         constraint c {
             value == min;
         }
     endclass
 
-    // Test class when value equals max
-    class ValueEqualsMax extends CoverageTest;
+    // Coverage class when value equals max
+    class ValueEqualsMax extends Coverage;
         constraint c {
             value == max;
         }
     endclass
 
-    // Test class when value equals upper limit
-    class ValueEqualsUpperLimit extends CoverageTest;
+    // Coverage class when value equals upper limit
+    class ValueEqualsUpperLimit extends Coverage;
         constraint c {
             value == 2**VALSIZE - 1;
         }
     endclass
 
     // ***********************************************
+    // **************** Task function ****************
+    // ***********************************************
+
+    // Execute coverage-driven test
+    task Execute(Coverage coverage);
+        automatic int generation_count = 0;
+        $display("\nstarting coverage");
+        while (coverage.cg.get_inst_coverage() < 100) begin
+            generation_count++;
+            if (!coverage.randomize()) begin
+                $display("%m: randomization failed");
+            end else begin
+                input_itf.min   = coverage.min;
+                input_itf.max   = coverage.max;
+                input_itf.value = coverage.value;
+                input_itf.com   = coverage.com;
+                input_itf.osci  = coverage.osci;
+
+                // Update osci twice otherwise validation is incomplete
+                @(posedge(synchro));
+                input_itf.osci = ~coverage.osci;
+
+                @(posedge(synchro));
+                input_itf.osci = ~coverage.osci;
+
+                @(posedge(synchro));
+                coverage.cg.sample();
+            end
+        end
+        $display("nb iterations: %d", generation_count);
+        $display("coverage rate: %0.2f%%", coverage.cg.get_inst_coverage());
+        $display("coveraged finished\n");
+    endtask
+
+    // ***********************************************
     // **************** Task scenarios ***************
     // ***********************************************
 
-    // Individual test tasks for different scenarios
-    task test_coverage();
-        automatic CoverageTest ct = new();
-        ct.execute();
-    endtask
-
     task test_mode_00();
         automatic Mode00 rt = new();
-        rt.execute();
+        Execute(rt);
     endtask
 
     task test_mode_01();
         automatic Mode01 rt = new();
-        rt.execute();
+        Execute(rt);
     endtask
 
     task test_mode_10();
         automatic Mode10 rt = new();
-        rt.execute();
+        Execute(rt);
     endtask
 
     task test_mode_11();
         automatic Mode11 rt = new();
-        rt.execute();
+        Execute(rt);
     endtask
 
     task test_value_below_min();
         automatic ValueBelowMin rt = new();
-        rt.execute();
+        Execute(rt);
     endtask
 
     task test_value_above_max();
         automatic ValueAboveMax rt = new();
-        rt.execute();
+        Execute(rt);
     endtask
 
     task test_value_equals_min();
         automatic ValueEqualsMin rt = new();
-        rt.execute();
+        Execute(rt);
     endtask
 
     task test_value_equals_max();
         automatic ValueEqualsMax rt = new();
-        rt.execute();
+        Execute(rt);
     endtask
 
     task test_value_equals_upper_limit();
         automatic ValueEqualsUpperLimit rt = new();
-        rt.execute();
+        Execute(rt);
     endtask
 
     // ***********************************************
@@ -307,16 +281,15 @@ module min_max_top_tb#(int VALSIZE, int TESTCASE, int ERRNO);
     // Test selection and execution
     task select_test(int TESTCASE);
         case(TESTCASE)
-            1: test_coverage();                    // Test coverage
-            2: test_mode_00();                     // Test normal mode
-            3: test_mode_01();                     // Test linear mode
-            4: test_mode_10();                     // Test all OFF mode
-            5: test_mode_11();                     // Test all ON mode
-            6: test_value_below_min();             // Test value below min
-            7: test_value_above_max();             // Test value above max
-            8: test_value_equals_min();            // Test value equals min
-            9: test_value_equals_max();            // Test value equals max
-            10: test_value_equals_upper_limit();   // Test value equals upper limit
+            1: test_mode_00();                     // Test normal mode
+            2: test_mode_01();                     // Test linear mode
+            3: test_mode_10();                     // Test all OFF mode
+            4: test_mode_11();                     // Test all ON mode
+            5: test_value_below_min();             // Test value below min
+            6: test_value_above_max();             // Test value above max
+            7: test_value_equals_min();            // Test value equals min
+            8: test_value_equals_max();            // Test value equals max
+            9: test_value_equals_upper_limit();   // Test value equals upper limit
             default: begin
                 $display("Invalid TESTCASE: %d", TESTCASE);
                 $finish;

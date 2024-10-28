@@ -107,6 +107,7 @@ module min_max_top_tb#(int VALSIZE, int TESTCASE, int ERRNO);
             solve min before max;
         }
 
+        // Covergroup
         covergroup cg;
             option.get_inst_coverage = 1;
 

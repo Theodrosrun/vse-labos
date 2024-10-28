@@ -82,7 +82,7 @@ module min_max_top_tb#(int VALSIZE, int TESTCASE, int ERRNO);
     // ******************* Params ********************
     // ***********************************************
 
-    int NB_TESTCASE   = 10;   // Total number of test cases
+    int NB_TESTCASE = 10;   // Total number of test cases
 
     // ***********************************************
     // ************* Coverage Test Class *************

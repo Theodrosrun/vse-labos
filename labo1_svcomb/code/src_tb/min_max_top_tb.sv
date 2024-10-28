@@ -195,7 +195,7 @@ module min_max_top_tb#(int VALSIZE, int TESTCASE, int ERRNO);
     // **************** Task function ****************
     // ***********************************************
 
-    // Execute coverage-driven test
+    // Execute coverage-driven test function
     task Execute(Coverage coverage);
         automatic int generation_count = 0;
         $display("\nstarting coverage");

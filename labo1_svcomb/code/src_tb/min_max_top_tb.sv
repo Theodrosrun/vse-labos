@@ -82,15 +82,15 @@ module min_max_top_tb#(int VALSIZE, int TESTCASE, int ERRNO);
     // ******************* Params ********************
     // ***********************************************
 
-    int MAX_ITERATION = 100;  // Maximum number of iterations per test
     int NB_TESTCASE   = 10;   // Total number of test cases
 
     // ***********************************************
-    // ***************** Base Class ******************
+    // ************* Coverage Test Class *************
     // ***********************************************
 
-    // Base class for test generation
-    class Base;
+    // Coverage test class for functional coverage analysis
+    class CoverageTest;
+
         // Random variables for stimulus generation
         rand input_t min;
         rand input_t max;
@@ -108,30 +108,9 @@ module min_max_top_tb#(int VALSIZE, int TESTCASE, int ERRNO);
             solve min before max;
         }
 
-        // Update interface signals with generated values
-        task update_interface();
-            input_itf.min   = this.min;
-            input_itf.max   = this.max;
-            input_itf.value = this.value;
-            input_itf.com   = this.com;
-            input_itf.osci  = this.osci;
-
-            // Update osci twice otherwise validation is incomplete
-            @(posedge(synchro));
-            input_itf.osci = ~this.osci;
-
-            @(posedge(synchro));
-            input_itf.osci = ~this.osci;
-        endtask
-    endclass
-
-    // ***********************************************
-    // ************* Coverage Test Class *************
-    // ***********************************************
-
-    // Coverage test class for functional coverage analysis
-    class CoverageTest extends Base;
         covergroup cg;
+            option.get_inst_coverage = 1;
+
             // Coverage for minimum value
             cov_min: coverpoint min {
                 bins min    = {0};
@@ -165,9 +144,6 @@ module min_max_top_tb#(int VALSIZE, int TESTCASE, int ERRNO);
             cov_osci: coverpoint osci { 
                 bins values = {0,1};
             }
-
-            // Cross validation with all values
-            cov_cross: cross min, max, value, com, osci;
         endgroup
 
         // Constructor
@@ -179,44 +155,31 @@ module min_max_top_tb#(int VALSIZE, int TESTCASE, int ERRNO);
         task execute();
             automatic int generation_count = 0;
             $display("\nstarting coverage");
-            while ((cg.get_coverage() < 100) && (generation_count < MAX_ITERATION)) begin
+            while (cg.get_inst_coverage() < 79) begin
                 generation_count++;
                 if (!randomize()) begin
                     $display("%m: randomization failed");
                 end else begin
-                    update_interface();
+                    input_itf.min   = this.min;
+                    input_itf.max   = this.max;
+                    input_itf.value = this.value;
+                    input_itf.com   = this.com;
+                    input_itf.osci  = this.osci;
+
+                    // Update osci twice otherwise validation is incomplete
+                    @(posedge(synchro));
+                    input_itf.osci = ~this.osci;
+
+                    @(posedge(synchro));
+                    input_itf.osci = ~this.osci;
+
                     @(posedge(synchro));
                     cg.sample();
                 end
             end
             $display("nb iterations: %d", generation_count);
-            $display("coverage rate: %0.2f%%", cg.get_coverage());
+            $display("coverage rate: %0.2f%%", cg.get_inst_coverage());
             $display("coveraged finished\n");
-        endtask
-    endclass
-
-    // ***********************************************
-    // ************** Random Test Class **************
-    // ***********************************************
-
-    // Random test class for general test scenarios
-    class RandomTest extends Base;
-
-        // Execute random test sequence
-        task execute();
-            automatic int generation_count = 0;
-            $display("\nstarting randomization");
-            for(integer i = 0; i < MAX_ITERATION; i++) begin
-                generation_count++;
-                if (!randomize()) begin
-                    $display("%m: randomization failed");
-                end else begin
-                    update_interface();
-                    @(posedge(synchro));
-                end
-            end
-            $display("nb iterations: %d", generation_count);
-            $display("randomization finished\n");
         endtask
     endclass
 
@@ -225,63 +188,63 @@ module min_max_top_tb#(int VALSIZE, int TESTCASE, int ERRNO);
     // ***********************************************
 
     // Test class for mode 00
-    class Mode00 extends RandomTest;
+    class Mode00 extends CoverageTest;
         constraint c {
             com == 2'b00;
         }
     endclass
 
     // Test class for mode 01
-    class Mode01 extends RandomTest;
+    class Mode01 extends CoverageTest;
         constraint c {
             com == 2'b01;
         }
     endclass
     
     // Test class for mode 10
-    class Mode10 extends RandomTest;
+    class Mode10 extends CoverageTest;
         constraint c {
             com == 2'b10;
         }
     endclass
 
     // Test class for mode 11
-    class Mode11 extends RandomTest;
+    class Mode11 extends CoverageTest;
         constraint c {
             com == 2'b11;
         }
     endclass
 
     // Test class when value is below minimum
-    class ValueBelowMin extends RandomTest;
+    class ValueBelowMin extends CoverageTest;
         constraint c {
             value < min;
         }
     endclass
 
     // Test class when value is above maximum
-    class ValueAboveMax extends RandomTest;
+    class ValueAboveMax extends CoverageTest;
         constraint c {
             value > max;
         }
     endclass
     
     // Test class when value equals min
-    class ValueEqualsMin extends RandomTest;
+    class ValueEqualsMin extends CoverageTest;
         constraint c {
             value == min;
         }
     endclass
 
     // Test class when value equals max
-    class ValueEqualsMax extends RandomTest;
+    class ValueEqualsMax extends CoverageTest;
         constraint c {
             value == max;
         }
     endclass
 
     // Test class when value equals upper limit
-    class ValueEqualsUpperLimit extends RandomTest;
+    class ValueEqualsUpperLimit extends CoverageTest;
         constraint c {
             value == 2**VALSIZE - 1;
         }

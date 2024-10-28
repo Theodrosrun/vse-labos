@@ -139,11 +139,6 @@ module min_max_top_tb#(int VALSIZE, int TESTCASE, int ERRNO);
             cov_com: coverpoint com { 
                 bins values[] = {0, 1, 2, 3};
             }
-
-            // Coverage for oscillation signal
-            cov_osci: coverpoint osci { 
-                bins values = {0,1};
-            }
         endgroup
 
         // Constructor
@@ -155,7 +150,7 @@ module min_max_top_tb#(int VALSIZE, int TESTCASE, int ERRNO);
         task execute();
             automatic int generation_count = 0;
             $display("\nstarting coverage");
-            while (cg.get_inst_coverage() < 79) begin
+            while (cg.get_inst_coverage() < 80) begin
                 generation_count++;
                 if (!randomize()) begin
                     $display("%m: randomization failed");

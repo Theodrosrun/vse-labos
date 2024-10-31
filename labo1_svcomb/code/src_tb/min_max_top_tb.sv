@@ -331,12 +331,27 @@ module min_max_top_tb#(int VALSIZE, int TESTCASE, int ERRNO);
 
             // Coverage for minimum value
             cov_min: coverpoint min {
+                bins middle = {2**(VALSIZE-1)};
                 bins values[VALSIZE] = {[0:2**VALSIZE-1]};
             }
 
             // Coverage for maximum value
             cov_max: coverpoint max { 
+                bins middle = {2**(VALSIZE-1)};
+                bins max = {2**VALSIZE-1};
                 bins values[VALSIZE] = {[0:2**VALSIZE-1]};
+            }
+
+            // Coverage for value
+            cov_value: coverpoint value {
+                bins min = {0};
+                bins middle = {2**(VALSIZE-1)};
+                bins values[VALSIZE] = {[0:2**VALSIZE-1]};
+            }
+
+            // Coverage for com
+            cov_com: coverpoint com {
+                bins values[] = {0, 1, 2, 3};
             }
         endgroup
 

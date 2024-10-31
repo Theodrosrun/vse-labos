@@ -677,7 +677,7 @@ module min_max_top_tb#(int VALSIZE, int TESTCASE, int ERRNO);
             6: test_value_above_max();             // Test value above max
             7: test_value_equals_min();            // Test value equals min
             8: test_value_equals_max();            // Test value equals max
-            9: test_value_equals_upper_limit();   // Test value equals upper limit
+            9: test_value_equals_upper_limit();    // Test value equals upper limit
             default: begin
                 $display("Invalid TESTCASE: %d", TESTCASE);
                 $finish;

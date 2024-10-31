@@ -110,6 +110,7 @@ module min_max_top_tb#(int VALSIZE, int TESTCASE, int ERRNO);
         // Covergroup
         covergroup cg;
             option.get_inst_coverage = 1;
+            option.at_least = 1000;
 
             // Coverage for minimum value
             cov_min: coverpoint min {

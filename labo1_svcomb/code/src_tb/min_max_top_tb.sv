@@ -238,8 +238,8 @@ module min_max_top_tb#(int VALSIZE, int TESTCASE, int ERRNO);
 
             // Coverage for maximum value
             cov_max: coverpoint max { 
-                bins max = {2**VALSIZE-1};
                 bins middle = {2**(VALSIZE-1)};
+                bins max = {2**VALSIZE-1};
                 bins values[VALSIZE] = {[0:2**VALSIZE-1]};
             }
 
@@ -288,8 +288,8 @@ module min_max_top_tb#(int VALSIZE, int TESTCASE, int ERRNO);
 
             // Coverage for maximum value
             cov_max: coverpoint max { 
-                bins max = {2**VALSIZE-1};
                 bins middle = {2**(VALSIZE-1)};
+                bins max = {2**VALSIZE-1};
                 bins values[VALSIZE] = {[0:2**VALSIZE-1]};
             }
 
@@ -363,7 +363,7 @@ module min_max_top_tb#(int VALSIZE, int TESTCASE, int ERRNO);
             value > max;
         }
 
-        // Covergroup
+         // Covergroup
         covergroup cg;
             option.at_least = AT_LEAST;
 
@@ -377,7 +377,6 @@ module min_max_top_tb#(int VALSIZE, int TESTCASE, int ERRNO);
                 bins values[VALSIZE] = {[0:2**VALSIZE-1]};
             }
         endgroup
-
         // Get covergroup coverage 
         virtual function integer get_coverage();
             return cg.get_coverage();
@@ -439,7 +438,7 @@ module min_max_top_tb#(int VALSIZE, int TESTCASE, int ERRNO);
             value == max;
         }
 
-        // Covergroup
+         // Covergroup
         covergroup cg;
             option.at_least = AT_LEAST;
 

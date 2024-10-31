@@ -83,6 +83,7 @@ module min_max_top_tb#(int VALSIZE, int TESTCASE, int ERRNO);
     // ***********************************************
 
     int NB_TESTCASE = 9;   // Total number of test cases
+    int AT_LEAST    = 10; // At least number of bins check
 
     // ***********************************************
     // **************** Coverage Class ***************
@@ -107,10 +108,72 @@ module min_max_top_tb#(int VALSIZE, int TESTCASE, int ERRNO);
             solve min before max;
         }
 
-        // Covergroup
+        // Get covergroup coverage 
+        virtual function integer get_coverage();
+        endfunction
+
+        // Sample covergroup
+        virtual function void sample();
+        endfunction
+
+    endclass
+
+    // Coverage class for mode 00
+    class Mode00 extends Coverage;
+        // Constraint
+        constraint c {
+            com == 2'b00;
+        }
+
+         // Covergroup
         covergroup cg;
-            option.get_inst_coverage = 1;
-            option.at_least = 1000;
+            option.at_least = AT_LEAST;
+
+            // Coverage for minimum value
+            cov_min: coverpoint min {
+                bins mins = {0};
+                bins maxs = {2**VALSIZE-1};
+            }
+
+            // Coverage for maximum value
+            cov_max: coverpoint max { 
+                bins mins = {0};
+                bins maxs = {2**VALSIZE-1};
+            }
+
+            // Coverage for value
+            cov_value: coverpoint value {
+                bins mins = {0};
+                bins maxs = {2**VALSIZE-1};
+            }
+        endgroup
+
+        // Get covergroup coverage 
+        virtual function integer get_coverage();
+            return cg.get_coverage();
+        endfunction
+
+        // Sample covergroup
+        virtual function void sample();
+            cg.sample();
+        endfunction
+
+        // Constructor
+        function new();
+            cg = new();
+        endfunction
+    endclass
+
+    // Coverage class for mode 01
+    class Mode01 extends Coverage;
+        // Constraint
+        constraint c {
+            com == 2'b01;
+        }
+
+         // Covergroup
+        covergroup cg;
+            option.at_least = AT_LEAST;
 
             // Coverage for minimum value
             cov_min: coverpoint min {
@@ -123,73 +186,286 @@ module min_max_top_tb#(int VALSIZE, int TESTCASE, int ERRNO);
             }
         endgroup
 
+        // Get covergroup coverage 
+        virtual function integer get_coverage();
+            return cg.get_coverage();
+        endfunction
+
+        // Sample covergroup
+        virtual function void sample();
+            cg.sample();
+        endfunction
+
+        // Constructor
+        function new();
+            cg = new();
+        endfunction
+    endclass
+    
+    // Coverage class for mode 10
+    class Mode10 extends Coverage;
+        // Constraint
+        constraint c {
+            com == 2'b10;
+        }
+
+         // Covergroup
+        covergroup cg;
+            option.at_least = AT_LEAST;
+
+            // Coverage for minimum value
+            cov_min: coverpoint min {
+                bins values[VALSIZE] = {[0:2**VALSIZE-1]};
+            }
+
+            // Coverage for maximum value
+            cov_max: coverpoint max { 
+                bins values[VALSIZE] = {[0:2**VALSIZE-1]};
+            }
+        endgroup
+
+        // Get covergroup coverage 
+        virtual function integer get_coverage();
+            return cg.get_coverage();
+        endfunction
+
+        // Sample covergroup
+        virtual function void sample();
+            cg.sample();
+        endfunction
+
         // Constructor
         function new();
             cg = new();
         endfunction
     endclass
 
-    // Coverage class for mode 00
-    class Mode00 extends Coverage;
-        constraint c {
-            com == 2'b00;
-        }
-    endclass
-
-    // Coverage class for mode 01
-    class Mode01 extends Coverage;
-        constraint c {
-            com == 2'b01;
-        }
-    endclass
-    
-    // Coverage class for mode 10
-    class Mode10 extends Coverage;
-        constraint c {
-            com == 2'b10;
-        }
-    endclass
-
     // Coverage class for mode 11
     class Mode11 extends Coverage;
+        // Constraint
         constraint c {
             com == 2'b11;
         }
+
+         // Covergroup
+        covergroup cg;
+            option.at_least = AT_LEAST;
+
+            // Coverage for minimum value
+            cov_min: coverpoint min {
+                bins values[VALSIZE] = {[0:2**VALSIZE-1]};
+            }
+
+            // Coverage for maximum value
+            cov_max: coverpoint max { 
+                bins values[VALSIZE] = {[0:2**VALSIZE-1]};
+            }
+        endgroup
+
+        // Get covergroup coverage 
+        virtual function integer get_coverage();
+            return cg.get_coverage();
+        endfunction
+
+        // Sample covergroup
+        virtual function void sample();
+            cg.sample();
+        endfunction
+
+        // Constructor
+        function new();
+            cg = new();
+        endfunction
     endclass
 
     // Coverage class when value is below minimum
     class ValueBelowMin extends Coverage;
+        // Constraint
         constraint c {
             value < min;
         }
+
+         // Covergroup
+        covergroup cg;
+            option.at_least = AT_LEAST;
+
+            // Coverage for minimum value
+            cov_min: coverpoint min {
+                bins values[VALSIZE] = {[0:2**VALSIZE-1]};
+            }
+
+            // Coverage for maximum value
+            cov_max: coverpoint max { 
+                bins values[VALSIZE] = {[0:2**VALSIZE-1]};
+            }
+        endgroup
+
+        // Get covergroup coverage 
+        virtual function integer get_coverage();
+            return cg.get_coverage();
+        endfunction
+
+        // Sample covergroup
+        virtual function void sample();
+            cg.sample();
+        endfunction
+
+        // Constructor
+        function new();
+            cg = new();
+        endfunction
     endclass
 
     // Coverage class when value is above maximum
     class ValueAboveMax extends Coverage;
+        // Constraint
         constraint c {
             value > max;
         }
+
+        // Covergroup
+        covergroup cg;
+            option.at_least = AT_LEAST;
+
+            // Coverage for minimum value
+            cov_min: coverpoint min {
+                bins values[VALSIZE] = {[0:2**VALSIZE-1]};
+            }
+
+            // Coverage for maximum value
+            cov_max: coverpoint max { 
+                bins values[VALSIZE] = {[0:2**VALSIZE-1]};
+            }
+        endgroup
+
+        // Get covergroup coverage 
+        virtual function integer get_coverage();
+            return cg.get_coverage();
+        endfunction
+
+        // Sample covergroup
+        virtual function void sample();
+            cg.sample();
+        endfunction
+
+        // Constructor
+        function new();
+            cg = new();
+        endfunction
     endclass
     
     // Coverage class when value equals min
     class ValueEqualsMin extends Coverage;
+        // Constraint
         constraint c {
             value == min;
         }
+
+         // Covergroup
+        covergroup cg;
+            option.at_least = AT_LEAST;
+
+            // Coverage for minimum value
+            cov_min: coverpoint min {
+                bins values[VALSIZE] = {[0:2**VALSIZE-1]};
+            }
+
+            // Coverage for maximum value
+            cov_max: coverpoint max { 
+                bins values[VALSIZE] = {[0:2**VALSIZE-1]};
+            }
+        endgroup
+
+        // Get covergroup coverage 
+        virtual function integer get_coverage();
+            return cg.get_coverage();
+        endfunction
+
+        // Sample covergroup
+        virtual function void sample();
+            cg.sample();
+        endfunction
+
+        // Constructor
+        function new();
+            cg = new();
+        endfunction
     endclass
 
     // Coverage class when value equals max
     class ValueEqualsMax extends Coverage;
+        // Constraint
         constraint c {
             value == max;
         }
+
+        // Covergroup
+        covergroup cg;
+            option.at_least = AT_LEAST;
+
+            // Coverage for minimum value
+            cov_min: coverpoint min {
+                bins values[VALSIZE] = {[0:2**VALSIZE-1]};
+            }
+
+            // Coverage for maximum value
+            cov_max: coverpoint max { 
+                bins values[VALSIZE] = {[0:2**VALSIZE-1]};
+            }
+        endgroup
+
+        // Get covergroup coverage 
+        virtual function integer get_coverage();
+            return cg.get_coverage();
+        endfunction
+
+        // Sample covergroup
+        virtual function void sample();
+            cg.sample();
+        endfunction
+
+        // Constructor
+        function new();
+            cg = new();
+        endfunction
     endclass
 
     // Coverage class when value equals upper limit
     class ValueEqualsUpperLimit extends Coverage;
+        // Constraint
         constraint c {
             value == 2**VALSIZE - 1;
         }
+
+         // Covergroup
+        covergroup cg;
+            option.at_least = AT_LEAST;
+
+            // Coverage for minimum value
+            cov_min: coverpoint min {
+                bins values[VALSIZE] = {[0:2**VALSIZE-1]};
+            }
+
+            // Coverage for maximum value
+            cov_max: coverpoint max { 
+                bins values[VALSIZE] = {[0:2**VALSIZE-1]};
+            }
+        endgroup
+
+        // Get covergroup coverage 
+        virtual function integer get_coverage();
+            return cg.get_coverage();
+        endfunction
+
+        // Sample covergroup
+        virtual function void sample();
+            cg.sample();
+        endfunction
+
+        // Constructor
+        function new();
+            cg = new();
+        endfunction
     endclass
 
     // ***********************************************
@@ -200,7 +476,7 @@ module min_max_top_tb#(int VALSIZE, int TESTCASE, int ERRNO);
     task Execute(Coverage coverage);
         automatic int generation_count = 0;
         $display("\nstarting coverage");
-        while (coverage.cg.get_inst_coverage() < 100) begin
+        while (coverage.get_coverage() < 100) begin
             generation_count++;
             if (!coverage.randomize()) begin
                 $display("%m: randomization failed");
@@ -219,11 +495,11 @@ module min_max_top_tb#(int VALSIZE, int TESTCASE, int ERRNO);
                 input_itf.osci = ~coverage.osci;
 
                 @(posedge(synchro));
-                coverage.cg.sample();
+                coverage.sample();
             end
         end
         $display("nb iterations: %d", generation_count);
-        $display("coverage rate: %0.2f%%", coverage.cg.get_inst_coverage());
+        $display("coverage rate: %0.2f%%", coverage.get_coverage());
         $display("coveraged finished\n");
     endtask
 

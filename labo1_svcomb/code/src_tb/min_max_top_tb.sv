@@ -83,7 +83,7 @@ module min_max_top_tb#(int VALSIZE, int TESTCASE, int ERRNO);
     // ***********************************************
 
     int NB_TESTCASE = 9;   // Total number of test cases
-    int AT_LEAST    = 10; // At least number of bins check
+    int AT_LEAST    = 100; // At least number of bins check
 
     // ***********************************************
     // **************** Coverage Class ***************
@@ -131,20 +131,24 @@ module min_max_top_tb#(int VALSIZE, int TESTCASE, int ERRNO);
 
             // Coverage for minimum value
             cov_min: coverpoint min {
-                bins mins = {0};
-                bins maxs = {2**VALSIZE-1};
+                bins min = {0};
+                bins middle = {2**(VALSIZE-1)};
+                bins values[VALSIZE] = {[0:2**VALSIZE-1]};
             }
 
             // Coverage for maximum value
             cov_max: coverpoint max { 
-                bins mins = {0};
-                bins maxs = {2**VALSIZE-1};
+                bins max = {2**VALSIZE-1};
+                bins middle = {2**(VALSIZE-1)};
+                bins values[VALSIZE] = {[0:2**VALSIZE-1]};
             }
 
             // Coverage for value
             cov_value: coverpoint value {
-                bins mins = {0};
-                bins maxs = {2**VALSIZE-1};
+                bins min = {0};
+                bins middle = {2**(VALSIZE-1)};
+                bins max = {2**VALSIZE-1};
+                bins values[VALSIZE] = {[0:2**VALSIZE-1]};
             }
         endgroup
 
@@ -177,11 +181,23 @@ module min_max_top_tb#(int VALSIZE, int TESTCASE, int ERRNO);
 
             // Coverage for minimum value
             cov_min: coverpoint min {
+                bins min = {0};
+                bins middle = {2**(VALSIZE-1)};
                 bins values[VALSIZE] = {[0:2**VALSIZE-1]};
             }
 
             // Coverage for maximum value
             cov_max: coverpoint max { 
+                bins max = {2**VALSIZE-1};
+                bins middle = {2**(VALSIZE-1)};
+                bins values[VALSIZE] = {[0:2**VALSIZE-1]};
+            }
+
+            // Coverage for value
+            cov_value: coverpoint value {
+                bins min = {0};
+                bins middle = {2**(VALSIZE-1)};
+                bins max = {2**VALSIZE-1};
                 bins values[VALSIZE] = {[0:2**VALSIZE-1]};
             }
         endgroup
@@ -215,11 +231,23 @@ module min_max_top_tb#(int VALSIZE, int TESTCASE, int ERRNO);
 
             // Coverage for minimum value
             cov_min: coverpoint min {
+                bins min = {0};
+                bins middle = {2**(VALSIZE-1)};
                 bins values[VALSIZE] = {[0:2**VALSIZE-1]};
             }
 
             // Coverage for maximum value
             cov_max: coverpoint max { 
+                bins max = {2**VALSIZE-1};
+                bins middle = {2**(VALSIZE-1)};
+                bins values[VALSIZE] = {[0:2**VALSIZE-1]};
+            }
+
+            // Coverage for value
+            cov_value: coverpoint value {
+                bins min = {0};
+                bins middle = {2**(VALSIZE-1)};
+                bins max = {2**VALSIZE-1};
                 bins values[VALSIZE] = {[0:2**VALSIZE-1]};
             }
         endgroup
@@ -253,11 +281,23 @@ module min_max_top_tb#(int VALSIZE, int TESTCASE, int ERRNO);
 
             // Coverage for minimum value
             cov_min: coverpoint min {
+                bins min = {0};
+                bins middle = {2**(VALSIZE-1)};
                 bins values[VALSIZE] = {[0:2**VALSIZE-1]};
             }
 
             // Coverage for maximum value
             cov_max: coverpoint max { 
+                bins max = {2**VALSIZE-1};
+                bins middle = {2**(VALSIZE-1)};
+                bins values[VALSIZE] = {[0:2**VALSIZE-1]};
+            }
+
+            // Coverage for value
+            cov_value: coverpoint value {
+                bins min = {0};
+                bins middle = {2**(VALSIZE-1)};
+                bins max = {2**VALSIZE-1};
                 bins values[VALSIZE] = {[0:2**VALSIZE-1]};
             }
         endgroup

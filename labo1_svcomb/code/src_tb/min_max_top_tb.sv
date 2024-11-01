@@ -108,7 +108,7 @@ module min_max_top_tb#(int VALSIZE, int TESTCASE, int ERRNO);
             solve min before max;
         }
 
-         // Base covergroup that sub-class can redefined
+         // Base covergroup that sub-class can redefine
         covergroup cg;
             option.at_least = AT_LEAST;
             option.get_inst_coverage = 1;

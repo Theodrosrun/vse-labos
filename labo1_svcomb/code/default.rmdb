@@ -18,6 +18,26 @@
       <member>dirtest4_19_0</member>
       <member>dirtest4_20_0</member>
       <member>dirtest4_21_0</member>
+      <member>dirtest8_0_0</member>
+      <member>dirtest8_1_0</member>
+      <member>dirtest8_2_0</member>
+      <member>dirtest8_3_0</member>
+      <member>dirtest8_16_0</member>
+      <member>dirtest8_17_0</member>
+      <member>dirtest8_18_0</member>
+      <member>dirtest8_19_0</member>
+      <member>dirtest8_20_0</member>
+      <member>dirtest8_21_0</member>
+      <member>dirtest16_0_0</member>
+      <member>dirtest16_1_0</member>
+      <member>dirtest16_2_0</member>
+      <member>dirtest16_3_0</member>
+      <member>dirtest16_16_0</member>
+      <member>dirtest16_17_0</member>
+      <member>dirtest16_18_0</member>
+      <member>dirtest16_19_0</member>
+      <member>dirtest16_20_0</member>
+      <member>dirtest16_21_0</member>
     </members>
 
     <execScript>
@@ -45,6 +65,7 @@
       <command>coverage save (%ucdbfile%)</command>
     </execScript>
   </runnable>
+    <!-- valsize 4 -->
   <runnable name="dirtest4_0_0" type="task">
     <parameters>
       <parameter name="testcase">0</parameter>
@@ -115,5 +136,146 @@
       <parameter name="valsize">4</parameter>
     </parameters>
   </runnable>
-
+    <!-- valsize 8 -->
+  <runnable name="dirtest8_0_0" type="task">
+    <parameters>
+      <parameter name="testcase">0</parameter>
+      <parameter name="errno">0</parameter>
+      <parameter name="valsize">8</parameter>
+    </parameters>
+  </runnable>
+  <runnable name="dirtest8_1_0" type="task">
+    <parameters>
+      <parameter name="testcase">0</parameter>
+      <parameter name="errno">1</parameter>
+      <parameter name="valsize">8</parameter>
+    </parameters>
+  </runnable>
+  <runnable name="dirtest8_2_0" type="task">
+    <parameters>
+      <parameter name="testcase">0</parameter>
+      <parameter name="errno">2</parameter>
+      <parameter name="valsize">8</parameter>
+    </parameters>
+  </runnable>
+  <runnable name="dirtest8_3_0" type="task">
+    <parameters>
+      <parameter name="testcase">0</parameter>
+      <parameter name="errno">3</parameter>
+      <parameter name="valsize">8</parameter>
+    </parameters>
+  </runnable>
+  <runnable name="dirtest8_16_0" type="task">
+    <parameters>
+      <parameter name="testcase">0</parameter>
+      <parameter name="errno">16</parameter>
+      <parameter name="valsize">8</parameter>
+    </parameters>
+  </runnable>
+  <runnable name="dirtest8_17_0" type="task">
+    <parameters>
+      <parameter name="testcase">0</parameter>
+      <parameter name="errno">17</parameter>
+      <parameter name="valsize">8</parameter>
+    </parameters>
+  </runnable>
+  <runnable name="dirtest8_18_0" type="task">
+    <parameters>
+      <parameter name="testcase">0</parameter>
+      <parameter name="errno">18</parameter>
+      <parameter name="valsize">8</parameter>
+    </parameters>
+  </runnable>
+  <runnable name="dirtest8_19_0" type="task">
+    <parameters>
+      <parameter name="testcase">0</parameter>
+      <parameter name="errno">19</parameter>
+      <parameter name="valsize">8</parameter>
+    </parameters>
+  </runnable>
+  <runnable name="dirtest8_20_0" type="task">
+    <parameters>
+      <parameter name="testcase">0</parameter>
+      <parameter name="errno">20</parameter>
+      <parameter name="valsize">8</parameter>
+    </parameters>
+  </runnable>
+  <runnable name="dirtest8_21_0" type="task">
+    <parameters>
+      <parameter name="testcase">0</parameter>
+      <parameter name="errno">21</parameter>
+      <parameter name="valsize">8</parameter>
+    </parameters>
+  </runnable>
+    <!-- valsize 16 -->
+  <runnable name="dirtest16_0_0" type="task">
+    <parameters>
+      <parameter name="testcase">0</parameter>
+      <parameter name="errno">0</parameter>
+      <parameter name="valsize">16</parameter>
+    </parameters>
+  </runnable>
+  <runnable name="dirtest16_1_0" type="task">
+    <parameters>
+      <parameter name="testcase">0</parameter>
+      <parameter name="errno">1</parameter>
+      <parameter name="valsize">16</parameter>
+    </parameters>
+  </runnable>
+  <runnable name="dirtest16_2_0" type="task">
+    <parameters>
+      <parameter name="testcase">0</parameter>
+      <parameter name="errno">2</parameter>
+      <parameter name="valsize">16</parameter>
+    </parameters>
+  </runnable>
+  <runnable name="dirtest16_3_0" type="task">
+    <parameters>
+      <parameter name="testcase">0</parameter>
+      <parameter name="errno">3</parameter>
+      <parameter name="valsize">16</parameter>
+    </parameters>
+  </runnable>
+  <runnable name="dirtest16_16_0" type="task">
+    <parameters>
+      <parameter name="testcase">0</parameter>
+      <parameter name="errno">16</parameter>
+      <parameter name="valsize">16</parameter>
+    </parameters>
+  </runnable>
+  <runnable name="dirtest16_17_0" type="task">
+    <parameters>
+      <parameter name="testcase">0</parameter>
+      <parameter name="errno">17</parameter>
+      <parameter name="valsize">16</parameter>
+    </parameters>
+  </runnable>
+  <runnable name="dirtest16_18_0" type="task">
+    <parameters>
+      <parameter name="testcase">0</parameter>
+      <parameter name="errno">18</parameter>
+      <parameter name="valsize">16</parameter>
+    </parameters>
+  </runnable>
+  <runnable name="dirtest16_19_0" type="task">
+    <parameters>
+      <parameter name="testcase">0</parameter>
+      <parameter name="errno">19</parameter>
+      <parameter name="valsize">16</parameter>
+    </parameters>
+  </runnable>
+  <runnable name="dirtest16_20_0" type="task">
+    <parameters>
+      <parameter name="testcase">0</parameter>
+      <parameter name="errno">20</parameter>
+      <parameter name="valsize">16</parameter>
+    </parameters>
+  </runnable>
+  <runnable name="dirtest16_21_0" type="task">
+    <parameters>
+      <parameter name="testcase">0</parameter>
+      <parameter name="errno">21</parameter>
+      <parameter name="valsize">16</parameter>
+    </parameters>
+  </runnable>
 </rmdb>

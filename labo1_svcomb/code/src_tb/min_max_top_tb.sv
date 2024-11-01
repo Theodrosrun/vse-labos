@@ -122,6 +122,7 @@ module min_max_top_tb#(int VALSIZE, int TESTCASE, int ERRNO);
     class Mode00 extends Coverage;
         // Constraint
         constraint c {
+            // This will set mode to 00 and randomize all others
             com == 2'b00;
         }
 
@@ -172,6 +173,7 @@ module min_max_top_tb#(int VALSIZE, int TESTCASE, int ERRNO);
     class Mode01 extends Coverage;
         // Constraint
         constraint c {
+            // This will set mode to 01 and randomize all others
             com == 2'b01;
         }
 
@@ -222,6 +224,7 @@ module min_max_top_tb#(int VALSIZE, int TESTCASE, int ERRNO);
     class Mode10 extends Coverage;
         // Constraint
         constraint c {
+            // This will set mode to 10 and randomize all others
             com == 2'b10;
         }
 
@@ -272,6 +275,7 @@ module min_max_top_tb#(int VALSIZE, int TESTCASE, int ERRNO);
     class Mode11 extends Coverage;
         // Constraint
         constraint c {
+            // This will set mode to 11 and randomize all others
             com == 2'b11;
         }
 
@@ -322,6 +326,7 @@ module min_max_top_tb#(int VALSIZE, int TESTCASE, int ERRNO);
     class ValueBelowMin extends Coverage;
         // Constraint
         constraint c {
+            // This will set value < min and randomize all others
             value < min;
         }
 
@@ -375,6 +380,7 @@ module min_max_top_tb#(int VALSIZE, int TESTCASE, int ERRNO);
     class ValueAboveMax extends Coverage;
         // Constraint
         constraint c {
+            // This will set value > max and randomize all others
             value > max;
         }
 
@@ -427,6 +433,7 @@ module min_max_top_tb#(int VALSIZE, int TESTCASE, int ERRNO);
     class ValueEqualsMin extends Coverage;
         // Constraint
         constraint c {
+            // This will set value == min and randomize all others
             value == min;
         }
 
@@ -481,6 +488,7 @@ module min_max_top_tb#(int VALSIZE, int TESTCASE, int ERRNO);
     class ValueEqualsMax extends Coverage;
         // Constraint
         constraint c {
+            // This will set value == max and randomize all others
             value == max;
         }
 
@@ -535,6 +543,7 @@ module min_max_top_tb#(int VALSIZE, int TESTCASE, int ERRNO);
     class ValueEqualsUpperLimit extends Coverage;
         // Constraint
         constraint c {
+            // This will set value == 2**VALSIZE - 1 and randomize all others
             value == 2**VALSIZE - 1;
         }
 

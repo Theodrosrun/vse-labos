@@ -108,14 +108,48 @@ module min_max_top_tb#(int VALSIZE, int TESTCASE, int ERRNO);
             solve min before max;
         }
 
-        // Get covergroup coverage 
-        virtual function integer get_coverage();
+         // Base covergroup that sub-class can redefined
+        covergroup cg;
+            option.at_least = AT_LEAST;
+            option.get_inst_coverage = 1;
+
+            // Coverage for minimum value
+            cov_min: coverpoint min {
+                bins min    = {0};
+                bins middle = {2**(VALSIZE-1)};
+                bins values[VALSIZE] = {[0:2**VALSIZE-1]};
+            }
+
+            // Coverage for maximum value
+            cov_max: coverpoint max { 
+                bins max    = {2**VALSIZE-1};
+                bins middle = {2**(VALSIZE-1)};
+                bins values[VALSIZE] = {[0:2**VALSIZE-1]};
+            }
+
+            // Coverage for value
+            cov_value: coverpoint value {
+                bins min    = {0};
+                bins middle = {2**(VALSIZE-1)};
+                bins max    = {2**VALSIZE-1};
+                bins values[VALSIZE] = {[0:2**VALSIZE-1]};
+            }
+        endgroup
+
+        // Get instance covergroup coverage
+        virtual function integer get_inst_coverage();
+            return cg.get_inst_coverage();
         endfunction
 
         // Sample covergroup
         virtual function void sample();
+            cg.sample();
         endfunction
 
+        // Constructor
+        function new();
+            cg = new();
+        endfunction
     endclass
 
     // Coverage class for mode 00
@@ -125,48 +159,6 @@ module min_max_top_tb#(int VALSIZE, int TESTCASE, int ERRNO);
             // This will set mode to 00 and randomize all others
             com == 2'b00;
         }
-
-         // Covergroup
-        covergroup cg;
-            option.at_least = AT_LEAST;
-
-            // Coverage for minimum value
-            cov_min: coverpoint min {
-                bins min    = {0};
-                bins middle = {2**(VALSIZE-1)};
-                bins values[VALSIZE] = {[0:2**VALSIZE-1]};
-            }
-
-            // Coverage for maximum value
-            cov_max: coverpoint max { 
-                bins max    = {2**VALSIZE-1};
-                bins middle = {2**(VALSIZE-1)};
-                bins values[VALSIZE] = {[0:2**VALSIZE-1]};
-            }
-
-            // Coverage for value
-            cov_value: coverpoint value {
-                bins min    = {0};
-                bins middle = {2**(VALSIZE-1)};
-                bins max    = {2**VALSIZE-1};
-                bins values[VALSIZE] = {[0:2**VALSIZE-1]};
-            }
-        endgroup
-
-        // Get covergroup coverage 
-        virtual function integer get_coverage();
-            return cg.get_coverage();
-        endfunction
-
-        // Sample covergroup
-        virtual function void sample();
-            cg.sample();
-        endfunction
-
-        // Constructor
-        function new();
-            cg = new();
-        endfunction
     endclass
 
     // Coverage class for mode 01
@@ -176,48 +168,6 @@ module min_max_top_tb#(int VALSIZE, int TESTCASE, int ERRNO);
             // This will set mode to 01 and randomize all others
             com == 2'b01;
         }
-
-         // Covergroup
-        covergroup cg;
-            option.at_least = AT_LEAST;
-
-            // Coverage for minimum value
-            cov_min: coverpoint min {
-                bins min    = {0};
-                bins middle = {2**(VALSIZE-1)};
-                bins values[VALSIZE] = {[0:2**VALSIZE-1]};
-            }
-
-            // Coverage for maximum value
-            cov_max: coverpoint max { 
-                bins max    = {2**VALSIZE-1};
-                bins middle = {2**(VALSIZE-1)};
-                bins values[VALSIZE] = {[0:2**VALSIZE-1]};
-            }
-
-            // Coverage for value
-            cov_value: coverpoint value {
-                bins min    = {0};
-                bins middle = {2**(VALSIZE-1)};
-                bins max    = {2**VALSIZE-1};
-                bins values[VALSIZE] = {[0:2**VALSIZE-1]};
-            }
-        endgroup
-
-        // Get covergroup coverage 
-        virtual function integer get_coverage();
-            return cg.get_coverage();
-        endfunction
-
-        // Sample covergroup
-        virtual function void sample();
-            cg.sample();
-        endfunction
-
-        // Constructor
-        function new();
-            cg = new();
-        endfunction
     endclass
     
     // Coverage class for mode 10
@@ -227,48 +177,6 @@ module min_max_top_tb#(int VALSIZE, int TESTCASE, int ERRNO);
             // This will set mode to 10 and randomize all others
             com == 2'b10;
         }
-
-         // Covergroup
-        covergroup cg;
-            option.at_least = AT_LEAST;
-
-            // Coverage for minimum value
-            cov_min: coverpoint min {
-                bins min    = {0};
-                bins middle = {2**(VALSIZE-1)};
-                bins values[VALSIZE] = {[0:2**VALSIZE-1]};
-            }
-
-            // Coverage for maximum value
-            cov_max: coverpoint max { 
-                bins middle = {2**(VALSIZE-1)};
-                bins max    = {2**VALSIZE-1};
-                bins values[VALSIZE] = {[0:2**VALSIZE-1]};
-            }
-
-            // Coverage for value
-            cov_value: coverpoint value {
-                bins min    = {0};
-                bins middle = {2**(VALSIZE-1)};
-                bins max    = {2**VALSIZE-1};
-                bins values[VALSIZE] = {[0:2**VALSIZE-1]};
-            }
-        endgroup
-
-        // Get covergroup coverage 
-        virtual function integer get_coverage();
-            return cg.get_coverage();
-        endfunction
-
-        // Sample covergroup
-        virtual function void sample();
-            cg.sample();
-        endfunction
-
-        // Constructor
-        function new();
-            cg = new();
-        endfunction
     endclass
 
     // Coverage class for mode 11
@@ -278,48 +186,6 @@ module min_max_top_tb#(int VALSIZE, int TESTCASE, int ERRNO);
             // This will set mode to 11 and randomize all others
             com == 2'b11;
         }
-
-         // Covergroup
-        covergroup cg;
-            option.at_least = AT_LEAST;
-
-            // Coverage for minimum value
-            cov_min: coverpoint min {
-                bins min    = {0};
-                bins middle = {2**(VALSIZE-1)};
-                bins values[VALSIZE] = {[0:2**VALSIZE-1]};
-            }
-
-            // Coverage for maximum value
-            cov_max: coverpoint max { 
-                bins middle = {2**(VALSIZE-1)};
-                bins max    = {2**VALSIZE-1};
-                bins values[VALSIZE] = {[0:2**VALSIZE-1]};
-            }
-
-            // Coverage for value
-            cov_value: coverpoint value {
-                bins min    = {0};
-                bins middle = {2**(VALSIZE-1)};
-                bins max    = {2**VALSIZE-1};
-                bins values[VALSIZE] = {[0:2**VALSIZE-1]};
-            }
-        endgroup
-
-        // Get covergroup coverage 
-        virtual function integer get_coverage();
-            return cg.get_coverage();
-        endfunction
-
-        // Sample covergroup
-        virtual function void sample();
-            cg.sample();
-        endfunction
-
-        // Constructor
-        function new();
-            cg = new();
-        endfunction
     endclass
 
     // Coverage class when value is below minimum
@@ -330,9 +196,10 @@ module min_max_top_tb#(int VALSIZE, int TESTCASE, int ERRNO);
             value < min;
         }
 
-         // Covergroup
+         // Specific covergroup for this test, replace the one in the base class
         covergroup cg;
             option.at_least = AT_LEAST;
+            option.get_inst_coverage = 1;
 
             // Coverage for minimum value
             cov_min: coverpoint min {
@@ -360,9 +227,9 @@ module min_max_top_tb#(int VALSIZE, int TESTCASE, int ERRNO);
             }
         endgroup
 
-        // Get covergroup coverage 
-        virtual function integer get_coverage();
-            return cg.get_coverage();
+        // Get instance covergroup coverage 
+        virtual function integer get_inst_coverage();
+            return cg.get_inst_coverage();
         endfunction
 
         // Sample covergroup
@@ -384,9 +251,10 @@ module min_max_top_tb#(int VALSIZE, int TESTCASE, int ERRNO);
             value > max;
         }
 
-         // Covergroup
+         // Specific covergroup for this test, replace the one in the base class
         covergroup cg;
             option.at_least = AT_LEAST;
+            option.get_inst_coverage = 1;
 
             // Coverage for minimum value
             cov_min: coverpoint min {
@@ -413,9 +281,9 @@ module min_max_top_tb#(int VALSIZE, int TESTCASE, int ERRNO);
             }
         endgroup
         
-        // Get covergroup coverage 
-        virtual function integer get_coverage();
-            return cg.get_coverage();
+        // Get instance covergroup coverage 
+        virtual function integer get_inst_coverage();
+            return cg.get_inst_coverage();
         endfunction
 
         // Sample covergroup
@@ -437,9 +305,10 @@ module min_max_top_tb#(int VALSIZE, int TESTCASE, int ERRNO);
             value == min;
         }
 
-         // Covergroup
+         // Specific covergroup for this test, replace the one in the base class
         covergroup cg;
             option.at_least = AT_LEAST;
+            option.get_inst_coverage = 1;
 
             // Coverage for minimum value
             cov_min: coverpoint min {
@@ -468,9 +337,9 @@ module min_max_top_tb#(int VALSIZE, int TESTCASE, int ERRNO);
             }
         endgroup
 
-        // Get covergroup coverage 
-        virtual function integer get_coverage();
-            return cg.get_coverage();
+        // Get instance covergroup coverage 
+        virtual function integer get_inst_coverage();
+            return cg.get_inst_coverage();
         endfunction
 
         // Sample covergroup
@@ -492,9 +361,10 @@ module min_max_top_tb#(int VALSIZE, int TESTCASE, int ERRNO);
             value == max;
         }
 
-         // Covergroup
+         // Specific covergroup for this test, replace the one in the base class
         covergroup cg;
             option.at_least = AT_LEAST;
+            option.get_inst_coverage = 1;
 
             // Coverage for minimum value
             cov_min: coverpoint min {
@@ -523,9 +393,9 @@ module min_max_top_tb#(int VALSIZE, int TESTCASE, int ERRNO);
             }
         endgroup
 
-        // Get covergroup coverage 
-        virtual function integer get_coverage();
-            return cg.get_coverage();
+        // Get instance covergroup coverage 
+        virtual function integer get_inst_coverage();
+            return cg.get_inst_coverage();
         endfunction
 
         // Sample covergroup
@@ -547,9 +417,10 @@ module min_max_top_tb#(int VALSIZE, int TESTCASE, int ERRNO);
             value == 2**VALSIZE - 1;
         }
 
-         // Covergroup
+         // Specific covergroup for this test, replace the one in the base class
         covergroup cg;
             option.at_least = AT_LEAST;
+            option.get_inst_coverage = 1;
 
             // Coverage for minimum value
             cov_min: coverpoint min {
@@ -571,9 +442,9 @@ module min_max_top_tb#(int VALSIZE, int TESTCASE, int ERRNO);
             }
         endgroup
 
-        // Get covergroup coverage 
-        virtual function integer get_coverage();
-            return cg.get_coverage();
+        // Get instance covergroup coverage 
+        virtual function integer get_inst_coverage();
+            return cg.get_inst_coverage();
         endfunction
 
         // Sample covergroup
@@ -595,7 +466,7 @@ module min_max_top_tb#(int VALSIZE, int TESTCASE, int ERRNO);
     task Execute(Coverage coverage);
         automatic int generation_count = 0;
         $display("\nstarting coverage");
-        while (coverage.get_coverage() < 100) begin
+        while (coverage.get_inst_coverage() < 100) begin
             generation_count++;
             if (!coverage.randomize()) begin
                 $display("%m: randomization failed");
@@ -618,7 +489,7 @@ module min_max_top_tb#(int VALSIZE, int TESTCASE, int ERRNO);
             end
         end
         $display("nb iterations: %d", generation_count);
-        $display("coverage rate: %0.2f%%", coverage.get_coverage());
+        $display("coverage rate: %0.2f%%", coverage.get_inst_coverage());
         $display("coveraged finished\n");
     endtask
 

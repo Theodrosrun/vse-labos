@@ -109,6 +109,7 @@ module min_max_top_tb#(int VALSIZE, int TESTCASE, int ERRNO);
         }
 
          // Base covergroup that sub-class can redefine
+         // Mainly used by mode tests and redefined by limit value tests
         covergroup cg;
             option.at_least = AT_LEAST;
             option.get_inst_coverage = 1;
@@ -207,13 +208,6 @@ module min_max_top_tb#(int VALSIZE, int TESTCASE, int ERRNO);
                 bins values[VALSIZE] = {[0:2**VALSIZE-1]};
             }
 
-            // Coverage for maximum value
-            cov_max: coverpoint max { 
-                bins middle = {2**(VALSIZE-1)};
-                bins max    = {2**VALSIZE-1};
-                bins values[VALSIZE] = {[0:2**VALSIZE-1]};
-            }
-
             // Coverage for value
             cov_value: coverpoint value {
                 bins min    = {0};
@@ -255,13 +249,6 @@ module min_max_top_tb#(int VALSIZE, int TESTCASE, int ERRNO);
         covergroup cg;
             option.at_least = AT_LEAST;
             option.get_inst_coverage = 1;
-
-            // Coverage for minimum value
-            cov_min: coverpoint min {
-                bins min    = {0};
-                bins middle = {2**(VALSIZE-1)};
-                bins values[VALSIZE] = {[0:2**VALSIZE-1]};
-            }
 
             // Coverage for maximum value
             cov_max: coverpoint max { 
@@ -317,13 +304,6 @@ module min_max_top_tb#(int VALSIZE, int TESTCASE, int ERRNO);
                 bins values[VALSIZE] = {[0:2**VALSIZE-1]};
             }
 
-            // Coverage for maximum value
-            cov_max: coverpoint max { 
-                bins middle = {2**(VALSIZE-1)};
-                bins max    = {2**VALSIZE-1};
-                bins values[VALSIZE] = {[0:2**VALSIZE-1]};
-            }
-
             // Coverage for value
             cov_value: coverpoint value {
                 bins min    = {0};
@@ -365,13 +345,6 @@ module min_max_top_tb#(int VALSIZE, int TESTCASE, int ERRNO);
         covergroup cg;
             option.at_least = AT_LEAST;
             option.get_inst_coverage = 1;
-
-            // Coverage for minimum value
-            cov_min: coverpoint min {
-                bins min    = {0};
-                bins middle = {2**(VALSIZE-1)};
-                bins values[VALSIZE] = {[0:2**VALSIZE-1]};
-            }
 
             // Coverage for maximum value
             cov_max: coverpoint max { 

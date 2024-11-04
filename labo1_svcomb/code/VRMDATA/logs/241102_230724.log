@@ -1,0 +1,153 @@
+Run Monitor daemon listening on '40989@reds-vmeda'...
+RegressionStarting: Regression started at Sat Nov  2 23:07:24 2024
+ActionStarted:   Action 'directed/dirtest8_0_0/execScript' has started at Sat Nov  2 23:07:28 2024
+ActionStarted:   Action 'directed/dirtest4_1_0/execScript' has started at Sat Nov  2 23:07:29 2024
+ActionStarted:   Action 'directed/dirtest8_3_0/execScript' has started at Sat Nov  2 23:07:29 2024
+ActionStarted:   Action 'directed/dirtest4_0_0/execScript' has started at Sat Nov  2 23:07:29 2024
+ActionStarted:   Action 'directed/dirtest4_2_0/execScript' has started at Sat Nov  2 23:07:29 2024
+ActionStarted:   Action 'directed/dirtest4_18_0/execScript' has started at Sat Nov  2 23:07:29 2024
+ActionStarted:   Action 'directed/dirtest12_3_0/execScript' has started at Sat Nov  2 23:07:30 2024
+ActionStarted:   Action 'directed/dirtest8_1_0/execScript' has started at Sat Nov  2 23:07:30 2024
+ActionStarted:   Action 'directed/dirtest12_2_0/execScript' has started at Sat Nov  2 23:07:30 2024
+ActionStarted:   Action 'directed/dirtest8_16_0/execScript' has started at Sat Nov  2 23:07:30 2024
+ActionStarted:   Action 'directed/dirtest4_19_0/execScript' has started at Sat Nov  2 23:07:30 2024
+ActionStarted:   Action 'directed/dirtest8_18_0/execScript' has started at Sat Nov  2 23:07:30 2024
+ActionStarted:   Action 'directed/dirtest4_21_0/execScript' has started at Sat Nov  2 23:07:30 2024
+ActionStarted:   Action 'directed/dirtest8_21_0/execScript' has started at Sat Nov  2 23:07:30 2024
+ActionStarted:   Action 'directed/dirtest4_3_0/execScript' has started at Sat Nov  2 23:07:30 2024
+ActionStarted:   Action 'directed/dirtest4_20_0/execScript' has started at Sat Nov  2 23:07:31 2024
+ActionStarted:   Action 'directed/dirtest8_17_0/execScript' has started at Sat Nov  2 23:07:31 2024
+ActionStarted:   Action 'directed/dirtest12_17_0/execScript' has started at Sat Nov  2 23:07:31 2024
+ActionStarted:   Action 'directed/dirtest4_17_0/execScript' has started at Sat Nov  2 23:07:31 2024
+ActionStarted:   Action 'directed/dirtest8_2_0/execScript' has started at Sat Nov  2 23:07:31 2024
+ActionStarted:   Action 'directed/dirtest8_20_0/execScript' has started at Sat Nov  2 23:07:31 2024
+ActionStarted:   Action 'directed/dirtest12_20_0/execScript' has started at Sat Nov  2 23:07:32 2024
+ActionStarted:   Action 'directed/dirtest4_16_0/execScript' has started at Sat Nov  2 23:07:32 2024
+ActionStarted:   Action 'directed/dirtest8_19_0/execScript' has started at Sat Nov  2 23:07:32 2024
+ActionStarted:   Action 'directed/dirtest12_0_0/execScript' has started at Sat Nov  2 23:07:32 2024
+ActionStarted:   Action 'directed/dirtest12_21_0/execScript' has started at Sat Nov  2 23:07:32 2024
+ActionStarted:   Action 'directed/dirtest12_18_0/execScript' has started at Sat Nov  2 23:07:32 2024
+ActionStarted:   Action 'directed/dirtest12_1_0/execScript' has started at Sat Nov  2 23:07:32 2024
+ActionStarted:   Action 'directed/dirtest12_16_0/execScript' has started at Sat Nov  2 23:07:33 2024
+ActionStarted:   Action 'directed/dirtest12_19_0/execScript' has started at Sat Nov  2 23:07:34 2024
+ActionCompleted: Action 'directed/dirtest4_2_0/execScript' passed at Sat Nov  2 23:07:52 2024
+ActionCompleted: Action 'directed/dirtest4_0_0/execScript' passed at Sat Nov  2 23:07:55 2024
+ActionCompleted: Action 'directed/dirtest4_3_0/execScript' passed at Sat Nov  2 23:07:55 2024
+ActionCompleted: Action 'directed/dirtest4_1_0/execScript' passed at Sat Nov  2 23:07:57 2024
+Error: Action 'directed/dirtest4_21_0/execScript' failed (failed/error):
+  details: UCDB status is 'Error'
+  logfile: /home/reds/Desktop/Labos/vse-labos/labo1_svcomb/code/VRMDATA/directed/dirtest4_21_0/execScript.log
+ActionCompleted: Action 'directed/dirtest4_21_0/execScript' failed at Sat Nov  2 23:08:00 2024
+Error: Action 'directed/dirtest4_19_0/execScript' failed (failed/error):
+  details: UCDB status is 'Error'
+  logfile: /home/reds/Desktop/Labos/vse-labos/labo1_svcomb/code/VRMDATA/directed/dirtest4_19_0/execScript.log
+ActionCompleted: Action 'directed/dirtest4_19_0/execScript' failed at Sat Nov  2 23:08:12 2024
+Error: Action 'directed/dirtest4_18_0/execScript' failed (failed/error):
+  details: UCDB status is 'Error'
+  logfile: /home/reds/Desktop/Labos/vse-labos/labo1_svcomb/code/VRMDATA/directed/dirtest4_18_0/execScript.log
+ActionCompleted: Action 'directed/dirtest4_18_0/execScript' failed at Sat Nov  2 23:08:15 2024
+Error: Action 'directed/dirtest4_20_0/execScript' failed (failed/error):
+  details: UCDB status is 'Error'
+  logfile: /home/reds/Desktop/Labos/vse-labos/labo1_svcomb/code/VRMDATA/directed/dirtest4_20_0/execScript.log
+ActionCompleted: Action 'directed/dirtest4_20_0/execScript' failed at Sat Nov  2 23:08:17 2024
+ActionCompleted: Action 'directed/dirtest8_0_0/execScript' passed at Sat Nov  2 23:08:31 2024
+Error: Action 'directed/dirtest4_16_0/execScript' failed (failed/error):
+  details: UCDB status is 'Error'
+  logfile: /home/reds/Desktop/Labos/vse-labos/labo1_svcomb/code/VRMDATA/directed/dirtest4_16_0/execScript.log
+ActionCompleted: Action 'directed/dirtest4_16_0/execScript' failed at Sat Nov  2 23:08:36 2024
+Error: Action 'directed/dirtest4_17_0/execScript' failed (failed/error):
+  details: UCDB status is 'Error'
+  logfile: /home/reds/Desktop/Labos/vse-labos/labo1_svcomb/code/VRMDATA/directed/dirtest4_17_0/execScript.log
+ActionCompleted: Action 'directed/dirtest4_17_0/execScript' failed at Sat Nov  2 23:08:50 2024
+ActionCompleted: Action 'directed/dirtest8_2_0/execScript' passed at Sat Nov  2 23:08:59 2024
+ActionCompleted: Action 'directed/dirtest8_3_0/execScript' passed at Sat Nov  2 23:09:01 2024
+ActionCompleted: Action 'directed/dirtest8_1_0/execScript' passed at Sat Nov  2 23:09:04 2024
+Error: Action 'directed/dirtest8_21_0/execScript' failed (failed/error):
+  details: UCDB status is 'Error'
+  logfile: /home/reds/Desktop/Labos/vse-labos/labo1_svcomb/code/VRMDATA/directed/dirtest8_21_0/execScript.log
+ActionCompleted: Action 'directed/dirtest8_21_0/execScript' failed at Sat Nov  2 23:10:13 2024
+Error: TIMEOUT on action 'directed/dirtest12_20_0/execScript'... failure assumed
+Error: Action 'directed/dirtest12_20_0/execScript' failed (timeout/executing):
+  logfile: /home/reds/Desktop/Labos/vse-labos/labo1_svcomb/code/VRMDATA/directed/dirtest12_20_0/execScript.log
+ActionCompleted: Action 'directed/dirtest12_20_0/execScript' failed at Sat Nov  2 23:12:42 2024
+Error: TIMEOUT on action 'directed/dirtest12_19_0/execScript'... failure assumed
+Error: Action 'directed/dirtest12_19_0/execScript' failed (timeout/executing):
+  logfile: /home/reds/Desktop/Labos/vse-labos/labo1_svcomb/code/VRMDATA/directed/dirtest12_19_0/execScript.log
+ActionCompleted: Action 'directed/dirtest12_19_0/execScript' failed at Sat Nov  2 23:12:43 2024
+Error: TIMEOUT on action 'directed/dirtest12_2_0/execScript'... failure assumed
+Error: Action 'directed/dirtest12_2_0/execScript' failed (timeout/executing):
+  logfile: /home/reds/Desktop/Labos/vse-labos/labo1_svcomb/code/VRMDATA/directed/dirtest12_2_0/execScript.log
+ActionCompleted: Action 'directed/dirtest12_2_0/execScript' failed at Sat Nov  2 23:12:43 2024
+Error: TIMEOUT on action 'directed/dirtest8_16_0/execScript'... failure assumed
+Error: Action 'directed/dirtest8_16_0/execScript' failed (timeout/executing):
+  logfile: /home/reds/Desktop/Labos/vse-labos/labo1_svcomb/code/VRMDATA/directed/dirtest8_16_0/execScript.log
+ActionCompleted: Action 'directed/dirtest8_16_0/execScript' failed at Sat Nov  2 23:12:44 2024
+Error: TIMEOUT on action 'directed/dirtest8_18_0/execScript'... failure assumed
+Error: Action 'directed/dirtest8_18_0/execScript' failed (timeout/executing):
+  logfile: /home/reds/Desktop/Labos/vse-labos/labo1_svcomb/code/VRMDATA/directed/dirtest8_18_0/execScript.log
+ActionCompleted: Action 'directed/dirtest8_18_0/execScript' failed at Sat Nov  2 23:12:45 2024
+Error: TIMEOUT on action 'directed/dirtest12_16_0/execScript'... failure assumed
+Error: Action 'directed/dirtest12_16_0/execScript' failed (timeout/executing):
+  logfile: /home/reds/Desktop/Labos/vse-labos/labo1_svcomb/code/VRMDATA/directed/dirtest12_16_0/execScript.log
+ActionCompleted: Action 'directed/dirtest12_16_0/execScript' failed at Sat Nov  2 23:12:46 2024
+Error: TIMEOUT on action 'directed/dirtest12_18_0/execScript'... failure assumed
+Error: Action 'directed/dirtest12_18_0/execScript' failed (timeout/executing):
+  logfile: /home/reds/Desktop/Labos/vse-labos/labo1_svcomb/code/VRMDATA/directed/dirtest12_18_0/execScript.log
+ActionCompleted: Action 'directed/dirtest12_18_0/execScript' failed at Sat Nov  2 23:12:46 2024
+Error: TIMEOUT on action 'directed/dirtest12_1_0/execScript'... failure assumed
+Error: Action 'directed/dirtest12_1_0/execScript' failed (timeout/executing):
+  logfile: /home/reds/Desktop/Labos/vse-labos/labo1_svcomb/code/VRMDATA/directed/dirtest12_1_0/execScript.log
+ActionCompleted: Action 'directed/dirtest12_1_0/execScript' failed at Sat Nov  2 23:12:47 2024
+Error: TIMEOUT on action 'directed/dirtest12_21_0/execScript'... failure assumed
+Error: Action 'directed/dirtest12_21_0/execScript' failed (timeout/executing):
+  logfile: /home/reds/Desktop/Labos/vse-labos/labo1_svcomb/code/VRMDATA/directed/dirtest12_21_0/execScript.log
+ActionCompleted: Action 'directed/dirtest12_21_0/execScript' failed at Sat Nov  2 23:12:47 2024
+Error: TIMEOUT on action 'directed/dirtest12_3_0/execScript'... failure assumed
+Error: Action 'directed/dirtest12_3_0/execScript' failed (timeout/executing):
+  logfile: /home/reds/Desktop/Labos/vse-labos/labo1_svcomb/code/VRMDATA/directed/dirtest12_3_0/execScript.log
+ActionCompleted: Action 'directed/dirtest12_3_0/execScript' failed at Sat Nov  2 23:12:47 2024
+Error: TIMEOUT on action 'directed/dirtest8_17_0/execScript'... failure assumed
+Error: Action 'directed/dirtest8_17_0/execScript' failed (timeout/executing):
+  logfile: /home/reds/Desktop/Labos/vse-labos/labo1_svcomb/code/VRMDATA/directed/dirtest8_17_0/execScript.log
+ActionCompleted: Action 'directed/dirtest8_17_0/execScript' failed at Sat Nov  2 23:12:48 2024
+Error: TIMEOUT on action 'directed/dirtest8_20_0/execScript'... failure assumed
+Error: Action 'directed/dirtest8_20_0/execScript' failed (timeout/executing):
+  logfile: /home/reds/Desktop/Labos/vse-labos/labo1_svcomb/code/VRMDATA/directed/dirtest8_20_0/execScript.log
+ActionCompleted: Action 'directed/dirtest8_20_0/execScript' failed at Sat Nov  2 23:12:48 2024
+Error: TIMEOUT on action 'directed/dirtest8_19_0/execScript'... failure assumed
+Error: Action 'directed/dirtest8_19_0/execScript' failed (timeout/executing):
+  logfile: /home/reds/Desktop/Labos/vse-labos/labo1_svcomb/code/VRMDATA/directed/dirtest8_19_0/execScript.log
+ActionCompleted: Action 'directed/dirtest8_19_0/execScript' failed at Sat Nov  2 23:12:48 2024
+Error: TIMEOUT on action 'directed/dirtest12_17_0/execScript'... failure assumed
+Error: Action 'directed/dirtest12_17_0/execScript' failed (timeout/executing):
+  logfile: /home/reds/Desktop/Labos/vse-labos/labo1_svcomb/code/VRMDATA/directed/dirtest12_17_0/execScript.log
+ActionCompleted: Action 'directed/dirtest12_17_0/execScript' failed at Sat Nov  2 23:12:48 2024
+Error: TIMEOUT on action 'directed/dirtest12_0_0/execScript'... failure assumed
+Error: Action 'directed/dirtest12_0_0/execScript' failed (timeout/executing):
+  logfile: /home/reds/Desktop/Labos/vse-labos/labo1_svcomb/code/VRMDATA/directed/dirtest12_0_0/execScript.log
+ActionCompleted: Action 'directed/dirtest12_0_0/execScript' failed at Sat Nov  2 23:12:48 2024
+Waiting for 45 deferred commands to complete...
+Action script execution status:
+  Total 30 scripts prepared: 30 OK, 0 failed
+  Total 30 scripts launched: 30 OK, 0 failed
+  Total 15 scripts finished: 15 OK, 0 failed
+Action script completion status:
+  Total 30 execScript actions: 7 failed, 8 passed, 15 timeout
+  Total  1 postScript actions: 1 empty
+  Total  1  preScript actions: 1 empty
+Test (valid UCDB) status:
+  Ok              8
+  Warning         0
+  Error           7
+  Fatal           0
+  Missing         0
+  Merge Error     0
+  Unknown Error   0
+  UCDB Error      0
+  TOTAL           15
+Action script pass/fail status:
+  Passed          8    
+  Failed          22    (7 based on UCDB status)
+  TOTAL           30   
+RegressionCompleted: Regression finished at Sat Nov  2 23:13:18 2024
+VRM total elapsed time: 5m:54s

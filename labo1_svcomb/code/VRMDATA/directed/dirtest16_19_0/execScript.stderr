@@ -1,0 +1,5 @@
+Fatal: vsim caught SIGTERM. Closing vsimk kernel.
+Signal SIGTERM caught... Closing vish.
+writing stack trace to vish_stacktrace.vstf
+U/I: Unexpected EOF on RPC channel sock2d796a0
+U/I: Unexpected EOF on RPC channel sock2944820

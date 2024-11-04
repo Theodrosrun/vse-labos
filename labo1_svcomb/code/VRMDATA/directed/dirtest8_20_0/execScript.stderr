@@ -1,0 +1,4 @@
+Fatal: vsim caught SIGTERM. Closing vsimk kernel.
+Signal SIGTERM caught... Closing vish.
+writing stack trace to vish_stacktrace.vstf
+** Fatal: Read failure in vlm process (0,0)

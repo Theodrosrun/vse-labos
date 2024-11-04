@@ -1,0 +1,68 @@
+# do ../scripts/sim.do all 0 5 0
+# ../src_vhdl
+# ../src_tb
+# QuestaSim-64 vcom 2020.1_1 Compiler 2020.03 Mar  4 2020
+# Start time: 23:23:37 on Nov 02,2024
+# vcom -2008 -work Aff_Min_Max ../src_vhdl/bin_lin.vhd 
+# -- Loading package STANDARD
+# End time: 23:23:37 on Nov 02,2024, Elapsed time: 0:00:00
+# Errors: 0, Warnings: 0
+# QuestaSim-64 vcom 2020.1_1 Compiler 2020.03 Mar  4 2020
+# Start time: 23:23:37 on Nov 02,2024
+# vcom -2008 -work Aff_Min_Max ../src_vhdl/comparator_nbits.vhd 
+# -- Loading package STANDARD
+# End time: 23:23:37 on Nov 02,2024, Elapsed time: 0:00:00
+# Errors: 0, Warnings: 0
+# QuestaSim-64 vcom 2020.1_1 Compiler 2020.03 Mar  4 2020
+# Start time: 23:23:37 on Nov 02,2024
+# vcom -2008 -work Aff_Min_Max ../src_vhdl/affichage.vhd 
+# -- Loading package STANDARD
+# End time: 23:23:37 on Nov 02,2024, Elapsed time: 0:00:00
+# Errors: 0, Warnings: 0
+# QuestaSim-64 vcom 2020.1_1 Compiler 2020.03 Mar  4 2020
+# Start time: 23:23:37 on Nov 02,2024
+# vcom -2008 ../src_vhdl/min_max_top.vhd 
+# -- Loading package STANDARD
+# End time: 23:23:37 on Nov 02,2024, Elapsed time: 0:00:00
+# Errors: 0, Warnings: 0
+# QuestaSim-64 vlog 2020.1_1 Compiler 2020.03 Mar  4 2020
+# Start time: 23:23:37 on Nov 02,2024
+# vlog -sv ../src_tb/min_max_top_tb.sv 
+# -- Compiling interface min_max_in_itf
+# -- Compiling interface min_max_out_itf
+# -- Compiling module min_max_top_tb
+# ** Error: (vlog-13069) ../src_tb/min_max_top_tb.sv(87): near "'d": syntax error, unexpected BASE.
+# ** Error: (vlog-13051) ../src_tb/min_max_top_tb.sv(87): near "[end of file]": Illegal digit for specified base in numeric constant.
+# ** Error: ../src_tb/min_max_top_tb.sv(122): (vlog-2730) Undefined variable: 'NB_BINS'.
+# ** Error: ../src_tb/min_max_top_tb.sv(129): (vlog-2730) Undefined variable: 'NB_BINS'.
+# ** Error: ../src_tb/min_max_top_tb.sv(137): (vlog-2730) Undefined variable: 'NB_BINS'.
+# ** Error: ../src_tb/min_max_top_tb.sv(209): (vlog-2730) Undefined variable: 'NB_BINS'.
+# ** Error: ../src_tb/min_max_top_tb.sv(216): (vlog-2730) Undefined variable: 'NB_BINS'.
+# ** Error: ../src_tb/min_max_top_tb.sv(257): (vlog-2730) Undefined variable: 'NB_BINS'.
+# ** Error: ../src_tb/min_max_top_tb.sv(263): (vlog-2730) Undefined variable: 'NB_BINS'.
+# ** Error: ../src_tb/min_max_top_tb.sv(305): (vlog-2730) Undefined variable: 'NB_BINS'.
+# ** Error: ../src_tb/min_max_top_tb.sv(312): (vlog-2730) Undefined variable: 'NB_BINS'.
+# ** Error: ../src_tb/min_max_top_tb.sv(354): (vlog-2730) Undefined variable: 'NB_BINS'.
+# ** Error: ../src_tb/min_max_top_tb.sv(361): (vlog-2730) Undefined variable: 'NB_BINS'.
+# ** Error: ../src_tb/min_max_top_tb.sv(403): (vlog-2730) Undefined variable: 'NB_BINS'.
+# ** Error: ../src_tb/min_max_top_tb.sv(410): (vlog-2730) Undefined variable: 'NB_BINS'.
+# End time: 23:23:37 on Nov 02,2024, Elapsed time: 0:00:00
+# Errors: 15, Warnings: 0
+# ** Error: /opt/mentor/questasim/linux_x86_64/vlog failed.
+# Error in macro ./../scripts/sim.do line 85
+# /opt/mentor/questasim/linux_x86_64/vlog failed.
+#     while executing
+# "vlog -sv $Path_TB/min_max_top_tb.sv"
+#     (procedure "compile_tb" line 6)
+#     invoked from within
+# "compile_tb"
+#     (procedure "do_all" line 3)
+#     invoked from within
+# "do_all $2 $3 $4"
+#     invoked from within
+# "if {$argc>0} {
+#   if {[string compare $1 "all"] == 0} {
+#     do_all $2 $3 $4
+#   } elseif {[string compare $1 "comp_duv"] == 0} {
+#     compile_duv
+#   } else..."

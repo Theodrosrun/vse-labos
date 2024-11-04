@@ -1,0 +1,196 @@
+Run Monitor daemon listening on '46669@reds-vmeda'...
+RegressionStarting: Regression started at Sat Nov  2 23:17:12 2024
+ActionStarted:   Action 'directed/dirtest4_1_0/execScript' has started at Sat Nov  2 23:17:16 2024
+ActionStarted:   Action 'directed/dirtest4_2_0/execScript' has started at Sat Nov  2 23:17:16 2024
+ActionStarted:   Action 'directed/dirtest4_18_0/execScript' has started at Sat Nov  2 23:17:17 2024
+ActionStarted:   Action 'directed/dirtest4_0_0/execScript' has started at Sat Nov  2 23:17:17 2024
+ActionStarted:   Action 'directed/dirtest4_3_0/execScript' has started at Sat Nov  2 23:17:18 2024
+ActionStarted:   Action 'directed/dirtest8_0_0/execScript' has started at Sat Nov  2 23:17:18 2024
+ActionStarted:   Action 'directed/dirtest4_17_0/execScript' has started at Sat Nov  2 23:17:18 2024
+ActionStarted:   Action 'directed/dirtest8_3_0/execScript' has started at Sat Nov  2 23:17:18 2024
+ActionStarted:   Action 'directed/dirtest4_19_0/execScript' has started at Sat Nov  2 23:17:18 2024
+Error: Action 'directed/dirtest4_1_0/execScript' failed (failed/script, status: 1):
+  message: 'Elaboration error'
+  details: UCDB status is 'UCDB Error'
+  logfile: /home/reds/Desktop/Labos/vse-labos/labo1_svcomb/code/VRMDATA/directed/dirtest4_1_0/execScript.log
+ActionCompleted: Action 'directed/dirtest4_1_0/execScript' failed at Sat Nov  2 23:17:19 2024
+ActionStarted:   Action 'directed/dirtest4_20_0/execScript' has started at Sat Nov  2 23:17:19 2024
+ActionStarted:   Action 'directed/dirtest4_21_0/execScript' has started at Sat Nov  2 23:17:19 2024
+ActionStarted:   Action 'directed/dirtest4_16_0/execScript' has started at Sat Nov  2 23:17:20 2024
+ActionStarted:   Action 'directed/dirtest8_19_0/execScript' has started at Sat Nov  2 23:17:20 2024
+ActionStarted:   Action 'directed/dirtest8_2_0/execScript' has started at Sat Nov  2 23:17:20 2024
+ActionStarted:   Action 'directed/dirtest8_1_0/execScript' has started at Sat Nov  2 23:17:20 2024
+ActionStarted:   Action 'directed/dirtest12_19_0/execScript' has started at Sat Nov  2 23:17:20 2024
+Error: Action 'directed/dirtest4_2_0/execScript' failed (failed/script, status: 1):
+  message: 'Elaboration error'
+  details: UCDB status is 'UCDB Error'
+  logfile: /home/reds/Desktop/Labos/vse-labos/labo1_svcomb/code/VRMDATA/directed/dirtest4_2_0/execScript.log
+ActionCompleted: Action 'directed/dirtest4_2_0/execScript' failed at Sat Nov  2 23:17:20 2024
+ActionStarted:   Action 'directed/dirtest8_17_0/execScript' has started at Sat Nov  2 23:17:20 2024
+ActionStarted:   Action 'directed/dirtest12_20_0/execScript' has started at Sat Nov  2 23:17:21 2024
+Error: Action 'directed/dirtest4_0_0/execScript' failed (failed/script, status: 1):
+  message: 'Elaboration error'
+  details: UCDB status is 'UCDB Error'
+  logfile: /home/reds/Desktop/Labos/vse-labos/labo1_svcomb/code/VRMDATA/directed/dirtest4_0_0/execScript.log
+ActionCompleted: Action 'directed/dirtest4_0_0/execScript' failed at Sat Nov  2 23:17:21 2024
+ActionStarted:   Action 'directed/dirtest8_16_0/execScript' has started at Sat Nov  2 23:17:21 2024
+ActionStarted:   Action 'directed/dirtest8_18_0/execScript' has started at Sat Nov  2 23:17:21 2024
+ActionStarted:   Action 'directed/dirtest12_1_0/execScript' has started at Sat Nov  2 23:17:21 2024
+ActionStarted:   Action 'directed/dirtest12_2_0/execScript' has started at Sat Nov  2 23:17:21 2024
+Error: Action 'directed/dirtest4_18_0/execScript' failed (failed/script, status: 1):
+  message: 'Elaboration error'
+  details: UCDB status is 'UCDB Error'
+  logfile: /home/reds/Desktop/Labos/vse-labos/labo1_svcomb/code/VRMDATA/directed/dirtest4_18_0/execScript.log
+ActionCompleted: Action 'directed/dirtest4_18_0/execScript' failed at Sat Nov  2 23:17:21 2024
+ActionStarted:   Action 'directed/dirtest8_21_0/execScript' has started at Sat Nov  2 23:17:22 2024
+ActionStarted:   Action 'directed/dirtest12_21_0/execScript' has started at Sat Nov  2 23:17:22 2024
+ActionStarted:   Action 'directed/dirtest12_16_0/execScript' has started at Sat Nov  2 23:17:22 2024
+ActionStarted:   Action 'directed/dirtest12_3_0/execScript' has started at Sat Nov  2 23:17:22 2024
+ActionStarted:   Action 'directed/dirtest12_18_0/execScript' has started at Sat Nov  2 23:17:22 2024
+ActionStarted:   Action 'directed/dirtest8_20_0/execScript' has started at Sat Nov  2 23:17:22 2024
+ActionStarted:   Action 'directed/dirtest12_17_0/execScript' has started at Sat Nov  2 23:17:22 2024
+ActionStarted:   Action 'directed/dirtest12_0_0/execScript' has started at Sat Nov  2 23:17:22 2024
+Error: Action 'directed/dirtest4_3_0/execScript' failed (failed/script, status: 1):
+  message: 'Elaboration error'
+  details: UCDB status is 'UCDB Error'
+  logfile: /home/reds/Desktop/Labos/vse-labos/labo1_svcomb/code/VRMDATA/directed/dirtest4_3_0/execScript.log
+ActionCompleted: Action 'directed/dirtest4_3_0/execScript' failed at Sat Nov  2 23:17:23 2024
+Error: Action 'directed/dirtest4_17_0/execScript' failed (failed/script, status: 1):
+  message: 'Elaboration error'
+  details: UCDB status is 'UCDB Error'
+  logfile: /home/reds/Desktop/Labos/vse-labos/labo1_svcomb/code/VRMDATA/directed/dirtest4_17_0/execScript.log
+ActionCompleted: Action 'directed/dirtest4_17_0/execScript' failed at Sat Nov  2 23:17:25 2024
+Error: Action 'directed/dirtest4_19_0/execScript' failed (failed/script, status: 1):
+  message: 'Elaboration error'
+  details: UCDB status is 'UCDB Error'
+  logfile: /home/reds/Desktop/Labos/vse-labos/labo1_svcomb/code/VRMDATA/directed/dirtest4_19_0/execScript.log
+ActionCompleted: Action 'directed/dirtest4_19_0/execScript' failed at Sat Nov  2 23:17:26 2024
+Error: Action 'directed/dirtest8_3_0/execScript' failed (failed/script, status: 1):
+  message: 'Elaboration error'
+  details: UCDB status is 'UCDB Error'
+  logfile: /home/reds/Desktop/Labos/vse-labos/labo1_svcomb/code/VRMDATA/directed/dirtest8_3_0/execScript.log
+ActionCompleted: Action 'directed/dirtest8_3_0/execScript' failed at Sat Nov  2 23:17:26 2024
+Error: Action 'directed/dirtest8_0_0/execScript' failed (failed/script, status: 1):
+  message: 'Elaboration error'
+  details: UCDB status is 'UCDB Error'
+  logfile: /home/reds/Desktop/Labos/vse-labos/labo1_svcomb/code/VRMDATA/directed/dirtest8_0_0/execScript.log
+ActionCompleted: Action 'directed/dirtest8_0_0/execScript' failed at Sat Nov  2 23:17:27 2024
+Error: Action 'directed/dirtest4_21_0/execScript' failed (failed/script, status: 1):
+  message: 'Elaboration error'
+  details: UCDB status is 'UCDB Error'
+  logfile: /home/reds/Desktop/Labos/vse-labos/labo1_svcomb/code/VRMDATA/directed/dirtest4_21_0/execScript.log
+ActionCompleted: Action 'directed/dirtest4_21_0/execScript' failed at Sat Nov  2 23:17:29 2024
+Error: Action 'directed/dirtest4_16_0/execScript' failed (failed/script, status: 1):
+  message: 'Elaboration error'
+  details: UCDB status is 'UCDB Error'
+  logfile: /home/reds/Desktop/Labos/vse-labos/labo1_svcomb/code/VRMDATA/directed/dirtest4_16_0/execScript.log
+ActionCompleted: Action 'directed/dirtest4_16_0/execScript' failed at Sat Nov  2 23:17:30 2024
+Error: Action 'directed/dirtest12_20_0/execScript' failed (failed/script, status: 1):
+  message: 'Elaboration error'
+  details: UCDB status is 'UCDB Error'
+  logfile: /home/reds/Desktop/Labos/vse-labos/labo1_svcomb/code/VRMDATA/directed/dirtest12_20_0/execScript.log
+ActionCompleted: Action 'directed/dirtest12_20_0/execScript' failed at Sat Nov  2 23:17:30 2024
+Error: Action 'directed/dirtest4_20_0/execScript' failed (failed/script, status: 1):
+  message: 'Elaboration error'
+  details: UCDB status is 'UCDB Error'
+  logfile: /home/reds/Desktop/Labos/vse-labos/labo1_svcomb/code/VRMDATA/directed/dirtest4_20_0/execScript.log
+ActionCompleted: Action 'directed/dirtest4_20_0/execScript' failed at Sat Nov  2 23:17:31 2024
+Error: Action 'directed/dirtest12_19_0/execScript' failed (failed/script, status: 1):
+  message: 'Elaboration error'
+  details: UCDB status is 'UCDB Error'
+  logfile: /home/reds/Desktop/Labos/vse-labos/labo1_svcomb/code/VRMDATA/directed/dirtest12_19_0/execScript.log
+ActionCompleted: Action 'directed/dirtest12_19_0/execScript' failed at Sat Nov  2 23:17:31 2024
+Error: Action 'directed/dirtest8_17_0/execScript' failed (failed/script, status: 1):
+  message: 'Elaboration error'
+  details: UCDB status is 'UCDB Error'
+  logfile: /home/reds/Desktop/Labos/vse-labos/labo1_svcomb/code/VRMDATA/directed/dirtest8_17_0/execScript.log
+ActionCompleted: Action 'directed/dirtest8_17_0/execScript' failed at Sat Nov  2 23:17:32 2024
+Error: Action 'directed/dirtest8_20_0/execScript' failed (failed/script, status: 1):
+  message: 'Elaboration error'
+  details: UCDB status is 'UCDB Error'
+  logfile: /home/reds/Desktop/Labos/vse-labos/labo1_svcomb/code/VRMDATA/directed/dirtest8_20_0/execScript.log
+ActionCompleted: Action 'directed/dirtest8_20_0/execScript' failed at Sat Nov  2 23:17:32 2024
+Error: Action 'directed/dirtest8_19_0/execScript' failed (failed/script, status: 1):
+  message: 'Elaboration error'
+  details: UCDB status is 'UCDB Error'
+  logfile: /home/reds/Desktop/Labos/vse-labos/labo1_svcomb/code/VRMDATA/directed/dirtest8_19_0/execScript.log
+ActionCompleted: Action 'directed/dirtest8_19_0/execScript' failed at Sat Nov  2 23:17:32 2024
+Error: Action 'directed/dirtest8_1_0/execScript' failed (failed/script, status: 1):
+  message: 'Elaboration error'
+  details: UCDB status is 'UCDB Error'
+  logfile: /home/reds/Desktop/Labos/vse-labos/labo1_svcomb/code/VRMDATA/directed/dirtest8_1_0/execScript.log
+ActionCompleted: Action 'directed/dirtest8_1_0/execScript' failed at Sat Nov  2 23:17:33 2024
+Error: Action 'directed/dirtest12_18_0/execScript' failed (failed/script, status: 1):
+  message: 'Elaboration error'
+  details: UCDB status is 'UCDB Error'
+  logfile: /home/reds/Desktop/Labos/vse-labos/labo1_svcomb/code/VRMDATA/directed/dirtest12_18_0/execScript.log
+ActionCompleted: Action 'directed/dirtest12_18_0/execScript' failed at Sat Nov  2 23:17:33 2024
+Error: Action 'directed/dirtest8_2_0/execScript' failed (failed/script, status: 1):
+  message: 'Elaboration error'
+  details: UCDB status is 'UCDB Error'
+  logfile: /home/reds/Desktop/Labos/vse-labos/labo1_svcomb/code/VRMDATA/directed/dirtest8_2_0/execScript.log
+ActionCompleted: Action 'directed/dirtest8_2_0/execScript' failed at Sat Nov  2 23:17:33 2024
+Error: Action 'directed/dirtest12_3_0/execScript' failed (failed/script, status: 1):
+  message: 'Elaboration error'
+  details: UCDB status is 'UCDB Error'
+  logfile: /home/reds/Desktop/Labos/vse-labos/labo1_svcomb/code/VRMDATA/directed/dirtest12_3_0/execScript.log
+ActionCompleted: Action 'directed/dirtest12_3_0/execScript' failed at Sat Nov  2 23:17:33 2024
+Error: Action 'directed/dirtest8_21_0/execScript' failed (failed/script, status: 1):
+  message: 'Elaboration error'
+  details: UCDB status is 'UCDB Error'
+  logfile: /home/reds/Desktop/Labos/vse-labos/labo1_svcomb/code/VRMDATA/directed/dirtest8_21_0/execScript.log
+ActionCompleted: Action 'directed/dirtest8_21_0/execScript' failed at Sat Nov  2 23:17:33 2024
+Error: Action 'directed/dirtest12_1_0/execScript' failed (failed/script, status: 1):
+  message: 'Elaboration error'
+  details: UCDB status is 'UCDB Error'
+  logfile: /home/reds/Desktop/Labos/vse-labos/labo1_svcomb/code/VRMDATA/directed/dirtest12_1_0/execScript.log
+ActionCompleted: Action 'directed/dirtest12_1_0/execScript' failed at Sat Nov  2 23:17:33 2024
+Error: Action 'directed/dirtest12_17_0/execScript' failed (failed/script, status: 1):
+  message: 'Elaboration error'
+  details: UCDB status is 'UCDB Error'
+  logfile: /home/reds/Desktop/Labos/vse-labos/labo1_svcomb/code/VRMDATA/directed/dirtest12_17_0/execScript.log
+ActionCompleted: Action 'directed/dirtest12_17_0/execScript' failed at Sat Nov  2 23:17:33 2024
+Error: Action 'directed/dirtest12_0_0/execScript' failed (failed/script, status: 1):
+  message: 'Elaboration error'
+  details: UCDB status is 'UCDB Error'
+  logfile: /home/reds/Desktop/Labos/vse-labos/labo1_svcomb/code/VRMDATA/directed/dirtest12_0_0/execScript.log
+ActionCompleted: Action 'directed/dirtest12_0_0/execScript' failed at Sat Nov  2 23:17:33 2024
+Error: Action 'directed/dirtest8_16_0/execScript' failed (failed/script, status: 1):
+  message: 'Elaboration error'
+  details: UCDB status is 'UCDB Error'
+  logfile: /home/reds/Desktop/Labos/vse-labos/labo1_svcomb/code/VRMDATA/directed/dirtest8_16_0/execScript.log
+ActionCompleted: Action 'directed/dirtest8_16_0/execScript' failed at Sat Nov  2 23:17:33 2024
+Error: Action 'directed/dirtest12_16_0/execScript' failed (failed/script, status: 1):
+  message: 'Elaboration error'
+  details: UCDB status is 'UCDB Error'
+  logfile: /home/reds/Desktop/Labos/vse-labos/labo1_svcomb/code/VRMDATA/directed/dirtest12_16_0/execScript.log
+ActionCompleted: Action 'directed/dirtest12_16_0/execScript' failed at Sat Nov  2 23:17:34 2024
+Error: Action 'directed/dirtest8_18_0/execScript' failed (failed/script, status: 1):
+  message: 'Elaboration error'
+  details: UCDB status is 'UCDB Error'
+  logfile: /home/reds/Desktop/Labos/vse-labos/labo1_svcomb/code/VRMDATA/directed/dirtest8_18_0/execScript.log
+ActionCompleted: Action 'directed/dirtest8_18_0/execScript' failed at Sat Nov  2 23:17:34 2024
+Error: Action 'directed/dirtest12_21_0/execScript' failed (failed/script, status: 1):
+  message: 'Elaboration error'
+  details: UCDB status is 'UCDB Error'
+  logfile: /home/reds/Desktop/Labos/vse-labos/labo1_svcomb/code/VRMDATA/directed/dirtest12_21_0/execScript.log
+ActionCompleted: Action 'directed/dirtest12_21_0/execScript' failed at Sat Nov  2 23:17:34 2024
+Error: Action 'directed/dirtest12_2_0/execScript' failed (failed/script, status: 1):
+  message: 'Elaboration error'
+  details: UCDB status is 'UCDB Error'
+  logfile: /home/reds/Desktop/Labos/vse-labos/labo1_svcomb/code/VRMDATA/directed/dirtest12_2_0/execScript.log
+ActionCompleted: Action 'directed/dirtest12_2_0/execScript' failed at Sat Nov  2 23:17:34 2024
+Action script execution status:
+  Total 30 scripts prepared: 30 OK, 0 failed
+  Total 30 scripts launched: 30 OK, 0 failed
+  Total 30 scripts finished: 0 OK, 30 failed
+Action script completion status:
+  Total 30 execScript actions: 30 failed
+  Total  1 postScript actions: 1 empty
+  Total  1  preScript actions: 1 empty
+Action script pass/fail status:
+  Passed          0    
+  Failed          30   
+  TOTAL           30   
+RegressionCompleted: Regression finished at Sat Nov  2 23:17:39 2024
+VRM total elapsed time: 0m:27s

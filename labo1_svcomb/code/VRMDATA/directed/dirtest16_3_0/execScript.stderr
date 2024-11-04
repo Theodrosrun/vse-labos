@@ -1,0 +1,3 @@
+Signal SIGTERM caught... Closing vish.
+writing stack trace to vish_stacktrace.vstf
+Fatal: vsim caught SIGTERM. Closing vsimk kernel.

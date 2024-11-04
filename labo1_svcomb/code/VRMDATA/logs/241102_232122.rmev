@@ -1,0 +1,224 @@
+20241102T232122 selects {I /directed}
+20241102T232122 options -nobatch -mseed 0 -runlog
+20241102T232122 vrundir /home/reds/Desktop/Labos/vse-labos/labo1_svcomb/code
+20241102T232122 vrmdata /home/reds/Desktop/Labos/vse-labos/labo1_svcomb/code/VRMDATA
+20241102T232122 logfile /home/reds/Desktop/Labos/vse-labos/labo1_svcomb/code/VRMDATA/logs/241102_232122.rmev
+20241102T232122 begin 38185@reds-vmeda /home/reds/Desktop/Labos/vse-labos/labo1_svcomb/code/default.rmdb /home/reds/Desktop/Labos/vse-labos/labo1_svcomb/code/VRMDATA
+20241102T232122 eligible directed/preScript {}
+20241102T232122 done directed/preScript empty
+20241102T232122 eligible directed/dirtest4_0_0/execScript {}
+20241102T232122 eligible directed/dirtest4_1_0/execScript {}
+20241102T232122 eligible directed/dirtest4_2_0/execScript {}
+20241102T232122 eligible directed/dirtest4_3_0/execScript {}
+20241102T232122 eligible directed/dirtest4_16_0/execScript {}
+20241102T232122 eligible directed/dirtest4_17_0/execScript {}
+20241102T232122 eligible directed/dirtest4_18_0/execScript {}
+20241102T232122 eligible directed/dirtest4_19_0/execScript {}
+20241102T232122 eligible directed/dirtest4_20_0/execScript {}
+20241102T232122 eligible directed/dirtest4_21_0/execScript {}
+20241102T232122 eligible directed/dirtest8_0_0/execScript {}
+20241102T232122 eligible directed/dirtest8_1_0/execScript {}
+20241102T232122 eligible directed/dirtest8_2_0/execScript {}
+20241102T232122 eligible directed/dirtest8_3_0/execScript {}
+20241102T232122 eligible directed/dirtest8_16_0/execScript {}
+20241102T232122 eligible directed/dirtest8_17_0/execScript {}
+20241102T232122 eligible directed/dirtest8_18_0/execScript {}
+20241102T232122 eligible directed/dirtest8_19_0/execScript {}
+20241102T232122 eligible directed/dirtest8_20_0/execScript {}
+20241102T232122 eligible directed/dirtest8_21_0/execScript {}
+20241102T232122 eligible directed/dirtest16_0_0/execScript {}
+20241102T232122 eligible directed/dirtest16_1_0/execScript {}
+20241102T232122 eligible directed/dirtest16_2_0/execScript {}
+20241102T232122 eligible directed/dirtest16_3_0/execScript {}
+20241102T232122 eligible directed/dirtest16_16_0/execScript {}
+20241102T232122 eligible directed/dirtest16_17_0/execScript {}
+20241102T232122 eligible directed/dirtest16_18_0/execScript {}
+20241102T232122 eligible directed/dirtest16_19_0/execScript {}
+20241102T232122 eligible directed/dirtest16_20_0/execScript {}
+20241102T232122 eligible directed/dirtest16_21_0/execScript {}
+20241102T232122 launched directed/dirtest4_0_0/execScript
+20241102T232122 launched directed/dirtest4_1_0/execScript
+20241102T232122 launched directed/dirtest4_2_0/execScript
+20241102T232122 launched directed/dirtest4_3_0/execScript
+20241102T232122 launched directed/dirtest4_16_0/execScript
+20241102T232122 launched directed/dirtest4_17_0/execScript
+20241102T232122 launched directed/dirtest4_18_0/execScript
+20241102T232122 launched directed/dirtest4_19_0/execScript
+20241102T232123 launched directed/dirtest4_20_0/execScript
+20241102T232123 launched directed/dirtest4_21_0/execScript
+20241102T232123 launched directed/dirtest8_0_0/execScript
+20241102T232123 launched directed/dirtest8_1_0/execScript
+20241102T232123 launched directed/dirtest8_2_0/execScript
+20241102T232123 launched directed/dirtest8_3_0/execScript
+20241102T232123 launched directed/dirtest8_16_0/execScript
+20241102T232123 launched directed/dirtest8_17_0/execScript
+20241102T232124 launched directed/dirtest8_18_0/execScript
+20241102T232124 launched directed/dirtest8_19_0/execScript
+20241102T232124 launched directed/dirtest8_20_0/execScript
+20241102T232124 launched directed/dirtest8_21_0/execScript
+20241102T232124 launched directed/dirtest16_0_0/execScript
+20241102T232125 launched directed/dirtest16_1_0/execScript
+20241102T232125 launched directed/dirtest16_2_0/execScript
+20241102T232125 launched directed/dirtest16_3_0/execScript
+20241102T232126 launched directed/dirtest16_16_0/execScript
+20241102T232126 launched directed/dirtest16_17_0/execScript
+20241102T232126 launched directed/dirtest16_18_0/execScript
+20241102T232126 launched directed/dirtest16_19_0/execScript
+20241102T232127 launched directed/dirtest16_20_0/execScript
+20241102T232127 launched directed/dirtest16_21_0/execScript
+20241102T232129 running directed/dirtest4_1_0/execScript reds-vmeda
+20241102T232129 running directed/dirtest4_0_0/execScript reds-vmeda
+20241102T232130 running directed/dirtest4_2_0/execScript reds-vmeda
+20241102T232130 running directed/dirtest4_18_0/execScript reds-vmeda
+20241102T232132 running directed/dirtest4_16_0/execScript reds-vmeda
+20241102T232132 running directed/dirtest4_3_0/execScript reds-vmeda
+20241102T232132 running directed/dirtest8_1_0/execScript reds-vmeda
+20241102T232133 running directed/dirtest4_17_0/execScript reds-vmeda
+20241102T232133 running directed/dirtest8_2_0/execScript reds-vmeda
+20241102T232134 running directed/dirtest16_0_0/execScript reds-vmeda
+20241102T232134 running directed/dirtest16_21_0/execScript reds-vmeda
+20241102T232134 done directed/dirtest4_1_0/execScript failed/script reds-vmeda directed/dirtest4_1_0.ucdb {} {} {} {} {}
+20241102T232134 eligible directed/dirtest4_1_0/deleteScript {}
+20241102T232134 done directed/dirtest4_0_0/execScript failed/script reds-vmeda directed/dirtest4_0_0.ucdb {} {} {} {} {}
+20241102T232134 eligible directed/dirtest4_0_0/deleteScript {}
+20241102T232135 running directed/dirtest4_21_0/execScript reds-vmeda
+20241102T232135 running directed/dirtest4_20_0/execScript reds-vmeda
+20241102T232135 running directed/dirtest4_19_0/execScript reds-vmeda
+20241102T232135 running directed/dirtest8_3_0/execScript reds-vmeda
+20241102T232135 running directed/dirtest8_0_0/execScript reds-vmeda
+20241102T232135 running directed/dirtest16_2_0/execScript reds-vmeda
+20241102T232135 done directed/dirtest4_18_0/execScript failed/script reds-vmeda directed/dirtest4_18_0.ucdb {} {} {} {} {}
+20241102T232135 eligible directed/dirtest4_18_0/deleteScript {}
+20241102T232136 done directed/dirtest4_2_0/execScript failed/script reds-vmeda directed/dirtest4_2_0.ucdb {} {} {} {} {}
+20241102T232136 eligible directed/dirtest4_2_0/deleteScript {}
+20241102T232136 running directed/dirtest8_21_0/execScript reds-vmeda
+20241102T232136 running directed/dirtest16_19_0/execScript reds-vmeda
+20241102T232136 running directed/dirtest8_19_0/execScript reds-vmeda
+20241102T232136 running directed/dirtest8_16_0/execScript reds-vmeda
+20241102T232136 running directed/dirtest8_17_0/execScript reds-vmeda
+20241102T232136 running directed/dirtest8_20_0/execScript reds-vmeda
+20241102T232137 running directed/dirtest16_16_0/execScript reds-vmeda
+20241102T232138 running directed/dirtest8_18_0/execScript reds-vmeda
+20241102T232138 running directed/dirtest16_20_0/execScript reds-vmeda
+20241102T232138 running directed/dirtest16_17_0/execScript reds-vmeda
+20241102T232138 running directed/dirtest16_1_0/execScript reds-vmeda
+20241102T232139 running directed/dirtest16_18_0/execScript reds-vmeda
+20241102T232139 running directed/dirtest16_3_0/execScript reds-vmeda
+20241102T232139 running directed/dirtest4_1_0/deleteScript reds-vmeda
+20241102T232139 done directed/dirtest4_1_0/deleteScript skipped
+20241102T232139 done directed/dirtest4_3_0/execScript failed/script reds-vmeda directed/dirtest4_3_0.ucdb {} {} {} {} {}
+20241102T232139 eligible directed/dirtest4_3_0/deleteScript {}
+20241102T232139 running directed/dirtest4_0_0/deleteScript reds-vmeda
+20241102T232139 done directed/dirtest4_0_0/deleteScript skipped
+20241102T232140 running directed/dirtest4_18_0/deleteScript reds-vmeda
+20241102T232140 done directed/dirtest4_18_0/deleteScript skipped
+20241102T232141 running directed/dirtest4_2_0/deleteScript reds-vmeda
+20241102T232141 done directed/dirtest4_2_0/deleteScript skipped
+20241102T232144 running directed/dirtest4_3_0/deleteScript reds-vmeda
+20241102T232144 done directed/dirtest4_3_0/deleteScript skipped
+20241102T232145 done directed/dirtest16_0_0/execScript failed/script reds-vmeda directed/dirtest16_0_0.ucdb {} {} {} {} {}
+20241102T232145 eligible directed/dirtest16_0_0/deleteScript {}
+20241102T232147 done directed/dirtest4_16_0/execScript failed/script reds-vmeda directed/dirtest4_16_0.ucdb {} {} {} {} {}
+20241102T232147 eligible directed/dirtest4_16_0/deleteScript {}
+20241102T232147 done directed/dirtest4_17_0/execScript failed/script reds-vmeda directed/dirtest4_17_0.ucdb {} {} {} {} {}
+20241102T232147 eligible directed/dirtest4_17_0/deleteScript {}
+20241102T232150 done directed/dirtest4_19_0/execScript failed/script reds-vmeda directed/dirtest4_19_0.ucdb {} {} {} {} {}
+20241102T232150 eligible directed/dirtest4_19_0/deleteScript {}
+20241102T232150 done directed/dirtest8_2_0/execScript failed/script reds-vmeda directed/dirtest8_2_0.ucdb {} {} {} {} {}
+20241102T232150 eligible directed/dirtest8_2_0/deleteScript {}
+20241102T232150 done directed/dirtest16_21_0/execScript failed/script reds-vmeda directed/dirtest16_21_0.ucdb {} {} {} {} {}
+20241102T232150 eligible directed/dirtest16_21_0/deleteScript {}
+20241102T232150 running directed/dirtest16_0_0/deleteScript reds-vmeda
+20241102T232150 done directed/dirtest16_0_0/deleteScript skipped
+20241102T232152 done directed/dirtest4_21_0/execScript failed/script reds-vmeda directed/dirtest4_21_0.ucdb {} {} {} {} {}
+20241102T232152 eligible directed/dirtest4_21_0/deleteScript {}
+20241102T232152 done directed/dirtest8_1_0/execScript failed/script reds-vmeda directed/dirtest8_1_0.ucdb {} {} {} {} {}
+20241102T232152 eligible directed/dirtest8_1_0/deleteScript {}
+20241102T232152 running directed/dirtest4_16_0/deleteScript reds-vmeda
+20241102T232152 done directed/dirtest4_16_0/deleteScript skipped
+20241102T232152 running directed/dirtest4_17_0/deleteScript reds-vmeda
+20241102T232152 done directed/dirtest4_17_0/deleteScript skipped
+20241102T232152 done directed/dirtest8_3_0/execScript failed/script reds-vmeda directed/dirtest8_3_0.ucdb {} {} {} {} {}
+20241102T232152 eligible directed/dirtest8_3_0/deleteScript {}
+20241102T232154 done directed/dirtest8_0_0/execScript failed/script reds-vmeda directed/dirtest8_0_0.ucdb {} {} {} {} {}
+20241102T232154 eligible directed/dirtest8_0_0/deleteScript {}
+20241102T232155 done directed/dirtest4_20_0/execScript failed/script reds-vmeda directed/dirtest4_20_0.ucdb {} {} {} {} {}
+20241102T232155 eligible directed/dirtest4_20_0/deleteScript {}
+20241102T232155 done directed/dirtest16_2_0/execScript failed/script reds-vmeda directed/dirtest16_2_0.ucdb {} {} {} {} {}
+20241102T232155 eligible directed/dirtest16_2_0/deleteScript {}
+20241102T232155 running directed/dirtest4_19_0/deleteScript reds-vmeda
+20241102T232155 done directed/dirtest4_19_0/deleteScript skipped
+20241102T232155 running directed/dirtest8_2_0/deleteScript reds-vmeda
+20241102T232155 done directed/dirtest8_2_0/deleteScript skipped
+20241102T232155 running directed/dirtest16_21_0/deleteScript reds-vmeda
+20241102T232155 done directed/dirtest16_21_0/deleteScript skipped
+20241102T232157 done directed/dirtest8_16_0/execScript failed/script reds-vmeda directed/dirtest8_16_0.ucdb {} {} {} {} {}
+20241102T232157 eligible directed/dirtest8_16_0/deleteScript {}
+20241102T232157 running directed/dirtest4_21_0/deleteScript reds-vmeda
+20241102T232157 done directed/dirtest4_21_0/deleteScript skipped
+20241102T232157 done directed/dirtest16_19_0/execScript failed/script reds-vmeda directed/dirtest16_19_0.ucdb {} {} {} {} {}
+20241102T232157 eligible directed/dirtest16_19_0/deleteScript {}
+20241102T232157 done directed/dirtest16_16_0/execScript failed/script reds-vmeda directed/dirtest16_16_0.ucdb {} {} {} {} {}
+20241102T232157 eligible directed/dirtest16_16_0/deleteScript {}
+20241102T232157 done directed/dirtest8_19_0/execScript failed/script reds-vmeda directed/dirtest8_19_0.ucdb {} {} {} {} {}
+20241102T232157 eligible directed/dirtest8_19_0/deleteScript {}
+20241102T232157 running directed/dirtest8_1_0/deleteScript reds-vmeda
+20241102T232157 done directed/dirtest8_1_0/deleteScript skipped
+20241102T232157 done directed/dirtest16_17_0/execScript failed/script reds-vmeda directed/dirtest16_17_0.ucdb {} {} {} {} {}
+20241102T232157 eligible directed/dirtest16_17_0/deleteScript {}
+20241102T232157 done directed/dirtest16_3_0/execScript failed/script reds-vmeda directed/dirtest16_3_0.ucdb {} {} {} {} {}
+20241102T232157 eligible directed/dirtest16_3_0/deleteScript {}
+20241102T232157 done directed/dirtest8_21_0/execScript failed/script reds-vmeda directed/dirtest8_21_0.ucdb {} {} {} {} {}
+20241102T232157 eligible directed/dirtest8_21_0/deleteScript {}
+20241102T232158 running directed/dirtest8_3_0/deleteScript reds-vmeda
+20241102T232158 done directed/dirtest8_3_0/deleteScript skipped
+20241102T232158 done directed/dirtest8_17_0/execScript failed/script reds-vmeda directed/dirtest8_17_0.ucdb {} {} {} {} {}
+20241102T232158 eligible directed/dirtest8_17_0/deleteScript {}
+20241102T232158 done directed/dirtest8_20_0/execScript failed/script reds-vmeda directed/dirtest8_20_0.ucdb {} {} {} {} {}
+20241102T232158 eligible directed/dirtest8_20_0/deleteScript {}
+20241102T232158 done directed/dirtest8_18_0/execScript failed/script reds-vmeda directed/dirtest8_18_0.ucdb {} {} {} {} {}
+20241102T232158 eligible directed/dirtest8_18_0/deleteScript {}
+20241102T232159 done directed/dirtest16_20_0/execScript failed/script reds-vmeda directed/dirtest16_20_0.ucdb {} {} {} {} {}
+20241102T232159 eligible directed/dirtest16_20_0/deleteScript {}
+20241102T232159 done directed/dirtest16_1_0/execScript failed/script reds-vmeda directed/dirtest16_1_0.ucdb {} {} {} {} {}
+20241102T232159 eligible directed/dirtest16_1_0/deleteScript {}
+20241102T232159 done directed/dirtest16_18_0/execScript failed/script reds-vmeda directed/dirtest16_18_0.ucdb {} {} {} {} {}
+20241102T232159 eligible directed/dirtest16_18_0/deleteScript {}
+20241102T232159 eligible directed/postScript {}
+20241102T232159 done directed/postScript empty
+20241102T232159 eligible directed/deleteScript {}
+20241102T232200 running directed/dirtest8_0_0/deleteScript reds-vmeda
+20241102T232200 done directed/dirtest8_0_0/deleteScript skipped
+20241102T232200 running directed/dirtest4_20_0/deleteScript reds-vmeda
+20241102T232200 done directed/dirtest4_20_0/deleteScript skipped
+20241102T232200 running directed/dirtest16_2_0/deleteScript reds-vmeda
+20241102T232200 done directed/dirtest16_2_0/deleteScript skipped
+20241102T232202 running directed/dirtest8_16_0/deleteScript reds-vmeda
+20241102T232202 done directed/dirtest8_16_0/deleteScript skipped
+20241102T232202 running directed/dirtest16_19_0/deleteScript reds-vmeda
+20241102T232202 done directed/dirtest16_19_0/deleteScript skipped
+20241102T232202 running directed/dirtest16_16_0/deleteScript reds-vmeda
+20241102T232202 done directed/dirtest16_16_0/deleteScript skipped
+20241102T232202 running directed/dirtest8_19_0/deleteScript reds-vmeda
+20241102T232202 done directed/dirtest8_19_0/deleteScript skipped
+20241102T232202 running directed/dirtest16_17_0/deleteScript reds-vmeda
+20241102T232202 done directed/dirtest16_17_0/deleteScript skipped
+20241102T232202 running directed/dirtest16_3_0/deleteScript reds-vmeda
+20241102T232202 done directed/dirtest16_3_0/deleteScript skipped
+20241102T232202 running directed/dirtest8_21_0/deleteScript reds-vmeda
+20241102T232202 done directed/dirtest8_21_0/deleteScript skipped
+20241102T232203 running directed/dirtest8_17_0/deleteScript reds-vmeda
+20241102T232203 done directed/dirtest8_17_0/deleteScript skipped
+20241102T232203 running directed/dirtest8_20_0/deleteScript reds-vmeda
+20241102T232203 done directed/dirtest8_20_0/deleteScript skipped
+20241102T232203 running directed/dirtest8_18_0/deleteScript reds-vmeda
+20241102T232203 done directed/dirtest8_18_0/deleteScript skipped
+20241102T232204 running directed/dirtest16_20_0/deleteScript reds-vmeda
+20241102T232204 done directed/dirtest16_20_0/deleteScript skipped
+20241102T232204 running directed/dirtest16_1_0/deleteScript reds-vmeda
+20241102T232204 done directed/dirtest16_1_0/deleteScript skipped
+20241102T232204 running directed/dirtest16_18_0/deleteScript reds-vmeda
+20241102T232204 done directed/dirtest16_18_0/deleteScript skipped
+20241102T232204 running directed/deleteScript reds-vmeda
+20241102T232204 done directed/deleteScript skipped
+20241102T232204 end

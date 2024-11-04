@@ -1,0 +1,148 @@
+m255
+K4
+z2
+!s11f MIXED_VERSIONS
+!s11e vcom 2020.1_1 2020.03, Mar  4 2020
+13
+!s112 1.1
+!i10d 8192
+!i10e 25
+!i10f 100
+cModel Technology
+Z0 d/home/reds/Desktop/Labos/vse-labos/labo1_svcomb/code/VRMDATA/directed/dirtest8_19_0
+T_opt
+!s110 1730586390
+VZngO0>6U[4aY=dl38CRY:1
+04 14 4 work min_max_top_tb fast 0
+=1-000ae431a4f1-6726a712-ba376-4576
+o-quiet -auto_acc_if_foreign -work work -G TESTCASE=0 -G ERRNO=19 -G VALSIZE=8
+Z1 tCvgOpt 0
+n@_opt
+OL;O;2020.1_1;71
+Ymin_max_in_itf
+Z2 DXx6 sv_std 3 std 0 22 9oUSJO;AeEaW`l:M@^WG92
+Z3 !s110 1730586382
+!i10b 1
+!s100 n66Zbo_=zUD9HYki>DBLi2
+Z4 !s11b Dg1SIo80bB@j0V0VzS_@n1
+I_Ja1j@?^79WkTd7T]g`3S1
+Z5 VDg1SIo80bB@j0V0VzS_@n1
+S1
+R0
+Z6 w1730586316
+Z7 8/home/reds/Desktop/Labos/vse-labos/labo1_svcomb/code/src_tb/min_max_top_tb.sv
+Z8 F/home/reds/Desktop/Labos/vse-labos/labo1_svcomb/code/src_tb/min_max_top_tb.sv
+!i122 1
+L0 31 0
+Z9 OL;L;2020.1_1;71
+r1
+!s85 0
+31
+Z10 !s108 1730586381.000000
+Z11 !s107 /home/reds/Desktop/Labos/vse-labos/labo1_svcomb/code/src_tb/min_max_top_tb.sv|
+Z12 !s90 -sv|/home/reds/Desktop/Labos/vse-labos/labo1_svcomb/code/src_tb/min_max_top_tb.sv|
+!i113 0
+Z13 o-sv -L mtiAvm -L mtiOvm -L mtiUvm -L mtiUPF
+R1
+Ymin_max_out_itf
+R2
+R3
+!i10b 1
+!s100 2M?8n@kS5UOj1dH8^l`0d1
+R4
+Inkg9dL@U_COgbJNdDZ:GQ3
+R5
+S1
+R0
+R6
+R7
+R8
+!i122 1
+L0 39 0
+R9
+r1
+!s85 0
+31
+R10
+R11
+R12
+!i113 0
+R13
+R1
+E3lUzXuLPIJ5Qz2s0HqqWjg==
+Z14 w1730403100
+Z15 DPx4 ieee 11 numeric_std 0 22 aU^R8eGcicLcUFIaBQSL>3
+Z16 DPx3 std 6 textio 0 22 zE1`LPoLg^DX3Oz^4Fj1K3
+Z17 DPx4 ieee 14 std_logic_1164 0 22 cVAk:aDinOX8^VGI1ekP<3
+!i122 0
+R0
+Z18 8/home/reds/Desktop/Labos/vse-labos/labo1_svcomb/code/src_vhdl/min_max_top.vhd
+Z19 F/home/reds/Desktop/Labos/vse-labos/labo1_svcomb/code/src_vhdl/min_max_top.vhd
+l0
+Z20 L17 1
+Vg=RUY6P?`C=nOa@SQYlOJ2
+!s100 iL]=>?aPWVfUli`QN1M]]2
+Z21 OL;C;2020.1_1;71
+!i119 1
+!i8a 1159235952
+33
+Z22 !s110 1730586381
+!i10b 1
+Z23 !s108 1730586379.000000
+Z24 !s90 -2008|/home/reds/Desktop/Labos/vse-labos/labo1_svcomb/code/src_vhdl/min_max_top.vhd|
+Z25 !s107 /home/reds/Desktop/Labos/vse-labos/labo1_svcomb/code/src_vhdl/min_max_top.vhd|
+!i113 0
+Z26 o-2008
+Z27 tExplicit 1 CvgOpt 0
+n3fa6f00
+A7we6FCM48fp7tPM1duEG1Q==
+DEx11 aff_min_max 16 comparator_nbits 0 22 [5PjK>ajnAcYT<3lDCkIf0
+DEx11 aff_min_max 7 bin_lin 0 22 RbHlgheGRQW2VjoRAHOlM1
+DEx11 aff_min_max 9 affichage 0 22 UTOf_iaC`A4=i;iNG``:<1
+R15
+R16
+R17
+DEx4 work 11 min_max_top 0 22 g=RUY6P?`C=nOa@SQYlOJ2
+!i122 0
+l17
+R20
+Vo1OBbdm407Ph?TV3UE05^0
+!s100 P0LfAG>gjzVQ2HF2[ZcB?2
+R21
+!i119 1
+!i8a 43290976
+33
+R22
+!i10b 1
+R23
+R24
+R25
+!i113 0
+R26
+R27
+n7ab9ba4
+vmin_max_top_tb
+R2
+R3
+!i10b 1
+!s100 EiP6jGTF1mUg4M0ZbigUb2
+R4
+I_06Ko^EoI@]EKj7A8jUzZ0
+R5
+S1
+R0
+R6
+R7
+R8
+!i122 1
+L0 43 591
+R9
+r1
+!s85 0
+31
+R10
+R11
+R12
+!i113 0
+R13
+R1

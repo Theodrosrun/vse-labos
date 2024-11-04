@@ -1,0 +1,65 @@
+20241102T231557 begin 40807@reds-vmeda /home/reds/Desktop/Labos/vse-labos/labo1_svcomb/code/default.rmdb /home/reds/Desktop/Labos/vse-labos/labo1_svcomb/code/VRMDATA
+20241102T231624 done directed/deleteScript skipped {} {} {} {}
+20241102T231623 done directed/dirtest12_0_0/deleteScript skipped {} {} {} {}
+20241102T231618 done directed/dirtest12_0_0/execScript failed/script reds-vmeda directed/dirtest12_0_0.ucdb {} {} {} {} {}
+20241102T231623 done directed/dirtest12_16_0/deleteScript skipped {} {} {} {}
+20241102T231618 done directed/dirtest12_16_0/execScript failed/script reds-vmeda directed/dirtest12_16_0.ucdb {} {} {} {} {}
+20241102T231623 done directed/dirtest12_17_0/deleteScript skipped {} {} {} {}
+20241102T231618 done directed/dirtest12_17_0/execScript failed/script reds-vmeda directed/dirtest12_17_0.ucdb {} {} {} {} {}
+20241102T231623 done directed/dirtest12_18_0/deleteScript skipped {} {} {} {}
+20241102T231618 done directed/dirtest12_18_0/execScript failed/script reds-vmeda directed/dirtest12_18_0.ucdb {} {} {} {} {}
+20241102T231623 done directed/dirtest12_19_0/deleteScript skipped {} {} {} {}
+20241102T231618 done directed/dirtest12_19_0/execScript failed/script reds-vmeda directed/dirtest12_19_0.ucdb {} {} {} {} {}
+20241102T231620 done directed/dirtest12_1_0/deleteScript skipped {} {} {} {}
+20241102T231615 done directed/dirtest12_1_0/execScript failed/script reds-vmeda directed/dirtest12_1_0.ucdb {} {} {} {} {}
+20241102T231623 done directed/dirtest12_20_0/deleteScript skipped {} {} {} {}
+20241102T231618 done directed/dirtest12_20_0/execScript failed/script reds-vmeda directed/dirtest12_20_0.ucdb {} {} {} {} {}
+20241102T231623 done directed/dirtest12_21_0/deleteScript skipped {} {} {} {}
+20241102T231618 done directed/dirtest12_21_0/execScript failed/script reds-vmeda directed/dirtest12_21_0.ucdb {} {} {} {} {}
+20241102T231623 done directed/dirtest12_2_0/deleteScript skipped {} {} {} {}
+20241102T231618 done directed/dirtest12_2_0/execScript failed/script reds-vmeda directed/dirtest12_2_0.ucdb {} {} {} {} {}
+20241102T231623 done directed/dirtest12_3_0/deleteScript skipped {} {} {} {}
+20241102T231618 done directed/dirtest12_3_0/execScript failed/script reds-vmeda directed/dirtest12_3_0.ucdb {} {} {} {} {}
+20241102T231611 done directed/dirtest4_0_0/deleteScript skipped {} {} {} {}
+20241102T231605 done directed/dirtest4_0_0/execScript failed/script reds-vmeda directed/dirtest4_0_0.ucdb {} 0 {} {} 26
+20241102T231615 done directed/dirtest4_16_0/deleteScript skipped {} {} {} {}
+20241102T231609 done directed/dirtest4_16_0/execScript failed/script reds-vmeda directed/dirtest4_16_0.ucdb {} 0 {} {} {}
+20241102T231614 done directed/dirtest4_17_0/deleteScript skipped {} {} {} {}
+20241102T231609 done directed/dirtest4_17_0/execScript failed/script reds-vmeda directed/dirtest4_17_0.ucdb {} 0 {} {} {}
+20241102T231619 done directed/dirtest4_18_0/deleteScript skipped {} {} {} {}
+20241102T231614 done directed/dirtest4_18_0/execScript failed/script reds-vmeda directed/dirtest4_18_0.ucdb {} 0 {} {} {}
+20241102T231610 done directed/dirtest4_19_0/deleteScript skipped {} {} {} {}
+20241102T231605 done directed/dirtest4_19_0/execScript failed/script reds-vmeda directed/dirtest4_19_0.ucdb {} 0 {} {} {}
+20241102T231610 done directed/dirtest4_1_0/deleteScript skipped {} {} {} {}
+20241102T231605 done directed/dirtest4_1_0/execScript failed/script reds-vmeda directed/dirtest4_1_0.ucdb {} 0 {} {} 28
+20241102T231615 done directed/dirtest4_20_0/deleteScript skipped {} {} {} {}
+20241102T231610 done directed/dirtest4_20_0/execScript failed/script reds-vmeda directed/dirtest4_20_0.ucdb {} 0 {} {} {}
+20241102T231617 done directed/dirtest4_21_0/deleteScript skipped {} {} {} {}
+20241102T231612 done directed/dirtest4_21_0/execScript failed/script reds-vmeda directed/dirtest4_21_0.ucdb {} 0 {} {} {}
+20241102T231617 done directed/dirtest4_2_0/deleteScript skipped {} {} {} {}
+20241102T231612 done directed/dirtest4_2_0/execScript failed/script reds-vmeda directed/dirtest4_2_0.ucdb {} 0 {} {} 23
+20241102T231622 done directed/dirtest4_3_0/deleteScript skipped {} {} {} {}
+20241102T231617 done directed/dirtest4_3_0/execScript failed/script reds-vmeda directed/dirtest4_3_0.ucdb {} 0 {} {} 25
+20241102T231615 done directed/dirtest8_0_0/deleteScript skipped {} {} {} {}
+20241102T231610 done directed/dirtest8_0_0/execScript failed/script reds-vmeda directed/dirtest8_0_0.ucdb {} 0 {} {} 63
+20241102T231619 done directed/dirtest8_16_0/deleteScript skipped {} {} {} {}
+20241102T231613 done directed/dirtest8_16_0/execScript failed/script reds-vmeda directed/dirtest8_16_0.ucdb {} {} {} {} {}
+20241102T231621 done directed/dirtest8_17_0/deleteScript skipped {} {} {} {}
+20241102T231616 done directed/dirtest8_17_0/execScript failed/script reds-vmeda directed/dirtest8_17_0.ucdb {} {} {} {} {}
+20241102T231623 done directed/dirtest8_18_0/deleteScript skipped {} {} {} {}
+20241102T231618 done directed/dirtest8_18_0/execScript failed/script reds-vmeda directed/dirtest8_18_0.ucdb {} {} {} {} {}
+20241102T231621 done directed/dirtest8_19_0/deleteScript skipped {} {} {} {}
+20241102T231616 done directed/dirtest8_19_0/execScript failed/script reds-vmeda directed/dirtest8_19_0.ucdb {} {} {} {} {}
+20241102T231622 done directed/dirtest8_1_0/deleteScript skipped {} {} {} {}
+20241102T231617 done directed/dirtest8_1_0/execScript failed/script reds-vmeda directed/dirtest8_1_0.ucdb {} 0 {} {} 94
+20241102T231619 done directed/dirtest8_20_0/deleteScript skipped {} {} {} {}
+20241102T231614 done directed/dirtest8_20_0/execScript failed/script reds-vmeda directed/dirtest8_20_0.ucdb {} {} {} {} {}
+20241102T231623 done directed/dirtest8_21_0/deleteScript skipped {} {} {} {}
+20241102T231618 done directed/dirtest8_21_0/execScript failed/script reds-vmeda directed/dirtest8_21_0.ucdb {} 0 {} {} {}
+20241102T231622 done directed/dirtest8_2_0/deleteScript skipped {} {} {} {}
+20241102T231617 done directed/dirtest8_2_0/execScript failed/script reds-vmeda directed/dirtest8_2_0.ucdb {} 0 {} {} 88
+20241102T231620 done directed/dirtest8_3_0/deleteScript skipped {} {} {} {}
+20241102T231615 done directed/dirtest8_3_0/execScript failed/script reds-vmeda directed/dirtest8_3_0.ucdb {} 0 {} {} 92
+20241102T231619 done directed/postScript empty {} {} {} {}
+20241102T231557 done directed/preScript empty {} {} {} {}
+20241102T231625 end

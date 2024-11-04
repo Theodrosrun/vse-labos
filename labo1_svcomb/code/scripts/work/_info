@@ -1,0 +1,169 @@
+m255
+K4
+z2
+!s11f MIXED_VERSIONS
+!s11e vcom 2020.1_1 2020.03, Mar  4 2020
+13
+!s112 1.1
+!i10d 8192
+!i10e 25
+!i10f 100
+cModel Technology
+Z0 d/home/reds/Desktop/Labos/vse-labos/labo1_svcomb/code/scripts
+T_opt
+Z1 !s110 1730582869
+VAX[EKGTMBXofCf`RS3Qg[0
+Z2 04 14 4 work min_max_top_tb fast 0
+=1-000ae431a4f1-67269955-4e5b6-14af
+o-quiet -auto_acc_if_foreign -work work -G TESTCASE=0 -G ERRNO=21 -G VALSIZE=5
+Z3 tCvgOpt 0
+n@_opt
+Z4 OL;O;2020.1_1;71
+R0
+T_opt1
+!s110 1730582858
+V0kYk3DHYi]jA]AVQ`G_8E0
+R2
+=1-000ae431a4f1-6726994a-2b25a-1423
+o-quiet -auto_acc_if_foreign -work work -G TESTCASE=0 -G ERRNO=19 -G VALSIZE=5
+R3
+n@_opt1
+R4
+R0
+T_opt2
+!s110 1730582864
+VBX<a7XAn?6IoV5Yi=f3TT0
+R2
+=1-000ae431a4f1-67269950-3e04c-1469
+o-quiet -auto_acc_if_foreign -work work -G TESTCASE=0 -G ERRNO=20 -G VALSIZE=5
+R3
+n@_opt2
+R4
+R0
+Ymin_max_in_itf
+Z5 DXx6 sv_std 3 std 0 22 9oUSJO;AeEaW`l:M@^WG92
+Z6 !s110 1730586217
+!i10b 1
+!s100 n66Zbo_=zUD9HYki>DBLi2
+Z7 !s11b Dg1SIo80bB@j0V0VzS_@n1
+IiH]g<bGbWcUhKi<_78?@P0
+Z8 VDg1SIo80bB@j0V0VzS_@n1
+S1
+R0
+Z9 w1730586209
+Z10 8../src_tb/min_max_top_tb.sv
+Z11 F../src_tb/min_max_top_tb.sv
+!i122 27
+L0 31 0
+Z12 OL;L;2020.1_1;71
+r1
+!s85 0
+31
+Z13 !s108 1730586217.000000
+Z14 !s107 ../src_tb/min_max_top_tb.sv|
+Z15 !s90 -sv|../src_tb/min_max_top_tb.sv|
+!i113 0
+Z16 o-sv -L mtiAvm -L mtiOvm -L mtiUvm -L mtiUPF
+R3
+Ymin_max_out_itf
+R5
+R6
+!i10b 1
+!s100 2M?8n@kS5UOj1dH8^l`0d1
+R7
+IS58Lg:hEL;8XSz_5Rf[bh0
+R8
+S1
+R0
+R9
+R10
+R11
+!i122 27
+L0 39 0
+R12
+r1
+!s85 0
+31
+R13
+R14
+R15
+!i113 0
+R16
+R3
+EiQOQx0Dt6egNs/mZZgiMnQ==
+Z17 w1730403100
+Z18 DPx4 ieee 11 numeric_std 0 22 aU^R8eGcicLcUFIaBQSL>3
+Z19 DPx3 std 6 textio 0 22 zE1`LPoLg^DX3Oz^4Fj1K3
+Z20 DPx4 ieee 14 std_logic_1164 0 22 cVAk:aDinOX8^VGI1ekP<3
+!i122 26
+R0
+Z21 8../src_vhdl/min_max_top.vhd
+Z22 F../src_vhdl/min_max_top.vhd
+l0
+Z23 L17 1
+Vg=RUY6P?`C=nOa@SQYlOJ2
+!s100 iL]=>?aPWVfUli`QN1M]]2
+Z24 OL;C;2020.1_1;71
+!i119 1
+!i8a 1609764944
+33
+R6
+!i10b 1
+R13
+Z25 !s90 -2008|../src_vhdl/min_max_top.vhd|
+Z26 !s107 ../src_vhdl/min_max_top.vhd|
+!i113 0
+Z27 o-2008
+Z28 tExplicit 1 CvgOpt 0
+n3fa6f00
+AcJYxZnJ/DWj5Yg4BkgHQAA==
+DEx11 aff_min_max 16 comparator_nbits 0 22 7@_DfZA3Y3IT8JYQPY=3X1
+DEx11 aff_min_max 7 bin_lin 0 22 H:cZg7A`j4A0_1B?879Uo2
+DEx11 aff_min_max 9 affichage 0 22 n]3WkN0nXkUC1Vh<iY;b11
+R18
+R19
+R20
+DEx4 work 11 min_max_top 0 22 g=RUY6P?`C=nOa@SQYlOJ2
+!i122 26
+l17
+R23
+Vo1OBbdm407Ph?TV3UE05^0
+!s100 P0LfAG>gjzVQ2HF2[ZcB?2
+R24
+!i119 1
+!i8a 1274258560
+33
+R6
+!i10b 1
+R13
+R25
+R26
+!i113 0
+R27
+R28
+n7ab9ba4
+vmin_max_top_tb
+R5
+R1
+!i10b 1
+!s100 56<zXLaKm<S7Ygmf2:Sak3
+R7
+I4E?De_1OVlJ9JPQ7M`3]k0
+R8
+S1
+R0
+w1730582769
+R10
+R11
+!i122 23
+L0 43 591
+R12
+r1
+!s85 0
+31
+!s108 1730582869.000000
+R14
+R15
+!i113 0
+R16
+R3

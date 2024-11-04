@@ -1,0 +1,91 @@
+# file delete -force work
+# set Path_DUV     "/home/reds/Desktop/Labos/vse-labos/labo1_svcomb/code/src_vhdl"
+# /home/reds/Desktop/Labos/vse-labos/labo1_svcomb/code/src_vhdl
+# set Path_TB       "/home/reds/Desktop/Labos/vse-labos/labo1_svcomb/code/src_tb"
+# /home/reds/Desktop/Labos/vse-labos/labo1_svcomb/code/src_tb
+# global Path_DUV
+# global Path_TB
+# vlib aff_min_max
+# vcom -2008 -work aff_min_max $Path_DUV/bin_lin.vhd
+# QuestaSim-64 vcom 2020.1_1 Compiler 2020.03 Mar  4 2020
+# Start time: 23:17:22 on Nov 02,2024
+# vcom -2008 -work aff_min_max /home/reds/Desktop/Labos/vse-labos/labo1_svcomb/code/src_vhdl/bin_lin.vhd 
+# -- Loading package STANDARD
+# End time: 23:17:23 on Nov 02,2024, Elapsed time: 0:00:01
+# Errors: 0, Warnings: 0
+# vcom -2008 -work aff_min_max $Path_DUV/comparator_nbits.vhd
+# QuestaSim-64 vcom 2020.1_1 Compiler 2020.03 Mar  4 2020
+# Start time: 23:17:24 on Nov 02,2024
+# vcom -2008 -work aff_min_max /home/reds/Desktop/Labos/vse-labos/labo1_svcomb/code/src_vhdl/comparator_nbits.vhd 
+# -- Loading package STANDARD
+# End time: 23:17:25 on Nov 02,2024, Elapsed time: 0:00:01
+# Errors: 0, Warnings: 0
+# vcom -2008 -work aff_min_max $Path_DUV/affichage.vhd
+# QuestaSim-64 vcom 2020.1_1 Compiler 2020.03 Mar  4 2020
+# Start time: 23:17:25 on Nov 02,2024
+# vcom -2008 -work aff_min_max /home/reds/Desktop/Labos/vse-labos/labo1_svcomb/code/src_vhdl/affichage.vhd 
+# -- Loading package STANDARD
+# End time: 23:17:26 on Nov 02,2024, Elapsed time: 0:00:01
+# Errors: 0, Warnings: 0
+# vmap aff_min_max aff_min_max
+# QuestaSim-64 vmap 2020.1_1 Lib Mapping Utility 2020.03 Mar  4 2020
+# vmap aff_min_max aff_min_max 
+# Copying /opt/mentor/questasim/linux_x86_64/../modelsim.ini to modelsim.ini
+# Modifying modelsim.ini
+# vlib work
+# vcom -2008 $Path_DUV/min_max_top.vhd
+# QuestaSim-64 vcom 2020.1_1 Compiler 2020.03 Mar  4 2020
+# Start time: 23:17:27 on Nov 02,2024
+# vcom -2008 /home/reds/Desktop/Labos/vse-labos/labo1_svcomb/code/src_vhdl/min_max_top.vhd 
+# -- Loading package STANDARD
+# End time: 23:17:28 on Nov 02,2024, Elapsed time: 0:00:01
+# Errors: 0, Warnings: 0
+# vlog -sv $Path_TB/min_max_top_tb.sv
+# QuestaSim-64 vlog 2020.1_1 Compiler 2020.03 Mar  4 2020
+# Start time: 23:17:28 on Nov 02,2024
+# vlog -sv /home/reds/Desktop/Labos/vse-labos/labo1_svcomb/code/src_tb/min_max_top_tb.sv 
+# -- Compiling interface min_max_in_itf
+# -- Compiling interface min_max_out_itf
+# -- Compiling module min_max_top_tb
+# ** Error (suppressible): /home/reds/Desktop/Labos/vse-labos/labo1_svcomb/code/src_tb/min_max_top_tb.sv(122): (vlog-2147) Expressions in 'bins' size, value or transition specification must
+# be constant or covergroup constructor argument.
+# ** Error (suppressible): /home/reds/Desktop/Labos/vse-labos/labo1_svcomb/code/src_tb/min_max_top_tb.sv(129): (vlog-2147) Expressions in 'bins' size, value or transition specification must
+# be constant or covergroup constructor argument.
+# ** Error (suppressible): /home/reds/Desktop/Labos/vse-labos/labo1_svcomb/code/src_tb/min_max_top_tb.sv(137): (vlog-2147) Expressions in 'bins' size, value or transition specification must
+# be constant or covergroup constructor argument.
+# ** Error (suppressible): /home/reds/Desktop/Labos/vse-labos/labo1_svcomb/code/src_tb/min_max_top_tb.sv(209): (vlog-2147) Expressions in 'bins' size, value or transition specification must
+# be constant or covergroup constructor argument.
+# ** Error (suppressible): /home/reds/Desktop/Labos/vse-labos/labo1_svcomb/code/src_tb/min_max_top_tb.sv(216): (vlog-2147) Expressions in 'bins' size, value or transition specification must
+# be constant or covergroup constructor argument.
+# ** Error (suppressible): /home/reds/Desktop/Labos/vse-labos/labo1_svcomb/code/src_tb/min_max_top_tb.sv(257): (vlog-2147) Expressions in 'bins' size, value or transition specification must
+# be constant or covergroup constructor argument.
+# ** Error (suppressible): /home/reds/Desktop/Labos/vse-labos/labo1_svcomb/code/src_tb/min_max_top_tb.sv(263): (vlog-2147) Expressions in 'bins' size, value or transition specification must
+# be constant or covergroup constructor argument.
+# ** Error (suppressible): /home/reds/Desktop/Labos/vse-labos/labo1_svcomb/code/src_tb/min_max_top_tb.sv(305): (vlog-2147) Expressions in 'bins' size, value or transition specification must
+# be constant or covergroup constructor argument.
+# ** Error (suppressible): /home/reds/Desktop/Labos/vse-labos/labo1_svcomb/code/src_tb/min_max_top_tb.sv(312): (vlog-2147) Expressions in 'bins' size, value or transition specification must
+# be constant or covergroup constructor argument.
+# ** Error (suppressible): /home/reds/Desktop/Labos/vse-labos/labo1_svcomb/code/src_tb/min_max_top_tb.sv(354): (vlog-2147) Expressions in 'bins' size, value or transition specification must
+# be constant or covergroup constructor argument.
+# ** Error (suppressible): /home/reds/Desktop/Labos/vse-labos/labo1_svcomb/code/src_tb/min_max_top_tb.sv(361): (vlog-2147) Expressions in 'bins' size, value or transition specification must
+# be constant or covergroup constructor argument.
+# ** Error (suppressible): /home/reds/Desktop/Labos/vse-labos/labo1_svcomb/code/src_tb/min_max_top_tb.sv(403): (vlog-2147) Expressions in 'bins' size, value or transition specification must
+# be constant or covergroup constructor argument.
+# ** Error (suppressible): /home/reds/Desktop/Labos/vse-labos/labo1_svcomb/code/src_tb/min_max_top_tb.sv(410): (vlog-2147) Expressions in 'bins' size, value or transition specification must
+# be constant or covergroup constructor argument.
+# End time: 23:17:28 on Nov 02,2024, Elapsed time: 0:00:00
+# Errors: 13, Warnings: 0
+# ** Error: /opt/mentor/questasim/linux_x86_64/vlog failed.
+# Executing ONERROR command at macro ./execScript.do line 13
+# vsim -t 10ps -GVALSIZE=12 -GERRNO=18 -GTESTCASE=0 work.min_max_top_tb
+# vsim -t 10ps work.min_max_top_tb -GTESTCASE=0 -GERRNO=18 -GVALSIZE=12 
+# Start time: 23:17:29 on Nov 02,2024
+# ** Note: (vsim-3812) Design is being optimized...
+# ** Error: (vopt-13130) Failed to find design unit min_max_top_tb.
+#         Searched libraries:
+#             work
+# Optimization failed
+# ** Note: (vsim-12126) Error and warning message counts have been restored: Errors=1, Warnings=0.
+# Error loading design
+# Error: Error loading design
+#        Executing onElabError command(s): runmgr::rm_status 1 {Elaboration error}; quit -f

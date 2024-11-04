@@ -1,0 +1,224 @@
+20241102T230724 selects {I /directed}
+20241102T230724 options -nobatch -mseed 0 -runlog
+20241102T230724 vrundir /home/reds/Desktop/Labos/vse-labos/labo1_svcomb/code
+20241102T230724 vrmdata /home/reds/Desktop/Labos/vse-labos/labo1_svcomb/code/VRMDATA
+20241102T230724 logfile /home/reds/Desktop/Labos/vse-labos/labo1_svcomb/code/VRMDATA/logs/241102_230724.rmev
+20241102T230724 begin 40989@reds-vmeda /home/reds/Desktop/Labos/vse-labos/labo1_svcomb/code/default.rmdb /home/reds/Desktop/Labos/vse-labos/labo1_svcomb/code/VRMDATA
+20241102T230724 eligible directed/preScript {}
+20241102T230724 done directed/preScript empty
+20241102T230724 eligible directed/dirtest4_0_0/execScript {}
+20241102T230724 eligible directed/dirtest4_1_0/execScript {}
+20241102T230724 eligible directed/dirtest4_2_0/execScript {}
+20241102T230724 eligible directed/dirtest4_3_0/execScript {}
+20241102T230724 eligible directed/dirtest4_16_0/execScript {}
+20241102T230724 eligible directed/dirtest4_17_0/execScript {}
+20241102T230724 eligible directed/dirtest4_18_0/execScript {}
+20241102T230724 eligible directed/dirtest4_19_0/execScript {}
+20241102T230724 eligible directed/dirtest4_20_0/execScript {}
+20241102T230724 eligible directed/dirtest4_21_0/execScript {}
+20241102T230724 eligible directed/dirtest8_0_0/execScript {}
+20241102T230724 eligible directed/dirtest8_1_0/execScript {}
+20241102T230724 eligible directed/dirtest8_2_0/execScript {}
+20241102T230724 eligible directed/dirtest8_3_0/execScript {}
+20241102T230724 eligible directed/dirtest8_16_0/execScript {}
+20241102T230724 eligible directed/dirtest8_17_0/execScript {}
+20241102T230724 eligible directed/dirtest8_18_0/execScript {}
+20241102T230724 eligible directed/dirtest8_19_0/execScript {}
+20241102T230724 eligible directed/dirtest8_20_0/execScript {}
+20241102T230724 eligible directed/dirtest8_21_0/execScript {}
+20241102T230724 eligible directed/dirtest12_0_0/execScript {}
+20241102T230724 eligible directed/dirtest12_1_0/execScript {}
+20241102T230724 eligible directed/dirtest12_2_0/execScript {}
+20241102T230724 eligible directed/dirtest12_3_0/execScript {}
+20241102T230724 eligible directed/dirtest12_16_0/execScript {}
+20241102T230724 eligible directed/dirtest12_17_0/execScript {}
+20241102T230724 eligible directed/dirtest12_18_0/execScript {}
+20241102T230724 eligible directed/dirtest12_19_0/execScript {}
+20241102T230724 eligible directed/dirtest12_20_0/execScript {}
+20241102T230724 eligible directed/dirtest12_21_0/execScript {}
+20241102T230724 launched directed/dirtest4_0_0/execScript
+20241102T230724 launched directed/dirtest4_1_0/execScript
+20241102T230724 launched directed/dirtest4_2_0/execScript
+20241102T230724 launched directed/dirtest4_3_0/execScript
+20241102T230724 launched directed/dirtest4_16_0/execScript
+20241102T230724 launched directed/dirtest4_17_0/execScript
+20241102T230724 launched directed/dirtest4_18_0/execScript
+20241102T230724 launched directed/dirtest4_19_0/execScript
+20241102T230724 launched directed/dirtest4_20_0/execScript
+20241102T230724 launched directed/dirtest4_21_0/execScript
+20241102T230724 launched directed/dirtest8_0_0/execScript
+20241102T230725 launched directed/dirtest8_1_0/execScript
+20241102T230725 launched directed/dirtest8_2_0/execScript
+20241102T230725 launched directed/dirtest8_3_0/execScript
+20241102T230725 launched directed/dirtest8_16_0/execScript
+20241102T230725 launched directed/dirtest8_17_0/execScript
+20241102T230725 launched directed/dirtest8_18_0/execScript
+20241102T230725 launched directed/dirtest8_19_0/execScript
+20241102T230725 launched directed/dirtest8_20_0/execScript
+20241102T230725 launched directed/dirtest8_21_0/execScript
+20241102T230725 launched directed/dirtest12_0_0/execScript
+20241102T230725 launched directed/dirtest12_1_0/execScript
+20241102T230725 launched directed/dirtest12_2_0/execScript
+20241102T230725 launched directed/dirtest12_3_0/execScript
+20241102T230725 launched directed/dirtest12_16_0/execScript
+20241102T230725 launched directed/dirtest12_17_0/execScript
+20241102T230725 launched directed/dirtest12_18_0/execScript
+20241102T230726 launched directed/dirtest12_19_0/execScript
+20241102T230726 launched directed/dirtest12_20_0/execScript
+20241102T230726 launched directed/dirtest12_21_0/execScript
+20241102T230728 running directed/dirtest8_0_0/execScript reds-vmeda
+20241102T230729 running directed/dirtest4_1_0/execScript reds-vmeda
+20241102T230729 running directed/dirtest8_3_0/execScript reds-vmeda
+20241102T230729 running directed/dirtest4_0_0/execScript reds-vmeda
+20241102T230729 running directed/dirtest4_2_0/execScript reds-vmeda
+20241102T230729 running directed/dirtest4_18_0/execScript reds-vmeda
+20241102T230730 running directed/dirtest12_3_0/execScript reds-vmeda
+20241102T230730 running directed/dirtest8_1_0/execScript reds-vmeda
+20241102T230730 running directed/dirtest12_2_0/execScript reds-vmeda
+20241102T230730 running directed/dirtest8_16_0/execScript reds-vmeda
+20241102T230730 running directed/dirtest4_19_0/execScript reds-vmeda
+20241102T230730 running directed/dirtest8_18_0/execScript reds-vmeda
+20241102T230730 running directed/dirtest4_21_0/execScript reds-vmeda
+20241102T230730 running directed/dirtest8_21_0/execScript reds-vmeda
+20241102T230730 running directed/dirtest4_3_0/execScript reds-vmeda
+20241102T230731 running directed/dirtest4_20_0/execScript reds-vmeda
+20241102T230731 running directed/dirtest8_17_0/execScript reds-vmeda
+20241102T230731 running directed/dirtest12_17_0/execScript reds-vmeda
+20241102T230731 running directed/dirtest4_17_0/execScript reds-vmeda
+20241102T230731 running directed/dirtest8_2_0/execScript reds-vmeda
+20241102T230731 running directed/dirtest8_20_0/execScript reds-vmeda
+20241102T230732 running directed/dirtest12_20_0/execScript reds-vmeda
+20241102T230732 running directed/dirtest4_16_0/execScript reds-vmeda
+20241102T230732 running directed/dirtest8_19_0/execScript reds-vmeda
+20241102T230732 running directed/dirtest12_0_0/execScript reds-vmeda
+20241102T230732 running directed/dirtest12_21_0/execScript reds-vmeda
+20241102T230732 running directed/dirtest12_18_0/execScript reds-vmeda
+20241102T230732 running directed/dirtest12_1_0/execScript reds-vmeda
+20241102T230733 running directed/dirtest12_16_0/execScript reds-vmeda
+20241102T230734 running directed/dirtest12_19_0/execScript reds-vmeda
+20241102T230752 done directed/dirtest4_2_0/execScript passed/ok reds-vmeda directed/dirtest4_2_0.ucdb ok 0 100.00 {} 23
+20241102T230752 eligible directed/dirtest4_2_0/deleteScript {}
+20241102T230755 done directed/dirtest4_0_0/execScript passed/ok reds-vmeda directed/dirtest4_0_0.ucdb ok 0 100.00 {} 26
+20241102T230755 eligible directed/dirtest4_0_0/deleteScript {}
+20241102T230755 done directed/dirtest4_3_0/execScript passed/ok reds-vmeda directed/dirtest4_3_0.ucdb ok 0 100.00 {} 25
+20241102T230755 eligible directed/dirtest4_3_0/deleteScript {}
+20241102T230757 done directed/dirtest4_1_0/execScript passed/ok reds-vmeda directed/dirtest4_1_0.ucdb ok 0 100.00 {} 28
+20241102T230757 eligible directed/dirtest4_1_0/deleteScript {}
+20241102T230758 running directed/dirtest4_2_0/deleteScript reds-vmeda
+20241102T230758 done directed/dirtest4_2_0/deleteScript skipped
+20241102T230800 done directed/dirtest4_21_0/execScript failed/error reds-vmeda directed/dirtest4_21_0.ucdb error 0 100.00 {} {}
+20241102T230800 eligible directed/dirtest4_21_0/deleteScript {}
+20241102T230800 running directed/dirtest4_0_0/deleteScript reds-vmeda
+20241102T230800 done directed/dirtest4_0_0/deleteScript skipped
+20241102T230800 running directed/dirtest4_3_0/deleteScript reds-vmeda
+20241102T230800 done directed/dirtest4_3_0/deleteScript skipped
+20241102T230802 running directed/dirtest4_1_0/deleteScript reds-vmeda
+20241102T230802 done directed/dirtest4_1_0/deleteScript skipped
+20241102T230805 running directed/dirtest4_21_0/deleteScript reds-vmeda
+20241102T230805 done directed/dirtest4_21_0/deleteScript skipped
+20241102T230812 done directed/dirtest4_19_0/execScript failed/error reds-vmeda directed/dirtest4_19_0.ucdb error 0 100.00 {} {}
+20241102T230812 eligible directed/dirtest4_19_0/deleteScript {}
+20241102T230815 done directed/dirtest4_18_0/execScript failed/error reds-vmeda directed/dirtest4_18_0.ucdb error 0 100.00 {} {}
+20241102T230815 eligible directed/dirtest4_18_0/deleteScript {}
+20241102T230817 done directed/dirtest4_20_0/execScript failed/error reds-vmeda directed/dirtest4_20_0.ucdb error 0 100.00 {} {}
+20241102T230817 eligible directed/dirtest4_20_0/deleteScript {}
+20241102T230817 running directed/dirtest4_19_0/deleteScript reds-vmeda
+20241102T230817 done directed/dirtest4_19_0/deleteScript skipped
+20241102T230820 running directed/dirtest4_18_0/deleteScript reds-vmeda
+20241102T230820 done directed/dirtest4_18_0/deleteScript skipped
+20241102T230822 running directed/dirtest4_20_0/deleteScript reds-vmeda
+20241102T230822 done directed/dirtest4_20_0/deleteScript skipped
+20241102T230831 done directed/dirtest8_0_0/execScript passed/ok reds-vmeda directed/dirtest8_0_0.ucdb ok 0 100.00 {} 63
+20241102T230831 eligible directed/dirtest8_0_0/deleteScript {}
+20241102T230836 done directed/dirtest4_16_0/execScript failed/error reds-vmeda directed/dirtest4_16_0.ucdb error 0 100.00 {} {}
+20241102T230836 eligible directed/dirtest4_16_0/deleteScript {}
+20241102T230836 running directed/dirtest8_0_0/deleteScript reds-vmeda
+20241102T230836 done directed/dirtest8_0_0/deleteScript skipped
+20241102T230841 running directed/dirtest4_16_0/deleteScript reds-vmeda
+20241102T230841 done directed/dirtest4_16_0/deleteScript skipped
+20241102T230850 done directed/dirtest4_17_0/execScript failed/error reds-vmeda directed/dirtest4_17_0.ucdb error 0 100.00 {} {}
+20241102T230850 eligible directed/dirtest4_17_0/deleteScript {}
+20241102T230855 running directed/dirtest4_17_0/deleteScript reds-vmeda
+20241102T230855 done directed/dirtest4_17_0/deleteScript skipped
+20241102T230859 done directed/dirtest8_2_0/execScript passed/ok reds-vmeda directed/dirtest8_2_0.ucdb ok 0 100.00 {} 88
+20241102T230859 eligible directed/dirtest8_2_0/deleteScript {}
+20241102T230901 done directed/dirtest8_3_0/execScript passed/ok reds-vmeda directed/dirtest8_3_0.ucdb ok 0 100.00 {} 92
+20241102T230901 eligible directed/dirtest8_3_0/deleteScript {}
+20241102T230904 running directed/dirtest8_2_0/deleteScript reds-vmeda
+20241102T230904 done directed/dirtest8_2_0/deleteScript skipped
+20241102T230904 done directed/dirtest8_1_0/execScript passed/ok reds-vmeda directed/dirtest8_1_0.ucdb ok 0 100.00 {} 94
+20241102T230904 eligible directed/dirtest8_1_0/deleteScript {}
+20241102T230906 running directed/dirtest8_3_0/deleteScript reds-vmeda
+20241102T230906 done directed/dirtest8_3_0/deleteScript skipped
+20241102T230909 running directed/dirtest8_1_0/deleteScript reds-vmeda
+20241102T230909 done directed/dirtest8_1_0/deleteScript skipped
+20241102T231013 done directed/dirtest8_21_0/execScript failed/error reds-vmeda directed/dirtest8_21_0.ucdb error 0 100.00 {} {}
+20241102T231013 eligible directed/dirtest8_21_0/deleteScript {}
+20241102T231018 running directed/dirtest8_21_0/deleteScript reds-vmeda
+20241102T231018 done directed/dirtest8_21_0/deleteScript skipped
+20241102T231242 done directed/dirtest12_20_0/execScript timeout/executing
+20241102T231242 eligible directed/dirtest12_20_0/deleteScript {}
+20241102T231243 done directed/dirtest12_19_0/execScript timeout/executing
+20241102T231243 eligible directed/dirtest12_19_0/deleteScript {}
+20241102T231243 done directed/dirtest12_2_0/execScript timeout/executing
+20241102T231244 eligible directed/dirtest12_2_0/deleteScript {}
+20241102T231244 done directed/dirtest8_16_0/execScript timeout/executing
+20241102T231244 eligible directed/dirtest8_16_0/deleteScript {}
+20241102T231245 done directed/dirtest8_18_0/execScript timeout/executing
+20241102T231245 eligible directed/dirtest8_18_0/deleteScript {}
+20241102T231246 done directed/dirtest12_16_0/execScript timeout/executing
+20241102T231246 eligible directed/dirtest12_16_0/deleteScript {}
+20241102T231246 done directed/dirtest12_18_0/execScript timeout/executing
+20241102T231246 eligible directed/dirtest12_18_0/deleteScript {}
+20241102T231247 done directed/dirtest12_1_0/execScript timeout/executing
+20241102T231247 eligible directed/dirtest12_1_0/deleteScript {}
+20241102T231247 done directed/dirtest12_21_0/execScript timeout/executing
+20241102T231247 eligible directed/dirtest12_21_0/deleteScript {}
+20241102T231247 running directed/dirtest12_20_0/deleteScript reds-vmeda
+20241102T231247 done directed/dirtest12_20_0/deleteScript skipped
+20241102T231247 done directed/dirtest12_3_0/execScript timeout/executing
+20241102T231247 eligible directed/dirtest12_3_0/deleteScript {}
+20241102T231248 done directed/dirtest8_17_0/execScript timeout/executing
+20241102T231248 eligible directed/dirtest8_17_0/deleteScript {}
+20241102T231248 done directed/dirtest8_20_0/execScript timeout/executing
+20241102T231248 eligible directed/dirtest8_20_0/deleteScript {}
+20241102T231248 done directed/dirtest8_19_0/execScript timeout/executing
+20241102T231248 eligible directed/dirtest8_19_0/deleteScript {}
+20241102T231248 running directed/dirtest12_19_0/deleteScript reds-vmeda
+20241102T231248 done directed/dirtest12_19_0/deleteScript skipped
+20241102T231248 done directed/dirtest12_17_0/execScript timeout/executing
+20241102T231248 eligible directed/dirtest12_17_0/deleteScript {}
+20241102T231248 done directed/dirtest12_0_0/execScript timeout/executing
+20241102T231248 eligible directed/dirtest12_0_0/deleteScript {}
+20241102T231248 eligible directed/postScript {}
+20241102T231248 done directed/postScript empty
+20241102T231248 eligible directed/deleteScript {}
+20241102T231249 running directed/dirtest12_2_0/deleteScript reds-vmeda
+20241102T231249 done directed/dirtest12_2_0/deleteScript skipped
+20241102T231249 running directed/dirtest8_16_0/deleteScript reds-vmeda
+20241102T231249 done directed/dirtest8_16_0/deleteScript skipped
+20241102T231250 running directed/dirtest8_18_0/deleteScript reds-vmeda
+20241102T231250 done directed/dirtest8_18_0/deleteScript skipped
+20241102T231251 running directed/dirtest12_16_0/deleteScript reds-vmeda
+20241102T231251 done directed/dirtest12_16_0/deleteScript skipped
+20241102T231251 running directed/dirtest12_18_0/deleteScript reds-vmeda
+20241102T231251 done directed/dirtest12_18_0/deleteScript skipped
+20241102T231252 running directed/dirtest12_1_0/deleteScript reds-vmeda
+20241102T231252 done directed/dirtest12_1_0/deleteScript skipped
+20241102T231252 running directed/dirtest12_21_0/deleteScript reds-vmeda
+20241102T231252 done directed/dirtest12_21_0/deleteScript skipped
+20241102T231252 running directed/dirtest12_3_0/deleteScript reds-vmeda
+20241102T231252 done directed/dirtest12_3_0/deleteScript skipped
+20241102T231253 running directed/dirtest8_17_0/deleteScript reds-vmeda
+20241102T231253 done directed/dirtest8_17_0/deleteScript skipped
+20241102T231253 running directed/dirtest8_20_0/deleteScript reds-vmeda
+20241102T231253 done directed/dirtest8_20_0/deleteScript skipped
+20241102T231253 running directed/dirtest8_19_0/deleteScript reds-vmeda
+20241102T231253 done directed/dirtest8_19_0/deleteScript skipped
+20241102T231253 running directed/dirtest12_17_0/deleteScript reds-vmeda
+20241102T231253 done directed/dirtest12_17_0/deleteScript skipped
+20241102T231253 running directed/dirtest12_0_0/deleteScript reds-vmeda
+20241102T231253 done directed/dirtest12_0_0/deleteScript skipped
+20241102T231253 running directed/deleteScript reds-vmeda
+20241102T231253 done directed/deleteScript skipped
+20241102T231318 end

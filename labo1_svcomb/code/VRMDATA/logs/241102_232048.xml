@@ -1,0 +1,1013 @@
+<?xml version="1.0" ?>
+<drill>
+  <sample type="vrm" version="3.0" timestamp="2024-11-02 23:20:48">
+    <table name="summary">
+      <row>
+        <logfile>/home/reds/Desktop/Labos/vse-labos/labo1_svcomb/code/VRMDATA/logs/241102_232048.rmev</logfile>
+        <starttime>2024-11-02 23:20:48</starttime>
+        <endtime>2024-11-02 23:21:18</endtime>
+        <rmdb>/home/reds/Desktop/Labos/vse-labos/labo1_svcomb/code/default.rmdb</rmdb>
+        <vrmdata>/home/reds/Desktop/Labos/vse-labos/labo1_svcomb/code/VRMDATA</vrmdata>
+        <actions>32</actions>
+        <options>-nobatch -eventlog /home/reds/Desktop/Labos/vse-labos/labo1_svcomb/code/VRMDATA/logs/241102_232048.rmev -mseed 0 -rmdb /home/reds/Desktop/Labos/vse-labos/labo1_svcomb/code/default.rmdb -runlog -vrmdata /home/reds/Desktop/Labos/vse-labos/labo1_svcomb/code/VRMDATA</options>
+        <passed>0</passed>
+        <failed>30</failed>
+        <notrun>0</notrun>
+      </row>
+    </table>
+    <table name="details">
+      <row>
+        <action>directed/preScript</action>
+        <coverage></coverage>
+        <cputime></cputime>
+        <datetime>2024-11-02 23:20:48</datetime>
+        <elapsed></elapsed>
+        <event>20241102T232048 done directed/preScript empty</event>
+        <hostname></hostname>
+        <queued></queued>
+        <status>empty</status>
+        <reason></reason>
+        <seed></seed>
+        <simtime></simtime>
+        <tplancov></tplancov>
+        <tstime></tstime>
+        <ucdbfile></ucdbfile>
+        <username></username>
+        <donetime>2024-11-02 23:20:48</donetime>
+        <extstatus></extstatus>
+        <launchtime></launchtime>
+        <mergefile></mergefile>
+        <properties>Non-sequential Group Runnable</properties>
+        <runid></runid>
+        <runstatus>empty</runstatus>
+        <starttime></starttime>
+        <testname></testname>
+        <teststatus></teststatus>
+        <timeunit></timeunit>
+        <triagefile></triagefile>
+        <ucdbproxy></ucdbproxy>
+      </row>
+      <row>
+        <action>directed/dirtest4_0_0/execScript</action>
+        <coverage></coverage>
+        <cputime></cputime>
+        <datetime>2024-11-02 23:20:59</datetime>
+        <elapsed>7</elapsed>
+        <event>20241102T232059 done directed/dirtest4_0_0/execScript failed/script reds-vmeda directed/dirtest4_0_0.ucdb {} {} {} {} {}</event>
+        <hostname>reds-vmeda</hostname>
+        <queued>4</queued>
+        <status>failed/script</status>
+        <reason></reason>
+        <seed></seed>
+        <simtime></simtime>
+        <tplancov></tplancov>
+        <tstime></tstime>
+        <ucdbfile>directed/dirtest4_0_0.ucdb</ucdbfile>
+        <username></username>
+        <donetime>2024-11-02 23:20:59</donetime>
+        <extstatus>script</extstatus>
+        <launchtime>2024-11-02 23:20:48</launchtime>
+        <mergefile></mergefile>
+        <properties>Task Runnable</properties>
+        <runid></runid>
+        <runstatus>failed</runstatus>
+        <starttime>2024-11-02 23:20:52</starttime>
+        <testname></testname>
+        <teststatus></teststatus>
+        <timeunit></timeunit>
+        <triagefile></triagefile>
+        <ucdbproxy></ucdbproxy>
+      </row>
+      <row>
+        <action>directed/dirtest4_1_0/execScript</action>
+        <coverage></coverage>
+        <cputime></cputime>
+        <datetime>2024-11-02 23:20:56</datetime>
+        <elapsed>3</elapsed>
+        <event>20241102T232056 done directed/dirtest4_1_0/execScript failed/script reds-vmeda directed/dirtest4_1_0.ucdb {} {} {} {} {}</event>
+        <hostname>reds-vmeda</hostname>
+        <queued>5</queued>
+        <status>failed/script</status>
+        <reason></reason>
+        <seed></seed>
+        <simtime></simtime>
+        <tplancov></tplancov>
+        <tstime></tstime>
+        <ucdbfile>directed/dirtest4_1_0.ucdb</ucdbfile>
+        <username></username>
+        <donetime>2024-11-02 23:20:56</donetime>
+        <extstatus>script</extstatus>
+        <launchtime>2024-11-02 23:20:48</launchtime>
+        <mergefile></mergefile>
+        <properties>Task Runnable</properties>
+        <runid></runid>
+        <runstatus>failed</runstatus>
+        <starttime>2024-11-02 23:20:53</starttime>
+        <testname></testname>
+        <teststatus></teststatus>
+        <timeunit></timeunit>
+        <triagefile></triagefile>
+        <ucdbproxy></ucdbproxy>
+      </row>
+      <row>
+        <action>directed/dirtest4_2_0/execScript</action>
+        <coverage></coverage>
+        <cputime></cputime>
+        <datetime>2024-11-02 23:20:57</datetime>
+        <elapsed>4</elapsed>
+        <event>20241102T232057 done directed/dirtest4_2_0/execScript failed/script reds-vmeda directed/dirtest4_2_0.ucdb {} {} {} {} {}</event>
+        <hostname>reds-vmeda</hostname>
+        <queued>5</queued>
+        <status>failed/script</status>
+        <reason></reason>
+        <seed></seed>
+        <simtime></simtime>
+        <tplancov></tplancov>
+        <tstime></tstime>
+        <ucdbfile>directed/dirtest4_2_0.ucdb</ucdbfile>
+        <username></username>
+        <donetime>2024-11-02 23:20:57</donetime>
+        <extstatus>script</extstatus>
+        <launchtime>2024-11-02 23:20:48</launchtime>
+        <mergefile></mergefile>
+        <properties>Task Runnable</properties>
+        <runid></runid>
+        <runstatus>failed</runstatus>
+        <starttime>2024-11-02 23:20:53</starttime>
+        <testname></testname>
+        <teststatus></teststatus>
+        <timeunit></timeunit>
+        <triagefile></triagefile>
+        <ucdbproxy></ucdbproxy>
+      </row>
+      <row>
+        <action>directed/dirtest4_3_0/execScript</action>
+        <coverage></coverage>
+        <cputime></cputime>
+        <datetime>2024-11-02 23:20:57</datetime>
+        <elapsed>5</elapsed>
+        <event>20241102T232057 done directed/dirtest4_3_0/execScript failed/script reds-vmeda directed/dirtest4_3_0.ucdb {} {} {} {} {}</event>
+        <hostname>reds-vmeda</hostname>
+        <queued>4</queued>
+        <status>failed/script</status>
+        <reason></reason>
+        <seed></seed>
+        <simtime></simtime>
+        <tplancov></tplancov>
+        <tstime></tstime>
+        <ucdbfile>directed/dirtest4_3_0.ucdb</ucdbfile>
+        <username></username>
+        <donetime>2024-11-02 23:20:57</donetime>
+        <extstatus>script</extstatus>
+        <launchtime>2024-11-02 23:20:48</launchtime>
+        <mergefile></mergefile>
+        <properties>Task Runnable</properties>
+        <runid></runid>
+        <runstatus>failed</runstatus>
+        <starttime>2024-11-02 23:20:52</starttime>
+        <testname></testname>
+        <teststatus></teststatus>
+        <timeunit></timeunit>
+        <triagefile></triagefile>
+        <ucdbproxy></ucdbproxy>
+      </row>
+      <row>
+        <action>directed/dirtest4_16_0/execScript</action>
+        <coverage></coverage>
+        <cputime></cputime>
+        <datetime>2024-11-02 23:21:03</datetime>
+        <elapsed>10</elapsed>
+        <event>20241102T232103 done directed/dirtest4_16_0/execScript failed/script reds-vmeda directed/dirtest4_16_0.ucdb {} {} {} {} {}</event>
+        <hostname>reds-vmeda</hostname>
+        <queued>5</queued>
+        <status>failed/script</status>
+        <reason></reason>
+        <seed></seed>
+        <simtime></simtime>
+        <tplancov></tplancov>
+        <tstime></tstime>
+        <ucdbfile>directed/dirtest4_16_0.ucdb</ucdbfile>
+        <username></username>
+        <donetime>2024-11-02 23:21:03</donetime>
+        <extstatus>script</extstatus>
+        <launchtime>2024-11-02 23:20:48</launchtime>
+        <mergefile></mergefile>
+        <properties>Task Runnable</properties>
+        <runid></runid>
+        <runstatus>failed</runstatus>
+        <starttime>2024-11-02 23:20:53</starttime>
+        <testname></testname>
+        <teststatus></teststatus>
+        <timeunit></timeunit>
+        <triagefile></triagefile>
+        <ucdbproxy></ucdbproxy>
+      </row>
+      <row>
+        <action>directed/dirtest4_17_0/execScript</action>
+        <coverage></coverage>
+        <cputime></cputime>
+        <datetime>2024-11-02 23:20:59</datetime>
+        <elapsed>7</elapsed>
+        <event>20241102T232059 done directed/dirtest4_17_0/execScript failed/script reds-vmeda directed/dirtest4_17_0.ucdb {} {} {} {} {}</event>
+        <hostname>reds-vmeda</hostname>
+        <queued>4</queued>
+        <status>failed/script</status>
+        <reason></reason>
+        <seed></seed>
+        <simtime></simtime>
+        <tplancov></tplancov>
+        <tstime></tstime>
+        <ucdbfile>directed/dirtest4_17_0.ucdb</ucdbfile>
+        <username></username>
+        <donetime>2024-11-02 23:20:59</donetime>
+        <extstatus>script</extstatus>
+        <launchtime>2024-11-02 23:20:48</launchtime>
+        <mergefile></mergefile>
+        <properties>Task Runnable</properties>
+        <runid></runid>
+        <runstatus>failed</runstatus>
+        <starttime>2024-11-02 23:20:52</starttime>
+        <testname></testname>
+        <teststatus></teststatus>
+        <timeunit></timeunit>
+        <triagefile></triagefile>
+        <ucdbproxy></ucdbproxy>
+      </row>
+      <row>
+        <action>directed/dirtest4_18_0/execScript</action>
+        <coverage></coverage>
+        <cputime></cputime>
+        <datetime>2024-11-02 23:21:04</datetime>
+        <elapsed>10</elapsed>
+        <event>20241102T232104 done directed/dirtest4_18_0/execScript failed/script reds-vmeda directed/dirtest4_18_0.ucdb {} {} {} {} {}</event>
+        <hostname>reds-vmeda</hostname>
+        <queued>6</queued>
+        <status>failed/script</status>
+        <reason></reason>
+        <seed></seed>
+        <simtime></simtime>
+        <tplancov></tplancov>
+        <tstime></tstime>
+        <ucdbfile>directed/dirtest4_18_0.ucdb</ucdbfile>
+        <username></username>
+        <donetime>2024-11-02 23:21:04</donetime>
+        <extstatus>script</extstatus>
+        <launchtime>2024-11-02 23:20:48</launchtime>
+        <mergefile></mergefile>
+        <properties>Task Runnable</properties>
+        <runid></runid>
+        <runstatus>failed</runstatus>
+        <starttime>2024-11-02 23:20:54</starttime>
+        <testname></testname>
+        <teststatus></teststatus>
+        <timeunit></timeunit>
+        <triagefile></triagefile>
+        <ucdbproxy></ucdbproxy>
+      </row>
+      <row>
+        <action>directed/dirtest4_19_0/execScript</action>
+        <coverage></coverage>
+        <cputime></cputime>
+        <datetime>2024-11-02 23:21:06</datetime>
+        <elapsed>11</elapsed>
+        <event>20241102T232106 done directed/dirtest4_19_0/execScript failed/script reds-vmeda directed/dirtest4_19_0.ucdb {} {} {} {} {}</event>
+        <hostname>reds-vmeda</hostname>
+        <queued>7</queued>
+        <status>failed/script</status>
+        <reason></reason>
+        <seed></seed>
+        <simtime></simtime>
+        <tplancov></tplancov>
+        <tstime></tstime>
+        <ucdbfile>directed/dirtest4_19_0.ucdb</ucdbfile>
+        <username></username>
+        <donetime>2024-11-02 23:21:06</donetime>
+        <extstatus>script</extstatus>
+        <launchtime>2024-11-02 23:20:48</launchtime>
+        <mergefile></mergefile>
+        <properties>Task Runnable</properties>
+        <runid></runid>
+        <runstatus>failed</runstatus>
+        <starttime>2024-11-02 23:20:55</starttime>
+        <testname></testname>
+        <teststatus></teststatus>
+        <timeunit></timeunit>
+        <triagefile></triagefile>
+        <ucdbproxy></ucdbproxy>
+      </row>
+      <row>
+        <action>directed/dirtest4_20_0/execScript</action>
+        <coverage></coverage>
+        <cputime></cputime>
+        <datetime>2024-11-02 23:21:10</datetime>
+        <elapsed>13</elapsed>
+        <event>20241102T232110 done directed/dirtest4_20_0/execScript failed/script reds-vmeda directed/dirtest4_20_0.ucdb {} {} {} {} {}</event>
+        <hostname>reds-vmeda</hostname>
+        <queued>9</queued>
+        <status>failed/script</status>
+        <reason></reason>
+        <seed></seed>
+        <simtime></simtime>
+        <tplancov></tplancov>
+        <tstime></tstime>
+        <ucdbfile>directed/dirtest4_20_0.ucdb</ucdbfile>
+        <username></username>
+        <donetime>2024-11-02 23:21:10</donetime>
+        <extstatus>script</extstatus>
+        <launchtime>2024-11-02 23:20:48</launchtime>
+        <mergefile></mergefile>
+        <properties>Task Runnable</properties>
+        <runid></runid>
+        <runstatus>failed</runstatus>
+        <starttime>2024-11-02 23:20:57</starttime>
+        <testname></testname>
+        <teststatus></teststatus>
+        <timeunit></timeunit>
+        <triagefile></triagefile>
+        <ucdbproxy></ucdbproxy>
+      </row>
+      <row>
+        <action>directed/dirtest4_21_0/execScript</action>
+        <coverage></coverage>
+        <cputime></cputime>
+        <datetime>2024-11-02 23:21:06</datetime>
+        <elapsed>11</elapsed>
+        <event>20241102T232106 done directed/dirtest4_21_0/execScript failed/script reds-vmeda directed/dirtest4_21_0.ucdb {} {} {} {} {}</event>
+        <hostname>reds-vmeda</hostname>
+        <queued>7</queued>
+        <status>failed/script</status>
+        <reason></reason>
+        <seed></seed>
+        <simtime></simtime>
+        <tplancov></tplancov>
+        <tstime></tstime>
+        <ucdbfile>directed/dirtest4_21_0.ucdb</ucdbfile>
+        <username></username>
+        <donetime>2024-11-02 23:21:06</donetime>
+        <extstatus>script</extstatus>
+        <launchtime>2024-11-02 23:20:48</launchtime>
+        <mergefile></mergefile>
+        <properties>Task Runnable</properties>
+        <runid></runid>
+        <runstatus>failed</runstatus>
+        <starttime>2024-11-02 23:20:55</starttime>
+        <testname></testname>
+        <teststatus></teststatus>
+        <timeunit></timeunit>
+        <triagefile></triagefile>
+        <ucdbproxy></ucdbproxy>
+      </row>
+      <row>
+        <action>directed/dirtest8_0_0/execScript</action>
+        <coverage></coverage>
+        <cputime></cputime>
+        <datetime>2024-11-02 23:21:04</datetime>
+        <elapsed>10</elapsed>
+        <event>20241102T232104 done directed/dirtest8_0_0/execScript failed/script reds-vmeda directed/dirtest8_0_0.ucdb {} {} {} {} {}</event>
+        <hostname>reds-vmeda</hostname>
+        <queued>5</queued>
+        <status>failed/script</status>
+        <reason></reason>
+        <seed></seed>
+        <simtime></simtime>
+        <tplancov></tplancov>
+        <tstime></tstime>
+        <ucdbfile>directed/dirtest8_0_0.ucdb</ucdbfile>
+        <username></username>
+        <donetime>2024-11-02 23:21:04</donetime>
+        <extstatus>script</extstatus>
+        <launchtime>2024-11-02 23:20:49</launchtime>
+        <mergefile></mergefile>
+        <properties>Task Runnable</properties>
+        <runid></runid>
+        <runstatus>failed</runstatus>
+        <starttime>2024-11-02 23:20:54</starttime>
+        <testname></testname>
+        <teststatus></teststatus>
+        <timeunit></timeunit>
+        <triagefile></triagefile>
+        <ucdbproxy></ucdbproxy>
+      </row>
+      <row>
+        <action>directed/dirtest8_1_0/execScript</action>
+        <coverage></coverage>
+        <cputime></cputime>
+        <datetime>2024-11-02 23:21:08</datetime>
+        <elapsed>13</elapsed>
+        <event>20241102T232108 done directed/dirtest8_1_0/execScript failed/script reds-vmeda directed/dirtest8_1_0.ucdb {} {} {} {} {}</event>
+        <hostname>reds-vmeda</hostname>
+        <queued>6</queued>
+        <status>failed/script</status>
+        <reason></reason>
+        <seed></seed>
+        <simtime></simtime>
+        <tplancov></tplancov>
+        <tstime></tstime>
+        <ucdbfile>directed/dirtest8_1_0.ucdb</ucdbfile>
+        <username></username>
+        <donetime>2024-11-02 23:21:08</donetime>
+        <extstatus>script</extstatus>
+        <launchtime>2024-11-02 23:20:49</launchtime>
+        <mergefile></mergefile>
+        <properties>Task Runnable</properties>
+        <runid></runid>
+        <runstatus>failed</runstatus>
+        <starttime>2024-11-02 23:20:55</starttime>
+        <testname></testname>
+        <teststatus></teststatus>
+        <timeunit></timeunit>
+        <triagefile></triagefile>
+        <ucdbproxy></ucdbproxy>
+      </row>
+      <row>
+        <action>directed/dirtest8_2_0/execScript</action>
+        <coverage></coverage>
+        <cputime></cputime>
+        <datetime>2024-11-02 23:21:11</datetime>
+        <elapsed>14</elapsed>
+        <event>20241102T232111 done directed/dirtest8_2_0/execScript failed/script reds-vmeda directed/dirtest8_2_0.ucdb {} {} {} {} {}</event>
+        <hostname>reds-vmeda</hostname>
+        <queued>8</queued>
+        <status>failed/script</status>
+        <reason></reason>
+        <seed></seed>
+        <simtime></simtime>
+        <tplancov></tplancov>
+        <tstime></tstime>
+        <ucdbfile>directed/dirtest8_2_0.ucdb</ucdbfile>
+        <username></username>
+        <donetime>2024-11-02 23:21:11</donetime>
+        <extstatus>script</extstatus>
+        <launchtime>2024-11-02 23:20:49</launchtime>
+        <mergefile></mergefile>
+        <properties>Task Runnable</properties>
+        <runid></runid>
+        <runstatus>failed</runstatus>
+        <starttime>2024-11-02 23:20:57</starttime>
+        <testname></testname>
+        <teststatus></teststatus>
+        <timeunit></timeunit>
+        <triagefile></triagefile>
+        <ucdbproxy></ucdbproxy>
+      </row>
+      <row>
+        <action>directed/dirtest8_3_0/execScript</action>
+        <coverage></coverage>
+        <cputime></cputime>
+        <datetime>2024-11-02 23:21:02</datetime>
+        <elapsed>9</elapsed>
+        <event>20241102T232102 done directed/dirtest8_3_0/execScript failed/script reds-vmeda directed/dirtest8_3_0.ucdb {} {} {} {} {}</event>
+        <hostname>reds-vmeda</hostname>
+        <queued>4</queued>
+        <status>failed/script</status>
+        <reason></reason>
+        <seed></seed>
+        <simtime></simtime>
+        <tplancov></tplancov>
+        <tstime></tstime>
+        <ucdbfile>directed/dirtest8_3_0.ucdb</ucdbfile>
+        <username></username>
+        <donetime>2024-11-02 23:21:02</donetime>
+        <extstatus>script</extstatus>
+        <launchtime>2024-11-02 23:20:49</launchtime>
+        <mergefile></mergefile>
+        <properties>Task Runnable</properties>
+        <runid></runid>
+        <runstatus>failed</runstatus>
+        <starttime>2024-11-02 23:20:53</starttime>
+        <testname></testname>
+        <teststatus></teststatus>
+        <timeunit></timeunit>
+        <triagefile></triagefile>
+        <ucdbproxy></ucdbproxy>
+      </row>
+      <row>
+        <action>directed/dirtest8_16_0/execScript</action>
+        <coverage></coverage>
+        <cputime></cputime>
+        <datetime>2024-11-02 23:21:11</datetime>
+        <elapsed>14</elapsed>
+        <event>20241102T232111 done directed/dirtest8_16_0/execScript failed/script reds-vmeda directed/dirtest8_16_0.ucdb {} {} {} {} {}</event>
+        <hostname>reds-vmeda</hostname>
+        <queued>8</queued>
+        <status>failed/script</status>
+        <reason></reason>
+        <seed></seed>
+        <simtime></simtime>
+        <tplancov></tplancov>
+        <tstime></tstime>
+        <ucdbfile>directed/dirtest8_16_0.ucdb</ucdbfile>
+        <username></username>
+        <donetime>2024-11-02 23:21:11</donetime>
+        <extstatus>script</extstatus>
+        <launchtime>2024-11-02 23:20:49</launchtime>
+        <mergefile></mergefile>
+        <properties>Task Runnable</properties>
+        <runid></runid>
+        <runstatus>failed</runstatus>
+        <starttime>2024-11-02 23:20:57</starttime>
+        <testname></testname>
+        <teststatus></teststatus>
+        <timeunit></timeunit>
+        <triagefile></triagefile>
+        <ucdbproxy></ucdbproxy>
+      </row>
+      <row>
+        <action>directed/dirtest8_17_0/execScript</action>
+        <coverage></coverage>
+        <cputime></cputime>
+        <datetime>2024-11-02 23:21:11</datetime>
+        <elapsed>13</elapsed>
+        <event>20241102T232111 done directed/dirtest8_17_0/execScript failed/script reds-vmeda directed/dirtest8_17_0.ucdb {} {} {} {} {}</event>
+        <hostname>reds-vmeda</hostname>
+        <queued>9</queued>
+        <status>failed/script</status>
+        <reason></reason>
+        <seed></seed>
+        <simtime></simtime>
+        <tplancov></tplancov>
+        <tstime></tstime>
+        <ucdbfile>directed/dirtest8_17_0.ucdb</ucdbfile>
+        <username></username>
+        <donetime>2024-11-02 23:21:11</donetime>
+        <extstatus>script</extstatus>
+        <launchtime>2024-11-02 23:20:49</launchtime>
+        <mergefile></mergefile>
+        <properties>Task Runnable</properties>
+        <runid></runid>
+        <runstatus>failed</runstatus>
+        <starttime>2024-11-02 23:20:58</starttime>
+        <testname></testname>
+        <teststatus></teststatus>
+        <timeunit></timeunit>
+        <triagefile></triagefile>
+        <ucdbproxy></ucdbproxy>
+      </row>
+      <row>
+        <action>directed/dirtest8_18_0/execScript</action>
+        <coverage></coverage>
+        <cputime></cputime>
+        <datetime>2024-11-02 23:21:08</datetime>
+        <elapsed>13</elapsed>
+        <event>20241102T232108 done directed/dirtest8_18_0/execScript failed/script reds-vmeda directed/dirtest8_18_0.ucdb {} {} {} {} {}</event>
+        <hostname>reds-vmeda</hostname>
+        <queued>6</queued>
+        <status>failed/script</status>
+        <reason></reason>
+        <seed></seed>
+        <simtime></simtime>
+        <tplancov></tplancov>
+        <tstime></tstime>
+        <ucdbfile>directed/dirtest8_18_0.ucdb</ucdbfile>
+        <username></username>
+        <donetime>2024-11-02 23:21:08</donetime>
+        <extstatus>script</extstatus>
+        <launchtime>2024-11-02 23:20:49</launchtime>
+        <mergefile></mergefile>
+        <properties>Task Runnable</properties>
+        <runid></runid>
+        <runstatus>failed</runstatus>
+        <starttime>2024-11-02 23:20:55</starttime>
+        <testname></testname>
+        <teststatus></teststatus>
+        <timeunit></timeunit>
+        <triagefile></triagefile>
+        <ucdbproxy></ucdbproxy>
+      </row>
+      <row>
+        <action>directed/dirtest8_19_0/execScript</action>
+        <coverage></coverage>
+        <cputime></cputime>
+        <datetime>2024-11-02 23:21:09</datetime>
+        <elapsed>13</elapsed>
+        <event>20241102T232109 done directed/dirtest8_19_0/execScript failed/script reds-vmeda directed/dirtest8_19_0.ucdb {} {} {} {} {}</event>
+        <hostname>reds-vmeda</hostname>
+        <queued>7</queued>
+        <status>failed/script</status>
+        <reason></reason>
+        <seed></seed>
+        <simtime></simtime>
+        <tplancov></tplancov>
+        <tstime></tstime>
+        <ucdbfile>directed/dirtest8_19_0.ucdb</ucdbfile>
+        <username></username>
+        <donetime>2024-11-02 23:21:09</donetime>
+        <extstatus>script</extstatus>
+        <launchtime>2024-11-02 23:20:49</launchtime>
+        <mergefile></mergefile>
+        <properties>Task Runnable</properties>
+        <runid></runid>
+        <runstatus>failed</runstatus>
+        <starttime>2024-11-02 23:20:56</starttime>
+        <testname></testname>
+        <teststatus></teststatus>
+        <timeunit></timeunit>
+        <triagefile></triagefile>
+        <ucdbproxy></ucdbproxy>
+      </row>
+      <row>
+        <action>directed/dirtest8_20_0/execScript</action>
+        <coverage></coverage>
+        <cputime></cputime>
+        <datetime>2024-11-02 23:21:10</datetime>
+        <elapsed>15</elapsed>
+        <event>20241102T232110 done directed/dirtest8_20_0/execScript failed/script reds-vmeda directed/dirtest8_20_0.ucdb {} {} {} {} {}</event>
+        <hostname>reds-vmeda</hostname>
+        <queued>6</queued>
+        <status>failed/script</status>
+        <reason></reason>
+        <seed></seed>
+        <simtime></simtime>
+        <tplancov></tplancov>
+        <tstime></tstime>
+        <ucdbfile>directed/dirtest8_20_0.ucdb</ucdbfile>
+        <username></username>
+        <donetime>2024-11-02 23:21:10</donetime>
+        <extstatus>script</extstatus>
+        <launchtime>2024-11-02 23:20:49</launchtime>
+        <mergefile></mergefile>
+        <properties>Task Runnable</properties>
+        <runid></runid>
+        <runstatus>failed</runstatus>
+        <starttime>2024-11-02 23:20:55</starttime>
+        <testname></testname>
+        <teststatus></teststatus>
+        <timeunit></timeunit>
+        <triagefile></triagefile>
+        <ucdbproxy></ucdbproxy>
+      </row>
+      <row>
+        <action>directed/dirtest8_21_0/execScript</action>
+        <coverage></coverage>
+        <cputime></cputime>
+        <datetime>2024-11-02 23:21:09</datetime>
+        <elapsed>14</elapsed>
+        <event>20241102T232109 done directed/dirtest8_21_0/execScript failed/script reds-vmeda directed/dirtest8_21_0.ucdb {} {} {} {} {}</event>
+        <hostname>reds-vmeda</hostname>
+        <queued>5</queued>
+        <status>failed/script</status>
+        <reason></reason>
+        <seed></seed>
+        <simtime></simtime>
+        <tplancov></tplancov>
+        <tstime></tstime>
+        <ucdbfile>directed/dirtest8_21_0.ucdb</ucdbfile>
+        <username></username>
+        <donetime>2024-11-02 23:21:09</donetime>
+        <extstatus>script</extstatus>
+        <launchtime>2024-11-02 23:20:50</launchtime>
+        <mergefile></mergefile>
+        <properties>Task Runnable</properties>
+        <runid></runid>
+        <runstatus>failed</runstatus>
+        <starttime>2024-11-02 23:20:55</starttime>
+        <testname></testname>
+        <teststatus></teststatus>
+        <timeunit></timeunit>
+        <triagefile></triagefile>
+        <ucdbproxy></ucdbproxy>
+      </row>
+      <row>
+        <action>directed/dirtest16_0_0/execScript</action>
+        <coverage></coverage>
+        <cputime></cputime>
+        <datetime>2024-11-02 23:21:12</datetime>
+        <elapsed>14</elapsed>
+        <event>20241102T232112 done directed/dirtest16_0_0/execScript failed/script reds-vmeda directed/dirtest16_0_0.ucdb {} {} {} {} {}</event>
+        <hostname>reds-vmeda</hostname>
+        <queued>8</queued>
+        <status>failed/script</status>
+        <reason></reason>
+        <seed></seed>
+        <simtime></simtime>
+        <tplancov></tplancov>
+        <tstime></tstime>
+        <ucdbfile>directed/dirtest16_0_0.ucdb</ucdbfile>
+        <username></username>
+        <donetime>2024-11-02 23:21:12</donetime>
+        <extstatus>script</extstatus>
+        <launchtime>2024-11-02 23:20:50</launchtime>
+        <mergefile></mergefile>
+        <properties>Task Runnable</properties>
+        <runid></runid>
+        <runstatus>failed</runstatus>
+        <starttime>2024-11-02 23:20:58</starttime>
+        <testname></testname>
+        <teststatus></teststatus>
+        <timeunit></timeunit>
+        <triagefile></triagefile>
+        <ucdbproxy></ucdbproxy>
+      </row>
+      <row>
+        <action>directed/dirtest16_1_0/execScript</action>
+        <coverage></coverage>
+        <cputime></cputime>
+        <datetime>2024-11-02 23:21:11</datetime>
+        <elapsed>13</elapsed>
+        <event>20241102T232111 done directed/dirtest16_1_0/execScript failed/script reds-vmeda directed/dirtest16_1_0.ucdb {} {} {} {} {}</event>
+        <hostname>reds-vmeda</hostname>
+        <queued>8</queued>
+        <status>failed/script</status>
+        <reason></reason>
+        <seed></seed>
+        <simtime></simtime>
+        <tplancov></tplancov>
+        <tstime></tstime>
+        <ucdbfile>directed/dirtest16_1_0.ucdb</ucdbfile>
+        <username></username>
+        <donetime>2024-11-02 23:21:11</donetime>
+        <extstatus>script</extstatus>
+        <launchtime>2024-11-02 23:20:50</launchtime>
+        <mergefile></mergefile>
+        <properties>Task Runnable</properties>
+        <runid></runid>
+        <runstatus>failed</runstatus>
+        <starttime>2024-11-02 23:20:58</starttime>
+        <testname></testname>
+        <teststatus></teststatus>
+        <timeunit></timeunit>
+        <triagefile></triagefile>
+        <ucdbproxy></ucdbproxy>
+      </row>
+      <row>
+        <action>directed/dirtest16_2_0/execScript</action>
+        <coverage></coverage>
+        <cputime></cputime>
+        <datetime>2024-11-02 23:21:12</datetime>
+        <elapsed>13</elapsed>
+        <event>20241102T232112 done directed/dirtest16_2_0/execScript failed/script reds-vmeda directed/dirtest16_2_0.ucdb {} {} {} {} {}</event>
+        <hostname>reds-vmeda</hostname>
+        <queued>9</queued>
+        <status>failed/script</status>
+        <reason></reason>
+        <seed></seed>
+        <simtime></simtime>
+        <tplancov></tplancov>
+        <tstime></tstime>
+        <ucdbfile>directed/dirtest16_2_0.ucdb</ucdbfile>
+        <username></username>
+        <donetime>2024-11-02 23:21:12</donetime>
+        <extstatus>script</extstatus>
+        <launchtime>2024-11-02 23:20:50</launchtime>
+        <mergefile></mergefile>
+        <properties>Task Runnable</properties>
+        <runid></runid>
+        <runstatus>failed</runstatus>
+        <starttime>2024-11-02 23:20:59</starttime>
+        <testname></testname>
+        <teststatus></teststatus>
+        <timeunit></timeunit>
+        <triagefile></triagefile>
+        <ucdbproxy></ucdbproxy>
+      </row>
+      <row>
+        <action>directed/dirtest16_3_0/execScript</action>
+        <coverage></coverage>
+        <cputime></cputime>
+        <datetime>2024-11-02 23:21:12</datetime>
+        <elapsed>13</elapsed>
+        <event>20241102T232112 done directed/dirtest16_3_0/execScript failed/script reds-vmeda directed/dirtest16_3_0.ucdb {} {} {} {} {}</event>
+        <hostname>reds-vmeda</hostname>
+        <queued>8</queued>
+        <status>failed/script</status>
+        <reason></reason>
+        <seed></seed>
+        <simtime></simtime>
+        <tplancov></tplancov>
+        <tstime></tstime>
+        <ucdbfile>directed/dirtest16_3_0.ucdb</ucdbfile>
+        <username></username>
+        <donetime>2024-11-02 23:21:12</donetime>
+        <extstatus>script</extstatus>
+        <launchtime>2024-11-02 23:20:51</launchtime>
+        <mergefile></mergefile>
+        <properties>Task Runnable</properties>
+        <runid></runid>
+        <runstatus>failed</runstatus>
+        <starttime>2024-11-02 23:20:59</starttime>
+        <testname></testname>
+        <teststatus></teststatus>
+        <timeunit></timeunit>
+        <triagefile></triagefile>
+        <ucdbproxy></ucdbproxy>
+      </row>
+      <row>
+        <action>directed/dirtest16_16_0/execScript</action>
+        <coverage></coverage>
+        <cputime></cputime>
+        <datetime>2024-11-02 23:21:09</datetime>
+        <elapsed>13</elapsed>
+        <event>20241102T232109 done directed/dirtest16_16_0/execScript failed/script reds-vmeda directed/dirtest16_16_0.ucdb {} {} {} {} {}</event>
+        <hostname>reds-vmeda</hostname>
+        <queued>5</queued>
+        <status>failed/script</status>
+        <reason></reason>
+        <seed></seed>
+        <simtime></simtime>
+        <tplancov></tplancov>
+        <tstime></tstime>
+        <ucdbfile>directed/dirtest16_16_0.ucdb</ucdbfile>
+        <username></username>
+        <donetime>2024-11-02 23:21:09</donetime>
+        <extstatus>script</extstatus>
+        <launchtime>2024-11-02 23:20:51</launchtime>
+        <mergefile></mergefile>
+        <properties>Task Runnable</properties>
+        <runid></runid>
+        <runstatus>failed</runstatus>
+        <starttime>2024-11-02 23:20:56</starttime>
+        <testname></testname>
+        <teststatus></teststatus>
+        <timeunit></timeunit>
+        <triagefile></triagefile>
+        <ucdbproxy></ucdbproxy>
+      </row>
+      <row>
+        <action>directed/dirtest16_17_0/execScript</action>
+        <coverage></coverage>
+        <cputime></cputime>
+        <datetime>2024-11-02 23:21:10</datetime>
+        <elapsed>12</elapsed>
+        <event>20241102T232110 done directed/dirtest16_17_0/execScript failed/script reds-vmeda directed/dirtest16_17_0.ucdb {} {} {} {} {}</event>
+        <hostname>reds-vmeda</hostname>
+        <queued>7</queued>
+        <status>failed/script</status>
+        <reason></reason>
+        <seed></seed>
+        <simtime></simtime>
+        <tplancov></tplancov>
+        <tstime></tstime>
+        <ucdbfile>directed/dirtest16_17_0.ucdb</ucdbfile>
+        <username></username>
+        <donetime>2024-11-02 23:21:10</donetime>
+        <extstatus>script</extstatus>
+        <launchtime>2024-11-02 23:20:51</launchtime>
+        <mergefile></mergefile>
+        <properties>Task Runnable</properties>
+        <runid></runid>
+        <runstatus>failed</runstatus>
+        <starttime>2024-11-02 23:20:58</starttime>
+        <testname></testname>
+        <teststatus></teststatus>
+        <timeunit></timeunit>
+        <triagefile></triagefile>
+        <ucdbproxy></ucdbproxy>
+      </row>
+      <row>
+        <action>directed/dirtest16_18_0/execScript</action>
+        <coverage></coverage>
+        <cputime></cputime>
+        <datetime>2024-11-02 23:21:12</datetime>
+        <elapsed>13</elapsed>
+        <event>20241102T232112 done directed/dirtest16_18_0/execScript failed/script reds-vmeda directed/dirtest16_18_0.ucdb {} {} {} {} {}</event>
+        <hostname>reds-vmeda</hostname>
+        <queued>8</queued>
+        <status>failed/script</status>
+        <reason></reason>
+        <seed></seed>
+        <simtime></simtime>
+        <tplancov></tplancov>
+        <tstime></tstime>
+        <ucdbfile>directed/dirtest16_18_0.ucdb</ucdbfile>
+        <username></username>
+        <donetime>2024-11-02 23:21:12</donetime>
+        <extstatus>script</extstatus>
+        <launchtime>2024-11-02 23:20:51</launchtime>
+        <mergefile></mergefile>
+        <properties>Task Runnable</properties>
+        <runid></runid>
+        <runstatus>failed</runstatus>
+        <starttime>2024-11-02 23:20:59</starttime>
+        <testname></testname>
+        <teststatus></teststatus>
+        <timeunit></timeunit>
+        <triagefile></triagefile>
+        <ucdbproxy></ucdbproxy>
+      </row>
+      <row>
+        <action>directed/dirtest16_19_0/execScript</action>
+        <coverage></coverage>
+        <cputime></cputime>
+        <datetime>2024-11-02 23:21:11</datetime>
+        <elapsed>12</elapsed>
+        <event>20241102T232111 done directed/dirtest16_19_0/execScript failed/script reds-vmeda directed/dirtest16_19_0.ucdb {} {} {} {} {}</event>
+        <hostname>reds-vmeda</hostname>
+        <queued>8</queued>
+        <status>failed/script</status>
+        <reason></reason>
+        <seed></seed>
+        <simtime></simtime>
+        <tplancov></tplancov>
+        <tstime></tstime>
+        <ucdbfile>directed/dirtest16_19_0.ucdb</ucdbfile>
+        <username></username>
+        <donetime>2024-11-02 23:21:11</donetime>
+        <extstatus>script</extstatus>
+        <launchtime>2024-11-02 23:20:51</launchtime>
+        <mergefile></mergefile>
+        <properties>Task Runnable</properties>
+        <runid></runid>
+        <runstatus>failed</runstatus>
+        <starttime>2024-11-02 23:20:59</starttime>
+        <testname></testname>
+        <teststatus></teststatus>
+        <timeunit></timeunit>
+        <triagefile></triagefile>
+        <ucdbproxy></ucdbproxy>
+      </row>
+      <row>
+        <action>directed/dirtest16_20_0/execScript</action>
+        <coverage></coverage>
+        <cputime></cputime>
+        <datetime>2024-11-02 23:21:12</datetime>
+        <elapsed>13</elapsed>
+        <event>20241102T232112 done directed/dirtest16_20_0/execScript failed/script reds-vmeda directed/dirtest16_20_0.ucdb {} {} {} {} {}</event>
+        <hostname>reds-vmeda</hostname>
+        <queued>7</queued>
+        <status>failed/script</status>
+        <reason></reason>
+        <seed></seed>
+        <simtime></simtime>
+        <tplancov></tplancov>
+        <tstime></tstime>
+        <ucdbfile>directed/dirtest16_20_0.ucdb</ucdbfile>
+        <username></username>
+        <donetime>2024-11-02 23:21:12</donetime>
+        <extstatus>script</extstatus>
+        <launchtime>2024-11-02 23:20:52</launchtime>
+        <mergefile></mergefile>
+        <properties>Task Runnable</properties>
+        <runid></runid>
+        <runstatus>failed</runstatus>
+        <starttime>2024-11-02 23:20:59</starttime>
+        <testname></testname>
+        <teststatus></teststatus>
+        <timeunit></timeunit>
+        <triagefile></triagefile>
+        <ucdbproxy></ucdbproxy>
+      </row>
+      <row>
+        <action>directed/dirtest16_21_0/execScript</action>
+        <coverage></coverage>
+        <cputime></cputime>
+        <datetime>2024-11-02 23:21:12</datetime>
+        <elapsed>14</elapsed>
+        <event>20241102T232112 done directed/dirtest16_21_0/execScript failed/script reds-vmeda directed/dirtest16_21_0.ucdb {} {} {} {} {}</event>
+        <hostname>reds-vmeda</hostname>
+        <queued>6</queued>
+        <status>failed/script</status>
+        <reason></reason>
+        <seed></seed>
+        <simtime></simtime>
+        <tplancov></tplancov>
+        <tstime></tstime>
+        <ucdbfile>directed/dirtest16_21_0.ucdb</ucdbfile>
+        <username></username>
+        <donetime>2024-11-02 23:21:12</donetime>
+        <extstatus>script</extstatus>
+        <launchtime>2024-11-02 23:20:52</launchtime>
+        <mergefile></mergefile>
+        <properties>Task Runnable</properties>
+        <runid></runid>
+        <runstatus>failed</runstatus>
+        <starttime>2024-11-02 23:20:58</starttime>
+        <testname></testname>
+        <teststatus></teststatus>
+        <timeunit></timeunit>
+        <triagefile></triagefile>
+        <ucdbproxy></ucdbproxy>
+      </row>
+      <row>
+        <action>directed/postScript</action>
+        <coverage></coverage>
+        <cputime></cputime>
+        <datetime>2024-11-02 23:21:13</datetime>
+        <elapsed></elapsed>
+        <event>20241102T232113 done directed/postScript empty</event>
+        <hostname></hostname>
+        <queued></queued>
+        <status>empty</status>
+        <reason></reason>
+        <seed></seed>
+        <simtime></simtime>
+        <tplancov></tplancov>
+        <tstime></tstime>
+        <ucdbfile></ucdbfile>
+        <username></username>
+        <donetime>2024-11-02 23:21:13</donetime>
+        <extstatus></extstatus>
+        <launchtime></launchtime>
+        <mergefile></mergefile>
+        <properties>Non-sequential Group Runnable</properties>
+        <runid></runid>
+        <runstatus>empty</runstatus>
+        <starttime></starttime>
+        <testname></testname>
+        <teststatus></teststatus>
+        <timeunit></timeunit>
+        <triagefile></triagefile>
+        <ucdbproxy></ucdbproxy>
+      </row>
+    </table>
+  </sample>
+</drill>

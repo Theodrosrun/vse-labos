@@ -1,6 +1,7 @@
 
 proc compile_duv { } {
   vcom -mixedsvvh ../src_vhdl/alu.vhd -work work    -2008
+  vcom -mixedsvvh ../src_vhdl/programcounter.vhd -work work    -2008
   vcom -mixedsvvh ../src_vhdl/regfile.vhd -work work    -2008
   vcom -mixedsvvh ../src_vhdl/rom.vhd -work work    -2008
   vcom -mixedsvvh ../src_vhdl/datapath.vhd -work work    -2008
@@ -37,7 +38,8 @@ proc check_sva {Module} {
       formal compile -d datapath_wrapper -work work
     }
   }
-  # formal verify
+  formal init
+  formal verify -auto_constraint_off
 }
 
 compile_duv

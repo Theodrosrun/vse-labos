@@ -3,7 +3,7 @@ module onectr_nomem_assertions#(int INPUTSIZE = 64, int PCSIZE = 8)(
         input logic                            rst,
         input logic                            start_i,
         input logic[INPUTSIZE-1:0]             InPort,
-        output logic[$clog2(INPUTSIZE+1)-1:0] OutPort,
+        input logic[$clog2(INPUTSIZE+1)-1:0] OutPort,
         input logic[7:0]                       Ctrl,
         input logic[3:0]                       Sel,
         input logic                            Wen,
@@ -14,6 +14,6 @@ module onectr_nomem_assertions#(int INPUTSIZE = 64, int PCSIZE = 8)(
         input logic                            JP,
         input logic                            JF,
         input logic[PCSIZE-1:0]                JumpAddress,
-        output logic[PCSIZE-1:0]               PCAddress
+        input logic[PCSIZE-1:0]               PCAddress
 );
 endmodule

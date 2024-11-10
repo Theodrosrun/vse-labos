@@ -22,23 +22,6 @@ module datapath_assertions(
         ##[0:100] (OutPort);
    endproperty
  
-   // Vérifie un écriture puis une opération
-   property p_complete_flow;
-        logic[7:0] a;
-        logic[7:0] b;
-        logic[3:0] reg_a;
-        logic[3:0] reg_b;
-
-        @(posedge clk)
-        disable iff(!Wen)
-        (Wen == 1, a = InPort[Sel], reg_a = WA)
-
-        @(posedge clk)
-        disable iff(!Wen)
-        (Wen == 1, b = InPort[Sel], reg_b = WA)
-
-   endproperty
-
    // Propriété pour la stabilité de OutPort
    property p_stable_when_not_writing;
       @(posedge clk)
@@ -47,9 +30,35 @@ module datapath_assertions(
       $stable(OutPort);
    endproperty
 
+   // Vérifie que le Flag est mis correctement lors d'une opération d'égalité (EQ)
+   property p_flag_eq;
+      @(posedge clk)
+      disable iff (!Wen)
+
+      (Op == 3'b010) |=> (Flag == (A == B)); // TODO - Memorize A and B
+   endproperty
+
+   // Vérifie que le Flag est mis en cas de dépassement lors de l'addition (ADD)
+   property p_flag_overflow;
+      @(posedge clk)
+      disable iff (!Wen)
+
+      (Op == 3'b000) |=> (Flag == (A + B > 255)); // TODO - Memorize A and B
+   endproperty
+
+   // Vérifie que pour MOV, le Flag doit être 0 (pas de changement d'état)
+   property p_flag_mov;
+      @(posedge clk)
+      disable iff (!Wen)
+
+      (Op == 3'b100) |=> (Flag == 0);
+   endproperty
 
    assert property(p_stable_when_not_writing);
    assert property(p_alu_operations);
    assert property(p_result_eventually);
+   assert property(p_flag_eq);
+   assert property(p_flag_overflow);
+   assert property(p_flag_mov);
+   
 endmodule
-

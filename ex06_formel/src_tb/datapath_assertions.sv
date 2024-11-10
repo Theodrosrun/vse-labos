@@ -22,8 +22,8 @@ module datapath_assertions(
         ##[0:100] (OutPort);
    endproperty
  
-   // Propriété pour la stabilité de OutPort
-   property p_stable_when_not_writing;
+   // Propriété pour la stabilité de OutPort quand on met uniquement le flag à jour
+   property p_stable_when_flag_written;
       @(posedge clk)
       disable iff (Op != 3'b010)
 
@@ -39,7 +39,7 @@ module datapath_assertions(
    endproperty
 
    assert property(p_result_eventually);
-   assert property(p_stable_when_not_writing);
+   assert property(p_stable_when_flag_written);
    assert property(p_flag_mov);
    
 endmodule

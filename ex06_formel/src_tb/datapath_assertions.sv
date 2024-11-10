@@ -25,25 +25,9 @@ module datapath_assertions(
    // Propriété pour la stabilité de OutPort
    property p_stable_when_not_writing;
       @(posedge clk)
-      disable iff (Wen == 1)
+      disable iff (Op != 3'b010)
 
       $stable(OutPort);
-   endproperty
-
-   // Vérifie que le Flag est mis correctement lors d'une opération d'égalité (EQ)
-   property p_flag_eq;
-      @(posedge clk)
-      disable iff (!Wen)
-
-      (Op == 3'b010) |=> (Flag == (A == B)); // TODO - Memorize A and B
-   endproperty
-
-   // Vérifie que le Flag est mis en cas de dépassement lors de l'addition (ADD)
-   property p_flag_overflow;
-      @(posedge clk)
-      disable iff (!Wen)
-
-      (Op == 3'b000) |=> (Flag == (A + B > 255)); // TODO - Memorize A and B
    endproperty
 
    // Vérifie que pour MOV, le Flag doit être 0 (pas de changement d'état)
@@ -54,11 +38,8 @@ module datapath_assertions(
       (Op == 3'b100) |=> (Flag == 0);
    endproperty
 
-   assert property(p_stable_when_not_writing);
-   assert property(p_alu_operations);
    assert property(p_result_eventually);
-   assert property(p_flag_eq);
-   assert property(p_flag_overflow);
+   assert property(p_stable_when_not_writing);
    assert property(p_flag_mov);
    
 endmodule

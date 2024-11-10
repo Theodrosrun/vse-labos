@@ -18,7 +18,7 @@ module datapath_assertions(
         disable iff (Wen ==1)
         ((Op == 3'b000) || (Op == 3'b001) || (Op == 3'b011) || (Op == 3'b100))
         |=>
-        ##[0:100] (OutPort)
+        ##[0:100] (OutPort);
    endproperty
 
    // Propriété pour la stabilité de OutPort
@@ -41,8 +41,8 @@ property p_alu_operations;
       3'b100: expected_result = RAA;
       default: expected_result = 0;
    endcase
-
-   OutPort == expected_result;
+   |=>
+   ##[0:100](OutPort == expected_result);
 endproperty
 
    assert property(p_result_eventually);

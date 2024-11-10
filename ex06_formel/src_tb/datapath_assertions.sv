@@ -16,36 +16,40 @@ module datapath_assertions(
    property p_result_eventually;
         @(posedge clk)
         disable iff (Wen ==1)
+
         ((Op == 3'b000) || (Op == 3'b001) || (Op == 3'b011) || (Op == 3'b100))
         |=>
         ##[0:100] (OutPort);
+   endproperty
+ 
+   // Vérifie un écriture puis une opération
+   property p_complete_flow;
+        logic[7:0] a;
+        logic[7:0] b;
+        logic[3:0] reg_a;
+        logic[3:0] reg_b;
+
+        @(posedge clk)
+        disable iff(!Wen)
+        (Wen == 1, a = InPort[Sel], reg_a = WA)
+
+        @(posedge clk)
+        disable iff(!Wen)
+        (Wen == 1, b = InPort[Sel], reg_b = WA)
+
    endproperty
 
    // Propriété pour la stabilité de OutPort
    property p_stable_when_not_writing;
       @(posedge clk)
       disable iff (Wen == 1)
+
       $stable(OutPort);
    endproperty
 
-// Vérification des opérations de l'ALU (sans le EQ)
-property p_alu_operations;
-   logic [7:0] expected_result;
-   @(posedge clk)
-   disable iff (Wen == 1)
-   
-   case (Op)
-      3'b000: expected_result = RAA + RAB;
-      3'b000: expected_result = RAA >> 1;
-      3'b011: expected_result = RAA & RAB
-      3'b100: expected_result = RAA;
-      default: expected_result = 0;
-   endcase
-   |=>
-   ##[0:100](OutPort == expected_result);
-endproperty
 
-   assert property(p_result_eventually);
    assert property(p_stable_when_not_writing);
    assert property(p_alu_operations);
+   assert property(p_result_eventually);
 endmodule
+

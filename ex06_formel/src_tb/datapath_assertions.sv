@@ -28,7 +28,7 @@ module datapath_assertions(
       $stable(OutPort);
    endproperty
 
-// Vérification des opérations de l'ALU
+// Vérification des opérations de l'ALU (sans le EQ)
 property p_alu_operations;
    logic [7:0] expected_result;
    @(posedge clk)
@@ -45,7 +45,6 @@ property p_alu_operations;
    OutPort == expected_result;
 endproperty
 
-   // Assertions pour vérifier les propriétés
    assert property(p_result_eventually);
    assert property(p_stable_when_not_writing);
    assert property(p_alu_operations);

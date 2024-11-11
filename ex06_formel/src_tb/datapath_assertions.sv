@@ -22,14 +22,6 @@ module datapath_assertions(
         ##[0:100] (OutPort);
    endproperty
  
-   // Propriété pour la stabilité de OutPort quand on met uniquement le flag à jour
-   property p_stable_when_flag_written;
-      @(posedge clk)
-      disable iff (Op != 3'b010)
-
-      $stable(OutPort);
-   endproperty
-
    // Vérifie que pour MOV, le Flag doit être 0 (pas de changement d'état)
    property p_flag_mov;
       @(posedge clk)

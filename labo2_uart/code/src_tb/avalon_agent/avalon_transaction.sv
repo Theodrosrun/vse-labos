@@ -34,10 +34,53 @@ typedef enum {UART_SEND, UART_READ, WRITE_REGISTER} avalon_transaction_type_t;
 
 class avalon_transaction#(int DATASIZE=20, int FIFOSIZE=10);
 
-    // TODO : Populate this transaction
+    // Transaction type and addressing
+    avalon_transaction_type_t type;
+    logic[13:0] address;
+
+    // Write interface
+    logic write_i;
+    logic[31:0] writedata_i;
+
+    // Read interface
+    logic read_i;
+    logic readdatavalid_o;
+    logic[7:0] readdata_o;
+    logic waitrequest_o;
+
+    // Timestamp
+    time timestamp;
+
+    // Constructor
+    function new();
+        this.type = UART_SEND;
+        this.address = '0;
+        this.write_i = 0;
+        this.writedata_i = '0;
+        this.read_i = 0;
+        this.readdatavalid_o = 0;
+        this.readdata_o = '0;
+        this.waitrequest_o = 0;
+        this.timestamp = $time;
+    endfunction
+
+    function string toString();
+        string s;
+        $sformat(s,
+                 "Transaction:\n"
+                 "  Type: %s\n"
+                 "  Address: %h\n"
+                 "  Write: %b, Writedata: %h\n"
+                 "  Read: %b, ReadValid: %b, ReadData: %h\n"
+                 "  WaitRequest: %b\n"
+                 "  Timestamp: %t\n",
+                 type.name(), address, write_i, writedata_i,
+                 read_i, readdatavalid_o, readdata_o,
+                 waitrequest_o, timestamp);
+        return s;
+    endfunction
 
 endclass : avalon_transaction
-
 
 typedef mailbox #(avalon_transaction) avalon_fifo_t;
 

@@ -1,0 +1,128 @@
+<!-- THIS IS TOOL GENERATED SESSION FILE. PLEASE DO NOT MODIFY THIS -->
+<!DOCTYPE visualizer_session>
+<session version="0.2" featureversion="0.3">
+ <app argc="10">
+  <argv pos="0" value="/opt/mentor/questaformal/linux_x86_64/share/modeltech/linux_x86_64/../linux_x86_64/Visualizer/bin/hdlclient"/>
+  <argv pos="1" value="+designfile+/home/reds/Desktop/Labos/vse-labos/ex06_formel/sim/propcheck.db/VISUALIZER/design.bin"/>
+  <argv pos="2" value="+force_prompt+PropCheck> "/>
+  <argv pos="3" value="+force_title+PropCheck Starting..."/>
+  <argv pos="4" value="+show_pi_drvr_rcvr"/>
+  <argv pos="5" value="+max_drv_rec_cnt=10000"/>
+  <argv pos="6" value="+external_client"/>
+  <argv pos="7" value="+no_session"/>
+  <argv pos="8" value="+no_progress_bar"/>
+  <argv pos="9" value="+visformal"/>
+ </app>
+ <window_config>
+  <dockareas top="0" bottom="156" right="720" left="300"/>
+  <taborder bottom="transcript+zinformalproperties+" right="zinformalcontrolpointsnew+" left="zindutview+"/>
+  <activetab activewindow="zinformalcontrolpointsnew" bottom="zinformalproperties" right="zinformalcontrolpointsnew" left="zindutview"/>
+  <window dock_location="bottom" y="0" undocked="0" type="transcript" visible="1" x="0"/>
+  <window dock_location="bottom" title="Properties" y="0" undocked="0" type="zinformalproperties" visible="1" x="0"/>
+  <window dock_location="left" title="Design - datapath_wrapper.duv.binded" y="0" undocked="0" type="zindutview" visible="1" x="0"/>
+  <window dock_location="right" title="Control Points" y="0" undocked="0" type="zinformalcontrolpointsnew" visible="1" x="0"/>
+  <window y="27" width="1920" undocked="0" type="rtl" height="888" visible="1" x="0"/>
+  <window dock_location="bottom" title="Wave (duv.binded.assert__p_stable_when_flag_written)" y="56" width="1152" undocked="1" type="wave" height="639" visible="1" x="5"/>
+  <window dock_location="bottom" id="1" title="Wave (duv.binded.assert__p_result_eventually)" y="138" width="1552" undocked="1" type="wave" height="579" visible="0" x="170"/>
+  <window dock_location="center" y="0" undocked="0" type="source" visible="0" x="0"/>
+  <window dock_location="center" id="1" y="0" undocked="0" type="source" visible="1" x="0"/>
+  <window dock_location="center" id="2" y="0" undocked="0" type="source" visible="0" x="0"/>
+  <window title="Property Summary" y="0" undocked="0" type="zinformalpropertysummary" visible="0" x="0"/>
+  <window dock_location="right" title="Run Monitor" y="0" undocked="0" type="zinformalrunmonitor" visible="1" x="0"/>
+ </window_config>
+ <wave_file_mgr>
+  <waveFile tagName="ZIN1" waveType="0" fileName="/tmp/propcheck.5096_141/duv.binded.assert__p_stable_when_flag_written__0.db"/>
+ </wave_file_mgr>
+ <gui>
+  <main_window visible="1">
+   <srcbrowser instancename="datapath_wrapper"/>
+   <sourcetclcommands>
+    <tcl command="src activate source"/>
+    <tcl command="src top 3"/>
+   </sourcetclcommands>
+   <srcbrowser primary="true" instancename="datapath_wrapper.duv.binded" value_annotation_mode="true" value_tooltip_mode="true"/>
+   <sourcetclcommands>
+    <tcl command="src activate source1"/>
+    <tcl command="src top 22"/>
+   </sourcetclcommands>
+   <edge_gui cur_selection="AnyEdge"/>
+  </main_window>
+  <watchTower_cur_setting curDisplayTimeUnit="-9" curDisplayTimeUnitStr="1ns" curActiveWaveFile="ZIN1" customDisplayTimeUnitListStr="" curRadix="8">
+   <curTime lowtime="100" hightime="0"/>
+  </watchTower_cur_setting>
+  <drv_rec_data drivers="true"/>
+  <transcript>
+   <window y="-656" width="1920" height="156" x="-2420"/>
+  </transcript>
+  <zinformalproperties>
+   <window y="677" width="1920" height="156" x="0"/>
+  </zinformalproperties>
+  <zindutview>
+   <window y="60" width="300" height="611" x="0"/>
+  </zindutview>
+  <zinformalcontrolpointsnew>
+   <window y="60" width="720" height="611" x="1200"/>
+  </zinformalcontrolpointsnew>
+  <wave name="Wave (duv.binded.assert__p_stable_when_flag_written)">
+   <timeunit value="11"/>
+   <frequnit value="2"/>
+   <showdiff value="0"/>
+  </wave>
+ </gui>
+ <wave_mgr sync_time_range="0">
+  <waveWindow nameWidth="150" trackViewToTime="0" displayGrid="0" displayLeadingZeros="0" swapRepresentationOfX="0" displayTimeUnitStr="1ns" valueWidth="82" showMarkers="1" value_tooltip="0" showSecCursor="0" displayTimeUnit="-9" displayScopeName="1" primNudge="1" displayFileTag="0" snapToEdge="1" secNudge="1" displayGlobalView="1" displayRadixWithValue="0" signalHeight="23" alignBaseName="0" waveWidth="871" wintype="4">
+   <window name="Wave (duv.binded.assert__p_stable_when_flag_written)">
+    <timeunit value="11"/>
+    <frequnit value="2"/>
+    <showdiff value="0"/>
+   </window>
+   <viewPort>
+    <beginTime lowtime="0" hightime="0"/>
+    <endTime lowtime="300" hightime="0"/>
+    <beginViewTime lowtime="0" hightime="0"/>
+    <endViewTime lowtime="150" hightime="0"/>
+    <beginLastViewTime lowtime="0" hightime="0"/>
+    <endLastViewTime lowtime="150" hightime="0"/>
+   </viewPort>
+   <primCursor lowtime="100" hightime="0"/>
+   <wavetclcommands>
+    <tcl command="onerror resume&#xa;wave update off&#xa;wave clearselection&#xa;"/>
+    <tcl commandblock="custom radix definitions"></tcl>
+    <tcl command="wave update off"/>
+    <tcl command="wave add datapath_wrapper.qft_cycle_index -tag ZIN1 -label {cycle} -radix decimal -representation twoscomplement -foregroundcolor Gold"/>
+    <tcl command="wave group {Primary Clocks} -backgroundcolor #004466"/>
+    <tcl command="wave add -group {Primary Clocks} datapath_wrapper.clk -tag ZIN1 -radix binary"/>
+    <tcl command="wave insertion [expr [wave index insertpoint] + 1]"/>
+    <tcl command="wave group {Primary Resets} -backgroundcolor #664400"/>
+    <tcl command="wave insertion [expr [wave index insertpoint] + 1]"/>
+    <tcl command="wave group {Property Signals} -backgroundcolor #216600"/>
+    <tcl command="wave add -group {Property Signals} datapath_wrapper.duv.REG.clk -tag ZIN1 -radix binary"/>
+    <tcl command="wave add -group {Property Signals} datapath_wrapper.duv.binded.Op -tag ZIN1 -radix hexadecimal"/>
+    <tcl command="wave add -group {Property Signals} datapath_wrapper.duv.binded.OutPort -tag ZIN1 -radix hexadecimal"/>
+    <tcl command="wave insertion [expr [wave index insertpoint] + 1]"/>
+    <tcl command="wave group {Control Point Signals} -backgroundcolor #666600"/>
+    <tcl command="wave add -group {Control Point Signals} datapath_wrapper.Op -tag ZIN1 -radix hexadecimal"/>
+    <tcl command="wave add -group {Control Point Signals} datapath_wrapper.RAA -tag ZIN1 -radix hexadecimal"/>
+    <tcl command="wave add -group {Control Point Signals} datapath_wrapper.duv.REG.REG -tag ZIN1 -radix hexadecimal"/>
+    <tcl command="wave insertion [expr [wave index insertpoint] + 1]"/>
+    <tcl command="wave update on"/>
+    <tcl command="wave top 0"/>
+    <tcl command="wave name &quot;Wave (duv.binded.assert__p_stable_when_flag_written)&quot;"/>
+    <tcl command="wave marker add Start 0 LimeGreen"/>
+    <tcl command="wave marker add Fire 100 Orange"/>
+    <tcl command="wave zoom range 0 150"/>
+    <tcl command=""/>
+   </wavetclcommands>
+   <markerList numMarkers="2">
+    <marker name="Start" RGBcolor="#32cd32">
+     <time lowtime="0" hightime="0"/>
+    </marker>
+    <marker name="Fire" RGBcolor="#ffa500">
+     <time lowtime="100" hightime="0"/>
+    </marker>
+   </markerList>
+  </waveWindow>
+ </wave_mgr>
+ <windows/>
+ <dut/>
+</session>

@@ -1,0 +1,19 @@
+<LayoutInfo version="1" CurrentRTLLayout="Default">
+ <Layout Type="RTL" Name="Default">
+  <dockareas top="0" bottom="156" right="720" left="300"/>
+  <taborder bottom="transcript+zinformalproperties+" right="zinformalcontrolpointsnew+" left="zindutview+"/>
+  <activetab activewindow="zinformalcontrolpointsnew" bottom="zinformalproperties" right="zinformalcontrolpointsnew" left="zindutview"/>
+  <window dock_location="bottom" y="0" undocked="0" type="transcript" visible="1" x="0"/>
+  <window dock_location="bottom" title="Properties" y="0" undocked="0" type="zinformalproperties" visible="1" x="0"/>
+  <window dock_location="left" title="Design - datapath_wrapper.duv.binded" y="0" undocked="0" type="zindutview" visible="1" x="0"/>
+  <window dock_location="right" title="Control Points" y="0" undocked="0" type="zinformalcontrolpointsnew" visible="1" x="0"/>
+  <window y="27" width="1920" undocked="0" type="rtl" height="888" visible="1" x="0"/>
+  <window dock_location="bottom" title="Wave (duv.binded.assert__p_stable_when_flag_written)" y="56" width="1152" undocked="1" type="wave" height="639" visible="1" x="5"/>
+  <window dock_location="bottom" id="1" title="Wave (duv.binded.assert__p_result_eventually)" y="138" width="1552" undocked="1" type="wave" height="579" visible="0" x="170"/>
+  <window dock_location="center" y="0" undocked="0" type="source" visible="0" x="0"/>
+  <window dock_location="center" id="1" y="0" undocked="0" type="source" visible="1" x="0"/>
+  <window dock_location="center" id="2" y="0" undocked="0" type="source" visible="0" x="0"/>
+  <window title="Property Summary" y="0" undocked="0" type="zinformalpropertysummary" visible="0" x="0"/>
+  <window dock_location="right" title="Run Monitor" y="0" undocked="0" type="zinformalrunmonitor" visible="1" x="0"/>
+ </Layout>
+</LayoutInfo>

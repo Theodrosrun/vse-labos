@@ -40,9 +40,25 @@ class avalon_sequencer#(int DATASIZE=20, int FIFOSIZE=10);
         automatic avalon_transaction transaction;
         $display("%t [AVL Sequencer] Start", $time);
 
-        // TODO : Generate something meaningfull
-        transaction = new;
-        sequencer_to_driver_fifo.put(transaction);
+        foreach (int i in {0, 1, 2, 3}) begin
+            transaction = new;
+            transaction.timestamp = $time;
+            transaction.type = (i % 2 == 0) ? UART_SEND : UART_READ;
+            transaction.address = 16'h10 + i;
+
+            if (transaction.type == UART_SEND) begin
+                transaction.write_i = 1;
+                transaction.writedata_i = i * 8;
+                transaction.read_i = 0;
+            end else if (transaction.type == UART_READ) begin
+                transaction.read_i = 1;
+                transaction.write_i = 0;
+            end
+
+            $display("%t [AVL Sequencer] Generated Transaction:\n%s", $time, transaction.toString());
+
+            sequencer_to_driver_fifo.put(transaction);
+        end
         
         $display("%t [AVL Sequencer] End", $time);
     endtask : run

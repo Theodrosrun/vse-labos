@@ -97,8 +97,7 @@ class avalon_driver#(int DATASIZE=20, int FIFOSIZE=10);
                     // Capture the read data
                     transaction.readdata_o = vif.readdata_o;
 
-                    $display("%t [AVL Driver] Read Completed: Address=%0d, Data=%0d", 
-                        $time, transaction.address, transaction.readdata_o);
+                    $display("%t [AVL Driver] Read Completed: Address=%0d, Data=%0d", $time, transaction.address, transaction.readdata_o);
 
                     // Send the transaction to the RX scoreboard
                     avalon_to_scoreboard_rx_fifo.put(transaction);

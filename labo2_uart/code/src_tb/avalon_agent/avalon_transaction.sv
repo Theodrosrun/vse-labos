@@ -36,7 +36,7 @@ class avalon_transaction#(int DATASIZE=20, int FIFOSIZE=10);
 
     // Timestamp and Transaction type
     time timestamp;
-    avalon_transaction_type_t type;
+    avalon_transaction_type_t transaction_type;
 
     // Address
     logic[13:0] address;
@@ -53,7 +53,7 @@ class avalon_transaction#(int DATASIZE=20, int FIFOSIZE=10);
 
     // Constructor
     function new();
-        this.type = UART_SEND;
+        this.transaction_type = UART_SEND;
         this.timestamp = $time;
         this.address = '0;
         this.write_i = 0;
@@ -64,19 +64,30 @@ class avalon_transaction#(int DATASIZE=20, int FIFOSIZE=10);
         this.waitrequest_o = 0;
     endfunction
 
+    // Get the name of the transaction type
+    function string get_type_name();
+        case (this.transaction_type)
+            UART_SEND: return "UART_SEND";
+            UART_READ: return "UART_READ";
+            WRITE_REGISTER: return "WRITE_REGISTER";
+            default: return "UNKNOWN";
+        endcase
+    endfunction
+
+    // Return string
     function string toString();
         string s;
         $sformat(s,
-                 "Transaction:\n"
-                 "  Timestamp: %t\n"
-                 "  Type: %s\n"
-                 "  Address: %h\n"
-                 "  Write: %b, Writedata: %h\n"
-                 "  Read: %b, ReadValid: %b, ReadData: %h\n"
-                 "  WaitRequest: %b\n",
-                 timestamp, type.name(), address, 
-                 write_i, writedata_i, read_i, readdatavalid_o, 
-                 readdata_o,waitrequest_o);
+            {"Transaction:\n",
+            "  Timestamp: %0t\n",
+            "  Type: %s\n",
+            "  Address: %h\n",
+            "  Write: %b, Writedata: %h\n",
+            "  Read: %b, ReadValid: %b, ReadData: %h\n",
+            "  WaitRequest: %b\n"},
+            timestamp, get_type_name(), address,
+            write_i, writedata_i, read_i, readdatavalid_o,
+            readdata_o, waitrequest_o);
         return s;
     endfunction
 

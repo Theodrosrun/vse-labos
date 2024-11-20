@@ -40,17 +40,17 @@ class avalon_sequencer#(int DATASIZE=20, int FIFOSIZE=10);
         automatic avalon_transaction transaction;
         $display("%t [AVL Sequencer] Start", $time);
 
-        foreach (int i in {0, 1, 2, 3}) begin
-            transaction = new;
+        for (int i = 0; i < 4; i++) begin
+            transaction = new();
             transaction.timestamp = $time;
-            transaction.type = (i % 2 == 0) ? UART_SEND : UART_READ;
+            transaction.transaction_type = (i % 2 == 0) ? UART_SEND : UART_READ;
             transaction.address = 16'h10 + i;
 
-            if (transaction.type == UART_SEND) begin
+            if (transaction.transaction_type == UART_SEND) begin
                 transaction.write_i = 1;
                 transaction.writedata_i = i * 8;
                 transaction.read_i = 0;
-            end else if (transaction.type == UART_READ) begin
+            end else begin
                 transaction.read_i = 1;
                 transaction.write_i = 0;
             end

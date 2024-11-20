@@ -65,26 +65,26 @@ class avalon_driver#(int DATASIZE=20, int FIFOSIZE=10);
             sequencer_to_driver_fifo.get(transaction);
 
             // Handle transactions based on their type
-            case (transaction.type)
+            case (transaction.transaction_type)
                 UART_SEND: begin
-                    $display("%t [AVL Driver] Handling UART_SEND Transaction: %s", $time, transaction.convert2string());
+                    $display("%t [AVL Driver] Handling UART_SEND Transaction: %s", $time, transaction.toString());
 
                     // Write transaction on the Avalon bus
                     vif.address_i = transaction.address;
                     vif.write_i = 1;
-                    vif.writedata_i = transaction.write_data;
+                    vif.writedata_i = transaction.writedata_i;
                     @(posedge vif.clk_i);
                     vif.write_i = 0;
 
                     $display("%t [AVL Driver] Write Completed: Address=%0d, Data=%0d", 
-                        $time, transaction.address, transaction.write_data);
+                        $time, transaction.address, transaction.writedata_i);
 
                     // Optionally send the transaction to the TX scoreboard
                     avalon_to_scoreboard_tx_fifo.put(transaction);
                 end
 
                 UART_READ: begin
-                    $display("%t [AVL Driver] Handling UART_READ Transaction: %s", $time, transaction.convert2string());
+                    $display("%t [AVL Driver] Handling UART_READ Transaction: %s", $time, transaction.toString());
 
                     // Read transaction on the Avalon bus
                     vif.address_i = transaction.address;
@@ -93,10 +93,10 @@ class avalon_driver#(int DATASIZE=20, int FIFOSIZE=10);
                     vif.read_i = 0;
 
                     // Capture the read data
-                    transaction.read_data = vif.readdata_o;
+                    transaction.readdata_o = vif.readdata_o;
 
                     $display("%t [AVL Driver] Read Completed: Address=%0d, Data=%0d", 
-                        $time, transaction.address, transaction.read_data);
+                        $time, transaction.address, transaction.readdata_o);
 
                     // Send the transaction to the RX scoreboard
                     avalon_to_scoreboard_rx_fifo.put(transaction);
@@ -105,7 +105,7 @@ class avalon_driver#(int DATASIZE=20, int FIFOSIZE=10);
                 // TODO - Add WRITE_REGISTER
                 
                 default: begin
-                    $display("%t [AVL Driver] Unknown Transaction Type: %s", $time, transaction.convert2string());
+                    $display("%t [AVL Driver] Unknown Transaction Type: %s", $time, transaction.toString());
                 end
             endcase
 

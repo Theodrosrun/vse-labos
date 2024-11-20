@@ -78,8 +78,7 @@ class avalon_driver#(int DATASIZE=20, int FIFOSIZE=10);
                     @(posedge vif.clk_i);
                     vif.write_i = 0;
 
-                    $display("%t [AVL Driver] Write Completed: Address=%0d, Data=%0d", 
-                        $time, transaction.address, transaction.writedata_i);
+                    $display("%t [AVL Driver] Write Completed: Address=%0d, Data=%0d", $time, transaction.address, transaction.writedata_i);
 
                     // Optionally send the transaction to the TX scoreboard
                     avalon_to_scoreboard_tx_fifo.put(transaction);

@@ -48,7 +48,7 @@ class avalon_transaction#(int DATASIZE=20, int FIFOSIZE=10);
     // Read interface
     logic read_i;
     logic readdatavalid_o;
-    logic[7:0] readdata_o;
+    logic[31:0] readdata_o;
     logic waitrequest_o;
 
     // Constructor

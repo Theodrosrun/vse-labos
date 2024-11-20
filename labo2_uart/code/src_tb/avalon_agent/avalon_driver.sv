@@ -91,10 +91,10 @@ class avalon_driver#(int DATASIZE=20, int FIFOSIZE=10);
                     // Read transaction on the Avalon bus
                     vif.address_i = transaction.address;
                     vif.read_i    = transaction.read_i;
-                    
+
                     @(posedge vif.clk_i);
                     vif.read_i    = 0;
-
+                    transaction.readdatavalid_o = vif.readdatavalid_o;
                     transaction.readdata_o = vif.readdata_o;
 
                     // Send the transaction to the RX scoreboard

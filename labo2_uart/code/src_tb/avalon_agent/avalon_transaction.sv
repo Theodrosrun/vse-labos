@@ -67,10 +67,10 @@ class avalon_transaction#(int DATASIZE=20, int FIFOSIZE=10);
     // Get the name of the transaction type
     function string get_type_name();
         case (this.transaction_type)
-            UART_SEND: return "UART_SEND";
-            UART_READ: return "UART_READ";
+            UART_SEND:      return "UART_SEND";
+            UART_READ:      return "UART_READ";
             WRITE_REGISTER: return "WRITE_REGISTER";
-            default: return "UNKNOWN";
+            default:        return "UNKNOWN";
         endcase
     endfunction
 

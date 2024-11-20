@@ -46,16 +46,23 @@ class avalon_sequencer#(int DATASIZE=20, int FIFOSIZE=10);
             transaction = new();
             transaction.timestamp = $time;
             transaction.transaction_type = (i % 2 == 0) ? UART_SEND : UART_READ;
-            transaction.address = 16'h0 + (i * 4);
+            transaction.address          = 16'h0 + (i * 4);
 
-            if (transaction.transaction_type == UART_SEND) begin
-                transaction.write_i = 1;
-                transaction.writedata_i = i * 8;
-                transaction.read_i =  ~transaction.write_i;
-            end else begin
-                transaction.read_i = 1;
-                transaction.write_i = ~transaction.read_i;
-            end
+            case (transaction.transaction_type)
+                UART_SEND: begin
+                    transaction.write_i     = 1;
+                    transaction.writedata_i = i * 8;
+                end
+
+                UART_READ: begin
+                    transaction.read_i  = 1;
+                end
+                
+                default: begin
+                    $display("%t [AVL Sequencer] Unknown Transaction Type:\n%s", $time, transaction.toString());
+                end
+            endcase
+
 
             $display("%t [AVL Sequencer] Generated Transaction:\n%s", $time, transaction.toString());
 

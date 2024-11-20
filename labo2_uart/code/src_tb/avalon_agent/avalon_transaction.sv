@@ -78,13 +78,12 @@ class avalon_transaction#(int DATASIZE=20, int FIFOSIZE=10);
     function string toString();
         string s;
         $sformat(s,
-            {"Transaction:\n",
-            "  Timestamp: %0t\n",
-            "  Type: %s\n",
-            "  Address: %h\n",
-            "  Write: %b, Writedata: %h\n",
-            "  Read: %b, ReadValid: %b, ReadData: %h\n",
-            "  WaitRequest: %b\n"},
+            {"Timestamp: %0t\n",
+            "Type: %s\n",
+            "Address: %h\n",
+            "Write: %b, Writedata: %h\n",
+            "Read: %b, ReadValid: %b, ReadData: %h\n",
+            "WaitRequest: %b"},
             timestamp, get_type_name(), address,
             write_i, writedata_i, read_i, readdatavalid_o,
             readdata_o, waitrequest_o);

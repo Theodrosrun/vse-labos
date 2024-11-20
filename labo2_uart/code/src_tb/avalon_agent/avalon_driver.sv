@@ -64,10 +64,12 @@ class avalon_driver#(int DATASIZE=20, int FIFOSIZE=10);
             // Get a transaction from the sequencer-to-driver FIFO
             sequencer_to_driver_fifo.get(transaction);
 
+            $display("*****************************************************************");
+
             // Handle transactions based on their type
             case (transaction.transaction_type)
                 UART_SEND: begin
-                    $display("%t [AVL Driver] Handling UART_SEND Transaction: %s", $time, transaction.toString());
+                    $display("%t [AVL Driver] Handling UART_SEND Transaction:\n%s", $time, transaction.toString());
 
                     // Write transaction on the Avalon bus
                     vif.address_i = transaction.address;
@@ -84,7 +86,7 @@ class avalon_driver#(int DATASIZE=20, int FIFOSIZE=10);
                 end
 
                 UART_READ: begin
-                    $display("%t [AVL Driver] Handling UART_READ Transaction: %s", $time, transaction.toString());
+                    $display("%t [AVL Driver] Handling UART_READ Transaction:\n%s", $time, transaction.toString());
 
                     // Read transaction on the Avalon bus
                     vif.address_i = transaction.address;
@@ -105,7 +107,7 @@ class avalon_driver#(int DATASIZE=20, int FIFOSIZE=10);
                 // TODO - Add WRITE_REGISTER
                 
                 default: begin
-                    $display("%t [AVL Driver] Unknown Transaction Type: %s", $time, transaction.toString());
+                    $display("%t [AVL Driver] Unknown Transaction Type:\n%s", $time, transaction.toString());
                 end
             endcase
 

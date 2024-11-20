@@ -46,7 +46,7 @@ class avalon_sequencer#(int DATASIZE=20, int FIFOSIZE=10);
             transaction = new();
             transaction.timestamp = $time;
             transaction.transaction_type = (i % 2 == 0) ? UART_SEND : UART_READ;
-            transaction.address = 16'h10 + i;
+            transaction.address = 16'h0 + (i * 4);
 
             if (transaction.transaction_type == UART_SEND) begin
                 transaction.write_i = 1;

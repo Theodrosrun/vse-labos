@@ -41,6 +41,8 @@ class avalon_sequencer#(int DATASIZE=20, int FIFOSIZE=10);
         $display("%t [AVL Sequencer] Start", $time);
 
         for (int i = 0; i < 4; i++) begin
+            $display("*****************************************************************");
+
             transaction = new();
             transaction.timestamp = $time;
             transaction.transaction_type = (i % 2 == 0) ? UART_SEND : UART_READ;

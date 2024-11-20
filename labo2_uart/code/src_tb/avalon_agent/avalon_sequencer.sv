@@ -51,10 +51,10 @@ class avalon_sequencer#(int DATASIZE=20, int FIFOSIZE=10);
             if (transaction.transaction_type == UART_SEND) begin
                 transaction.write_i = 1;
                 transaction.writedata_i = i * 8;
-                transaction.read_i = 0;
+                transaction.read_i =  ~transaction.write_i;
             end else begin
                 transaction.read_i = 1;
-                transaction.write_i = 0;
+                transaction.write_i = ~transaction.read_i;
             end
 
             $display("%t [AVL Sequencer] Generated Transaction:\n%s", $time, transaction.toString());

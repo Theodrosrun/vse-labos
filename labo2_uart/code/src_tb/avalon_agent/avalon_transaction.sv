@@ -52,7 +52,7 @@ class avalon_transaction#(int DATASIZE=20, int FIFOSIZE=10);
     // Constructor
     function new();
         this.timestamp        = $time;
-        this.transaction_type = WRITE;
+        this.transaction_type = REGISTER;
         this.address          = '0;
         this.writedata_i      = '0;
         this.readdatavalid_o  =  0;

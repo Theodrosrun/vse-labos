@@ -45,7 +45,7 @@ class avalon_sequencer#(int DATASIZE=20, int FIFOSIZE=10);
 
             transaction = new();
             transaction.timestamp = $time;
-            transaction.transaction_type = (i % 4 == 0) ? WRITE : READ;
+            transaction.transaction_type = WRITE;
             transaction.address          = transaction.transaction_type;
 
             case (transaction.transaction_type)
@@ -53,7 +53,7 @@ class avalon_sequencer#(int DATASIZE=20, int FIFOSIZE=10);
                 end
 
                 WRITE: begin
-                    transaction.writedata_i = i * 8;
+                    transaction.writedata_i = 0;
                 end
 
                 READ: begin

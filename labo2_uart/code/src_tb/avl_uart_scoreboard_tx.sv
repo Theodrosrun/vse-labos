@@ -89,7 +89,7 @@ class avl_uart_scoreboard_tx#(int DATASIZE=20, int FIFOSIZE=10);
         end
 
         // Check if parity matches
-        if (avalon_transaction.transaction_type == UART_SEND &&
+        if (avalon_transaction.transaction_type == WRITE &&
             avalon_transaction.writedata_i[0] !== uart_transaction.parity) begin
             return 0; // Mismatch in parity
         end

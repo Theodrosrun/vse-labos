@@ -30,8 +30,8 @@ Ver   Date        Person     Comments
 `ifndef UART_TRANSACTION_SV
 `define UART_TRANSACTION_SV
 
-// Enum for UART transaction type
-typedef enum {SEND, RECEIVE, CONFIGURE} uart_transaction_type_t;
+// Enumeration for UART transaction types
+typedef enum {SEND, RECEIVE} uart_transaction_type_t;
 
 class uart_transaction#(int DATASIZE=20, int FIFOSIZE=10);
 
@@ -40,44 +40,31 @@ class uart_transaction#(int DATASIZE=20, int FIFOSIZE=10);
     uart_transaction_type_t transaction_type;
 
     // UART-specific data
-    logic [DATASIZE-1:0] data;  // Data to be sent or received
-    logic parity;               // Parity bit
-    logic stop;                 // Stop bit
-    logic [31:0] clk_per_bit;   // Number of clock cycles per bit (timing)
-
-    // Status bits
-    logic [3:0] status_bits;    // Status of FIFOs (full, empty, etc.)
-
-    // FIFO interface
-    logic fifo_full;            // Indicates if the FIFO is full
-    logic fifo_empty;           // Indicates if the FIFO is empty
-    logic fifo_data_available;  // Indicates if data is available in the FIFO
+    logic [DATASIZE-1:0] data;  // Data to be sent or received (configurable size)
+    logic parity;               // Parity bit (0 or 1)
+    logic stop;                 // Stop bit (0 or 1)
+    logic [31:0] clk_per_bit;   // Number of clock cycles per bit for serial transmission
 
     // Constructor
     function new();
-        this.timestamp         = $time;
-        this.transaction_type  = SEND;
-        this.data              = '0;
-        this.parity            = 0;
-        this.stop              = 0;
-        this.clk_per_bit       = 8;
-        this.status_bits       = 4'b0000;
-        this.fifo_full         = 0;
-        this.fifo_empty        = 1;
-        this.fifo_data_available = 0;
+        this.timestamp        = $time;
+        this.transaction_type = SEND; // Default
+        this.data             = '0;
+        this.parity           = 0;
+        this.stop             = 0;
+        this.clk_per_bit      = 8;    // Default value
     endfunction
 
-    // Get the name of the transaction type
+    // Function to get the transaction type as a string
     function string get_type_name();
         case (this.transaction_type)
-            SEND:       return "SEND";
-            RECEIVE:    return "RECEIVE";
-            CONFIGURE:  return "CONFIGURE";
-            default:    return "UNKNOWN";
+            SEND:    return "SEND";
+            RECEIVE: return "RECEIVE";
+            default: return "UNKNOWN";
         endcase
     endfunction
 
-    // Return a string representation for debugging
+    // Function to display transaction information (for debugging)
     function string toString();
         string s;
         $sformat(s,
@@ -86,13 +73,8 @@ class uart_transaction#(int DATASIZE=20, int FIFOSIZE=10);
              "Data        : %h\n",
              "Parity      : %b\n",
              "Stop        : %b\n",
-             "ClkPerBit   : %d\n",
-             "StatusBits  : %b\n",
-             "FIFO Full   : %b\n",
-             "FIFO Empty  : %b\n",
-             "Data Avail. : %b"},
-             timestamp, get_type_name(), data, parity, stop, clk_per_bit,
-             status_bits, fifo_full, fifo_empty, fifo_data_available);
+             "ClkPerBit   : %d"},
+             timestamp, get_type_name(), data, parity, stop, clk_per_bit);
         return s;
     endfunction
 

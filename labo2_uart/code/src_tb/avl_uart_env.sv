@@ -88,12 +88,12 @@ class avl_uart_env#(int DATASIZE=20, int FIFOSIZE=10);
 
     task end_display;
 
-        $display("************************** End of Simulation **************************\n");
+        $display("*********************** End of Simulation ***********************\n");
 
         scoreboard_rx.end_display();
         scoreboard_tx.end_display();
 
-        $display("\n***********************************************************************");
+        $display("\n*****************************************************************");
     endtask : end_display
 
     task run;

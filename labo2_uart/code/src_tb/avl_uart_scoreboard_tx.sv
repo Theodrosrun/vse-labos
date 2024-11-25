@@ -103,7 +103,7 @@ class avl_uart_scoreboard_tx#(int DATASIZE=20, int FIFOSIZE=10);
 
         // Task for final checks and display results
     task end_display;
-        $display("\n==========================================");
+        $display("*****************************************************************");
         $display("%t [Scoreboard TX] Final Results", $time);
         $display("Total checks  : %0d", total_checks);
         $display("Passed checks : %0d", passed_checks);
@@ -114,7 +114,7 @@ class avl_uart_scoreboard_tx#(int DATASIZE=20, int FIFOSIZE=10);
         end else begin
             $display("[Scoreboard TX] All checks passed successfully!");
         end
-        $display("==========================================\n");
+        $display("*****************************************************************");
     endtask : end_display
 
 endclass : avl_uart_scoreboard_tx

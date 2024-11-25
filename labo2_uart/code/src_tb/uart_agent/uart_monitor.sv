@@ -61,22 +61,22 @@ class uart_monitor#(int DATASIZE=20, int FIFOSIZE=10);
             $display("%t [UART Monitor] Start bit detected", $time);
 
             // Decode the UART frame
-            repeat (ns_per_bit) @(vif.clk); // Wait for the middle of the start bit
+           // repeat (ns_per_bit) @(vif.clk); // Wait for the middle of the start bit
 
             // Capture data bits
             for (int i = 0; i < DATASIZE; i++) begin
-                @(posedge vif.clk);
+               //  @(posedge vif.clk);
                 transaction.data[i] = vif.tx_o;
-                repeat (ns_per_bit - 1) @(vif.clk); // Wait for next bit's timing
+                // repeat (ns_per_bit - 1) @(vif.clk); // Wait for next bit's timing
             end
 
             // Capture the parity bit
-            @(posedge vif.clk);
+            //@(posedge vif.clk);
             transaction.parity = vif.tx_o;
-            repeat (ns_per_bit - 1) @(vif.clk);
+            // repeat (ns_per_bit - 1) @(vif.clk);
 
             // Capture the stop bit
-            @(posedge vif.clk);
+            //@(posedge vif.clk);
             transaction.stop = vif.tx_o;
 
             // Check stop bit validity

@@ -110,6 +110,7 @@ class avl_uart_scoreboard_tx#(int DATASIZE=20, int FIFOSIZE=10);
         end else begin
             $display("[Scoreboard TX] All checks passed successfully!");
         end
+        
         $display("*****************************************************************");
     endtask : end_display
 

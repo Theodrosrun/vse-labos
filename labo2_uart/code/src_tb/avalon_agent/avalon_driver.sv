@@ -69,7 +69,7 @@ class avalon_driver#(int DATASIZE=20, int FIFOSIZE=10);
             // Handle transactions based on their type
             case (transaction.transaction_type)
                 WRITE: begin
-                    $display("%t [AVL Driver] Handling UART_SEND Transaction:\n%s", $time, transaction.toString());
+                    $display("%t [AVL Driver] Handling WRITE Transaction:\n%s", $time, transaction.toString());
 
                     // Write transaction on the Avalon bus
                     vif.address_i   = transaction.address;
@@ -86,7 +86,7 @@ class avalon_driver#(int DATASIZE=20, int FIFOSIZE=10);
                 end
 
                 READ: begin
-                    $display("%t [AVL Driver] Handling UART_READ Transaction:\n%s", $time, transaction.toString());
+                    $display("%t [AVL Driver] Handling READ Transaction:\n%s", $time, transaction.toString());
 
                     // Read transaction on the Avalon bus
                     vif.address_i = transaction.address;

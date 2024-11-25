@@ -82,7 +82,7 @@ class avalon_driver#(int DATASIZE=20, int FIFOSIZE=10);
                     @(posedge vif.clk_i);
                     vif.write_i     = 0;
 
-                    $display("%t [AVL Driver] Write Completed: Address=%0d, Data=%0d", $time, transaction.address, transaction.writedata_i);
+                    $display("[AVL Driver] Write Completed");
                 end
 
                 READ: begin
@@ -100,7 +100,7 @@ class avalon_driver#(int DATASIZE=20, int FIFOSIZE=10);
                     // Send the transaction to the RX scoreboard
                     avalon_to_scoreboard_rx_fifo.put(transaction);
 
-                    $display("%t [AVL Driver] Read Completed: Address=%0d, Data=%0d", $time, transaction.address, transaction.readdata_o);
+                    $display("AVL Driver] Read Completed");
                 end
 
                 // TODO - Add WRITE_REGISTER

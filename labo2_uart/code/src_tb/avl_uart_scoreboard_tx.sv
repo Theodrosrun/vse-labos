@@ -82,10 +82,7 @@ class avl_uart_scoreboard_tx#(int DATASIZE=20, int FIFOSIZE=10);
     endtask : run
 
     // Function to compare Avalon and UART transactions
-    function bit compare_transactions(
-        avalon_transaction avalon_transaction,
-        uart_transaction uart_transaction
-    );
+    function bit compare_transactions(avalon_transaction avalon_transaction, uart_transaction uart_transaction);
         // Check if data matches
         if (avalon_transaction.writedata_i !== uart_transaction.data) begin
             return 0; // Mismatch in data
@@ -97,11 +94,10 @@ class avl_uart_scoreboard_tx#(int DATASIZE=20, int FIFOSIZE=10);
             return 0; // Mismatch in parity
         end
 
-        // Additional checks can be added here
-        return 1; // Transactions match
+        return 1;
     endfunction : compare_transactions
 
-        // Task for final checks and display results
+    // Task for final checks and display results
     task end_display;
         $display("*****************************************************************");
         $display("%t [Scoreboard TX] Final Results", $time);

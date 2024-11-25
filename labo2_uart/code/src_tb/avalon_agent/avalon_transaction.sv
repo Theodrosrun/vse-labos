@@ -30,7 +30,7 @@ Ver   Date        Person     Comments
 `ifndef AVALON_TRANSACTION_SV
 `define AVALON_TRANSACTION_SV
 
-typedef enum {UART_SEND, UART_READ, WRITE_REGISTER} avalon_transaction_type_t;
+typedef enum int {REGISTER, WRITE, READ, CYCLE} avalon_transaction_type_t;
 
 class avalon_transaction#(int DATASIZE=20, int FIFOSIZE=10);
 
@@ -42,11 +42,9 @@ class avalon_transaction#(int DATASIZE=20, int FIFOSIZE=10);
     logic[13:0] address;
 
     // Write interface
-    logic write_i;
     logic[31:0] writedata_i;
 
     // Read interface
-    logic read_i;
     logic readdatavalid_o;
     logic[31:0] readdata_o;
     logic waitrequest_o;
@@ -54,11 +52,9 @@ class avalon_transaction#(int DATASIZE=20, int FIFOSIZE=10);
     // Constructor
     function new();
         this.timestamp        = $time;
-        this.transaction_type = UART_SEND;
+        this.transaction_type = WRITE;
         this.address          = '0;
-        this.write_i          =  0;
         this.writedata_i      = '0;
-        this.read_i           =  0;
         this.readdatavalid_o  =  0;
         this.readdata_o       = '0;
         this.waitrequest_o    =  0;
@@ -67,10 +63,11 @@ class avalon_transaction#(int DATASIZE=20, int FIFOSIZE=10);
     // Get the name of the transaction type
     function string get_type_name();
         case (this.transaction_type)
-            UART_SEND:      return "UART_SEND";
-            UART_READ:      return "UART_READ";
-            WRITE_REGISTER: return "WRITE_REGISTER";
-            default:        return "UNKNOWN";
+            REGISTER: return "REGISTER";
+            WRITE:    return "WRITE";
+            READ:     return "READ";
+            CYCLE:    return "CYLCE";
+            default:  return "UNKNOWN";
         endcase
     endfunction
 
@@ -81,10 +78,10 @@ class avalon_transaction#(int DATASIZE=20, int FIFOSIZE=10);
             {"Timestamp  : %0t\n",
              "Type       : %s\n",
              "Address    : %h\n",
-             "Write      : %b, Writedata: %h\n",
-             "Read       : %b, ReadValid: %b, ReadData: %h\n",
+             "Write      : Writedata: %h\n",
+             "Read       : ReadValid: %b, ReadData: %h\n",
              "WaitRequest: %b"},
-             timestamp, get_type_name(), address, write_i, writedata_i, read_i, readdatavalid_o, readdata_o, waitrequest_o);
+             timestamp, get_type_name(), address, writedata_i, readdatavalid_o, readdata_o, waitrequest_o);
         return s;
     endfunction
 

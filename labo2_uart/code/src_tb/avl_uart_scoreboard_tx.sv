@@ -51,7 +51,57 @@ class avl_uart_scoreboard_tx#(int DATASIZE=20, int FIFOSIZE=10);
         failed_checks = 0;
     endfunction
 
-    // Task for final checks and display results
+    // Main task to compare Avalon and UART transactions
+    task run;
+        automatic avalon_transaction avalon_transaction;
+        automatic uart_transaction uart_transaction;
+
+        $display("%t [Scoreboard TX] Start monitoring transactions", $time);
+
+        while (1) begin
+            // Get transactions from FIFOs
+            avalon_to_scoreboard_tx_fifo.get(avalon_transaction);
+            uart_to_scoreboard_tx_fifo.get(uart_transaction);
+
+            // Increment total checks
+            total_checks++;
+
+            // Compare Avalon and UART transactions
+            if (compare_transactions(avalon_transaction, uart_transaction)) begin
+                passed_checks++;
+                $display("%t [Scoreboard TX] Transaction check PASSED", $time);
+            end else begin
+                failed_checks++;
+                $error("%t [Scoreboard TX] Transaction check FAILED", $time);
+                $display("Avalon Transaction: %s", avalon_transaction.toString());
+                $display("UART Transaction  : %s", uart_transaction.toString());
+            end
+        end
+
+        $display("%t [Scoreboard TX] Monitoring complete", $time);
+    endtask : run
+
+    // Function to compare Avalon and UART transactions
+    function bit compare_transactions(
+        avalon_transaction avalon_transaction,
+        uart_transaction uart_transaction
+    );
+        // Check if data matches
+        if (avalon_transaction.writedata_i !== uart_transaction.data) begin
+            return 0; // Mismatch in data
+        end
+
+        // Check if parity matches
+        if (avalon_transaction.transaction_type == UART_SEND &&
+            avalon_transaction.writedata_i[0] !== uart_transaction.parity) begin
+            return 0; // Mismatch in parity
+        end
+
+        // Additional checks can be added here
+        return 1; // Transactions match
+    endfunction : compare_transactions
+
+        // Task for final checks and display results
     task end_display;
         $display("\n==========================================");
         $display("%t [Scoreboard TX] Final Results", $time);
@@ -66,56 +116,6 @@ class avl_uart_scoreboard_tx#(int DATASIZE=20, int FIFOSIZE=10);
         end
         $display("==========================================\n");
     endtask : end_display
-
-    // Main task to compare Avalon and UART transactions
-    task run;
-        automatic avalon_transaction avalon_trans;
-        automatic uart_transaction uart_trans;
-
-        $display("%t [Scoreboard TX] Start monitoring transactions", $time);
-
-        while (1) begin
-            // Get transactions from FIFOs
-            avalon_to_scoreboard_tx_fifo.get(avalon_trans);
-            uart_to_scoreboard_tx_fifo.get(uart_trans);
-
-            // Increment total checks
-            total_checks++;
-
-            // Compare Avalon and UART transactions
-            if (compare_transactions(avalon_trans, uart_trans)) begin
-                passed_checks++;
-                $display("%t [Scoreboard TX] Transaction check PASSED", $time);
-            end else begin
-                failed_checks++;
-                $error("%t [Scoreboard TX] Transaction check FAILED", $time);
-                $display("Avalon Transaction: %s", avalon_trans.toString());
-                $display("UART Transaction  : %s", uart_trans.toString());
-            end
-        end
-
-        $display("%t [Scoreboard TX] Monitoring complete", $time);
-    endtask : run
-
-    // Function to compare Avalon and UART transactions
-    function bit compare_transactions(
-        avalon_transaction avalon_trans,
-        uart_transaction uart_trans
-    );
-        // Check if data matches
-        if (avalon_trans.writedata_i !== uart_trans.data) begin
-            return 0; // Mismatch in data
-        end
-
-        // Check if parity matches
-        if (avalon_trans.transaction_type == UART_SEND &&
-            avalon_trans.writedata_i[0] !== uart_trans.parity) begin
-            return 0; // Mismatch in parity
-        end
-
-        // Additional checks can be added here
-        return 1; // Transactions match
-    endfunction : compare_transactions
 
 endclass : avl_uart_scoreboard_tx
 

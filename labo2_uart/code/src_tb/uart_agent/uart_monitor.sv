@@ -54,6 +54,9 @@ class uart_monitor#(int DATASIZE=20, int FIFOSIZE=10);
 
         while (1) begin
             uart_transaction#(DATASIZE, FIFOSIZE) transaction = new;
+            
+            @(negedge vif.tx_o);
+
             transaction.parity = vif.tx_o;
 
             // Send transaction to the scoreboard

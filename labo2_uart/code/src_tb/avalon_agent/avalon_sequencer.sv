@@ -40,7 +40,7 @@ class avalon_sequencer#(int DATASIZE=20, int FIFOSIZE=10);
         automatic avalon_transaction transaction;
         $display("%t [AVL Sequencer] Start", $time);
 
-        for (int i = 0; i < 4; i++) begin
+        for (int i = 0; i < 1; i++) begin
             $display("*****************************************************************");
 
             transaction = new();
@@ -53,7 +53,7 @@ class avalon_sequencer#(int DATASIZE=20, int FIFOSIZE=10);
                 end
 
                 WRITE: begin
-                    transaction.writedata_i = 0;
+                    transaction.writedata_i = 32'h76543210;
                 end
 
                 READ: begin

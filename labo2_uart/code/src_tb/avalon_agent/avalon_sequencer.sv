@@ -40,26 +40,27 @@ class avalon_sequencer#(int DATASIZE=20, int FIFOSIZE=10);
         automatic avalon_transaction transaction;
         $display("%t [AVL Sequencer] Start", $time);
 
-        for (int i = 0; i < 1; i++) begin
+        for (int i = 0; i < 1000; i++) begin
             $display("*****************************************************************");
 
             transaction = new();
             transaction.timestamp = $time;
-            transaction.transaction_type = WRITE;
-            transaction.address          = transaction.transaction_type;
+            transaction.transaction_type = (i == 0) ? CYCLE : WRITE;
+            transaction.address          = transaction.transaction_type * 4;
 
             case (transaction.transaction_type)
                 REGISTER: begin
                 end
 
                 WRITE: begin
-                    transaction.writedata_i = 32'h76543210;
+                    transaction.writedata_i = 20'h11111111;
                 end
 
                 READ: begin
                 end
 
                 CYCLE: begin
+                    transaction.writedata_i = 32'h001000;
                 end
                 
                 default: begin

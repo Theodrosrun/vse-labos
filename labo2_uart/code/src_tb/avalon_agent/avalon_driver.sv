@@ -79,9 +79,6 @@ class avalon_driver#(int DATASIZE=20, int FIFOSIZE=10);
                     // Send the transaction to the TX scoreboard
                     avalon_to_scoreboard_tx_fifo.put(transaction);
 
-                    @(posedge vif.clk_i);
-                    vif.write_i     = 0;
-
                     $display("[AVL Driver] Write Completed");
                 end
 
@@ -91,12 +88,7 @@ class avalon_driver#(int DATASIZE=20, int FIFOSIZE=10);
                     // Read transaction on the Avalon bus
                     vif.address_i = transaction.address;
                     vif.read_i    = 1;
-
-                    @(posedge vif.clk_i);
-                    vif.read_i    = 0;
-                    transaction.readdatavalid_o = vif.readdatavalid_o;
-                    transaction.readdata_o = vif.readdata_o;
-
+                    
                     // Send the transaction to the RX scoreboard
                     avalon_to_scoreboard_rx_fifo.put(transaction);
 

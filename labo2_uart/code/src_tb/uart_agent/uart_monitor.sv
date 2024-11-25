@@ -53,11 +53,28 @@ class uart_monitor#(int DATASIZE=20, int FIFOSIZE=10);
         #20; // Delay for stabilization if needed
 
         while (1) begin
-            uart_transaction#(DATASIZE, FIFOSIZE) transaction = new;
-            
-            @(negedge vif.tx_o);
+            automatic uart_transaction#(DATASIZE, FIFOSIZE) transaction = new;
+            automatic int i;
+            automatic logic [DATASIZE-1:0] reconstructed_data;
+            automatic logic parity_bit;
+            automatic logic stop_bit;
 
-            transaction.parity = vif.tx_o;
+            @(negedge vif.tx_o);
+            $display("%t [UART Monitor] Detected start bit on tx_o", $time);
+
+            for (i = 0; i < DATASIZE; i++) begin
+                reconstructed_data[i] = vif.tx_o; // Sample the current data bit
+                $display("%t [UART Monitor] Captured bit %0d: %b", $time, i, vif.tx_o); // Print each captured bit
+                #8;                            // Wait for the next bit period
+            end
+
+            // Create a new transaction and populate its fields
+            transaction = new();
+            transaction.timestamp = $time;            // Record the timestamp
+            transaction.transaction_type = SEND;      // Specify the transaction type
+            transaction.data = reconstructed_data;    // Store the reconstructed data
+            transaction.parity = parity_bit;          // Store the parity bit
+            transaction.stop = stop_bit;              // Store the stop bit
 
             // Send transaction to the scoreboard
             uart_to_scoreboard_tx_fifo.put(transaction);

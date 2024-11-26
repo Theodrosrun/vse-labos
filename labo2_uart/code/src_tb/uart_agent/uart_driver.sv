@@ -62,11 +62,12 @@ class uart_driver#(int DATASIZE=20, int FIFOSIZE=10);
             for (int i = 1; i < DATASIZE + 1; i++) begin
                 data[i] = transaction.data[i-1];
             end
+            
             for (int i = 0; i < DATASIZE + 1; i++) begin
                 #ns_per_bit;
                 vif.rx_i = data[i];
             end
-            
+
             vif.rx_i = 1;
             $display("%t [UART Driver] Sended data %h", $time, data);
             uart_to_scoreboard_rx_fifo.put(transaction);

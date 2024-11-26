@@ -62,7 +62,6 @@ class uart_driver#(int DATASIZE=20, int FIFOSIZE=10);
             for (int i = 1; i < DATASIZE + 1; i++) begin
                 data[i] = transaction.data[i-1];
             
-            
             for (int i = 0; i < DATASIZE + 1; i++) begin
                 #ns_per_bit;
                 vif.rx_i = data[i];

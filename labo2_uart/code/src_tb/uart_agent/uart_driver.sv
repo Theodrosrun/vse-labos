@@ -59,10 +59,13 @@ class uart_driver#(int DATASIZE=20, int FIFOSIZE=10);
             sequencer_to_driver_fifo.get(transaction);
             objections_pkg::objection::get_inst().raise();
 
+            $display("*****************************************************************");
+
             for (int i = 1; i < DATASIZE + 1; i++) begin
                 data[i] = transaction.data[i-1];
+                $display("%t [UART Driver] Sended data %h", $time, transaction.data[i-1]);
             end
-            
+
             for (int i = 0; i < DATASIZE + 1; i++) begin
                 #ns_per_bit;
                 vif.rx_i = data[i];

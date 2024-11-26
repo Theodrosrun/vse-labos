@@ -69,6 +69,7 @@ class avalon_driver#(int DATASIZE=20, int FIFOSIZE=10);
         // Loop to process transactions
         while (1) begin
             // Get a transaction from the sequencer-to-driver FIFO
+            @(posedge vif.clk_i);
             objections_pkg::objection::get_inst().drop();
             sequencer_to_driver_fifo.get(transaction);
             objections_pkg::objection::get_inst().raise();
@@ -81,31 +82,42 @@ class avalon_driver#(int DATASIZE=20, int FIFOSIZE=10);
                     $display("%t [AVL Driver] Handling CLK_PER_BIT Transaction:\n%s", $time, transaction.toString());
 
                     wait_ready();
-
-                    // Write transaction on the Avalon bus
                     vif.address_i   = 3;
                     vif.write_i     = 1;
                     vif.writedata_i = transaction.writedata_i;
-                    
-                    // Send the transaction to the TX scoreboard
+                    vif.read_i      = 0;
                     avalon_to_scoreboard_tx_fifo.put(transaction);
 
                     $display("[AVL Driver] Write Completed");
                 end
+
                 WRITE: begin
                     $display("%t [AVL Driver] Handling WRITE Transaction:\n%s", $time, transaction.toString());
 
                     wait_ready();
-
-                    // Write transaction on the Avalon bus
                     vif.address_i   = 1;
                     vif.write_i     = 1;
                     vif.writedata_i = transaction.writedata_i;
-                    
-                    // Send the transaction to the TX scoreboard
+                    vif.read_i      = 0;
                     avalon_to_scoreboard_tx_fifo.put(transaction);
 
                     $display("[AVL Driver] Write Completed");
+                end
+
+                READ: begin
+                    $display("%t [AVL Driver] Handling READ Transaction:\n%s", $time, transaction.toString());
+
+                    wait_ready();
+                    vif.address_i   = 2;
+                    vif.write_i     = 0;
+                    vif.read_i      = 1;
+                    while (!vif.readdatavalid_o) begin
+                        @(posedge vif.clk_i);
+                        vif.read_i = 0;
+                    end
+                    avalon_to_scoreboard_rx_fifo.put(transaction);
+
+                    $display("[AVL Driver] READ Completed");
                 end
 
                 default: begin

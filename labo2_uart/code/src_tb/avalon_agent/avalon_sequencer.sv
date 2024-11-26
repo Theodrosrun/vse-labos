@@ -52,9 +52,18 @@ class avalon_sequencer#(int DATASIZE=20, int FIFOSIZE=10);
         sequencer_to_driver_fifo.put(transaction);
     endtask
 
+
+    task test_read;
+        automatic avalon_transaction transaction = new;
+        transaction.transaction_type = READ;
+        $display("%t [AVL Sequencer] Generated Transaction:\n%s", $time, transaction.toString());
+        sequencer_to_driver_fifo.put(transaction);
+    endtask
+
     task test_all;
         test_clk_per_bit;
         test_write;
+        test_read;
     endtask
 
     task run;

@@ -55,15 +55,13 @@ class avl_uart_scoreboard_rx#(int DATASIZE=20, int FIFOSIZE=10);
         $display("%t [Scoreboard RX] Start", $time);
 
         while (1) begin
-            objections_pkg::objection::get_inst().raise();
+            objections_pkg::objection::get_inst().drop();
             avalon_to_scoreboard_rx_fifo.get(avalon_trans);
             uart_to_scoreboard_rx_fifo.get(uart_trans);
-            objections_pkg::objection::get_inst().drop();
+            objections_pkg::objection::get_inst().raise();
 
             $display("*****************************************************************");
-
-            // TODO : Something
-
+            $display("NON");
         end
 
         $display("%t [Scoreboard RX] End", $time);

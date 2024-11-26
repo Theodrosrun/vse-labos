@@ -36,18 +36,26 @@ class uart_sequencer#(int DATASIZE=20, int FIFOSIZE=10);
 
     uart_fifo_t sequencer_to_driver_fifo;
 
+    task test_write();
+        automatic uart_transaction transaction = new;
+        $display("*****************************************************************");
+        transaction.transaction_type = SEND;
+        transaction.data = 20'h11111;
+        $display("%t [UART Sequencer] Generated Transaction:\n%s", $time, transaction.toString());
+        sequencer_to_driver_fifo.put(transaction);
+    endtask
+
+    task test_all;
+        test_write;
+    endtask
+
     task run;
-        automatic uart_transaction transaction;
         $display("%t [UART Sequencer] Start", $time);
 
-        begin
-            // TODO : Generate something meaningfull
-            transaction = new;
-            void'(transaction.randomize());
-
-            sequencer_to_driver_fifo.put(transaction);
-            $display("%t [UART Sequencer] New transaction sent", $time);
-        end
+        case (testcase)
+            0: test_all;
+            default: $display("Unkown test case %d", testcase);
+        endcase
 
         $display("%t [UART Sequencer] End", $time);
     endtask : run

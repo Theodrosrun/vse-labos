@@ -69,12 +69,29 @@ class avalon_driver#(int DATASIZE=20, int FIFOSIZE=10);
         // Loop to process transactions
         while (1) begin
             // Get a transaction from the sequencer-to-driver FIFO
+            objections_pkg::objection::get_inst().drop();
             sequencer_to_driver_fifo.get(transaction);
+            objections_pkg::objection::get_inst().raise();
 
             $display("*****************************************************************");
 
             // Handle transactions based on their type
             case (transaction.transaction_type)
+                CLK_PER_BIT: begin
+                    $display("%t [AVL Driver] Handling CLK_PER_BIT Transaction:\n%s", $time, transaction.toString());
+
+                    wait_ready();
+
+                    // Write transaction on the Avalon bus
+                    vif.address_i   = 3;
+                    vif.write_i     = 1;
+                    vif.writedata_i = transaction.writedata_i;
+                    
+                    // Send the transaction to the TX scoreboard
+                    avalon_to_scoreboard_tx_fifo.put(transaction);
+
+                    $display("[AVL Driver] Write Completed");
+                end
                 WRITE: begin
                     $display("%t [AVL Driver] Handling WRITE Transaction:\n%s", $time, transaction.toString());
 
@@ -85,26 +102,12 @@ class avalon_driver#(int DATASIZE=20, int FIFOSIZE=10);
                     vif.write_i     = 1;
                     vif.writedata_i = transaction.writedata_i;
                     
-                    @(posedge vif.clk_i);
-
                     // Send the transaction to the TX scoreboard
                     avalon_to_scoreboard_tx_fifo.put(transaction);
 
                     $display("[AVL Driver] Write Completed");
                 end
 
-                READ: begin
-                    $display("%t [AVL Driver] Handling READ Transaction:\n%s", $time, transaction.toString());
-
-                    // Read transaction on the Avalon bus
-                    vif.address_i = 2;
-                    
-                    // Send the transaction to the RX scoreboard
-                    avalon_to_scoreboard_rx_fifo.put(transaction);
-
-                    $display("AVL Driver] Read Completed");
-                end
-                
                 default: begin
                     $display("%t [AVL Driver] Unknown Transaction Type:\n%s", $time, transaction.toString());
                 end

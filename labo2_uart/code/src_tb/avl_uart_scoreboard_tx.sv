@@ -60,8 +60,10 @@ class avl_uart_scoreboard_tx#(int DATASIZE=20, int FIFOSIZE=10);
 
         while (1) begin
             // Get transactions from FIFOs
+            objections_pkg::objection::get_inst().drop();
             avalon_to_scoreboard_tx_fifo.get(avalon_transaction);
             uart_to_scoreboard_tx_fifo.get(uart_transaction);
+            objections_pkg::objection::get_inst().raise();
 
             // Increment total checks
             total_checks++;

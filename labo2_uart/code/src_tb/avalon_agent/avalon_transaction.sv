@@ -30,7 +30,7 @@ Ver   Date        Person     Comments
 `ifndef AVALON_TRANSACTION_SV
 `define AVALON_TRANSACTION_SV
 
-typedef enum int {WRITE, READ, CYCLE} avalon_transaction_type_t;
+typedef enum int {WRITE, READ, CLK_PER_BIT} avalon_transaction_type_t;
 
 class avalon_transaction#(int DATASIZE=20, int FIFOSIZE=10);
 
@@ -53,10 +53,10 @@ class avalon_transaction#(int DATASIZE=20, int FIFOSIZE=10);
     // Get the name of the transaction type
     function string get_type_name();
         case (this.transaction_type)
-            WRITE:    return "WRITE";
-            READ:     return "READ";
-            CYCLE:    return "CYLCE";
-            default:  return "UNKNOWN";
+            WRITE:       return "WRITE";
+            READ:        return "READ";
+            CLK_PER_BIT: return "CLK_PER_BIT";
+            default:     return "UNKNOWN";
         endcase
     endfunction
 

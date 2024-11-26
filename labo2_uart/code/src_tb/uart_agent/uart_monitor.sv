@@ -57,19 +57,19 @@ class uart_monitor#(int DATASIZE=20, int FIFOSIZE=10);
             automatic uart_transaction#(DATASIZE, FIFOSIZE) transaction = new;
             automatic logic [DATASIZE-1:0] reconstructed_data;
 
-            $display("==================================================================");
-
+            objections_pkg::objection::get_inst().drop();
+            @(negedge vif.tx_o);
             @(negedge vif.tx_o);
             objections_pkg::objection::get_inst().raise();
+
+            $display("==================================================================");
+
             $display("%t [UART Monitor] Detected start bit on tx_o", $time);
 
             for (i = 0; i < DATASIZE; i++) begin
-                reconstructed_data[i] = vif.tx_o;
-                 $display("%t [UART Monitor] Captured bit %0d: %b", $time, i, vif.tx_o);
-                #ns_per_bit;
+                // #(ns_per_bit * 10);
+                $display("%t [UART Monitor] Captured bit %0d: %b", $time, i, vif.tx_o);
             end
-
-            objections_pkg::objection::get_inst().drop();
 
             transaction = new();
             transaction.timestamp = $time;

@@ -52,13 +52,25 @@ class uart_driver#(int DATASIZE=20, int FIFOSIZE=10);
         #1000;
 
         while (1) begin
-            automatic logic[DATASIZE+1:0] data = 0;
+            automatic logic [DATASIZE:0] data = 0;
+            data[0] = 0;
 
+            objections_pkg::objection::get_inst().drop();
             sequencer_to_driver_fifo.get(transaction);
+            objections_pkg::objection::get_inst().raise();
 
-            // TODO : Play transaction
+            for (int i = 1; i < DATASIZE + 1; i++) begin
+                data[i] = transaction.data[i-1];
+            
+            
+            for (int i = 0; i < DATASIZE + 1; i++) begin
+                #ns_per_bit;
+                vif.rx_i = data[i];
+            end
 
+            vif.rx_i = 1;
             uart_to_scoreboard_rx_fifo.put(transaction);
+            $display("%t [UART Driver] Sended Transaction:\n%s", $time, transaction.toString());
         end
 
         $display("%t [UART Driver] End", $time);

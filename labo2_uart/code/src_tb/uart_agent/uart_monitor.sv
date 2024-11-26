@@ -59,6 +59,8 @@ class uart_monitor#(int DATASIZE=20, int FIFOSIZE=10);
             automatic logic parity_bit;
             automatic logic stop_bit;
 
+            $display("*****************************************************************");
+
             @(negedge vif.tx_o);
             $display("%t [UART Monitor] Detected start bit on tx_o", $time);
 

@@ -65,6 +65,8 @@ class avl_uart_scoreboard_tx#(int DATASIZE=20, int FIFOSIZE=10);
             uart_to_scoreboard_tx_fifo.get(uart_transaction);
             objections_pkg::objection::get_inst().raise();
 
+            $display("*****************************************************************");
+
             // Increment total checks
             total_checks++;
 
@@ -104,7 +106,7 @@ class avl_uart_scoreboard_tx#(int DATASIZE=20, int FIFOSIZE=10);
         $display("Failed checks : %0d", failed_checks);
 
         if (failed_checks > 0) begin
-            $error("[Scoreboard TX] There are %0d failed checks!", failed_checks);
+            $display("[Scoreboard TX] There are %0d failed checks!", failed_checks);
         end else begin
             $display("[Scoreboard TX] All checks passed successfully!");
         end

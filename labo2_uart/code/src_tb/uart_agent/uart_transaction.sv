@@ -41,18 +41,12 @@ class uart_transaction#(int DATASIZE=20, int FIFOSIZE=10);
 
     // UART-specific data
     logic [DATASIZE-1:0] data;  // Data to be sent or received (configurable size)
-    logic parity;               // Parity bit (0 or 1)
-    logic stop;                 // Stop bit (0 or 1)
-    logic [31:0] clk_per_bit;   // Number of clock cycles per bit for serial transmission
 
     // Constructor
     function new();
         this.timestamp        = $time;
-        this.transaction_type = SEND; // Default
+        this.transaction_type = SEND;
         this.data             = '0;
-        this.parity           = 0;
-        this.stop             = 0;
-        this.clk_per_bit      = 8;    // Default value
     endfunction
 
     // Function to get the transaction type as a string
@@ -70,11 +64,8 @@ class uart_transaction#(int DATASIZE=20, int FIFOSIZE=10);
         $sformat(s,
             {"Timestamp   : %0t\n",
              "Type        : %s\n",
-             "Data        : %h\n",
-             "Parity      : %b\n",
-             "Stop        : %b\n",
-             "ClkPerBit   : %d"},
-             timestamp, get_type_name(), data, parity, stop, clk_per_bit);
+             "Data        : %h\n"},
+             timestamp, get_type_name(), data);
         return s;
     endfunction
 

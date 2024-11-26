@@ -30,40 +30,29 @@ Ver   Date        Person     Comments
 `ifndef AVALON_TRANSACTION_SV
 `define AVALON_TRANSACTION_SV
 
-typedef enum int {REGISTER, WRITE, READ, CYCLE} avalon_transaction_type_t;
+typedef enum int {WRITE, READ, CYCLE} avalon_transaction_type_t;
 
 class avalon_transaction#(int DATASIZE=20, int FIFOSIZE=10);
 
-    // Timestamp and Transaction type
+    // Timestamp and
     time timestamp;
-    avalon_transaction_type_t transaction_type;
 
-    // Address
-    logic[13:0] address;
+    // Transaction type
+    avalon_transaction_type_t transaction_type;
 
     // Write interface
     logic[31:0] writedata_i;
 
-    // Read interface
-    logic readdatavalid_o;
-    logic[31:0] readdata_o;
-    logic waitrequest_o;
-
     // Constructor
     function new();
         this.timestamp        = $time;
-        this.transaction_type = REGISTER;
-        this.address          = '0;
+        this.transaction_type = WRITE;
         this.writedata_i      = '0;
-        this.readdatavalid_o  =  0;
-        this.readdata_o       = '0;
-        this.waitrequest_o    =  0;
     endfunction
 
     // Get the name of the transaction type
     function string get_type_name();
         case (this.transaction_type)
-            REGISTER: return "REGISTER";
             WRITE:    return "WRITE";
             READ:     return "READ";
             CYCLE:    return "CYLCE";
@@ -77,11 +66,8 @@ class avalon_transaction#(int DATASIZE=20, int FIFOSIZE=10);
         $sformat(s,
             {"Timestamp  : %0t\n",
              "Type       : %s\n",
-             "Address    : %h\n",
-             "Write      : Writedata: %h\n",
-             "Read       : ReadValid: %b, ReadData: %h\n",
-             "WaitRequest: %b"},
-             timestamp, get_type_name(), address, writedata_i, readdatavalid_o, readdata_o, waitrequest_o);
+             "Write      : Writedata: %h"},
+             timestamp, get_type_name(), writedata_i);
         return s;
     endfunction
 

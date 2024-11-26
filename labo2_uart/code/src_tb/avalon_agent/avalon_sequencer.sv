@@ -36,44 +36,22 @@ class avalon_sequencer#(int DATASIZE=20, int FIFOSIZE=10);
 
     avalon_fifo_t sequencer_to_driver_fifo;
 
+    task test_write();
+        automatic avalon_transaction transaction = new;
+        transaction.transaction_type = WRITE;
+        transaction.writedata_i = 32'h55555555;
+        $display("%t [AVL Sequencer] Generated Transaction:\n%s", $time, transaction.toString());
+        sequencer_to_driver_fifo.put(transaction);
+    endtask
+
     task run;
-        automatic avalon_transaction transaction;
         $display("%t [AVL Sequencer] Start", $time);
 
-        for (int i = 0; i < 2; i++) begin
-            $display("*****************************************************************");
+        case (testcase)
+            0: test_write;
+            default: $diplay("Unkown test case %d", testcase);
+        endcase
 
-            transaction = new();
-            transaction.timestamp = $time;
-            transaction.transaction_type = WRITE;
-            transaction.address          = transaction.transaction_type;
-
-            case (transaction.transaction_type)
-                REGISTER: begin
-                end
-
-                WRITE: begin
-                    transaction.writedata_i = 20'h11111111;
-                end
-
-                READ: begin
-                end
-
-                CYCLE: begin
-                    // transaction.writedata_i = 32'h001000;
-                end
-                
-                default: begin
-                    $display("%t [AVL Sequencer] Unknown Transaction Type:\n%s", $time, transaction.toString());
-                end
-            endcase
-
-
-            $display("%t [AVL Sequencer] Generated Transaction:\n%s", $time, transaction.toString());
-
-            sequencer_to_driver_fifo.put(transaction);
-        end
-        
         $display("%t [AVL Sequencer] End", $time);
     endtask : run
 

@@ -43,6 +43,13 @@ class avalon_driver#(int DATASIZE=20, int FIFOSIZE=10);
 
     virtual avalon_itf vif;
 
+    task wait_ready();
+        while (vif.waitrequest_o) begin
+        @(posedge vif.clk_i);
+        end
+    endtask
+
+
     task run;
         automatic avalon_transaction transaction;
         $display("%t [AVL Driver] Start", $time);
@@ -71,11 +78,15 @@ class avalon_driver#(int DATASIZE=20, int FIFOSIZE=10);
                 WRITE: begin
                     $display("%t [AVL Driver] Handling WRITE Transaction:\n%s", $time, transaction.toString());
 
+                    wait_ready();
+
                     // Write transaction on the Avalon bus
-                    vif.address_i   = transaction.address;
+                    vif.address_i   = 1;
                     vif.write_i     = 1;
                     vif.writedata_i = transaction.writedata_i;
                     
+                    @(posedge vif.clk_i);
+
                     // Send the transaction to the TX scoreboard
                     avalon_to_scoreboard_tx_fifo.put(transaction);
 
@@ -86,16 +97,13 @@ class avalon_driver#(int DATASIZE=20, int FIFOSIZE=10);
                     $display("%t [AVL Driver] Handling READ Transaction:\n%s", $time, transaction.toString());
 
                     // Read transaction on the Avalon bus
-                    vif.address_i = transaction.address;
-                    vif.read_i    = 1;
+                    vif.address_i = 2;
                     
                     // Send the transaction to the RX scoreboard
                     avalon_to_scoreboard_rx_fifo.put(transaction);
 
                     $display("AVL Driver] Read Completed");
                 end
-
-                // TODO - Add WRITE_REGISTER
                 
                 default: begin
                     $display("%t [AVL Driver] Unknown Transaction Type:\n%s", $time, transaction.toString());

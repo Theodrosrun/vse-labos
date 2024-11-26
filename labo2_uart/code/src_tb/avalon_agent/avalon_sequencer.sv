@@ -52,7 +52,6 @@ class avalon_sequencer#(int DATASIZE=20, int FIFOSIZE=10);
         sequencer_to_driver_fifo.put(transaction);
     endtask
 
-
     task test_read;
         automatic avalon_transaction transaction = new;
         transaction.transaction_type = READ;

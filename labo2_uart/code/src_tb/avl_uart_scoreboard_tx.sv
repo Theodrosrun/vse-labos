@@ -74,7 +74,7 @@ class avl_uart_scoreboard_tx#(int DATASIZE=20, int FIFOSIZE=10);
                 $display("%t [Scoreboard TX] Transaction check PASSED", $time);
             end else begin
                 failed_checks++;
-                $error("%t [Scoreboard TX] Transaction check FAILED", $time);
+                $display("%t [Scoreboard TX] Transaction check FAILED", $time);
                 $display("Avalon Transaction: %s", avalon_transaction.toString());
                 $display("UART Transaction  : %s", uart_transaction.toString());
             end

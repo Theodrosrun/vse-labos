@@ -98,7 +98,7 @@ class avalon_driver#(int DATASIZE=20, int FIFOSIZE=10);
                         @(posedge vif.clk_i);
                     end
                     clk_per_bit = vif.readdata_o;
-                    $display("[AVL Driver] READ_CLK_PER_BIT Completed: clk_per_bit = %0d", clk_per_bit);
+                    $display("[AVL Driver] READ_CLK_PER_BIT Completed: clk_per_bit = %0h", clk_per_bit);
                 end
 
                 READ_RX: begin

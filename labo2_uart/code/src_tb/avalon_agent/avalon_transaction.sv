@@ -67,7 +67,7 @@ class avalon_transaction#(int DATASIZE=20, int FIFOSIZE=10);
         $sformat(s,
             {"Timestamp  : %0t\n",
              "Type       : %s\n",
-             "Data: %h"},
+             "Data       : %h"},
              timestamp, get_type_name(), data);
         return s;
     endfunction

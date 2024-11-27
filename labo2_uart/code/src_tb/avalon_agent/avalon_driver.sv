@@ -68,8 +68,9 @@ class avalon_driver#(int DATASIZE=20, int FIFOSIZE=10);
 
         // Loop to process transactions
         while (1) begin
+            @(posedge vif.clk_i); // TODO - REMOVE ?
+
             // Get a transaction from the sequencer-to-driver FIFO
-            @(posedge vif.clk_i);
             objections_pkg::objection::get_inst().drop();
             sequencer_to_driver_fifo.get(transaction);
             objections_pkg::objection::get_inst().raise();

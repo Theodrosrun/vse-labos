@@ -37,12 +37,12 @@ class avalon_sequencer#(int DATASIZE=20, int FIFOSIZE=10);
     avalon_fifo_t sequencer_to_driver_fifo;
 
     task test_all;
-        test_clk_per_bit;
+        test_set_clk_per_bit;
         test_avalon_read_rx;
         test_write;
     endtask
-    
-    task test_clk_per_bit();
+
+    task test_set_clk_per_bit();
         automatic avalon_transaction transaction = new;
         $display("*****************************************************************");
         transaction.transaction_type = CLK_PER_BIT;
@@ -73,7 +73,7 @@ class avalon_sequencer#(int DATASIZE=20, int FIFOSIZE=10);
 
         case (testcase)
             0: test_all;
-            1: test_clk_per_bit;
+            1: test_set_clk_per_bit;
             1: test_avalon_read_rx;
             2: test_write;
             default: $display("Unkown test case %d", testcase);

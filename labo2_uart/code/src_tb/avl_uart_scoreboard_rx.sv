@@ -70,8 +70,8 @@ class avl_uart_scoreboard_rx#(int DATASIZE=20, int FIFOSIZE=10);
             objections_pkg::objection::get_inst().raise();  
 
             $display("*****************************************************************");  
-            $display("%t [Scoreboard RX] Avalon Transaction Data: %h", $time, avalon_transaction.data);
             $display("%t [Scoreboard RX] UART   Transaction Data: %h", $time, uart_transaction.data);
+            $display("%t [Scoreboard RX] Avalon Transaction Data: %h", $time, avalon_transaction.data);
 
             // Increment total checks  
             total_checks++;  

@@ -64,7 +64,6 @@ class avalon_sequencer#(int DATASIZE=20, int FIFOSIZE=10);
         automatic avalon_transaction transaction = new;
         $display("*****************************************************************");
         transaction.transaction_type = READ_RX;
-        transaction.data = 20'h11111;
         $display("%t [AVL Sequencer] Generated Transaction:\n%s", $time, transaction.toString());
         sequencer_to_driver_fifo.put(transaction);
     endtask

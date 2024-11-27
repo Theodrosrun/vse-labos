@@ -89,8 +89,6 @@ class avalon_driver#(int DATASIZE=20, int FIFOSIZE=10);
                     @(posedge vif.clk_i);
                     vif.write_i = 0;
                     
-                    // avalon_to_scoreboard_tx_fifo.put(transaction);
-
                     $display("[AVL Driver] SET_CLK_PER_BIT Completed");
                 end
 
@@ -109,10 +107,9 @@ class avalon_driver#(int DATASIZE=20, int FIFOSIZE=10);
                     vif.read_i = 0;
 
                     clk_per_bit = vif.readdata_o;
-                    $display("===========================================================");
                     
+                    $display("===========================================================");
                     $display("[AVL Driver] READ_CLK_PER_BIT Completed: clk_per_bit = %0d", clk_per_bit);
-
                     $display("[AVL Driver] READ_CLK_PER_BIT Completed");
                 end
 

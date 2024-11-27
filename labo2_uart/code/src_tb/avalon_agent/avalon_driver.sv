@@ -104,11 +104,15 @@ class avalon_driver#(int DATASIZE=20, int FIFOSIZE=10);
                 READ_RX: begin
                     $display("%t [AVL Driver] Handling READ_RX Transaction:\n%s", $time, transaction.toString());
                     wait_slave_ready();
-                    vif.address_i   = 1;
+                    vif.address_i   = 2;
                     vif.write_i     = 0;
                     vif.read_i      = 1;
-                    avalon_to_scoreboard_rx_fifo.put(transaction);
                     @(posedge vif.clk_i);
+                    while (!vif.readdatavalid_o) begin
+                        @(posedge vif.clk_i);
+                    end
+                    transaction.data = vif.readdata_o;
+                    avalon_to_scoreboard_rx_fifo.put(transaction);
                     $display("[AVL Driver] READ_RX Completed");
                 end
 

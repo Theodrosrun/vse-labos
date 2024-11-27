@@ -96,7 +96,7 @@ class avl_uart_scoreboard_rx#(int DATASIZE=20, int FIFOSIZE=10);
     // Task for final checks and display results  
     task end_display;  
         $display("*****************************************************************");  
-        $display("RX Results: Total=%0d, Passed=%0d, Failed=%0d", total_checks, passed_checks, failed_checks);  
+        $display("RX Scoreboard: Total=%0d, Passed=%0d, Failed=%0d", total_checks, passed_checks, failed_checks);  
         $display("*****************************************************************\n");  
     endtask : end_display  
 

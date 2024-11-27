@@ -36,16 +36,20 @@ class uart_sequencer#(int DATASIZE=20, int FIFOSIZE=10);
 
     uart_fifo_t sequencer_to_driver_fifo;
 
-   task test_all;
+    task test_all;
         test_set_clk_per_bit;
-        test_avalon_read_rx;
-        test_write;
+        test_read_clk_per_bit;
+        test_read_rx;
+        test_write_tx;
     endtask
 
     task test_set_clk_per_bit();
     endtask
 
-    task test_avalon_read_rx();
+    task test_read_clk_per_bit();
+    endtask
+
+    task test_read_rx();
         automatic uart_transaction transaction = new;
         $display("*****************************************************************");
         transaction.transaction_type = SEND;
@@ -54,7 +58,7 @@ class uart_sequencer#(int DATASIZE=20, int FIFOSIZE=10);
         sequencer_to_driver_fifo.put(transaction);
     endtask
 
-    task test_write();
+    task test_write_tx();
     endtask
 
     task run;
@@ -63,8 +67,9 @@ class uart_sequencer#(int DATASIZE=20, int FIFOSIZE=10);
         case (testcase)
             0: test_all;
             1: test_set_clk_per_bit;
-            1: test_avalon_read_rx;
-            2: test_write;
+            2: test_read_clk_per_bit;
+            3: test_read_rx;
+            4: test_write_tx;
             default: $display("Unkown test case %d", testcase);
         endcase
 

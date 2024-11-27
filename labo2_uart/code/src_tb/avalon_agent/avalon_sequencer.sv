@@ -38,31 +38,41 @@ class avalon_sequencer#(int DATASIZE=20, int FIFOSIZE=10);
 
     task test_all;
         test_set_clk_per_bit;
-        test_avalon_read_rx;
-        test_write;
+        test_read_clk_per_bit;
+        test_read_rx;
+        test_write_tx;
     endtask
 
     task test_set_clk_per_bit();
         automatic avalon_transaction transaction = new;
         $display("*****************************************************************");
-        transaction.transaction_type = CLK_PER_BIT;
+        transaction.transaction_type = SET_CLK_PER_BIT;
         transaction.writedata_i = 10;
         $display("%t [AVL Sequencer] Generated Transaction:\n%s", $time, transaction.toString());
         sequencer_to_driver_fifo.put(transaction);
     endtask
 
-    task test_avalon_read_rx;
+    task test_read_clk_per_bit();
         automatic avalon_transaction transaction = new;
         $display("*****************************************************************");
-        transaction.transaction_type = READ;
+        transaction.transaction_type = READ_CLK_PER_BIT;
+        transaction.writedata_i = 10;
         $display("%t [AVL Sequencer] Generated Transaction:\n%s", $time, transaction.toString());
         sequencer_to_driver_fifo.put(transaction);
     endtask
 
-    task test_write();
+    task test_read_rx;
         automatic avalon_transaction transaction = new;
         $display("*****************************************************************");
-        transaction.transaction_type = WRITE;
+        transaction.transaction_type = READ_RX;
+        $display("%t [AVL Sequencer] Generated Transaction:\n%s", $time, transaction.toString());
+        sequencer_to_driver_fifo.put(transaction);
+    endtask
+
+    task test_write_tx();
+        automatic avalon_transaction transaction = new;
+        $display("*****************************************************************");
+        transaction.transaction_type = WRITE_TX;
         transaction.writedata_i = 32'h11111111;
         $display("%t [AVL Sequencer] Generated Transaction:\n%s", $time, transaction.toString());
         sequencer_to_driver_fifo.put(transaction);
@@ -74,8 +84,9 @@ class avalon_sequencer#(int DATASIZE=20, int FIFOSIZE=10);
         case (testcase)
             0: test_all;
             1: test_set_clk_per_bit;
-            1: test_avalon_read_rx;
-            2: test_write;
+            2: test_read_clk_per_bit;
+            3: test_read_rx;
+            4: test_write_tx;
             default: $display("Unkown test case %d", testcase);
         endcase
 

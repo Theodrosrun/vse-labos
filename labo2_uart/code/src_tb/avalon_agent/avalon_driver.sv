@@ -78,8 +78,8 @@ class avalon_driver#(int DATASIZE=20, int FIFOSIZE=10);
 
             // Handle transactions based on their type
             case (transaction.transaction_type)
-                CLK_PER_BIT: begin
-                    $display("%t [AVL Driver] Handling CLK_PER_BIT Transaction:\n%s", $time, transaction.toString());
+                SET_CLK_PER_BIT: begin
+                    $display("%t [AVL Driver] Handling SET_CLK_PER_BIT Transaction:\n%s", $time, transaction.toString());
 
                     wait_ready();
                     vif.address_i   = 3;
@@ -91,7 +91,14 @@ class avalon_driver#(int DATASIZE=20, int FIFOSIZE=10);
                     $display("[AVL Driver] Write Completed");
                 end
 
-                WRITE: begin
+                READ_CLK_PER_BIT: begin
+                end
+
+                READ_RX: begin
+
+                end
+
+                WRITE_TX: begin
                     $display("%t [AVL Driver] Handling WRITE Transaction:\n%s", $time, transaction.toString());
 
                     wait_ready();
@@ -102,22 +109,6 @@ class avalon_driver#(int DATASIZE=20, int FIFOSIZE=10);
                     avalon_to_scoreboard_tx_fifo.put(transaction);
 
                     $display("[AVL Driver] Write Completed");
-                end
-
-                READ: begin
-                    $display("%t [AVL Driver] Handling READ Transaction:\n%s", $time, transaction.toString());
-
-                    wait_ready();
-                    vif.address_i   = 2;
-                    vif.write_i     = 0;
-                    vif.read_i      = 1;
-                    while (!vif.readdatavalid_o) begin
-                        @(posedge vif.clk_i);
-                        vif.read_i = 0;
-                    end
-                    avalon_to_scoreboard_rx_fifo.put(transaction);
-
-                    $display("[AVL Driver] READ Completed");
                 end
 
                 default: begin

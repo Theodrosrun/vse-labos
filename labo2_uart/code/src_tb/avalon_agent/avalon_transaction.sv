@@ -40,14 +40,14 @@ class avalon_transaction#(int DATASIZE=20, int FIFOSIZE=10);
     // Transaction type
     avalon_transaction_type_t transaction_type;
 
-    // Write interface
-    logic[31:0] writedata_i;
+    // Data
+    logic[31:0] data;
 
     // Constructor
     function new();
         this.timestamp        = $time;
         this.transaction_type = SET_CLK_PER_BIT;
-        this.writedata_i      = '0;
+        this.data      = '0;
     endfunction
 
     // Get the name of the transaction type
@@ -68,7 +68,7 @@ class avalon_transaction#(int DATASIZE=20, int FIFOSIZE=10);
             {"Timestamp  : %0t\n",
              "Type       : %s\n",
              "Data: %h"},
-             timestamp, get_type_name(), writedata_i);
+             timestamp, get_type_name(), data);
         return s;
     endfunction
 

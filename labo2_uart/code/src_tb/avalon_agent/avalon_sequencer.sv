@@ -47,7 +47,7 @@ class avalon_sequencer#(int DATASIZE=20, int FIFOSIZE=10);
         automatic avalon_transaction transaction = new;
         $display("*****************************************************************");
         transaction.transaction_type = SET_CLK_PER_BIT;
-        transaction.writedata_i = 32'h0000000A;
+        transaction.data = 32'h0000000A;
         $display("%t [AVL Sequencer] Generated Transaction:\n%s", $time, transaction.toString());
         sequencer_to_driver_fifo.put(transaction);
     endtask
@@ -64,6 +64,7 @@ class avalon_sequencer#(int DATASIZE=20, int FIFOSIZE=10);
         automatic avalon_transaction transaction = new;
         $display("*****************************************************************");
         transaction.transaction_type = READ_RX;
+        transaction.data = 20'h11111;
         $display("%t [AVL Sequencer] Generated Transaction:\n%s", $time, transaction.toString());
         sequencer_to_driver_fifo.put(transaction);
     endtask
@@ -72,7 +73,7 @@ class avalon_sequencer#(int DATASIZE=20, int FIFOSIZE=10);
         automatic avalon_transaction transaction = new;
         $display("*****************************************************************");
         transaction.transaction_type = WRITE_TX;
-        transaction.writedata_i = 32'h11111111;
+        transaction.data = 32'h11111111;
         $display("%t [AVL Sequencer] Generated Transaction:\n%s", $time, transaction.toString());
         sequencer_to_driver_fifo.put(transaction);
     endtask

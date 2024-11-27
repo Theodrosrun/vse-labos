@@ -70,15 +70,12 @@ class avl_uart_scoreboard_tx#(int DATASIZE=20, int FIFOSIZE=10);
             // Increment total checks
             total_checks++;
 
-            // Compare Avalon and UART transactions
             if (compare_transactions(avalon_transaction, uart_transaction)) begin
                 passed_checks++;
-                $display("%t [Scoreboard TX] Transaction check PASSED", $time);
+                $display("%t [Scoreboard TX] Verification PASSED", $time);
             end else begin
                 failed_checks++;
-                $display("%t [Scoreboard TX] Transaction check FAILED", $time);
-                $display("Avalon Transaction: %s", avalon_transaction.toString());
-                $display("UART Transaction  : %s", uart_transaction.toString());
+                $display("%t [Scoreboard TX] Verification FAILED", $time);
             end
         end
 
@@ -87,30 +84,13 @@ class avl_uart_scoreboard_tx#(int DATASIZE=20, int FIFOSIZE=10);
 
     // Function to compare Avalon and UART transactions
     function bit compare_transactions(avalon_transaction avalon_transaction, uart_transaction uart_transaction);
-        // Check if data matches
-        if (avalon_transaction.writedata_i !== uart_transaction.data) begin
-            return 0; // Mismatch in data
-        end
-
-        // Check if parity matches
-
-        return 1;
+        return (avalon_transaction.data === uart_transaction.data);
     endfunction : compare_transactions
 
     // Task for final checks and display results
     task end_display;
         $display("*****************************************************************");
-        $display("%t [Scoreboard TX] Final Results", $time);
-        $display("Total checks  : %0d", total_checks);
-        $display("Passed checks : %0d", passed_checks);
-        $display("Failed checks : %0d", failed_checks);
-
-        if (failed_checks > 0) begin
-            $display("[Scoreboard TX] There are %0d failed checks!", failed_checks);
-        end else begin
-            $display("[Scoreboard TX] All checks passed successfully!");
-        end
-        
+        $display("Results: Total=%0d, Passed=%0d, Failed=%0d", total_checks, passed_checks, failed_checks);
         $display("*****************************************************************");
     endtask : end_display
 

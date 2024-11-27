@@ -91,7 +91,7 @@ class avl_uart_scoreboard_tx#(int DATASIZE=20, int FIFOSIZE=10);
     task end_display;
         $display("*****************************************************************");
         $display("TX Results: Total=%0d, Passed=%0d, Failed=%0d", total_checks, passed_checks, failed_checks);
-        $display("*****************************************************************");
+        $display("*****************************************************************\n");
     endtask : end_display
 
 endclass : avl_uart_scoreboard_tx

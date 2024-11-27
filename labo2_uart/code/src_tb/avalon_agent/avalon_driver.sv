@@ -43,7 +43,7 @@ class avalon_driver#(int DATASIZE=20, int FIFOSIZE=10);
 
     virtual avalon_itf vif;
 
-    task wait_ready();
+    task wait_slave_ready();
         while (vif.waitrequest_o) begin
         @(posedge vif.clk_i);
         end
@@ -81,17 +81,39 @@ class avalon_driver#(int DATASIZE=20, int FIFOSIZE=10);
                 SET_CLK_PER_BIT: begin
                     $display("%t [AVL Driver] Handling SET_CLK_PER_BIT Transaction:\n%s", $time, transaction.toString());
 
-                    wait_ready();
+                    wait_slave_ready();
                     vif.address_i   = 3;
                     vif.write_i     = 1;
                     vif.writedata_i = transaction.writedata_i;
                     vif.read_i      = 0;
-                    avalon_to_scoreboard_tx_fifo.put(transaction);
+                    @(posedge vif.clk_i);
+                    vif.write_i = 0;
+                    
+                    // avalon_to_scoreboard_tx_fifo.put(transaction);
 
-                    $display("[AVL Driver] Write Completed");
+                    $display("[AVL Driver] SET_CLK_PER_BIT Completed");
                 end
 
                 READ_CLK_PER_BIT: begin
+                    automatic logic [31:0] clk_per_bit;
+
+                    $display("%t [AVL Driver] Handling READ_CLK_PER_BIT Transaction:\n%s", $time, transaction.toString());
+
+                    wait_slave_ready();
+                    vif.address_i   = 3;
+                    vif.write_i     = 0;
+                    vif.read_i      = 1;
+                    while (!vif.readdatavalid_o) begin
+                        @(posedge vif.clk_i);
+                    end
+                    vif.read_i = 0;
+
+                    clk_per_bit = vif.readdata_o;
+                    $display("===========================================================");
+                    
+                    $display("[AVL Driver] READ_CLK_PER_BIT Completed: clk_per_bit = %0d", clk_per_bit);
+
+                    $display("[AVL Driver] READ_CLK_PER_BIT Completed");
                 end
 
                 READ_RX: begin
@@ -99,16 +121,16 @@ class avalon_driver#(int DATASIZE=20, int FIFOSIZE=10);
                 end
 
                 WRITE_TX: begin
-                    $display("%t [AVL Driver] Handling WRITE Transaction:\n%s", $time, transaction.toString());
+                    $display("%t [AVL Driver] Handling WRITE_TX Transaction:\n%s", $time, transaction.toString());
 
-                    wait_ready();
+                    wait_slave_ready();
                     vif.address_i   = 1;
                     vif.write_i     = 1;
                     vif.writedata_i = transaction.writedata_i;
                     vif.read_i      = 0;
                     avalon_to_scoreboard_tx_fifo.put(transaction);
 
-                    $display("[AVL Driver] Write Completed");
+                    $display("[AVL Driver] WRITE_TX Completed");
                 end
 
                 default: begin

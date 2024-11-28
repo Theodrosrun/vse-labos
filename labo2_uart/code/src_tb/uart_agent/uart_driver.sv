@@ -74,7 +74,7 @@ class uart_driver#(int DATASIZE=20, int FIFOSIZE=10);
                     end
 
                     for (int i = 0; i < DATASIZE + 1; i++) begin
-                        #ns_per_bit;
+                        #20;
                         vif.rx_i = data[i];
                     end
 

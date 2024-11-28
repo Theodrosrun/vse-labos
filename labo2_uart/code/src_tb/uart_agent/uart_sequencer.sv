@@ -53,7 +53,7 @@ class uart_sequencer#(int DATASIZE=20, int FIFOSIZE=10);
         automatic uart_transaction transaction = new;
         $display("*****************************************************************");
         transaction.transaction_type = SEND;
-        transaction.data = 20'h11111;
+        transaction.data = 20'hAAAAA;
         $display("%t [UART Sequencer] Generated Transaction:\n%s", $time, transaction.toString());
         sequencer_to_driver_fifo.put(transaction);
     endtask

@@ -66,9 +66,8 @@ class uart_monitor#(int DATASIZE=20, int FIFOSIZE=10);
             $display("%t [UART Monitor] Detected start bit on tx_o", $time);
 
             for (i = 0; i < DATASIZE; i++) begin
-                #(ns_per_bit);
+                #(20);
                 reconstructed_data[i] = vif.tx_o;
-                $display("%t [UART Monitor] Captured bit %0d: %b", $time, i, vif.tx_o);
             end
 
             transaction.timestamp = $time;

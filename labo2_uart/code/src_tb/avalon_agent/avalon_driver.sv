@@ -125,6 +125,7 @@ class avalon_driver#(int DATASIZE=20, int FIFOSIZE=10);
                     vif.read_i      = 0;
                     avalon_to_scoreboard_tx_fifo.put(transaction);
                     @(posedge vif.clk_i);
+                    vif.write_i     = 0;
                     $display("[AVL Driver] WRITE_TX Completed");
                 end
 

@@ -84,13 +84,13 @@ class avalon_driver#(int DATASIZE=20, int FIFOSIZE=10);
                     vif.writedata_i = transaction.data;
                     vif.read_i      = 0;
                     @(posedge vif.clk_i);
+                    vif.write_i     = 0;
                     $display("[AVL Driver] SET_CLK_PER_BIT Completed");
                 end
 
                 READ_CLK_PER_BIT: begin
                     automatic logic [31:0] clk_per_bit;
                     $display("%t [AVL Driver] Handling READ_CLK_PER_BIT Transaction:\n%s", $time, transaction.toString());
-                    // wait_slave_ready();
                     vif.address_i   = 3;
                     vif.write_i     = 0;
                     vif.read_i      = 1;
@@ -103,7 +103,6 @@ class avalon_driver#(int DATASIZE=20, int FIFOSIZE=10);
 
                 READ_RX: begin
                     $display("%t [AVL Driver] Handling READ_RX Transaction:\n%s", $time, transaction.toString());
-                    // wait_slave_ready();
                     vif.address_i   = 2;
                     vif.write_i     = 0;
                     vif.read_i      = 1;

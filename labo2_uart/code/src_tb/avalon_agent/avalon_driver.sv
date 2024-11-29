@@ -43,9 +43,20 @@ class avalon_driver#(int DATASIZE=20, int FIFOSIZE=10);
 
     virtual avalon_itf vif;
 
-    typedef enum int {STATUS_REGISTER_ADDR, WRITE_ADDR, READ_ADDR, CLOCK_PER_CYCLE_ADDR} address_t;
-    typedef enum int {SEND_BUFFER_IS_FULL, RECEIVE_BUFFER_IS_FULL, RECEIVE_BUFFER_IS_NOT_EMPTY, SEND_BUFFER_IS_EMPTY} status_flag_t;
+    typedef enum int {
+        STATUS_REGISTER_ADDR, 
+        WRITE_ADDR, 
+        READ_ADDR, 
+        CLOCK_PER_CYCLE_ADDR
+    } address_t;
 
+    typedef enum logic [3:0] {
+        SEND_BUFFER_IS_FULL         = 4'b0001,
+        RECEIVE_BUFFER_IS_FULL      = 4'b0010,
+        RECEIVE_BUFFER_IS_NOT_EMPTY = 4'b0100,
+        SEND_BUFFER_IS_EMPTY        = 4'b1000
+    } status_flag_t;
+    
     // **********************************
     // ********** Base methods **********
     // **********************************
@@ -148,6 +159,7 @@ class avalon_driver#(int DATASIZE=20, int FIFOSIZE=10);
                 READ_RX: begin
                     $display("%t [AVL Driver] Handling READ_RX Transaction:\n%s", $time, transaction.toString());
                     set_clock_per_bit(1);
+                    #500
                     read_while_flag(RECEIVE_BUFFER_IS_NOT_EMPTY);
                     transaction.data = vif.readdata_o;
                     avalon_to_scoreboard_rx_fifo.put(transaction);

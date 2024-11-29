@@ -43,12 +43,53 @@ class avalon_driver#(int DATASIZE=20, int FIFOSIZE=10);
 
     virtual avalon_itf vif;
 
+    typedef enum int {STATUS_REGISTER_ADDR, WRITE_ADDR, READ_ADDR, CLOCK_PER_CYCLE_ADDR} address_t;
+
+    // **********************************
+    // ********** Base methods **********
+    // **********************************
     task wait_slave_ready();
         while (vif.waitrequest_o) begin
         @(posedge vif.clk_i);
         end
     endtask
 
+    task write(logic [13:0] address, logic [31:0] data);
+        wait_slave_ready();
+        vif.address_i   = address;
+        vif.write_i     = 1;
+        vif.writedata_i = data;
+        @(posedge vif.clk_i);
+        vif.write_i = 0;
+    endtask
+
+    task read(logic [13:0] address);
+        vif.address_i = address;
+        vif.read_i    = 1;
+        while (!vif.readdatavalid_o) begin
+            @(posedge vif.clk_i);
+            vif.read_i = 0;
+        end
+    endtask
+
+    // **********************************
+    // ********* Helper methods *********
+    // **********************************
+
+    task reset_signals();
+        vif.address_i    = 0;
+        vif.write_i      = 0;
+        vif.writedata_i  = 0;
+        vif.read_i       = 0;
+    endtask
+
+    task set_clock_per_bit(logic [31:0] data);
+         write(CLOCK_PER_CYCLE_ADDR, data);
+    endtask
+
+    // **********************************
+    // ************** Run ***************
+    // **********************************
     task run;
         automatic avalon_transaction transaction;
         $display("%t [AVL Driver] Start", $time);
@@ -67,11 +108,7 @@ class avalon_driver#(int DATASIZE=20, int FIFOSIZE=10);
 
         // Loop to process transactions
         while (1) begin
-            // Reset
-            vif.address_i   = 0;
-            vif.write_i     = 0;
-            vif.writedata_i = 0;
-            vif.read_i      = 0;
+            reset_signals();
                     
             // Get a transaction from the sequencer-to-driver FIFO
             objections_pkg::objection::get_inst().drop();
@@ -84,31 +121,21 @@ class avalon_driver#(int DATASIZE=20, int FIFOSIZE=10);
             case (transaction.transaction_type)
                 SET_CLK_PER_BIT: begin
                     $display("%t [AVL Driver] Handling SET_CLK_PER_BIT Transaction:\n%s", $time, transaction.toString());
-                    wait_slave_ready();
-                    vif.address_i   = 3;
-                    vif.write_i     = 1;
-                    vif.writedata_i = transaction.data;
-                    @(posedge vif.clk_i);
-                    vif.write_i     = 0;
+                    write(CLOCK_PER_CYCLE_ADDR, transaction.data);
                     $display("[AVL Driver] SET_CLK_PER_BIT Completed");
                 end
 
                 READ_CLK_PER_BIT: begin
                     automatic logic [31:0] clk_per_bit;
                     $display("%t [AVL Driver] Handling READ_CLK_PER_BIT Transaction:\n%s", $time, transaction.toString());
-                    vif.address_i   = 3;
-                    vif.read_i      = 1;
-                    while (!vif.readdatavalid_o) begin
-                        @(posedge vif.clk_i);
-                    end
-                    vif.read_i      = 0;
+                    read(CLOCK_PER_CYCLE_ADDR);
                     clk_per_bit = vif.readdata_o;
                     $display("[AVL Driver] READ_CLK_PER_BIT Completed: clk_per_bit = %0h", clk_per_bit);
                 end
 
                 READ_RX: begin
                     $display("%t [AVL Driver] Handling READ_RX Transaction:\n%s", $time, transaction.toString());
-                                        wait_slave_ready();
+                    wait_slave_ready();
                     vif.address_i   = 3;
                     vif.write_i     = 1;
                     vif.writedata_i = 10;
@@ -135,13 +162,8 @@ class avalon_driver#(int DATASIZE=20, int FIFOSIZE=10);
 
                 WRITE_TX: begin
                     $display("%t [AVL Driver] Handling WRITE_TX Transaction:\n%s", $time, transaction.toString());
-                    wait_slave_ready();
-                    vif.address_i   = 1;
-                    vif.write_i     = 1;
-                    vif.writedata_i = transaction.data;
+                    write(WRITE_ADDR, transaction.data);
                     avalon_to_scoreboard_tx_fifo.put(transaction);
-                    @(posedge vif.clk_i);
-                    vif.write_i     = 0;
                     $display("[AVL Driver] WRITE_TX Completed");
                 end
 

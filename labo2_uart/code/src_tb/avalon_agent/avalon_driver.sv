@@ -99,7 +99,7 @@ class avalon_driver#(int DATASIZE=20, int FIFOSIZE=10);
          write(CLOCK_PER_CYCLE_ADDR, data);
     endtask
 
-    task read_while_flag(logic [31:0] flag);
+    task read_status_flag(logic [31:0] flag);
         vif.address_i = STATUS_REGISTER_ADDR;
         vif.read_i    = 1;
         while (!vif.readdatavalid_o || ((vif.readdata_o & flag) == 0)) begin
@@ -160,7 +160,7 @@ class avalon_driver#(int DATASIZE=20, int FIFOSIZE=10);
                     $display("%t [AVL Driver] Handling READ_RX Transaction:\n%s", $time, transaction.toString());
                     set_clock_per_bit(1);
                     #500
-                    read_while_flag(RECEIVE_BUFFER_IS_NOT_EMPTY);
+                    read_status_flag(RECEIVE_BUFFER_IS_NOT_EMPTY);
                     transaction.data = vif.readdata_o;
                     avalon_to_scoreboard_rx_fifo.put(transaction);
                     $display("[AVL Driver] READ_RX Completed");

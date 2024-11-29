@@ -126,11 +126,9 @@ class avalon_driver#(int DATASIZE=20, int FIFOSIZE=10);
                 end
 
                 READ_CLK_PER_BIT: begin
-                    automatic logic [31:0] clk_per_bit;
                     $display("%t [AVL Driver] Handling READ_CLK_PER_BIT Transaction:\n%s", $time, transaction.toString());
                     read(CLOCK_PER_CYCLE_ADDR);
-                    clk_per_bit = vif.readdata_o;
-                    $display("[AVL Driver] READ_CLK_PER_BIT Completed: clk_per_bit = %0h", clk_per_bit);
+                    $display("[AVL Driver] READ_CLK_PER_BIT Completed: clk_per_bit = %0h", vif.readdata_o);
                 end
 
                 READ_RX: begin

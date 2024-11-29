@@ -56,7 +56,7 @@ class avalon_driver#(int DATASIZE=20, int FIFOSIZE=10);
         RECEIVE_BUFFER_IS_NOT_EMPTY = 4'b0100,
         SEND_BUFFER_IS_EMPTY        = 4'b1000
     } status_flag_t;
-    
+
     // **********************************
     // ********** Base methods **********
     // **********************************
@@ -102,7 +102,7 @@ class avalon_driver#(int DATASIZE=20, int FIFOSIZE=10);
     task read_while_flag(logic [31:0] flag);
         vif.address_i = STATUS_REGISTER_ADDR;
         vif.read_i    = 1;
-        while (!vif.readdatavalid_o && ((vif.readdata_o & flag) == 0)) begin
+        while (!vif.readdatavalid_o || ((vif.readdata_o & flag) == 0)) begin
             @(posedge vif.clk_i);
             vif.read_i = 0;
             @(posedge vif.clk_i);

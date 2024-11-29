@@ -67,6 +67,12 @@ class avalon_driver#(int DATASIZE=20, int FIFOSIZE=10);
 
         // Loop to process transactions
         while (1) begin
+            // Reset
+            vif.address_i   = 0;
+            vif.write_i     = 0;
+            vif.writedata_i = 0;
+            vif.read_i      = 0;
+                    
             // Get a transaction from the sequencer-to-driver FIFO
             objections_pkg::objection::get_inst().drop();
             sequencer_to_driver_fifo.get(transaction);
@@ -82,7 +88,6 @@ class avalon_driver#(int DATASIZE=20, int FIFOSIZE=10);
                     vif.address_i   = 3;
                     vif.write_i     = 1;
                     vif.writedata_i = transaction.data;
-                    vif.read_i      = 0;
                     @(posedge vif.clk_i);
                     vif.write_i     = 0;
                     $display("[AVL Driver] SET_CLK_PER_BIT Completed");
@@ -92,7 +97,6 @@ class avalon_driver#(int DATASIZE=20, int FIFOSIZE=10);
                     automatic logic [31:0] clk_per_bit;
                     $display("%t [AVL Driver] Handling READ_CLK_PER_BIT Transaction:\n%s", $time, transaction.toString());
                     vif.address_i   = 3;
-                    vif.write_i     = 0;
                     vif.read_i      = 1;
                     while (!vif.readdatavalid_o) begin
                         @(posedge vif.clk_i);
@@ -108,11 +112,9 @@ class avalon_driver#(int DATASIZE=20, int FIFOSIZE=10);
                     vif.address_i   = 3;
                     vif.write_i     = 1;
                     vif.writedata_i = 10;
-                    vif.read_i      = 0;
                     @(posedge vif.clk_i);
                     vif.write_i     = 0;
                     vif.address_i   = 0;
-                    vif.write_i     = 0;
                     vif.read_i      = 1;
                     @(posedge vif.clk_i);
                     vif.read_i      = 0;
@@ -137,7 +139,6 @@ class avalon_driver#(int DATASIZE=20, int FIFOSIZE=10);
                     vif.address_i   = 1;
                     vif.write_i     = 1;
                     vif.writedata_i = transaction.data;
-                    vif.read_i      = 0;
                     avalon_to_scoreboard_tx_fifo.put(transaction);
                     @(posedge vif.clk_i);
                     vif.write_i     = 0;

@@ -35,10 +35,10 @@ typedef enum int {
     READ_CLK_PER_BIT, 
     READ_RX, 
     WRITE_TX,
-    SEND_FIFO_IS_EMPTY,
-    SEND_FIFO_IS_FULL,
-    RECEIVE_FIFO_IS_NOT_EMPTY,
-    RECEIVE_FIFO_IS_FULL
+    TX_FIFO_IS_EMPTY,
+    TX_FIFO_IS_FULL,
+    RX_FIFO_IS_NOT_EMPTY,
+    RX_FIFO_IS_FULL
     } avalon_transaction_type_t;
 
 class avalon_transaction#(int DATASIZE=20, int FIFOSIZE=10);
@@ -62,15 +62,15 @@ class avalon_transaction#(int DATASIZE=20, int FIFOSIZE=10);
     // Get the name of the transaction type
     function string get_type_name();
         case (this.transaction_type)
-            SET_CLK_PER_BIT:           return "SET_CLK_PER_BIT";
-            READ_CLK_PER_BIT:          return "READ_CLK_PER_BIT";
-            READ_RX:                   return "READ_RX";
-            WRITE_TX:                  return "WRITE_TX";
-            SEND_FIFO_IS_EMPTY:        return "SEND_FIFO_IS_EMPTY";
-            SEND_FIFO_IS_FULL:         return "SEND_FIFO_IS_FULL";
-            RECEIVE_FIFO_IS_NOT_EMPTY: return "RECEIVE_FIFO_IS_NOT_EMPTY";
-            RECEIVE_FIFO_IS_FULL:      return "RECEIVE_FIFO_IS_FULL";
-            default:                   return "UNKNOWN";
+            SET_CLK_PER_BIT:      return "SET_CLK_PER_BIT";
+            READ_CLK_PER_BIT:     return "READ_CLK_PER_BIT";
+            READ_RX:              return "READ_RX";
+            WRITE_TX:             return "WRITE_TX";
+            TX_FIFO_IS_EMPTY:     return "TX_FIFO_IS_EMPTY";
+            TX_FIFO_IS_FULL:      return "TX_FIFO_IS_FULL";
+            RX_FIFO_IS_NOT_EMPTY: return "RX_FIFO_IS_NOT_EMPTY";
+            RX_FIFO_IS_FULL:      return "RX_FIFO_IS_FULL";
+            default:              return "UNKNOWN";
         endcase
     endfunction
 

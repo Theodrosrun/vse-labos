@@ -48,14 +48,14 @@ class avalon_sequencer#(int DATASIZE=20, int FIFOSIZE=10);
 
     task select_transaction(int TESTCASE);
         case (TESTCASE)
-            1: generate_transaction(SET_CLK_PER_BIT, 32'h0000000A); // Set clock period
-            2: generate_transaction(READ_CLK_PER_BIT);              // Read clock period
-            // 3: generate_transaction(READ_RX);                       // Read RX
-            4: generate_transaction(WRITE_TX, 32'h000AAAAA);        // Write TX
-            5: generate_transaction(SEND_FIFO_IS_EMPTY);            // FIFO empty
-            6: generate_transaction(SEND_FIFO_IS_FULL);             // FIFO full
-            7: generate_transaction(RECEIVE_FIFO_IS_NOT_EMPTY);     // FIFO not empty
-            8: generate_transaction(RECEIVE_FIFO_IS_FULL);          // FIFO full
+            1: generate_transaction(SET_CLK_PER_BIT, 32'h0000000A);
+            2: generate_transaction(READ_CLK_PER_BIT);
+            3: generate_transaction(READ_RX);
+            4: generate_transaction(WRITE_TX, 32'h000AAAAA);
+            5: generate_transaction(TX_FIFO_IS_EMPTY);
+            6: generate_transaction(TX_FIFO_IS_FULL);
+            7: generate_transaction(RX_FIFO_IS_NOT_EMPTY);
+            8: generate_transaction(RX_FIFO_IS_FULL);
             default: begin
                 $display("Unknown TESTCASE: %d", TESTCASE);
             end

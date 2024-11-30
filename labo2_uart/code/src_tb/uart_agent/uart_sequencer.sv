@@ -39,7 +39,7 @@ class uart_sequencer#(int DATASIZE=20, int FIFOSIZE=10);
     task test_all;
         test_set_clk_per_bit;
         test_read_clk_per_bit;
-        // test_read_rx;
+        test_read_rx;
         test_write_tx;
         test_send_fifo_is_empty;
         test_send_fifo_is_full;

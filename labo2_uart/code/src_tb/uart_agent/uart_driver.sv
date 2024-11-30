@@ -113,6 +113,7 @@ class uart_driver#(int DATASIZE=20, int FIFOSIZE=10);
                         #20;
                         vif.rx_i = 0;
                     end
+                    $display("[UART Driver] RECEIVE Completed");
                 end
 
                 default: begin

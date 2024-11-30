@@ -61,40 +61,66 @@ class uart_driver#(int DATASIZE=20, int FIFOSIZE=10);
 
             $display("*****************************************************************");
 
-            // Handle transactions based on their type
-            case (transaction.transaction_type)
-                SEND: begin
-                    automatic logic [DATASIZE:0] data = 0;
-                    data[0] = 0;
-
-                    $display("%t [UART Driver] Handling SEND Transaction:\n%s", $time, transaction.toString());       
-
-                    for (int i = 1; i < DATASIZE + 1; i++) begin
-                        data[i] = transaction.data[i-1];
-                    end
-
-                    for (int i = 0; i < DATASIZE + 1; i++) begin
-                        #20;
-                        vif.rx_i = data[i];
-                    end
-
-                    vif.rx_i = 1;
-                    $display("%t [UART Driver] Sended data %h", $time, data[DATASIZE:1]);
-                    uart_to_scoreboard_rx_fifo.put(transaction);
-
-                    $display("[UART Driver] SEND Completed");
+            case (testcase)
+                0: begin
                 end
 
-                RECEIVE: begin
-                    $display("%t [UART Driver] Handling RECEIVE Transaction:\n%s", $time, transaction.toString());
+                1: begin
+                end
 
+                2: begin
+                end
+
+                3: begin
+                    #20;
+                    vif.rx_i = 0;
+
+                    for (int i = 0; i < DATASIZE-2; i++) begin
+                        #20;
+                        vif.rx_i = transaction.data[i];
+                    end
+
+                    #20;
+                    vif.rx_i = 1;
+
+                    // $display("%t [UART Driver] Received data %h", $time, data[DATASIZE:1]);
                     $display("[UART Driver] RECEIVE Completed");
                 end
 
+                4: begin
+
+                end
+
+                5: begin
+                end
+
+                6: begin
+                end
+
+                7: begin
+                end
+
+                8: begin
+                    for (int i = 0; i < FIFOSIZE + 1; i++) begin
+                        #20;
+                        vif.rx_i = 0;
+
+                        for (int i = 0; i < DATASIZE-2; i++) begin
+                            #20;
+                            vif.rx_i = transaction.data[i];
+                        end
+
+                        #20;
+                        vif.rx_i = 1;
+                    end
+                end
+
                 default: begin
-                    $display("%t [AVL Driver] Unknown Transaction Type:\n%s", $time, transaction.toString());
+                    $display("%t [UART Monitor] Unknown test case:\n%d", $time, testcase);
                 end
             endcase
+
+            uart_to_scoreboard_rx_fifo.put(transaction);
         end
 
         $display("%t [UART Driver] End", $time);

@@ -73,6 +73,7 @@ class avl_uart_scoreboard_rx#(int DATASIZE=20, int FIFOSIZE=10);
 
             case (avalon_transaction.transaction_type)
                 READ_RX: begin
+                    compare_transactions(avalon_transaction.data, uart_transaction.data);
                 end
 
                 RX_FIFO_IS_NOT_EMPTY: begin

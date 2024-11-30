@@ -56,7 +56,7 @@ class uart_sequencer#(int DATASIZE=20, int FIFOSIZE=10);
     task test_read_rx();
         automatic uart_transaction transaction = new;
         $display("*****************************************************************");
-        transaction.transaction_type = SEND;
+        transaction.transaction_type = RECEIVE;
         transaction.data = 20'hAAAAA;
         $display("%t [UART Sequencer] Generated Transaction:\n%s", $time, transaction.toString());
         sequencer_to_driver_fifo.put(transaction);
@@ -76,6 +76,12 @@ class uart_sequencer#(int DATASIZE=20, int FIFOSIZE=10);
     endtask
 
     task test_receive_fifo_is_full();
+        automatic uart_transaction transaction = new;
+        $display("*****************************************************************");
+        transaction.transaction_type = RECEIVE;
+        transaction.data = 20'hAAAAA;
+        $display("%t [UART Sequencer] Generated Transaction:\n%s", $time, transaction.toString());
+        sequencer_to_driver_fifo.put(transaction);
     endtask
 
     task run;

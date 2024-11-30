@@ -75,7 +75,7 @@ class uart_driver#(int DATASIZE=20, int FIFOSIZE=10);
                     #20;
                     vif.rx_i = 0;
 
-                    for (int i = 0; i < DATASIZE-2; i++) begin
+                    for (int i = 0; i < DATASIZE; i++) begin
                         #20;
                         vif.rx_i = transaction.data[i];
                     end
@@ -105,18 +105,18 @@ class uart_driver#(int DATASIZE=20, int FIFOSIZE=10);
                         #20;
                         vif.rx_i = 0;
 
-                        for (int i = 0; i < DATASIZE-2; i++) begin
+                        for (int i = 0; i < DATASIZE; i++) begin
                             #20;
                             vif.rx_i = transaction.data[i];
                         end
 
                         #20;
-                        vif.rx_i = 1;
+                        vif.rx_i = 0;
                     end
                 end
 
                 default: begin
-                    $display("%t [UART Monitor] Unknown test case:\n%d", $time, testcase);
+                    $display("%t [UART Driver] Unknown test case:\n%d", $time, testcase);
                 end
             endcase
 

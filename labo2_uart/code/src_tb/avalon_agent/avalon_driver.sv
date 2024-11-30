@@ -204,6 +204,9 @@ class avalon_driver#(int DATASIZE=20, int FIFOSIZE=10);
                 RX_FIFO_IS_NOT_EMPTY: begin
                     $display("%t [AVL Driver] Handling RX_FIFO_IS_NOT_EMPTY Transaction:\n%s", $time, transaction.toString());
                     set_clock_per_bit(CLOCK_PER_BIT);
+                    read_status_flag(RX_FIFO_NOT_EMPTY);
+                    transaction.data = vif.readdata_o;
+                    avalon_to_scoreboard_rx_fifo.put(transaction);
                     $display("[AVL Driver] RX_FIFO_IS_NOT_EMPTY Completed");
                 end
 

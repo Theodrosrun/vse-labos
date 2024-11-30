@@ -66,6 +66,7 @@ class uart_sequencer#(int DATASIZE=20, int FIFOSIZE=10);
     endtask
 
     task test_send_fifo_is_empty();
+
     endtask
 
     task test_send_fifo_is_full();

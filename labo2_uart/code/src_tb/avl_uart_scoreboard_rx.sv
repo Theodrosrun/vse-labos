@@ -69,31 +69,39 @@ class avl_uart_scoreboard_rx#(int DATASIZE=20, int FIFOSIZE=10);
             uart_to_scoreboard_rx_fifo.get(uart_transaction);  
             objections_pkg::objection::get_inst().raise();  
 
-            $display("*****************************************************************");  
-            $display("%t [Scoreboard RX] UART   Transaction Data: %h", $time, uart_transaction.data);
-            $display("%t [Scoreboard RX] Avalon Transaction Data: %h", $time, avalon_transaction.data);
-
-            // Increment total checks  
             total_checks++;  
 
-            if (compare_transactions(avalon_transaction, uart_transaction)) begin  
-                passed_checks++;  
-                $display("%t [Scoreboard RX] Verification PASSED", $time);  
-            end else begin  
-                failed_checks++;  
-                $display("%t [Scoreboard RX] Verification FAILED", $time);  
-            end
+            case (avalon_transaction.transaction_type)
+                READ_RX: begin
+                end
+
+                RX_FIFO_IS_NOT_EMPTY: begin
+                    compare_transactions(avalon_transaction.data, 32'h00000004);
+                end
+
+                RX_FIFO_IS_FULL: begin
+                    compare_transactions(avalon_transaction.data, 32'h00000002);
+                end
+
+                default: begin
+                    $display("%t [AVL Driver] Unknown Transaction Type:\n%s", $time, avalon_transaction.toString());
+                end
+            endcase
         end  
 
         $display("%t [Scoreboard RX] Monitoring complete", $time);  
     endtask : run  
 
-    // Function to compare Avalon and UART transactions  
-    function bit compare_transactions(avalon_transaction avalon_transaction, uart_transaction uart_transaction);  
-        return (avalon_transaction.data === uart_transaction.data);  
-    endfunction : compare_transactions  
+    function void compare_transactions(logic[31:0] data, logic[31:0] expected_data);
+        if (data === expected_data) begin
+            passed_checks++;
+            $display("%t [Scoreboard TX] Verification PASSED: data = 0x%h, expected_data = 0x%h", $time, data, expected_data);
+        end else begin
+            failed_checks++;
+            $display("%t [Scoreboard TX] Verification FAILED: data = 0x%h, expected_data = 0x%h", $time, data, expected_data);
+        end
+    endfunction : compare_transactions
 
-    // Task for final checks and display results  
     task end_display;  
         $display("*****************************************************************");  
         $display("RX Scoreboard: Total=%0d, Passed=%0d, Failed=%0d", total_checks, passed_checks, failed_checks);  

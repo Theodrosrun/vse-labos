@@ -62,12 +62,13 @@ class avl_uart_scoreboard_tx#(int DATASIZE=20, int FIFOSIZE=10);
             // Get transactions from FIFOs
             objections_pkg::objection::get_inst().drop();
             avalon_to_scoreboard_tx_fifo.get(avalon_transaction);
-            uart_to_scoreboard_tx_fifo.get(uart_transaction);
+            if(avalon_transaction.transaction_type != TX_FIFO_IS_EMPTY) begin
+                uart_to_scoreboard_tx_fifo.get(uart_transaction);
+            end
             objections_pkg::objection::get_inst().raise();
 
             $display("*****************************************************************");
 
-            // Increment total checks
             total_checks++;
 
             case (avalon_transaction.transaction_type)
@@ -77,51 +78,37 @@ class avl_uart_scoreboard_tx#(int DATASIZE=20, int FIFOSIZE=10);
                 READ_CLK_PER_BIT: begin
                 end
 
-                READ_RX: begin
-                end
-
                 WRITE_TX: begin
+                    compare_transactions(avalon_transaction.data, uart_transaction.data);
                 end
 
                 TX_FIFO_IS_EMPTY: begin
-                    
+                    compare_transactions(avalon_transaction.data, 32'h00000008);
                 end
                 
                 TX_FIFO_IS_FULL: begin
-
-                end
-                
-                RX_FIFO_IS_NOT_EMPTY: begin
-
-                end
-
-                RX_FIFO_IS_FULL: begin
-
+                    compare_transactions(avalon_transaction.data, 32'h00000001);
                 end
 
                 default: begin
-                    $display("%t [AVL Driver] Unknown Transaction Type:\n%s", $time, transaction.toString());
+                    $display("%t [AVL Driver] Unknown Transaction Type:\n%s", $time, avalon_transaction.toString());
                 end
             endcase
-
-            if (compare_transactions(avalon_transaction, uart_transaction)) begin
-                passed_checks++;
-                $display("%t [Scoreboard TX] Verification PASSED", $time);
-            end else begin
-                failed_checks++;
-                $display("%t [Scoreboard TX] Verification FAILED", $time);
-            end
         end
 
         $display("%t [Scoreboard TX] Monitoring complete", $time);
     endtask : run
 
-    // Function to compare Avalon and UART transactions
-    function bit compare_transactions(avalon_transaction avalon_transaction, uart_transaction uart_transaction);
-        return (avalon_transaction.data === uart_transaction.data);
+    function void compare_transactions(logic[31:0] data, logic[31:0] expected_data);
+        if (data === expected_data) begin
+            passed_checks++;
+            $display("%t [Scoreboard TX] Verification PASSED: data = 0x%h, expected_data = 0x%h", $time, data, expected_data);
+        end else begin
+            failed_checks++;
+            $display("%t [Scoreboard TX] Verification FAILED: data = 0x%h, expected_data = 0x%h", $time, data, expected_data);
+        end
     endfunction : compare_transactions
 
-    // Task for final checks and display results
     task end_display;
         $display("*****************************************************************");
         $display("TX Scoreboard: Total=%0d, Passed=%0d, Failed=%0d", total_checks, passed_checks, failed_checks);

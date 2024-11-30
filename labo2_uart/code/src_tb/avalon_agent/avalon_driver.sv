@@ -51,10 +51,10 @@ class avalon_driver#(int DATASIZE=20, int FIFOSIZE=10);
     } address_t;
 
     typedef enum logic [3:0] {
-        TX_FIFO_IS_FULL      = 4'b0001,
-        RX_FIFO_IS_FULL      = 4'b0010,
-        RX_FIFO_IS_NOT_EMPTY = 4'b0100,
-        TX_FIFO_IS_EMPTY     = 4'b1000
+        TX_FIFO_FULL      = 4'b0001,
+        RX_FIFO_FULL      = 4'b0010,
+        RX_FIFO_NOT_EMPTY = 4'b0100,
+        TX_FIFO_EMPTY     = 4'b1000
     } status_flag_t;
 
     // ***********************************************
@@ -114,7 +114,6 @@ class avalon_driver#(int DATASIZE=20, int FIFOSIZE=10);
             @(posedge vif.clk_i);
             vif.read_i = 1;
         end
-        @(posedge vif.clk_i);
         vif.read_i = 0;
     endtask
 
@@ -184,6 +183,9 @@ class avalon_driver#(int DATASIZE=20, int FIFOSIZE=10);
                 TX_FIFO_IS_EMPTY: begin
                     $display("%t [AVL Driver] Handling TX_FIFO_IS_EMPTY Transaction:\n%s", $time, transaction.toString());
                     set_clock_per_bit(CLOCK_PER_BIT);
+                    read_status_flag(TX_FIFO_EMPTY);
+                    transaction.data = vif.readdata_o;
+                    avalon_to_scoreboard_tx_fifo.put(transaction);
                     $display("[AVL Driver] TX_FIFO_IS_EMPTY Completed");
                 end
                 

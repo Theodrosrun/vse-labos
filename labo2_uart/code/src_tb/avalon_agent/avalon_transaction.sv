@@ -55,7 +55,7 @@ class avalon_transaction#(int DATASIZE=20, int FIFOSIZE=10);
     function new();
         this.timestamp        = $time;
         this.transaction_type = SET_READ_CLK_PER_BIT;
-        this.data      = '0;
+        this.data             = '0;
     endfunction
 
     // Get the name of the transaction type

@@ -147,22 +147,15 @@ class avalon_driver#(int DATASIZE=20, int FIFOSIZE=10);
 
             $display("*****************************************************************");
 
-            // Handle transactions based on their type
-            case (transaction.transaction_type)
-                SET_CLK_PER_BIT: begin
-                    $display("%t [AVL Driver] Handling SET_CLK_PER_BIT Transaction:\n%s", $time, transaction.toString());
-                    set_clock_per_bit(CLOCK_PER_BIT);
-                    $display("[AVL Driver] SET_CLK_PER_BIT Completed");
-                end
-
-                READ_CLK_PER_BIT: begin
-                    $display("%t [AVL Driver] Handling READ_CLK_PER_BIT Transaction:\n%s", $time, transaction.toString());
+            case (testcase)
+                1: begin
+                    $display("%t [AVL Driver] Handling SET_READ_CLK_PER_BIT Transaction:\n%s", $time, transaction.toString());
                     set_clock_per_bit(CLOCK_PER_BIT);
                     read(CLOCK_PER_CYCLE_ADDR);
-                    $display("[AVL Driver] READ_CLK_PER_BIT Completed: clk_per_bit = %0h", vif.readdata_o);
+                    $display("[AVL Driver] SET_READ_CLK_PER_BIT Completed: %d", vif.readdata_o);
                 end
 
-                READ_RX: begin
+                2: begin
                     $display("%t [AVL Driver] Handling READ_RX Transaction:\n%s", $time, transaction.toString());
                     set_clock_per_bit(CLOCK_PER_BIT);
                     read_status_flag(RX_FIFO_IS_NOT_EMPTY);
@@ -171,7 +164,7 @@ class avalon_driver#(int DATASIZE=20, int FIFOSIZE=10);
                     $display("[AVL Driver] READ_RX Completed");
                 end
 
-                WRITE_TX: begin
+                3: begin
                     $display("%t [AVL Driver] Handling WRITE_TX Transaction:\n%s", $time, transaction.toString());
                     set_clock_per_bit(CLOCK_PER_BIT);
                     write(WRITE_ADDR, transaction.data);
@@ -179,7 +172,7 @@ class avalon_driver#(int DATASIZE=20, int FIFOSIZE=10);
                     $display("[AVL Driver] WRITE_TX Completed");
                 end
 
-                TX_FIFO_IS_EMPTY: begin
+                4: begin
                     $display("%t [AVL Driver] Handling TX_FIFO_IS_EMPTY Transaction:\n%s", $time, transaction.toString());
                     set_clock_per_bit(CLOCK_PER_BIT);
                     read_status_flag(TX_FIFO_EMPTY);
@@ -188,7 +181,7 @@ class avalon_driver#(int DATASIZE=20, int FIFOSIZE=10);
                     $display("[AVL Driver] TX_FIFO_IS_EMPTY Completed");
                 end
                 
-                TX_FIFO_IS_FULL: begin
+                5: begin
                     $display("%t [AVL Driver] Handling READTX_FIFO_IS_FULL_RX Transaction:\n%s", $time, transaction.toString());
                     set_clock_per_bit(CLOCK_PER_BIT);
                     for (int i = 0; i < FIFOSIZE + 1; i++) begin
@@ -200,7 +193,7 @@ class avalon_driver#(int DATASIZE=20, int FIFOSIZE=10);
                     $display("[AVL Driver] TX_FIFO_IS_FULL Completed");
                 end
                 
-                RX_FIFO_IS_NOT_EMPTY: begin
+                6: begin
                     $display("%t [AVL Driver] Handling RX_FIFO_IS_NOT_EMPTY Transaction:\n%s", $time, transaction.toString());
                     set_clock_per_bit(CLOCK_PER_BIT);
                     read_status_flag(RX_FIFO_NOT_EMPTY);
@@ -209,7 +202,7 @@ class avalon_driver#(int DATASIZE=20, int FIFOSIZE=10);
                     $display("[AVL Driver] RX_FIFO_IS_NOT_EMPTY Completed");
                 end
 
-                RX_FIFO_IS_FULL: begin
+                7: begin
                     $display("%t [AVL Driver] Handling RX_FIFO_IS_FULL Transaction:\n%s", $time, transaction.toString());
                     set_clock_per_bit(CLOCK_PER_BIT);
                     read_status_flag(RX_FIFO_FULL);

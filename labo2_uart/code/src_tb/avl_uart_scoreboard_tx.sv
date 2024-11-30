@@ -69,27 +69,32 @@ class avl_uart_scoreboard_tx#(int DATASIZE=20, int FIFOSIZE=10);
 
             total_checks++;
 
-            case (avalon_transaction.transaction_type)
-                SET_CLK_PER_BIT: begin
+            case (testcase)
+                1: begin
                 end
 
-                READ_CLK_PER_BIT: begin
+                2: begin
                 end
 
-                WRITE_TX: begin
+                3: begin
                     compare_transactions(avalon_transaction.data, uart_transaction.data);
                 end
-
-                TX_FIFO_IS_EMPTY: begin
+                
+                4: begin
                     compare_transactions(avalon_transaction.data, 32'h00000008);
                 end
-                
-                TX_FIFO_IS_FULL: begin
+
+                5: begin
                     compare_transactions(avalon_transaction.data, 32'h00000001);
                 end
 
+                6: begin
+                end
+                
+                7: begin
+                end
+
                 default: begin
-                    $display("%t [AVL Driver] Unknown Transaction Type:\n%s", $time, avalon_transaction.toString());
                 end
             endcase
         end

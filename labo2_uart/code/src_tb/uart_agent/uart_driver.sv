@@ -62,16 +62,10 @@ class uart_driver#(int DATASIZE=20, int FIFOSIZE=10);
             $display("*****************************************************************");
 
             case (testcase)
-                0: begin
-                end
-
                 1: begin
                 end
 
                 2: begin
-                end
-
-                3: begin
                     vif.rx_i = 0;
                     #20;
 
@@ -86,17 +80,17 @@ class uart_driver#(int DATASIZE=20, int FIFOSIZE=10);
                     $display("[UART Driver] RECEIVE Completed");
                 end
 
-                4: begin
+                3: begin
 
+                end
+
+                4: begin
                 end
 
                 5: begin
                 end
 
                 6: begin
-                end
-
-                7: begin
                 for (int i = 0; i < FIFOSIZE + 1; i++) begin
                         vif.rx_i = 0;
                         #20;
@@ -112,7 +106,7 @@ class uart_driver#(int DATASIZE=20, int FIFOSIZE=10);
                     $display("[UART Driver] RECEIVE Completed");
                 end
 
-                8: begin
+                7: begin
                     for (int i = 0; i < FIFOSIZE + 1; i++) begin
                         vif.rx_i = 0;
                         #20;

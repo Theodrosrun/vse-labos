@@ -31,8 +31,7 @@ Ver   Date        Person     Comments
 `define AVALON_TRANSACTION_SV
 
 typedef enum int {
-    SET_CLK_PER_BIT, 
-    READ_CLK_PER_BIT, 
+    SET_READ_CLK_PER_BIT, 
     READ_RX, 
     WRITE_TX,
     TX_FIFO_IS_EMPTY,
@@ -55,15 +54,14 @@ class avalon_transaction#(int DATASIZE=20, int FIFOSIZE=10);
     // Constructor
     function new();
         this.timestamp        = $time;
-        this.transaction_type = SET_CLK_PER_BIT;
+        this.transaction_type = SET_READ_CLK_PER_BIT;
         this.data      = '0;
     endfunction
 
     // Get the name of the transaction type
     function string get_type_name();
         case (this.transaction_type)
-            SET_CLK_PER_BIT:      return "SET_CLK_PER_BIT";
-            READ_CLK_PER_BIT:     return "READ_CLK_PER_BIT";
+            SET_READ_CLK_PER_BIT: return "SET_READ_CLK_PER_BIT";
             READ_RX:              return "READ_RX";
             WRITE_TX:             return "WRITE_TX";
             TX_FIFO_IS_EMPTY:     return "TX_FIFO_IS_EMPTY";

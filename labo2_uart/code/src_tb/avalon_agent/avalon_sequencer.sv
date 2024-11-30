@@ -48,14 +48,13 @@ class avalon_sequencer#(int DATASIZE=20, int FIFOSIZE=10);
 
     task select_transaction(int TESTCASE);
         case (TESTCASE)
-            1: generate_transaction(SET_CLK_PER_BIT);
-            2: generate_transaction(READ_CLK_PER_BIT);
-            3: generate_transaction(READ_RX);
-            4: generate_transaction(WRITE_TX, 32'h000AAAAA);
-            5: generate_transaction(TX_FIFO_IS_EMPTY);
-            6: generate_transaction(TX_FIFO_IS_FULL, 32'h000AAAAA);
-            7: generate_transaction(RX_FIFO_IS_NOT_EMPTY);
-            8: generate_transaction(RX_FIFO_IS_FULL);
+            1: generate_transaction(SET_READ_CLK_PER_BIT);
+            2: generate_transaction(READ_RX);
+            3: generate_transaction(WRITE_TX, 32'h000AAAAA);
+            4: generate_transaction(TX_FIFO_IS_EMPTY);
+            5: generate_transaction(TX_FIFO_IS_FULL, 32'h000AAAAA);
+            6: generate_transaction(RX_FIFO_IS_NOT_EMPTY);
+            7: generate_transaction(RX_FIFO_IS_FULL);
             default: begin
                 $display("Unknown TESTCASE: %d", TESTCASE);
             end
@@ -67,7 +66,7 @@ class avalon_sequencer#(int DATASIZE=20, int FIFOSIZE=10);
         $display("%t [AVL Sequencer] Start", $time);
 
         if (testcase == 0) begin
-            for (integer i = 1; i <= 8; i++) begin
+            for (integer i = 1; i <= 7; i++) begin
                 select_transaction(i);
             end
         end else begin

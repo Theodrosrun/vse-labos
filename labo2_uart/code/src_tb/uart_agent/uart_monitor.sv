@@ -66,9 +66,6 @@ class uart_monitor#(int DATASIZE=20, int FIFOSIZE=10);
             $display("%t [UART Monitor] Detected start bit on tx_o", $time);
 
             case (testcase)
-                0: begin
-                end
-
                 1: begin
                 end
 
@@ -76,20 +73,17 @@ class uart_monitor#(int DATASIZE=20, int FIFOSIZE=10);
                 end
 
                 3: begin
-                end
-
-                4: begin
                     for (i = 0; i < DATASIZE; i++) begin
                         #(20);
                         reconstructed_data[i] = vif.tx_o;
                     end
+                end
+
+                4: begin
 
                 end
 
                 5: begin
-                end
-
-                6: begin
                     for (i = 0; i < FIFOSIZE + 1; i++) begin
                         for (i = 0; i < DATASIZE; i++) begin
                             #(20);
@@ -99,10 +93,11 @@ class uart_monitor#(int DATASIZE=20, int FIFOSIZE=10);
                     end
                 end
 
-                7: begin
+                6: begin
+
                 end
 
-                8: begin
+                7: begin
                 end
 
                 default: begin

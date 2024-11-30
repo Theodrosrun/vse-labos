@@ -102,7 +102,6 @@ class avl_uart_scoreboard_tx#(int DATASIZE=20, int FIFOSIZE=10);
     function void compare_transactions(logic[31:0] data, logic[31:0] expected_data);
         if (data === expected_data) begin
             passed_checks++;
-            $display("%t [Scoreboard TX] Verification PASSED: data = 0x%h, expected_data = 0x%h", $time, data, expected_data);
         end else begin
             failed_checks++;
             $display("%t [Scoreboard TX] Verification FAILED: data = 0x%h, expected_data = 0x%h", $time, data, expected_data);

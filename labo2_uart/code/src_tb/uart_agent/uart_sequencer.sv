@@ -36,72 +36,45 @@ class uart_sequencer#(int DATASIZE=20, int FIFOSIZE=10);
 
     uart_fifo_t sequencer_to_driver_fifo;
 
-    task test_all;
-        test_set_clk_per_bit;
-        test_read_clk_per_bit;
-        test_read_rx;
-        test_write_tx;
-        test_send_fifo_is_empty;
-        test_send_fifo_is_full;
-        test_receive_fifo_is_not_empty;
-        test_receive_fifo_is_full;
-    endtask
-
-    task test_set_clk_per_bit();
-    endtask
-
-    task test_read_clk_per_bit();
-    endtask
-
-    task test_read_rx();
+    task generate_transaction(uart_transaction_type_t transaction_type, logic[DATASIZE-1:0] data = '0);
         automatic uart_transaction transaction = new;
         $display("*****************************************************************");
-        transaction.transaction_type = RECEIVE;
-        transaction.data = 20'hAAAAA;
+        transaction.transaction_type = transaction_type;
+        transaction.data = data;
         $display("%t [UART Sequencer] Generated Transaction:\n%s", $time, transaction.toString());
         sequencer_to_driver_fifo.put(transaction);
     endtask
 
-    task test_write_tx();
+    // Tâche pour sélectionner et exécuter une transaction spécifique
+    task select_transaction(int TESTCASE);
+        case (TESTCASE)
+            1: generate_transaction(NONE);
+            2: generate_transaction(RECEIVE, 20'hAAAAA);
+            3: generate_transaction(NONE);
+            4: generate_transaction(NONE);
+            5: generate_transaction(NONE);
+            6: generate_transaction(NONE);
+            7: generate_transaction(NONE);
+            default: begin
+                $display("Unknown TESTCASE: %d", TESTCASE);
+            end
+        endcase
     endtask
 
-    task test_send_fifo_is_empty();
-
-    endtask
-
-    task test_send_fifo_is_full();
-    endtask
-
-    task test_receive_fifo_is_not_empty();
-    endtask
-
-    task test_receive_fifo_is_full();
-        automatic uart_transaction transaction = new;
-        $display("*****************************************************************");
-        transaction.transaction_type = RECEIVE;
-        transaction.data = 20'hAAAAA;
-        $display("%t [UART Sequencer] Generated Transaction:\n%s", $time, transaction.toString());
-        sequencer_to_driver_fifo.put(transaction);
-    endtask
-
-    task run;
+    // Exécute un ou tous les tests en fonction du paramètre TESTCASE
+    task run();
         $display("%t [UART Sequencer] Start", $time);
 
-        case (testcase)
-            0: test_all;
-            1: test_set_clk_per_bit;
-            2: test_read_clk_per_bit;
-            3: test_read_rx;
-            4: test_write_tx;
-            5: test_send_fifo_is_empty;
-            6: test_send_fifo_is_full;
-            7: test_receive_fifo_is_not_empty;
-            8: test_receive_fifo_is_full;
-            default: $display("Unkown test case %d", testcase);
-        endcase
+        if (testcase == 0) begin
+            for (integer i = 1; i <= 7; i++) begin
+                select_transaction(i);
+            end
+        end else begin
+            select_transaction(testcase);
+        end
 
         $display("%t [UART Sequencer] End", $time);
-    endtask : run
+    endtask
 
 endclass : uart_sequencer
 

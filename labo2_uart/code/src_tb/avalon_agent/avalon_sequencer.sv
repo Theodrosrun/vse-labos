@@ -48,7 +48,7 @@ class avalon_sequencer#(int DATASIZE=20, int FIFOSIZE=10);
 
     task select_transaction(int TESTCASE);
         case (TESTCASE)
-            1: generate_transaction(SET_CLK_PER_BIT, 32'h0000000A);
+            1: generate_transaction(SET_CLK_PER_BIT);
             2: generate_transaction(READ_CLK_PER_BIT);
             3: generate_transaction(READ_RX);
             4: generate_transaction(WRITE_TX, 32'h000AAAAA);

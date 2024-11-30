@@ -70,6 +70,40 @@ class avl_uart_scoreboard_tx#(int DATASIZE=20, int FIFOSIZE=10);
             // Increment total checks
             total_checks++;
 
+            case (avalon_transaction.transaction_type)
+                SET_CLK_PER_BIT: begin
+                end
+
+                READ_CLK_PER_BIT: begin
+                end
+
+                READ_RX: begin
+                end
+
+                WRITE_TX: begin
+                end
+
+                TX_FIFO_IS_EMPTY: begin
+                    
+                end
+                
+                TX_FIFO_IS_FULL: begin
+
+                end
+                
+                RX_FIFO_IS_NOT_EMPTY: begin
+
+                end
+
+                RX_FIFO_IS_FULL: begin
+
+                end
+
+                default: begin
+                    $display("%t [AVL Driver] Unknown Transaction Type:\n%s", $time, transaction.toString());
+                end
+            endcase
+
             if (compare_transactions(avalon_transaction, uart_transaction)) begin
                 passed_checks++;
                 $display("%t [Scoreboard TX] Verification PASSED", $time);

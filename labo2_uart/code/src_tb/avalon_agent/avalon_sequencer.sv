@@ -46,36 +46,36 @@ class avalon_sequencer#(int DATASIZE=20, int FIFOSIZE=10);
         sequencer_to_driver_fifo.put(transaction);
     endtask
 
-    // Specific test cases
-    task test_all();
-        generate_transaction(SET_CLK_PER_BIT, 32'h0000000A);
-        generate_transaction(READ_CLK_PER_BIT);
-        // generate_transaction(READ_RX);
-        generate_transaction(WRITE_TX, 32'h000AAAAA);
-        generate_transaction(SEND_FIFO_IS_EMPTY);
-        generate_transaction(SEND_FIFO_IS_FULL);
-        generate_transaction(RECEIVE_FIFO_IS_NOT_EMPTY);
-        generate_transaction(RECEIVE_FIFO_IS_FULL);
+    task select_transaction(int TESTCASE);
+        case (TESTCASE)
+            1: generate_transaction(SET_CLK_PER_BIT, 32'h0000000A); // Set clock period
+            2: generate_transaction(READ_CLK_PER_BIT);              // Read clock period
+            // 3: generate_transaction(READ_RX);                       // Read RX
+            4: generate_transaction(WRITE_TX, 32'h000AAAAA);        // Write TX
+            5: generate_transaction(SEND_FIFO_IS_EMPTY);            // FIFO empty
+            6: generate_transaction(SEND_FIFO_IS_FULL);             // FIFO full
+            7: generate_transaction(RECEIVE_FIFO_IS_NOT_EMPTY);     // FIFO not empty
+            8: generate_transaction(RECEIVE_FIFO_IS_FULL);          // FIFO full
+            default: begin
+                $display("Unknown TESTCASE: %d", TESTCASE);
+            end
+        endcase
     endtask
 
-    task run;
+    // Execute single or all tests based on TESTCASE parameter
+    task run();
         $display("%t [AVL Sequencer] Start", $time);
 
-        case (testcase)
-            0: test_all();
-            1: generate_transaction(SET_CLK_PER_BIT, 32'h0000000A);
-            2: generate_transaction(READ_CLK_PER_BIT);
-            3: generate_transaction(READ_RX);
-            4: generate_transaction(WRITE_TX, 32'h000AAAAA);
-            5: generate_transaction(SEND_FIFO_IS_EMPTY);
-            6: generate_transaction(SEND_FIFO_IS_FULL);
-            7: generate_transaction(RECEIVE_FIFO_IS_NOT_EMPTY);
-            8: generate_transaction(RECEIVE_FIFO_IS_FULL);
-            default: $display("Unknown test case %d", testcase);
-        endcase
+        if (testcase == 0) begin
+            for (integer i = 1; i <= 8; i++) begin
+                select_transaction(i);
+            end
+        end else begin
+            select_transaction(testcase);
+        end
 
         $display("%t [AVL Sequencer] End", $time);
-    endtask : run
+    endtask
 
 endclass : avalon_sequencer
 

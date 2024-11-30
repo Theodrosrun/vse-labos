@@ -31,7 +31,10 @@ Ver   Date        Person     Comments
 `define UART_TRANSACTION_SV
 
 // Enumeration for UART transaction types
-typedef enum {SEND, RECEIVE} uart_transaction_type_t;
+typedef enum {
+    SEND, 
+    RECEIVE
+    } uart_transaction_type_t;
 
 class uart_transaction#(int DATASIZE=20, int FIFOSIZE=10);
 

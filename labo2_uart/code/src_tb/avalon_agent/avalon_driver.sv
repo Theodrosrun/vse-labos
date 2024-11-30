@@ -165,7 +165,6 @@ class avalon_driver#(int DATASIZE=20, int FIFOSIZE=10);
                 READ_RX: begin
                     $display("%t [AVL Driver] Handling READ_RX Transaction:\n%s", $time, transaction.toString());
                     set_clock_per_bit(CLOCK_PER_BIT);
-                    #500
                     read_status_flag(RX_FIFO_IS_NOT_EMPTY);
                     transaction.data = vif.readdata_o;
                     avalon_to_scoreboard_rx_fifo.put(transaction);
@@ -213,7 +212,7 @@ class avalon_driver#(int DATASIZE=20, int FIFOSIZE=10);
                 RX_FIFO_IS_FULL: begin
                     $display("%t [AVL Driver] Handling RX_FIFO_IS_FULL Transaction:\n%s", $time, transaction.toString());
                     set_clock_per_bit(CLOCK_PER_BIT);
-                    read_status_flag(RX_FIFO_IS_FULL);
+                    read_status_flag(RX_FIFO_FULL);
                     transaction.data = vif.readdata_o;
                     avalon_to_scoreboard_rx_fifo.put(transaction);
                     $display("[AVL Driver] RX_FIFO_IS_FULL Completed");

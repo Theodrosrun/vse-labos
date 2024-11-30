@@ -30,7 +30,16 @@ Ver   Date        Person     Comments
 `ifndef AVALON_TRANSACTION_SV
 `define AVALON_TRANSACTION_SV
 
-typedef enum int {SET_CLK_PER_BIT, READ_CLK_PER_BIT, READ_RX, WRITE_TX} avalon_transaction_type_t;
+typedef enum int {
+    SET_CLK_PER_BIT, 
+    READ_CLK_PER_BIT, 
+    READ_RX, 
+    WRITE_TX,
+    SEND_FIFO_EMPTY,
+    SEND_FIFO_FULL,
+    RECEIVE_FIFO_NOT_EMPTY,
+    RECEIVE_FIFP_FULL,
+    } avalon_transaction_type_t;
 
 class avalon_transaction#(int DATASIZE=20, int FIFOSIZE=10);
 
@@ -53,11 +62,15 @@ class avalon_transaction#(int DATASIZE=20, int FIFOSIZE=10);
     // Get the name of the transaction type
     function string get_type_name();
         case (this.transaction_type)
-            SET_CLK_PER_BIT:  return "SET_CLK_PER_BIT";
-            READ_CLK_PER_BIT: return "READ_CLK_PER_BIT";
-            READ_RX:          return "READ_RX";
-            WRITE_TX:         return "WRITE_TX";
-            default:          return "UNKNOWN";
+            SET_CLK_PER_BIT:        return "SET_CLK_PER_BIT";
+            READ_CLK_PER_BIT:       return "READ_CLK_PER_BIT";
+            READ_RX:                return "READ_RX";
+            WRITE_TX:               return "WRITE_TX";
+            SEND_FIFO_EMPTY:        return "SEND_FIFO_EMPTY";
+            SEND_FIFO_FULL:         return "SEND_FIFO_FULL";
+            RECEIVE_FIFO_NOT_EMPTY: return "RECEIVE_FIFO_NOT_EMPTY";
+            RECEIVE_FIFP_FULL:      return "RECEIVE_FIFP_FULL";
+            default:                return "UNKNOWN";
         endcase
     endfunction
 

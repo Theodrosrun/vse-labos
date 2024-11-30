@@ -41,6 +41,10 @@ class avalon_sequencer#(int DATASIZE=20, int FIFOSIZE=10);
         test_read_clk_per_bit;
         test_read_rx;
         test_write_tx;
+        test_send_fifo_empty;
+        test_send_fifo_full;
+        test_receive_fifo_not_empty;
+        test_receive_fifo_full;
     endtask
 
     task test_set_clk_per_bit();
@@ -77,6 +81,38 @@ class avalon_sequencer#(int DATASIZE=20, int FIFOSIZE=10);
         sequencer_to_driver_fifo.put(transaction);
     endtask
 
+    task test_send_fifo_empty();
+        automatic avalon_transaction transaction = new;
+        $display("*****************************************************************");
+        transaction.transaction_type = SEND_FIFO_EMPTY;
+        $display("%t [AVL Sequencer] Generated Transaction:\n%s", $time, transaction.toString());
+        sequencer_to_driver_fifo.put(transaction);
+    endtask
+
+    task test_send_fifo_full();
+        automatic avalon_transaction transaction = new;
+        $display("*****************************************************************");
+        transaction.transaction_type = SEND_FIFO_full;
+        $display("%t [AVL Sequencer] Generated Transaction:\n%s", $time, transaction.toString());
+        sequencer_to_driver_fifo.put(transaction);
+    endtask
+
+    task test_receive_fifo_not_empty();
+        automatic avalon_transaction transaction = new;
+        $display("*****************************************************************");
+        transaction.transaction_type = RECEIVE_FIFO_NOT_EMPTY;
+        $display("%t [AVL Sequencer] Generated Transaction:\n%s", $time, transaction.toString());
+        sequencer_to_driver_fifo.put(transaction);
+    endtask
+
+    task test_receive_fifo_full();
+        automatic avalon_transaction transaction = new;
+        $display("*****************************************************************");
+        transaction.transaction_type = RECEIVE_FIFO_FULL;
+        $display("%t [AVL Sequencer] Generated Transaction:\n%s", $time, transaction.toString());
+        sequencer_to_driver_fifo.put(transaction);
+    endtask
+
     task run;
         $display("%t [AVL Sequencer] Start", $time);
 
@@ -86,6 +122,10 @@ class avalon_sequencer#(int DATASIZE=20, int FIFOSIZE=10);
             2: test_read_clk_per_bit;
             3: test_read_rx;
             4: test_write_tx;
+            5: test_send_fifo_empty;
+            6: test_send_fifo_full;
+            7: test_receive_fifo_not_empty;
+            8: test_receive_fifo_full;
             default: $display("Unkown test case %d", testcase);
         endcase
 

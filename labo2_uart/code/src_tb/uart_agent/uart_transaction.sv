@@ -33,8 +33,7 @@ Ver   Date        Person     Comments
 // Enumeration for UART transaction types
 typedef enum {
     SEND, 
-    RECEIVE,
-    NONE
+    RECEIVE
     } uart_transaction_type_t;
 
 class uart_transaction#(int DATASIZE=20, int FIFOSIZE=10);
@@ -58,7 +57,6 @@ class uart_transaction#(int DATASIZE=20, int FIFOSIZE=10);
         case (this.transaction_type)
             SEND:    return "SEND";
             RECEIVE: return "RECEIVE";
-            NONE:    return "NONE";
             default: return "UNKNOWN";
         endcase
     endfunction

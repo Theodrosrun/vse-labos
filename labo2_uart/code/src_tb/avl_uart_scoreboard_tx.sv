@@ -62,9 +62,7 @@ class avl_uart_scoreboard_tx#(int DATASIZE=20, int FIFOSIZE=10);
             // Get transactions from FIFOs
             objections_pkg::objection::get_inst().drop();
             avalon_to_scoreboard_tx_fifo.get(avalon_transaction);
-            if(avalon_transaction.transaction_type != TX_FIFO_IS_EMPTY) begin
-                uart_to_scoreboard_tx_fifo.get(uart_transaction);
-            end
+            uart_to_scoreboard_tx_fifo.get(uart_transaction);
             objections_pkg::objection::get_inst().raise();
 
             $display("*****************************************************************");

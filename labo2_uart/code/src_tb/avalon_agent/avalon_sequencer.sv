@@ -53,7 +53,7 @@ class avalon_sequencer#(int DATASIZE=20, int FIFOSIZE=10);
             3: generate_transaction(READ_RX);
             4: generate_transaction(WRITE_TX, 32'h000AAAAA);
             5: generate_transaction(TX_FIFO_IS_EMPTY);
-            6: generate_transaction(TX_FIFO_IS_FULL);
+            6: generate_transaction(TX_FIFO_IS_FULL, 32'h000AAAAA);
             7: generate_transaction(RX_FIFO_IS_NOT_EMPTY);
             8: generate_transaction(RX_FIFO_IS_FULL);
             default: begin

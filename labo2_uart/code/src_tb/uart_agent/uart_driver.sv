@@ -91,18 +91,16 @@ class uart_driver#(int DATASIZE=20, int FIFOSIZE=10);
                 end
 
                 6: begin
-                for (int i = 0; i < FIFOSIZE + 1; i++) begin
-                        vif.rx_i = 0;
-                        #20;
+                    vif.rx_i = 0;
+                    #20;
 
-                        for (int i = 0; i < DATASIZE; i++) begin
-                            vif.rx_i = transaction.data[i];
-                            #20;
-                        end
-
-                        vif.rx_i = 1;
+                    for (int i = 0; i < DATASIZE; i++) begin
+                        vif.rx_i = transaction.data[i];
                         #20;
                     end
+
+                    vif.rx_i = 1;
+                    #20;
                     $display("[UART Driver] RECEIVE Completed");
                 end
 

@@ -53,8 +53,8 @@ class uart_sequencer#(int DATASIZE=20, int FIFOSIZE=10);
             3: generate_transaction(NONE);
             4: generate_transaction(NONE);
             5: generate_transaction(NONE);
-            6: generate_transaction(NONE);
-            7: generate_transaction(NONE);
+            6: generate_transaction(NONE, 20'hAAAAA);
+            7: generate_transaction(NONE, 20'hAAAAA);
             default: begin
                 $display("Unknown TESTCASE: %d", TESTCASE);
             end

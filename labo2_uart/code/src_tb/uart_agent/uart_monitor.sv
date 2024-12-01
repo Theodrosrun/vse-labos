@@ -74,7 +74,7 @@ class uart_monitor#(int DATASIZE=20, int FIFOSIZE=10);
 
                 3: begin
                     for (i = 0; i < DATASIZE; i++) begin
-                        #(20);
+                        #(200);
                         reconstructed_data[i] = vif.tx_o;
                     end
                 end
@@ -86,7 +86,7 @@ class uart_monitor#(int DATASIZE=20, int FIFOSIZE=10);
                 5: begin
                     for (i = 0; i < FIFOSIZE + 1; i++) begin
                         for (i = 0; i < DATASIZE; i++) begin
-                            #(20);
+                            #(200);
                             reconstructed_data[i] = vif.tx_o;
                         end
                         @(negedge vif.tx_o);

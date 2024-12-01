@@ -109,7 +109,7 @@ class avl_uart_scoreboard_rx#(int DATASIZE=20, int FIFOSIZE=10);
             passed_checks++;
         end else begin
             failed_checks++;
-            $display("%t [Scoreboard TX] Verification FAILED: data = 0x%h, expected_data = 0x%h", $time, data, expected_data);
+            $display("%t [Scoreboard RX] Verification FAILED: data = 0x%h, expected_data = 0x%h", $time, data, expected_data);
         end
     endfunction : compare_transactions
 

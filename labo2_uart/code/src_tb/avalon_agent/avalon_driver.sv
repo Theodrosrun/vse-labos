@@ -129,7 +129,7 @@ class avalon_driver#(int DATASIZE=20, int FIFOSIZE=10);
             case (transaction.transaction_type)
                 SET_CLK_PER_BIT: begin
                     $display("%t [AVL Driver] Handling SET_CLK_PER_BIT Transaction:\n%s", $time, transaction.toString());
-                     write(CLOCK_PER_CYCLE_ADDR, transaction.data);
+                    write(CLOCK_PER_CYCLE_ADDR, transaction.data);
                     $display("[AVL Driver] SET_CLK_PER_BIT Completed");
                 end
 
@@ -166,10 +166,9 @@ class avalon_driver#(int DATASIZE=20, int FIFOSIZE=10);
                 
                 TX_FIFO_IS_FULL: begin
                     $display("%t [AVL Driver] Handling TX_FIFO_IS_FULL Transaction:\n%s", $time, transaction.toString());
-                    for (int i = 0; i < FIFOSIZE + 1; i++) begin
-                        write(WRITE_ADDR, transaction.data);
-                    end
                     read_status_flag(TX_FIFO_FULL);
+                    assert ((vif.readdata_o & TX_FIFO_FULL));
+                    assert (!(vif.readdata_o & TX_FIFO_EMPTY));
                     $display("[AVL Driver] TX_FIFO_IS_FULL Completed");
                 end
                 

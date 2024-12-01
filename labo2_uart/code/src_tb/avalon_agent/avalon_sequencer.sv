@@ -91,13 +91,24 @@ class avalon_sequencer#(int DATASIZE=20, int FIFOSIZE=10);
         sequencer_to_driver_fifo.put(transaction);
     endtask
 
-    // Generic task to generate transactions
-    task generate_transaction(avalon_transaction_type_t transaction_type, logic[31:0] data = '0);
-        automatic avalon_transaction transaction = new;
-        $display("*****************************************************************");
-        transaction.transaction_type = transaction_type;
-        transaction.data = data;
-        $display("%t [AVL Sequencer] Generated Transaction:\n%s", $time, transaction.toString());
+    task test_tx_fifo_is_full;
+        automatic avalon_transaction transaction;
+
+        set_clk_per_bit();
+
+        transaction = new;
+        transaction.transaction_type = TX_FIFO_IS_EMPTY;
+        sequencer_to_driver_fifo.put(transaction);
+
+        for (int i = 0; i < FIFOSIZE + 1; ++i) begin
+            transaction = new;
+            transaction.transaction_type = WRITE_TX;
+            transaction.data = i;
+            sequencer_to_driver_fifo.put(transaction);
+        end
+
+        transaction = new;
+        transaction.transaction_type = TX_FIFO_IS_FULL;
         sequencer_to_driver_fifo.put(transaction);
     endtask
 
@@ -105,11 +116,7 @@ class avalon_sequencer#(int DATASIZE=20, int FIFOSIZE=10);
         case (TESTCASE)
             1: test_write();
             2: test_read();
-            3: generate_transaction(WRITE_TX, 32'h000AAAAA);
-            4: generate_transaction(TX_FIFO_IS_EMPTY);
-            5: generate_transaction(TX_FIFO_IS_FULL, 32'h000AAAAA);
-            6: generate_transaction(RX_FIFO_IS_NOT_EMPTY);
-            7: generate_transaction(RX_FIFO_IS_FULL);
+            3: test_tx_fifo_is_full();
             default: begin
                 $display("Unknown TESTCASE: %d", TESTCASE);
             end

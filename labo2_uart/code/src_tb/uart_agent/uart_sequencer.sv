@@ -43,32 +43,17 @@ class uart_sequencer#(int DATASIZE=20, int FIFOSIZE=10);
         sequencer_to_driver_fifo.put(transaction);
     endtask
 
-    task generate_transaction(uart_transaction_type_t transaction_type, logic[DATASIZE-1:0] data = '0);
-        automatic uart_transaction transaction = new;
-        $display("*****************************************************************");
-        transaction.transaction_type = transaction_type;
-        transaction.data = data;
-        $display("%t [UART Sequencer] Generated Transaction:\n%s", $time, transaction.toString());
-        sequencer_to_driver_fifo.put(transaction);
-    endtask
-
-    // Tâche pour sélectionner et exécuter une transaction spécifique
     task select_test(int TESTCASE);
         case (TESTCASE)
-            1: ;
+            1:;
             2: test_read();
-            //3: generate_transaction(NONE);
-            //4: generate_transaction(NONE);
-            //5: generate_transaction(NONE);
-            //6: generate_transaction(NONE, 20'h12345);
-            //7: generate_transaction(NONE, 20'hAAAAA);
+            3:;
             default: begin
                 $display("Unknown TESTCASE: %d", TESTCASE);
             end
         endcase
     endtask
 
-    // Exécute un ou tous les tests en fonction du paramètre TESTCASE
     task run();
         $display("%t [UART Sequencer] Start", $time);
 

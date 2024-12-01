@@ -74,6 +74,7 @@ class avalon_driver#(int DATASIZE=20, int FIFOSIZE=10);
         vif.writedata_i = data;
         vif.read_i      = 0;
         @(posedge vif.clk_i);
+        wait_slave_ready();
         vif.write_i = 0;
     endtask
 

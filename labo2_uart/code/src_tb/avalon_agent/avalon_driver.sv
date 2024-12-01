@@ -72,12 +72,14 @@ class avalon_driver#(int DATASIZE=20, int FIFOSIZE=10);
         vif.address_i   = address;
         vif.write_i     = 1;
         vif.writedata_i = data;
+        vif.read_i      = 0;
         @(posedge vif.clk_i);
         vif.write_i = 0;
     endtask
 
     task read(logic [13:0] address);
         vif.address_i = address;
+        vif.write_i   = 0;
         vif.read_i    = 1;
         while (!vif.readdatavalid_o) begin
             @(posedge vif.clk_i);
@@ -113,11 +115,7 @@ class avalon_driver#(int DATASIZE=20, int FIFOSIZE=10);
 
         // Loop to process transactions
         while (1) begin
-            // Reset signals
-            vif.address_i    = 0;
-            vif.write_i      = 0;
-            vif.writedata_i  = 0;
-            vif.read_i       = 0;
+           @(posedge vif.clk_i);
                         
             // Get a transaction from the sequencer-to-driver FIFO
             sequencer_to_driver_fifo.get(transaction);

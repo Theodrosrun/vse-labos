@@ -182,7 +182,7 @@ class avalon_driver#(int DATASIZE=20, int FIFOSIZE=10);
                 end
                 
                 5: begin
-                    $display("%t [AVL Driver] Handling READTX_FIFO_IS_FULL_RX Transaction:\n%s", $time, transaction.toString());
+                    $display("%t [AVL Driver] Handling TX_FIFO_FULL Transaction:\n%s", $time, transaction.toString());
                     set_clock_per_bit(CLOCK_PER_BIT);
                     for (int i = 0; i < FIFOSIZE + 1; i++) begin
                         write(WRITE_ADDR, transaction.data);

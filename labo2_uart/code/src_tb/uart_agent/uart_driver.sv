@@ -55,77 +55,26 @@ class uart_driver#(int DATASIZE=20, int FIFOSIZE=10);
         // Loop to process transactions
         while (1) begin
             // Get a transaction from the sequencer-to-driver FIFO
-            objections_pkg::objection::get_inst().drop();
             sequencer_to_driver_fifo.get(transaction);
             objections_pkg::objection::get_inst().raise();
 
             $display("*****************************************************************");
 
-            case (testcase)
-                1: begin
-                end
+            vif.rx_i = 0;
+            #200;
 
-                2: begin
-                    vif.rx_i = 0;
-                    #200;
+            for (int i = 0; i < DATASIZE; i++) begin
+                vif.rx_i = transaction.data[DATASIZE - 1 - i];
+                #200;
+            end
 
-                    for (int i = 0; i < DATASIZE; i++) begin
-                        vif.rx_i = transaction.data[DATASIZE - 1 - i];
-                        #200;
-                    end
+            vif.rx_i = 1;
+            #200;
 
-                    vif.rx_i = 1;
-                    #200;
-
-                    $display("[UART Driver] RECEIVE Completed");
-                end
-
-                3: begin
-
-                end
-
-                4: begin
-                end
-
-                5: begin
-                end
-
-                6: begin
-                    vif.rx_i = 0;
-                    #200;
-
-                    for (int i = 0; i < DATASIZE; i++) begin
-                        vif.rx_i = transaction.data[i];
-                        #200;
-                    end
-
-                    vif.rx_i = 1;
-                    #200;
-                    $display("[UART Driver] RECEIVE Completed");
-                end
-
-                7: begin
-                    for (int i = 0; i < FIFOSIZE + 1; i++) begin
-                        vif.rx_i = 0;
-                        #200;
-
-                        for (int i = 0; i < DATASIZE; i++) begin
-                            vif.rx_i = transaction.data[i];
-                            #200;
-                        end
-
-                        vif.rx_i = 1;
-                        #200;
-                    end
-                    $display("[UART Driver] RECEIVE Completed");
-                end
-
-                default: begin
-                    $display("%t [UART Driver] Unknown test case:\n%d", $time, testcase);
-                end
-            endcase
-
+            $display("[UART Driver] RECEIVE Completed");
+            
             uart_to_scoreboard_rx_fifo.put(transaction);
+            objections_pkg::objection::get_inst().drop();
         end
 
         $display("%t [UART Driver] End", $time);

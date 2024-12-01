@@ -55,60 +55,23 @@ class uart_monitor#(int DATASIZE=20, int FIFOSIZE=10);
         while (1) begin
             automatic int i;
             automatic uart_transaction#(DATASIZE, FIFOSIZE) transaction = new;
-            automatic logic [DATASIZE-1:0] reconstructed_data;
 
             objections_pkg::objection::get_inst().drop();
             @(negedge vif.tx_o);
             objections_pkg::objection::get_inst().raise();
 
             $display("*****************************************************************");
-
             $display("%t [UART Monitor] Detected start bit on tx_o", $time);
 
-            case (testcase)
-                1: begin
-                end
-
-                2: begin
-                end
-
-                3: begin
-                    for (i = 0; i < DATASIZE; i++) begin
-                        #(200);
-                        reconstructed_data[i] = vif.tx_o;
-                    end
-                end
-
-                4: begin
-
-                end
-
-                5: begin
-                    for (i = 0; i < FIFOSIZE + 1; i++) begin
-                        for (i = 0; i < DATASIZE; i++) begin
-                            #(200);
-                            reconstructed_data[i] = vif.tx_o;
-                        end
-                        @(negedge vif.tx_o);
-                    end
-                end
-
-                6: begin
-
-                end
-
-                7: begin
-                end
-
-                default: begin
-                    $display("%t [UART Monitor] Unknown test case:\n%d", $time, testcase);
-                end
-            endcase
+            for (i = 0; i < DATASIZE; i++) begin
+                #(200);
+                transaction.data[i] = vif.tx_o;
+            end
 
             transaction.timestamp = $time;
             transaction.transaction_type = SEND;
-            transaction.data = reconstructed_data;
             uart_to_scoreboard_tx_fifo.put(transaction);
+
             $display("%t [UART Monitor] Transaction captured and sent to scoreboard: %s", $time, transaction.toString());
         end
     endtask

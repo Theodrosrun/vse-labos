@@ -36,6 +36,13 @@ class uart_sequencer#(int DATASIZE=20, int FIFOSIZE=10);
 
     uart_fifo_t sequencer_to_driver_fifo;
 
+    task test_read;
+        automatic uart_transaction transaction = new;
+        transaction.transaction_type = RECEIVE;
+        transaction.data = 20'h54321;
+        sequencer_to_driver_fifo.put(transaction);
+    endtask
+
     task generate_transaction(uart_transaction_type_t transaction_type, logic[DATASIZE-1:0] data = '0);
         automatic uart_transaction transaction = new;
         $display("*****************************************************************");
@@ -46,15 +53,15 @@ class uart_sequencer#(int DATASIZE=20, int FIFOSIZE=10);
     endtask
 
     // Tâche pour sélectionner et exécuter une transaction spécifique
-    task select_transaction(int TESTCASE);
+    task select_test(int TESTCASE);
         case (TESTCASE)
-            1: generate_transaction(NONE);
-            2: generate_transaction(RECEIVE, 20'h54321);
-            3: generate_transaction(NONE);
-            4: generate_transaction(NONE);
-            5: generate_transaction(NONE);
-            6: generate_transaction(NONE, 20'h12345);
-            7: generate_transaction(NONE, 20'hAAAAA);
+            1: ;
+            2: test_read();
+            //3: generate_transaction(NONE);
+            //4: generate_transaction(NONE);
+            //5: generate_transaction(NONE);
+            //6: generate_transaction(NONE, 20'h12345);
+            //7: generate_transaction(NONE, 20'hAAAAA);
             default: begin
                 $display("Unknown TESTCASE: %d", TESTCASE);
             end
@@ -67,10 +74,10 @@ class uart_sequencer#(int DATASIZE=20, int FIFOSIZE=10);
 
         if (testcase == 0) begin
             for (integer i = 1; i <= 7; i++) begin
-                select_transaction(i);
+                select_test(i);
             end
         end else begin
-            select_transaction(testcase);
+            select_test(testcase);
         end
 
         $display("%t [UART Sequencer] End", $time);

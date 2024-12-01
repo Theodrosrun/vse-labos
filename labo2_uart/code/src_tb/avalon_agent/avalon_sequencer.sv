@@ -36,6 +36,61 @@ class avalon_sequencer#(int DATASIZE=20, int FIFOSIZE=10);
 
     avalon_fifo_t sequencer_to_driver_fifo;
 
+    // ***********************************************
+    // ******************* Params ********************
+    // ***********************************************
+
+    int CLOCK_PER_BIT = 10;
+
+    // ***********************************************
+    // ****************** Methods ********************
+    // ***********************************************
+
+    task set_clk_per_bit();
+        automatic avalon_transaction transaction = new;
+
+        transaction.transaction_type = SET_CLK_PER_BIT;
+        transaction.data = CLOCK_PER_BIT;
+        sequencer_to_driver_fifo.put(transaction);
+    endtask
+
+    task test_write();
+        automatic avalon_transaction transaction;
+
+        set_clk_per_bit();
+
+        transaction = new;
+        transaction.transaction_type = TX_FIFO_IS_EMPTY;
+        sequencer_to_driver_fifo.put(transaction);
+
+        transaction = new;
+        transaction.transaction_type = WRITE_TX;
+        transaction.data = 32'hAAAAA;
+        sequencer_to_driver_fifo.put(transaction);
+
+        transaction = new;
+        transaction.transaction_type = TX_FIFO_IS_NOT_EMPTY;
+        sequencer_to_driver_fifo.put(transaction);
+    endtask
+
+    task test_read;
+        automatic avalon_transaction transaction;
+
+        set_clk_per_bit();
+
+        transaction = new;
+        transaction.transaction_type = RX_FIFO_IS_EMPTY;
+        sequencer_to_driver_fifo.put(transaction);
+
+        transaction = new;
+        transaction.transaction_type = READ_RX;
+        sequencer_to_driver_fifo.put(transaction);
+
+        transaction = new;
+        transaction.transaction_type = RX_FIFO_IS_EMPTY;
+        sequencer_to_driver_fifo.put(transaction);
+    endtask
+
     // Generic task to generate transactions
     task generate_transaction(avalon_transaction_type_t transaction_type, logic[31:0] data = '0);
         automatic avalon_transaction transaction = new;
@@ -46,10 +101,10 @@ class avalon_sequencer#(int DATASIZE=20, int FIFOSIZE=10);
         sequencer_to_driver_fifo.put(transaction);
     endtask
 
-    task select_transaction(int TESTCASE);
+    task select_test(int TESTCASE);
         case (TESTCASE)
-            1: generate_transaction(SET_READ_CLK_PER_BIT);
-            2: generate_transaction(READ_RX);
+            1: test_write();
+            2: test_read();
             3: generate_transaction(WRITE_TX, 32'h000AAAAA);
             4: generate_transaction(TX_FIFO_IS_EMPTY);
             5: generate_transaction(TX_FIFO_IS_FULL, 32'h000AAAAA);
@@ -67,10 +122,10 @@ class avalon_sequencer#(int DATASIZE=20, int FIFOSIZE=10);
 
         if (testcase == 0) begin
             for (integer i = 1; i <= 7; i++) begin
-                select_transaction(i);
+                select_test(i);
             end
         end else begin
-            select_transaction(testcase);
+            select_test(testcase);
         end
 
         $display("%t [AVL Sequencer] End", $time);

@@ -60,7 +60,6 @@ class avl_uart_scoreboard_tx#(int DATASIZE=20, int FIFOSIZE=10);
 
         while (1) begin
             // Get transactions from FIFOs
-            objections_pkg::objection::get_inst().drop();
             avalon_to_scoreboard_tx_fifo.get(avalon_transaction);
             uart_to_scoreboard_tx_fifo.get(uart_transaction);
             objections_pkg::objection::get_inst().raise();
@@ -68,35 +67,8 @@ class avl_uart_scoreboard_tx#(int DATASIZE=20, int FIFOSIZE=10);
             $display("*****************************************************************");
 
             total_checks++;
-
-            case (testcase)
-                1: begin
-                end
-
-                2: begin
-                end
-
-                3: begin
-                    compare_transactions(avalon_transaction.data, uart_transaction.data);
-                end
-                
-                4: begin
-                    compare_transactions(avalon_transaction.data, 32'h00000008);
-                end
-
-                5: begin
-                    compare_transactions(avalon_transaction.data, 32'h00000001);
-                end
-
-                6: begin
-                end
-                
-                7: begin
-                end
-
-                default: begin
-                end
-            endcase
+            compare_transactions(avalon_transaction.data, uart_transaction.data);
+            objections_pkg::objection::get_inst().drop();
         end
 
         $display("%t [Scoreboard TX] Monitoring complete", $time);

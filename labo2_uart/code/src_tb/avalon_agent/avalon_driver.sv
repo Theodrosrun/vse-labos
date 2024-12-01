@@ -58,12 +58,6 @@ typedef enum logic [31:0] {
     } status_flag_t;
 
     // ***********************************************
-    // ******************* Params ********************
-    // ***********************************************
-
-    int CLOCK_PER_BIT = 10;
-
-    // ***********************************************
     // **************** Base methods *****************
     // ***********************************************
 
@@ -89,14 +83,6 @@ typedef enum logic [31:0] {
             @(posedge vif.clk_i);
             vif.read_i = 0;
         end
-    endtask
-
-    // ***********************************************
-    // *************** Helper methods ****************
-    // ***********************************************
-
-    task set_clock_per_bit(logic [31:0] data);
-         write(CLOCK_PER_CYCLE_ADDR, data);
     endtask
 
     task read_status_flag(logic [31:0] flag);     
@@ -134,81 +120,82 @@ typedef enum logic [31:0] {
             vif.read_i       = 0;
                         
             // Get a transaction from the sequencer-to-driver FIFO
-            objections_pkg::objection::get_inst().drop();
             sequencer_to_driver_fifo.get(transaction);
+
             objections_pkg::objection::get_inst().raise();
 
             $display("*****************************************************************");
 
-            case (testcase)
-                1: begin
-                    $display("%t [AVL Driver] Handling SET_READ_CLK_PER_BIT Transaction:\n%s", $time, transaction.toString());
-                    set_clock_per_bit(CLOCK_PER_BIT);
-                    read(CLOCK_PER_CYCLE_ADDR);
-                    $display("[AVL Driver] SET_READ_CLK_PER_BIT Completed: %d", vif.readdata_o);
+            case (transaction.transaction_type)
+                SET_CLK_PER_BIT: begin
+                     write(CLOCK_PER_CYCLE_ADDR, transaction.data);
                 end
 
-                2: begin
+                WRITE_TX: begin
+                    $display("%t [AVL Driver] Handling WRITE_TX Transaction:\n%s", $time, transaction.toString());
+                    write(WRITE_ADDR, transaction.data);
+                    avalon_to_scoreboard_tx_fifo.put(transaction);
+                    $display("[AVL Driver] WRITE_TX Completed");
+                end
+
+                READ_RX: begin
                     $display("%t [AVL Driver] Handling READ_RX Transaction:\n%s", $time, transaction.toString());
-                    set_clock_per_bit(CLOCK_PER_BIT);
-                    read_status_flag(RX_FIFO_NOT_EMPTY);
-                    @(posedge vif.clk_i);
                     read(READ_ADDR);
                     transaction.data = vif.readdata_o;
                     avalon_to_scoreboard_rx_fifo.put(transaction);
                     $display("[AVL Driver] READ_RX Completed");
                 end
 
-                3: begin
-                    $display("%t [AVL Driver] Handling WRITE_TX Transaction:\n%s", $time, transaction.toString());
-                    set_clock_per_bit(CLOCK_PER_BIT);
-                    write(WRITE_ADDR, transaction.data);
-                    avalon_to_scoreboard_tx_fifo.put(transaction);
-                    $display("[AVL Driver] WRITE_TX Completed");
-                end
-
-                4: begin
+                TX_FIFO_IS_EMPTY: begin
                     $display("%t [AVL Driver] Handling TX_FIFO_IS_EMPTY Transaction:\n%s", $time, transaction.toString());
-                    set_clock_per_bit(CLOCK_PER_BIT);
                     read_status_flag(TX_FIFO_EMPTY);
-                    transaction.data = (vif.readdata_o & TX_FIFO_EMPTY);
-                    avalon_to_scoreboard_tx_fifo.put(transaction);
+                    assert (!(vif.readdata_o & TX_FIFO_FULL));
+                    assert (vif.readdata_o & TX_FIFO_EMPTY);
                     $display("[AVL Driver] TX_FIFO_IS_EMPTY Completed");
                 end
+
+                TX_FIFO_IS_NOT_EMPTY: begin
+                    $display("%t [AVL Driver] Handling TX_FIFO_IS_NOT_EMPTY Transaction:\n%s", $time, transaction.toString());
+                    read_status_flag(TX_FIFO_EMPTY);
+                    assert (!(vif.readdata_o & TX_FIFO_FULL));
+                    assert (!(vif.readdata_o & TX_FIFO_EMPTY));
+                    $display("[AVL Driver] TX_FIFO_IS_NOT_EMPTY Completed");
+                end
                 
-                5: begin
+                TX_FIFO_IS_FULL: begin
                     $display("%t [AVL Driver] Handling TX_FIFO_FULL Transaction:\n%s", $time, transaction.toString());
-                    set_clock_per_bit(CLOCK_PER_BIT);
                     for (int i = 0; i < FIFOSIZE + 1; i++) begin
                         write(WRITE_ADDR, transaction.data);
                     end
                     read_status_flag(TX_FIFO_FULL);
-                    transaction.data = (vif.readdata_o & TX_FIFO_FULL);
-                    avalon_to_scoreboard_tx_fifo.put(transaction);
                     $display("[AVL Driver] TX_FIFO_IS_FULL Completed");
                 end
                 
-                6: begin
+                RX_FIFO_IS_EMPTY: begin
                     $display("%t [AVL Driver] Handling RX_FIFO_IS_NOT_EMPTY Transaction:\n%s", $time, transaction.toString());
-                    set_clock_per_bit(CLOCK_PER_BIT);
-                    read_status_flag(RX_FIFO_NOT_EMPTY);
-                    transaction.data = (vif.readdata_o & RX_FIFO_NOT_EMPTY);
-                    avalon_to_scoreboard_rx_fifo.put(transaction);
+                    read_status_flag(TX_FIFO_EMPTY);
+                    assert (!(vif.readdata_o & RX_FIFO_NOT_EMPTY));
+                    assert (!(vif.readdata_o & RX_FIFO_FULL));
                     $display("[AVL Driver] RX_FIFO_IS_NOT_EMPTY Completed");
                 end
 
-                7: begin
+                RX_FIFO_IS_NOT_EMPTY: begin
+                    $display("%t [AVL Driver] Handling RX_FIFO_IS_NOT_EMPTY Transaction:\n%s", $time, transaction.toString());
+                    read_status_flag(RX_FIFO_NOT_EMPTY);
+                    $display("[AVL Driver] RX_FIFO_IS_NOT_EMPTY Completed");
+                end
+
+                RX_FIFO_IS_FULL: begin
                     $display("%t [AVL Driver] Handling RX_FIFO_IS_FULL Transaction:\n%s", $time, transaction.toString());
-                    set_clock_per_bit(CLOCK_PER_BIT);
                     read_status_flag(RX_FIFO_FULL);
-                    transaction.data = (vif.readdata_o & RX_FIFO_FULL);
-                    avalon_to_scoreboard_rx_fifo.put(transaction);
                     $display("[AVL Driver] RX_FIFO_IS_FULL Completed");
                 end
                 default: begin
                     $display("%t [AVL Driver] Unknown Transaction Type:\n%s", $time, transaction.toString());
                 end
             endcase
+
+            objections_pkg::objection::get_inst().drop();
         end
 
     endtask : run

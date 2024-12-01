@@ -64,41 +64,15 @@ class avl_uart_scoreboard_rx#(int DATASIZE=20, int FIFOSIZE=10);
         $display("%t [Scoreboard RX] Start monitoring transactions", $time);  
 
         while (1) begin  
-            objections_pkg::objection::get_inst().drop();    
             avalon_to_scoreboard_rx_fifo.get(avalon_transaction);  
             uart_to_scoreboard_rx_fifo.get(uart_transaction);  
-            objections_pkg::objection::get_inst().raise();  
+            objections_pkg::objection::get_inst().raise();
+
+            $display("*****************************************************************");
 
             total_checks++;  
-
-            case (testcase)
-                1: begin
-                end
-
-                2: begin
-                    compare_transactions(avalon_transaction.data, uart_transaction.data);
-                end
-
-                3: begin
-                end
-                
-                4: begin
-                end
-
-                5: begin
-                end
-
-                6: begin
-                    compare_transactions(avalon_transaction.data, 32'h00000004);
-                end
-
-                7: begin
-                    compare_transactions(avalon_transaction.data, 32'h00000002);
-                end
-
-                default: begin
-                end
-            endcase
+            compare_transactions(avalon_transaction.data, uart_transaction.data);
+            objections_pkg::objection::get_inst().drop();    
         end  
 
         $display("%t [Scoreboard RX] Monitoring complete", $time);  

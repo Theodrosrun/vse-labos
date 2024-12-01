@@ -66,12 +66,6 @@ typedef enum logic [31:0] {
     // ***********************************************
     // **************** Base methods *****************
     // ***********************************************
-    task reset_signals();
-        vif.address_i    = 0;
-        vif.write_i      = 0;
-        vif.writedata_i  = 0;
-        vif.read_i       = 0;
-    endtask
 
     task wait_slave_ready();
         while (vif.waitrequest_o) begin
@@ -133,8 +127,12 @@ typedef enum logic [31:0] {
 
         // Loop to process transactions
         while (1) begin
-            reset_signals();
-                    
+            // Reset signals
+            vif.address_i    = 0;
+            vif.write_i      = 0;
+            vif.writedata_i  = 0;
+            vif.read_i       = 0;
+                        
             // Get a transaction from the sequencer-to-driver FIFO
             objections_pkg::objection::get_inst().drop();
             sequencer_to_driver_fifo.get(transaction);

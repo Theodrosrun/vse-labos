@@ -78,12 +78,12 @@ class avl_uart_scoreboard_rx#(int DATASIZE=20, int FIFOSIZE=10);
         $display("%t [Scoreboard RX] Monitoring complete", $time);  
     endtask : run  
 
-    function void compare_transactions(logic[31:0] data, logic[31:0] expected_data);
-        if (data === expected_data) begin
+    function void compare_transactions(logic[31:0] data, logic[31:0] driver_data);
+        if (data === driver_data) begin
             passed_checks++;
         end else begin
             failed_checks++;
-            $display("%t [Scoreboard RX] Verification FAILED: data = 0x%h, expected_data = 0x%h", $time, data, expected_data);
+            $display("%t [Scoreboard RX] Verification FAILED: data = 0x%h, driver_data = 0x%h", $time, data, driver_data);
         end
     endfunction : compare_transactions
 

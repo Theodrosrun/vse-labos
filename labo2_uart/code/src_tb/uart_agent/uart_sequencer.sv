@@ -43,11 +43,21 @@ class uart_sequencer#(int DATASIZE=20, int FIFOSIZE=10);
         sequencer_to_driver_fifo.put(transaction);
     endtask
 
+    task test_rx_fifo_is_full;
+        for (int i = 0; i < FIFOSIZE; ++i) begin
+        automatic uart_transaction transaction = new;
+        transaction.transaction_type = RECEIVE;
+        transaction.data = i + 10;
+        sequencer_to_driver_fifo.put(transaction);
+        end
+    endtask
+
     task select_test(int TESTCASE);
         case (TESTCASE)
             1:;
             2: test_read();
             3:;
+            4:test_rx_fifo_is_full();
             default: begin
                 $display("Unknown TESTCASE: %d", TESTCASE);
             end

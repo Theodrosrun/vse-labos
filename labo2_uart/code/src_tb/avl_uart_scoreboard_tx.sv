@@ -74,12 +74,12 @@ class avl_uart_scoreboard_tx#(int DATASIZE=20, int FIFOSIZE=10);
         $display("%t [Scoreboard TX] Monitoring complete", $time);
     endtask : run
 
-    function void compare_transactions(logic[31:0] data, logic[31:0] expected_data);
-        if (data === expected_data) begin
+    function void compare_transactions(logic[31:0] data, logic[31:0] monitor_data);
+        if (data === monitor_data) begin
             passed_checks++;
         end else begin
             failed_checks++;
-            $display("%t [Scoreboard TX] Verification FAILED: data = 0x%h, expected_data = 0x%h", $time, data, expected_data);
+            $display("%t [Scoreboard TX] Verification FAILED: data = 0x%h, monitor_data = 0x%h", $time, data, monitor_data);
         end
     endfunction : compare_transactions
 

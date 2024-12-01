@@ -171,7 +171,7 @@ typedef enum logic [31:0] {
                     $display("%t [AVL Driver] Handling TX_FIFO_IS_EMPTY Transaction:\n%s", $time, transaction.toString());
                     set_clock_per_bit(CLOCK_PER_BIT);
                     read_status_flag(TX_FIFO_EMPTY);
-                    transaction.data = vif.readdata_o;
+                    transaction.data = (vif.readdata_o & TX_FIFO_EMPTY);
                     avalon_to_scoreboard_tx_fifo.put(transaction);
                     $display("[AVL Driver] TX_FIFO_IS_EMPTY Completed");
                 end
@@ -183,7 +183,7 @@ typedef enum logic [31:0] {
                         write(WRITE_ADDR, transaction.data);
                     end
                     read_status_flag(TX_FIFO_FULL);
-                    transaction.data = vif.readdata_o;
+                    transaction.data = (vif.readdata_o & TX_FIFO_FULL);
                     avalon_to_scoreboard_tx_fifo.put(transaction);
                     $display("[AVL Driver] TX_FIFO_IS_FULL Completed");
                 end

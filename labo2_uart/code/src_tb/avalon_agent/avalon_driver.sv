@@ -50,11 +50,11 @@ class avalon_driver#(int DATASIZE=20, int FIFOSIZE=10);
         CLOCK_PER_CYCLE_ADDR
     } address_t;
 
-typedef enum logic [31:0] {
-    TX_FIFO_FULL      = 32'h00000001,
-    RX_FIFO_FULL      = 32'h00000002,
-    RX_FIFO_NOT_EMPTY = 32'h00000004,
-    TX_FIFO_EMPTY     = 32'h00000008
+    typedef enum logic [31:0] {
+        TX_FIFO_FULL      = 32'h00000001,
+        RX_FIFO_FULL      = 32'h00000002,
+        RX_FIFO_NOT_EMPTY = 32'h00000004,
+        TX_FIFO_EMPTY     = 32'h00000008
     } status_flag_t;
 
     // ***********************************************
@@ -128,7 +128,9 @@ typedef enum logic [31:0] {
 
             case (transaction.transaction_type)
                 SET_CLK_PER_BIT: begin
+                    $display("%t [AVL Driver] Handling SET_CLK_PER_BIT Transaction:\n%s", $time, transaction.toString());
                      write(CLOCK_PER_CYCLE_ADDR, transaction.data);
+                    $display("[AVL Driver] SET_CLK_PER_BIT Completed");
                 end
 
                 WRITE_TX: begin
@@ -163,7 +165,7 @@ typedef enum logic [31:0] {
                 end
                 
                 TX_FIFO_IS_FULL: begin
-                    $display("%t [AVL Driver] Handling TX_FIFO_FULL Transaction:\n%s", $time, transaction.toString());
+                    $display("%t [AVL Driver] Handling TX_FIFO_IS_FULL Transaction:\n%s", $time, transaction.toString());
                     for (int i = 0; i < FIFOSIZE + 1; i++) begin
                         write(WRITE_ADDR, transaction.data);
                     end
@@ -172,11 +174,11 @@ typedef enum logic [31:0] {
                 end
                 
                 RX_FIFO_IS_EMPTY: begin
-                    $display("%t [AVL Driver] Handling RX_FIFO_IS_NOT_EMPTY Transaction:\n%s", $time, transaction.toString());
+                    $display("%t [AVL Driver] Handling RX_FIFO_IS_EMPTY Transaction:\n%s", $time, transaction.toString());
                     read_status_flag(TX_FIFO_EMPTY);
                     assert (!(vif.readdata_o & RX_FIFO_NOT_EMPTY));
                     assert (!(vif.readdata_o & RX_FIFO_FULL));
-                    $display("[AVL Driver] RX_FIFO_IS_NOT_EMPTY Completed");
+                    $display("[AVL Driver] RX_FIFO_IS_EMPTY Completed");
                 end
 
                 RX_FIFO_IS_NOT_EMPTY: begin
@@ -190,6 +192,7 @@ typedef enum logic [31:0] {
                     read_status_flag(RX_FIFO_FULL);
                     $display("[AVL Driver] RX_FIFO_IS_FULL Completed");
                 end
+
                 default: begin
                     $display("%t [AVL Driver] Unknown Transaction Type:\n%s", $time, transaction.toString());
                 end

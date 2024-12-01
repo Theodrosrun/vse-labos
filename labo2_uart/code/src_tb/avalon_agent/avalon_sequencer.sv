@@ -103,7 +103,7 @@ class avalon_sequencer#(int DATASIZE=20, int FIFOSIZE=10);
         for (int i = 0; i < FIFOSIZE + 1; ++i) begin
             transaction = new;
             transaction.transaction_type = WRITE_TX;
-            transaction.data = i;
+            transaction.data = i + FIFOSIZE;
             sequencer_to_driver_fifo.put(transaction);
         end
 

@@ -133,7 +133,13 @@ class avalon_driver#(int DATASIZE=20, int FIFOSIZE=10);
                 end
 
                 READ_RX: begin
+                    automatic int i;
                     $display("%t [AVL Driver] Handling READ_RX Transaction:\n%s", $time, transaction.toString());
+                    
+                    for (i = 0; i < nb_clks; ++i) begin
+                        @(posedge vif.clk_i);
+                    end
+
                     read(READ_ADDR);
                     transaction.data = vif.readdata_o;
                     avalon_to_scoreboard_rx_fifo.put(transaction);

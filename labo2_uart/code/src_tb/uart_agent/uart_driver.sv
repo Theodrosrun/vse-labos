@@ -70,7 +70,7 @@ class uart_driver#(int DATASIZE=20, int FIFOSIZE=10);
                     #200;
 
                     for (int i = 0; i < DATASIZE; i++) begin
-                        vif.rx_i = transaction.data[i];
+                        vif.rx_i = transaction.data[DATASIZE - 1 - i];
                         #200;
                     end
 

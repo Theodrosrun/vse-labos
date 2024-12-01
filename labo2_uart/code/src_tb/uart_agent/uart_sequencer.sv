@@ -49,11 +49,11 @@ class uart_sequencer#(int DATASIZE=20, int FIFOSIZE=10);
     task select_transaction(int TESTCASE);
         case (TESTCASE)
             1: generate_transaction(NONE);
-            2: generate_transaction(RECEIVE, 20'h0AA0);
+            2: generate_transaction(RECEIVE, 20'h54321);
             3: generate_transaction(NONE);
             4: generate_transaction(NONE);
             5: generate_transaction(NONE);
-            6: generate_transaction(NONE, 20'hAAAAA);
+            6: generate_transaction(NONE, 20'h12345);
             7: generate_transaction(NONE, 20'hAAAAA);
             default: begin
                 $display("Unknown TESTCASE: %d", TESTCASE);

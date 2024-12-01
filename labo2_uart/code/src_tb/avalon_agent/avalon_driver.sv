@@ -50,18 +50,18 @@ class avalon_driver#(int DATASIZE=20, int FIFOSIZE=10);
         CLOCK_PER_CYCLE_ADDR
     } address_t;
 
-    typedef enum logic [3:0] {
-        TX_FIFO_FULL      = 4'b0001,
-        RX_FIFO_FULL      = 4'b0010,
-        RX_FIFO_NOT_EMPTY = 4'b0100,
-        TX_FIFO_EMPTY     = 4'b1000
+typedef enum logic [31:0] {
+    TX_FIFO_FULL      = 32'h00000001,
+    RX_FIFO_FULL      = 32'h00000002,
+    RX_FIFO_NOT_EMPTY = 32'h00000004,
+    TX_FIFO_EMPTY     = 32'h00000008
     } status_flag_t;
 
     // ***********************************************
     // ******************* Params ********************
     // ***********************************************
 
-    int CLOCK_PER_BIT = 1;
+    int CLOCK_PER_BIT = 10;
 
     // ***********************************************
     // **************** Base methods *****************
@@ -105,16 +105,11 @@ class avalon_driver#(int DATASIZE=20, int FIFOSIZE=10);
          write(CLOCK_PER_CYCLE_ADDR, data);
     endtask
 
-    task read_status_flag(logic [31:0] flag);
-        vif.address_i = STATUS_REGISTER_ADDR;
-        vif.read_i    = 1;
-        while (!vif.readdatavalid_o || ((vif.readdata_o & flag) == 0)) begin
+    task read_status_flag(logic [31:0] flag);     
+        while ((vif.readdata_o & flag) == 0) begin
             @(posedge vif.clk_i);
-            vif.read_i = 0;
-            @(posedge vif.clk_i);
-            vif.read_i = 1;
+            read(STATUS_REGISTER_ADDR);
         end
-        vif.read_i = 0;
     endtask
 
     // **********************************

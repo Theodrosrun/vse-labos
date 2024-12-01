@@ -112,11 +112,18 @@ class avalon_sequencer#(int DATASIZE=20, int FIFOSIZE=10);
         sequencer_to_driver_fifo.put(transaction);
     endtask
 
+   task test_rx_fifo_is_full;
+        automatic avalon_transaction transaction;
+
+        set_clk_per_bit();
+    endtask
+    
     task select_test(int TESTCASE);
         case (TESTCASE)
             1: test_write();
             2: test_read();
             3: test_tx_fifo_is_full();
+            4: test_rx_fifo_is_full();
             default: begin
                 $display("Unknown TESTCASE: %d", TESTCASE);
             end

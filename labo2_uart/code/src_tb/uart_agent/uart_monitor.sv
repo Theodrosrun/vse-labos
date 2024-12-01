@@ -56,23 +56,24 @@ class uart_monitor#(int DATASIZE=20, int FIFOSIZE=10);
             automatic int i;
             automatic uart_transaction#(DATASIZE, FIFOSIZE) transaction = new;
 
-            objections_pkg::objection::get_inst().drop();
             @(negedge vif.tx_o);
             objections_pkg::objection::get_inst().raise();
 
             $display("*****************************************************************");
             $display("%t [UART Monitor] Detected start bit on tx_o", $time);
 
-            for (i = 0; i < DATASIZE; i++) begin
-                #(200);
-                transaction.data[i] = vif.tx_o;
+            #(ns_per_bit + (ns_per_bit / 2));
+            for (int i = DATASIZE; i > 0; i--) begin
+                transaction.data[i-1] = vif.tx_o;
+                #ns_per_bit;
             end
 
             transaction.timestamp = $time;
             transaction.transaction_type = SEND;
             uart_to_scoreboard_tx_fifo.put(transaction);
-
             $display("%t [UART Monitor] Transaction captured and sent to scoreboard: %s", $time, transaction.toString());
+
+            objections_pkg::objection::get_inst().drop();
         end
     endtask
 

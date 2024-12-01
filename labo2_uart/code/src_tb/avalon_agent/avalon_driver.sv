@@ -151,7 +151,9 @@ typedef enum logic [31:0] {
                 2: begin
                     $display("%t [AVL Driver] Handling READ_RX Transaction:\n%s", $time, transaction.toString());
                     set_clock_per_bit(CLOCK_PER_BIT);
-                    read_status_flag(RX_FIFO_IS_NOT_EMPTY);
+                    read_status_flag(RX_FIFO_NOT_EMPTY);
+                    @(posedge vif.clk_i);
+                    read(READ_ADDR);
                     transaction.data = vif.readdata_o;
                     avalon_to_scoreboard_rx_fifo.put(transaction);
                     $display("[AVL Driver] READ_RX Completed");
@@ -190,7 +192,7 @@ typedef enum logic [31:0] {
                     $display("%t [AVL Driver] Handling RX_FIFO_IS_NOT_EMPTY Transaction:\n%s", $time, transaction.toString());
                     set_clock_per_bit(CLOCK_PER_BIT);
                     read_status_flag(RX_FIFO_NOT_EMPTY);
-                    transaction.data = vif.readdata_o;
+                    transaction.data = (vif.readdata_o & RX_FIFO_NOT_EMPTY);
                     avalon_to_scoreboard_rx_fifo.put(transaction);
                     $display("[AVL Driver] RX_FIFO_IS_NOT_EMPTY Completed");
                 end
@@ -199,7 +201,7 @@ typedef enum logic [31:0] {
                     $display("%t [AVL Driver] Handling RX_FIFO_IS_FULL Transaction:\n%s", $time, transaction.toString());
                     set_clock_per_bit(CLOCK_PER_BIT);
                     read_status_flag(RX_FIFO_FULL);
-                    transaction.data = vif.readdata_o;
+                    transaction.data = (vif.readdata_o & RX_FIFO_FULL);
                     avalon_to_scoreboard_rx_fifo.put(transaction);
                     $display("[AVL Driver] RX_FIFO_IS_FULL Completed");
                 end

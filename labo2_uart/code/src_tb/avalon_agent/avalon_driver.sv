@@ -125,6 +125,14 @@ class avalon_driver#(int DATASIZE=20, int FIFOSIZE=10);
                     $display("[AVL Driver] SET_CLK_PER_BIT Completed");
                 end
 
+                WAIT_BEFORE_READ: begin
+                    $display("%t [AVL Driver] Handling SET_CLK_PER_BIT Transaction:\n%s", $time, transaction.toString());
+                    for (integer i = 0; i < (1_000_000_000 / 9600) * 2; ++i) begin
+                        @(posedge vif.clk_i);
+                    end
+                    $display("[AVL Driver] SET_CLK_PER_BIT Completed");
+                end
+
                 WRITE_TX: begin
                     $display("%t [AVL Driver] Handling WRITE_TX Transaction:\n%s", $time, transaction.toString());
                     write(WRITE_ADDR, transaction.data);
@@ -135,11 +143,6 @@ class avalon_driver#(int DATASIZE=20, int FIFOSIZE=10);
                 READ_RX: begin
                     automatic int i;
                     $display("%t [AVL Driver] Handling READ_RX Transaction:\n%s", $time, transaction.toString());
-                    
-                    for (i = 0; i < nb_clks; ++i) begin
-                        @(posedge vif.clk_i);
-                    end
-
                     read(READ_ADDR);
                     transaction.data = vif.readdata_o;
                     avalon_to_scoreboard_rx_fifo.put(transaction);

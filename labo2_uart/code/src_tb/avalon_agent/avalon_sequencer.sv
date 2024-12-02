@@ -79,6 +79,10 @@ class avalon_sequencer#(int DATASIZE=20, int FIFOSIZE=10);
         set_clk_per_bit();
 
         transaction = new;
+        transaction.transaction_type = WAIT_BEFORE_READ;
+        sequencer_to_driver_fifo.put(transaction);
+
+        transaction = new;
         transaction.transaction_type = RX_FIFO_IS_EMPTY;
         sequencer_to_driver_fifo.put(transaction);
 
@@ -116,6 +120,10 @@ class avalon_sequencer#(int DATASIZE=20, int FIFOSIZE=10);
         automatic avalon_transaction transaction;
 
         set_clk_per_bit();
+
+        transaction = new;
+        transaction.transaction_type = WAIT_BEFORE_READ;
+        sequencer_to_driver_fifo.put(transaction);
     endtask
     
     task select_test(int TESTCASE);

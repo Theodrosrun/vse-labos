@@ -36,19 +36,28 @@ class uart_sequencer#(int DATASIZE=20, int FIFOSIZE=10);
 
     uart_fifo_t sequencer_to_driver_fifo;
 
-    task test_read;
+    // ***********************************************
+    // ****************** Methods ********************
+    // ***********************************************
+
+    task send_transaction(uart_transaction_type_t transaction_type, logic[DATASIZE-1:0] data = 20'h00000);
         automatic uart_transaction transaction = new;
-        transaction.transaction_type = RECEIVE;
-        transaction.data = 20'h54321;
+        transaction.transaction_type = transaction_type;
+        transaction.data = data;
         sequencer_to_driver_fifo.put(transaction);
     endtask
 
+    // ***********************************************
+    // ******************* Tests *********************
+    // ***********************************************
+
+    task test_read;
+        send_transaction(RECEIVE, 20'h54321);
+    endtask
+
     task test_rx_fifo_is_full;
-        for (int i = 0; i < FIFOSIZE; ++i) begin
-        automatic uart_transaction transaction = new;
-        transaction.transaction_type = RECEIVE;
-        transaction.data = i + 10;
-        sequencer_to_driver_fifo.put(transaction);
+        for (int i = 0; i < FIFOSIZE + 1; ++i) begin
+            send_transaction(RECEIVE, i + 10);
         end
     endtask
 

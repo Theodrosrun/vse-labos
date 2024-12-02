@@ -124,6 +124,10 @@ class avalon_sequencer#(int DATASIZE=20, int FIFOSIZE=10);
         transaction = new;
         transaction.transaction_type = WAIT_BEFORE_READ;
         sequencer_to_driver_fifo.put(transaction);
+
+        transaction = new;
+        transaction.transaction_type = RX_FIFO_IS_FULL;
+        sequencer_to_driver_fifo.put(transaction);
     endtask
     
     task select_test(int TESTCASE);

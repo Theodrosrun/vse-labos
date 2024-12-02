@@ -46,88 +46,51 @@ class avalon_sequencer#(int DATASIZE=20, int FIFOSIZE=10);
     // ****************** Methods ********************
     // ***********************************************
 
-    task set_clk_per_bit();
+    task send_transaction(avalon_transaction_type_t transaction_type, logic[31:0] data = 32'h00000000);
         automatic avalon_transaction transaction = new;
-
-        transaction.transaction_type = SET_CLK_PER_BIT;
-        transaction.data = CLOCK_PER_BIT;
+        transaction.transaction_type = transaction_type;
+        transaction.data = data;
         sequencer_to_driver_fifo.put(transaction);
     endtask
 
+    task set_clk_per_bit();
+        send_transaction(SET_CLK_PER_BIT, CLOCK_PER_BIT);
+    endtask
+
+    // ***********************************************
+    // ******************* Tests *********************
+    // ***********************************************
+
     task test_write();
-        automatic avalon_transaction transaction;
-
         set_clk_per_bit();
-
-        transaction = new;
-        transaction.transaction_type = TX_FIFO_IS_EMPTY;
-        sequencer_to_driver_fifo.put(transaction);
-
-        transaction = new;
-        transaction.transaction_type = WRITE_TX;
-        transaction.data = 32'hAAAAA;
-        sequencer_to_driver_fifo.put(transaction);
-
-        transaction = new;
-        transaction.transaction_type = TX_FIFO_IS_NOT_EMPTY;
-        sequencer_to_driver_fifo.put(transaction);
+        send_transaction(TX_FIFO_IS_EMPTY);
+        send_transaction(WRITE_TX, 20'h11111);
+        send_transaction(TX_FIFO_IS_NOT_EMPTY);
     endtask
 
     task test_read;
-        automatic avalon_transaction transaction;
-
         set_clk_per_bit();
-
-        transaction = new;
-        transaction.transaction_type = WAIT_BEFORE_READ;
-        sequencer_to_driver_fifo.put(transaction);
-
-        transaction = new;
-        transaction.transaction_type = RX_FIFO_IS_EMPTY;
-        sequencer_to_driver_fifo.put(transaction);
-
-        transaction = new;
-        transaction.transaction_type = READ_RX;
-        sequencer_to_driver_fifo.put(transaction);
-
-        transaction = new;
-        transaction.transaction_type = RX_FIFO_IS_EMPTY;
-        sequencer_to_driver_fifo.put(transaction);
+        send_transaction(WAIT_BEFORE_READ);
+        send_transaction(RX_FIFO_IS_EMPTY);
+        send_transaction(READ_RX);
+        send_transaction(RX_FIFO_IS_EMPTY);
     endtask
 
     task test_tx_fifo_is_full;
-        automatic avalon_transaction transaction;
-
         set_clk_per_bit();
-
-        transaction = new;
-        transaction.transaction_type = TX_FIFO_IS_EMPTY;
-        sequencer_to_driver_fifo.put(transaction);
+        send_transaction(TX_FIFO_IS_EMPTY);
 
         for (int i = 0; i < FIFOSIZE + 1; ++i) begin
-            transaction = new;
-            transaction.transaction_type = WRITE_TX;
-            transaction.data = i + FIFOSIZE;
-            sequencer_to_driver_fifo.put(transaction);
+            send_transaction(WRITE_TX, i + FIFOSIZE);
         end
 
-        transaction = new;
-        transaction.transaction_type = TX_FIFO_IS_FULL;
-        sequencer_to_driver_fifo.put(transaction);
+        send_transaction(TX_FIFO_IS_FULL);
     endtask
 
    task test_rx_fifo_is_full;
-        automatic avalon_transaction transaction;
-
         set_clk_per_bit();
-
-        transaction = new;
-        transaction.transaction_type = WAIT_BEFORE_READ;
-        sequencer_to_driver_fifo.put(transaction);
-
-        transaction = new;
-        transaction.transaction_type = RX_FIFO_IS_FULL;
-        sequencer_to_driver_fifo.put(transaction);
+        send_transaction(WAIT_BEFORE_READ);
+        send_transaction(RX_FIFO_IS_FULL);
     endtask
     
     task select_test(int TESTCASE);

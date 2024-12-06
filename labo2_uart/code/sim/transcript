@@ -1,0 +1,920 @@
+# //  Questa Sim-64
+# //  Version 2020.1_1 linux_x86_64 Mar  4 2020
+# //
+# //  Copyright 1991-2020 Mentor Graphics Corporation
+# //  All Rights Reserved.
+# //
+# //  QuestaSim and its associated documentation contain trade
+# //  secrets and commercial or financial information that are the property of
+# //  Mentor Graphics Corporation and are privileged, confidential,
+# //  and exempt from disclosure under the Freedom of Information Act,
+# //  5 U.S.C. Section 552. Furthermore, this information
+# //  is prohibited from disclosure under the Trade Secrets Act,
+# //  18 U.S.C. Section 1905.
+# //
+do ../scripts/sim.do all 1 20 10 0
+# ../src_vhd
+# ../src_tb
+# QuestaSim-64 vcom 2020.1_1 Compiler 2020.03 Mar  4 2020
+# Start time: 17:37:02 on Dec 02,2024
+# vcom -reportprogress 300 -2008 -mixedsvvh ../src_vhd/fifo.vhd 
+# -- Loading package STANDARD
+# End time: 17:37:02 on Dec 02,2024, Elapsed time: 0:00:00
+# Errors: 0, Warnings: 0
+# QuestaSim-64 vcom 2020.1_1 Compiler 2020.03 Mar  4 2020
+# Start time: 17:37:02 on Dec 02,2024
+# vcom -reportprogress 300 -2008 -mixedsvvh ../src_vhd/uart.vhd 
+# -- Loading package STANDARD
+# End time: 17:37:02 on Dec 02,2024, Elapsed time: 0:00:00
+# Errors: 0, Warnings: 0
+# QuestaSim-64 vcom 2020.1_1 Compiler 2020.03 Mar  4 2020
+# Start time: 17:37:02 on Dec 02,2024
+# vcom -reportprogress 300 -2008 -mixedsvvh ../src_vhd/avl_uart_interface.vhd 
+# -- Loading package STANDARD
+# End time: 17:37:02 on Dec 02,2024, Elapsed time: 0:00:00
+# Errors: 0, Warnings: 0
+# QuestaSim-64 vlog 2020.1_1 Compiler 2020.03 Mar  4 2020
+# Start time: 17:37:02 on Dec 02,2024
+# vlog -reportprogress 300 "+acc" -sv -mixedsvvh ../src_tb/avl_uart_tb.sv 
+# -- Compiling package objections_pkg
+# -- Compiling package avl_uart_tb_sv_unit
+# -- Importing package objections_pkg
+# -- Compiling interface avalon_itf
+# -- Compiling interface uart_itf
+# -- Compiling module avl_uart_interface_assertions
+# -- Compiling module avl_uart_tb
+# 
+# Top level modules:
+# 	avl_uart_tb
+# End time: 17:37:02 on Dec 02,2024, Elapsed time: 0:00:00
+# Errors: 0, Warnings: 0
+# vsim -assertdebug -t 1ns work.avl_uart_tb -GTESTCASE=1 -GDATASIZE=20 -GERRNO=0 -GFIFOSIZE=10 
+# Start time: 17:37:02 on Dec 02,2024
+# ** Note: (vsim-3812) Design is being optimized...
+# Loading sv_std.std
+# Loading work.objections_pkg(fast)
+# Loading work.avl_uart_tb_sv_unit(fast)
+# Loading work.avl_uart_tb(fast)
+# Loading work.avalon_itf(fast__2)
+# Loading work.uart_itf(fast__2)
+# Loading std.standard
+# Loading verilog.vl_resolve(body)
+# Loading std.textio(body)
+# Loading ieee.std_logic_1164(body)
+# Loading ieee.numeric_std(body)
+# Loading verilog.vl_types(body)
+# Loading work.avl_uart_interface_assertions(fast)
+# Loading work.avalon_itf(fast)
+# Loading work.uart_itf(fast)
+#            0 ns [AVL Sequencer] Start
+#            0 ns [AVL Sequencer] End
+#            0 ns [AVL Driver] Start
+#            0 ns [UART Sequencer] Start
+#            0 ns [UART Sequencer] End
+#            0 ns [UART Driver] Start
+#            0 ns [UART Monitor] Start monitoring UART interface
+#            0 ns [Scoreboard RX] Start monitoring transactions
+#            0 ns [Scoreboard TX] Start monitoring transactions
+# *****************************************************************
+#           70 ns [AVL Driver] Handling SET_CLK_PER_BIT Transaction:
+# Timestamp  : 0 ns
+# Type       : SET_CLK_PER_BIT
+# Data       : 00001458
+# [AVL Driver] SET_CLK_PER_BIT Completed
+# *****************************************************************
+#          110 ns [AVL Driver] Handling TX_FIFO_IS_EMPTY Transaction:
+# Timestamp  : 0 ns
+# Type       : TX_FIFO_IS_EMPTY
+# Data       : 00000000
+# [AVL Driver] TX_FIFO_IS_EMPTY Completed
+# *****************************************************************
+#          170 ns [AVL Driver] Handling WRITE_TX Transaction:
+# Timestamp  : 0 ns
+# Type       : WRITE_TX
+# Data       : 00011111
+# [AVL Driver] WRITE_TX Completed
+# *****************************************************************
+#          210 ns [AVL Driver] Handling TX_FIFO_IS_NOT_EMPTY Transaction:
+# Timestamp  : 0 ns
+# Type       : TX_FIFO_IS_NOT_EMPTY
+# Data       : 00000000
+# *****************************************************************
+#          230 ns [UART Monitor] Detected start bit on tx_o
+# [AVL Driver] TX_FIFO_IS_NOT_EMPTY Completed
+#      2239799 ns [UART Monitor] Transaction captured and sent to scoreboard: Timestamp   : 2239799 ns
+# Type        : SEND
+# Data        : 11111
+# 
+# *****************************************************************
+# *********************** End of Simulation ***********************
+# 
+# *****************************************************************
+# RX Scoreboard: Total=0, Passed=0, Failed=0
+# *****************************************************************
+# 
+# *****************************************************************
+# TX Scoreboard: Total=1, Passed=1, Failed=0
+# *****************************************************************
+# 
+# 
+# *****************************************************************
+# ** Note: $stop    : ../src_tb/avl_uart_tb.sv(109)
+#    Time: 2289810 ns  Iteration: 4  Instance: /avl_uart_tb
+# Break in Module avl_uart_tb at ../src_tb/avl_uart_tb.sv line 109
+do ../scripts/sim.do all 2 20 10 0
+# ../src_vhd
+# ../src_tb
+# QuestaSim-64 vcom 2020.1_1 Compiler 2020.03 Mar  4 2020
+# Start time: 17:42:39 on Dec 02,2024
+# vcom -reportprogress 300 -2008 -mixedsvvh ../src_vhd/fifo.vhd 
+# -- Loading package STANDARD
+# End time: 17:42:39 on Dec 02,2024, Elapsed time: 0:00:00
+# Errors: 0, Warnings: 0
+# QuestaSim-64 vcom 2020.1_1 Compiler 2020.03 Mar  4 2020
+# Start time: 17:42:39 on Dec 02,2024
+# vcom -reportprogress 300 -2008 -mixedsvvh ../src_vhd/uart.vhd 
+# -- Loading package STANDARD
+# End time: 17:42:39 on Dec 02,2024, Elapsed time: 0:00:00
+# Errors: 0, Warnings: 0
+# QuestaSim-64 vcom 2020.1_1 Compiler 2020.03 Mar  4 2020
+# Start time: 17:42:39 on Dec 02,2024
+# vcom -reportprogress 300 -2008 -mixedsvvh ../src_vhd/avl_uart_interface.vhd 
+# -- Loading package STANDARD
+# End time: 17:42:39 on Dec 02,2024, Elapsed time: 0:00:00
+# Errors: 0, Warnings: 0
+# QuestaSim-64 vlog 2020.1_1 Compiler 2020.03 Mar  4 2020
+# Start time: 17:42:39 on Dec 02,2024
+# vlog -reportprogress 300 "+acc" -sv -mixedsvvh ../src_tb/avl_uart_tb.sv 
+# -- Compiling package objections_pkg
+# -- Compiling package avl_uart_tb_sv_unit
+# -- Importing package objections_pkg
+# -- Compiling interface avalon_itf
+# -- Compiling interface uart_itf
+# -- Compiling module avl_uart_interface_assertions
+# -- Compiling module avl_uart_tb
+# 
+# Top level modules:
+# 	avl_uart_tb
+# End time: 17:42:39 on Dec 02,2024, Elapsed time: 0:00:00
+# Errors: 0, Warnings: 0
+# End time: 17:42:40 on Dec 02,2024, Elapsed time: 0:05:38
+# Errors: 0, Warnings: 0
+# vsim -assertdebug -t 1ns work.avl_uart_tb -GTESTCASE=2 -GDATASIZE=20 -GERRNO=0 -GFIFOSIZE=10 
+# Start time: 17:42:40 on Dec 02,2024
+# ** Note: (vsim-3812) Design is being optimized...
+# Loading sv_std.std
+# Loading work.objections_pkg(fast)
+# Loading work.avl_uart_tb_sv_unit(fast)
+# Loading work.avl_uart_tb(fast)
+# Loading work.avalon_itf(fast__2)
+# Loading work.uart_itf(fast__2)
+# Loading std.standard
+# Loading verilog.vl_resolve(body)
+# Loading std.textio(body)
+# Loading ieee.std_logic_1164(body)
+# Loading ieee.numeric_std(body)
+# Loading verilog.vl_types(body)
+# Loading work.avl_uart_interface_assertions(fast)
+# Loading work.avalon_itf(fast)
+# Loading work.uart_itf(fast)
+#            0 ns [AVL Sequencer] Start
+#            0 ns [AVL Sequencer] End
+#            0 ns [AVL Driver] Start
+#            0 ns [UART Sequencer] Start
+#            0 ns [UART Sequencer] End
+#            0 ns [UART Driver] Start
+#            0 ns [UART Monitor] Start monitoring UART interface
+#            0 ns [Scoreboard RX] Start monitoring transactions
+#            0 ns [Scoreboard TX] Start monitoring transactions
+# *****************************************************************
+#           70 ns [AVL Driver] Handling SET_CLK_PER_BIT Transaction:
+# Timestamp  : 0 ns
+# Type       : SET_CLK_PER_BIT
+# Data       : 00001458
+# [AVL Driver] SET_CLK_PER_BIT Completed
+# *****************************************************************
+#          110 ns [AVL Driver] Handling WAIT_BEFORE_READ Transaction:
+# Timestamp  : 0 ns
+# Type       : WAIT_BEFORE_READ
+# Data       : 00000000
+# *****************************************************************
+# [UART Driver] RECEIVE Completed
+# [AVL Driver] WAIT_BEFORE_READ Completed
+# *****************************************************************
+#      4166770 ns [AVL Driver] Handling RX_FIFO_IS_EMPTY Transaction:
+# Timestamp  : 0 ns
+# Type       : RX_FIFO_IS_EMPTY
+# Data       : 00000000
+# ** Error: Assertion error.
+#    Time: 4166810 ns  Scope: avl_uart_tb_sv_unit.avalon_driver.avalon_driver__1.run File: ../src_tb/avalon_agent/avalon_driver.sv Line: 178
+# [AVL Driver] RX_FIFO_IS_EMPTY Completed
+# *****************************************************************
+#      4166830 ns [AVL Driver] Handling READ_RX Transaction:
+# Timestamp  : 0 ns
+# Type       : READ_RX
+# Data       : 00000000
+# [AVL Driver] READ_RX Completed
+# *****************************************************************
+# *****************************************************************
+#      4166890 ns [AVL Driver] Handling RX_FIFO_IS_EMPTY Transaction:
+# Timestamp  : 0 ns
+# Type       : RX_FIFO_IS_EMPTY
+# Data       : 00000000
+# [AVL Driver] RX_FIFO_IS_EMPTY Completed
+# *********************** End of Simulation ***********************
+# 
+# *****************************************************************
+# RX Scoreboard: Total=1, Passed=1, Failed=0
+# *****************************************************************
+# 
+# *****************************************************************
+# TX Scoreboard: Total=0, Passed=0, Failed=0
+# *****************************************************************
+# 
+# 
+# *****************************************************************
+# ** Note: $stop    : ../src_tb/avl_uart_tb.sv(109)
+#    Time: 4216950 ns  Iteration: 2  Instance: /avl_uart_tb
+# Break in Module avl_uart_tb at ../src_tb/avl_uart_tb.sv line 109
+do ../scripts/sim.do all 2 20 10 0
+# ../src_vhd
+# ../src_tb
+# QuestaSim-64 vcom 2020.1_1 Compiler 2020.03 Mar  4 2020
+# Start time: 17:45:19 on Dec 02,2024
+# vcom -reportprogress 300 -2008 -mixedsvvh ../src_vhd/fifo.vhd 
+# -- Loading package STANDARD
+# End time: 17:45:19 on Dec 02,2024, Elapsed time: 0:00:00
+# Errors: 0, Warnings: 0
+# QuestaSim-64 vcom 2020.1_1 Compiler 2020.03 Mar  4 2020
+# Start time: 17:45:19 on Dec 02,2024
+# vcom -reportprogress 300 -2008 -mixedsvvh ../src_vhd/uart.vhd 
+# -- Loading package STANDARD
+# End time: 17:45:19 on Dec 02,2024, Elapsed time: 0:00:00
+# Errors: 0, Warnings: 0
+# QuestaSim-64 vcom 2020.1_1 Compiler 2020.03 Mar  4 2020
+# Start time: 17:45:19 on Dec 02,2024
+# vcom -reportprogress 300 -2008 -mixedsvvh ../src_vhd/avl_uart_interface.vhd 
+# -- Loading package STANDARD
+# End time: 17:45:19 on Dec 02,2024, Elapsed time: 0:00:00
+# Errors: 0, Warnings: 0
+# QuestaSim-64 vlog 2020.1_1 Compiler 2020.03 Mar  4 2020
+# Start time: 17:45:19 on Dec 02,2024
+# vlog -reportprogress 300 "+acc" -sv -mixedsvvh ../src_tb/avl_uart_tb.sv 
+# -- Compiling package objections_pkg
+# -- Compiling package avl_uart_tb_sv_unit
+# -- Importing package objections_pkg
+# -- Compiling interface avalon_itf
+# -- Compiling interface uart_itf
+# -- Compiling module avl_uart_interface_assertions
+# -- Compiling module avl_uart_tb
+# 
+# Top level modules:
+# 	avl_uart_tb
+# End time: 17:45:19 on Dec 02,2024, Elapsed time: 0:00:00
+# Errors: 0, Warnings: 0
+# End time: 17:45:20 on Dec 02,2024, Elapsed time: 0:02:40
+# Errors: 1, Warnings: 0
+# vsim -assertdebug -t 1ns work.avl_uart_tb -GTESTCASE=2 -GDATASIZE=20 -GERRNO=0 -GFIFOSIZE=10 
+# Start time: 17:45:20 on Dec 02,2024
+# ** Note: (vsim-3813) Design is being optimized due to module recompilation...
+# Loading sv_std.std
+# Loading work.objections_pkg(fast)
+# Loading work.avl_uart_tb_sv_unit(fast)
+# Loading work.avl_uart_tb(fast)
+# Loading work.avalon_itf(fast__2)
+# Loading work.uart_itf(fast__2)
+# Loading std.standard
+# Loading verilog.vl_resolve(body)
+# Loading std.textio(body)
+# Loading ieee.std_logic_1164(body)
+# Loading ieee.numeric_std(body)
+# Loading verilog.vl_types(body)
+# Loading work.avl_uart_interface_assertions(fast)
+# Loading work.avalon_itf(fast)
+# Loading work.uart_itf(fast)
+#            0 ns [AVL Sequencer] Start
+#            0 ns [AVL Sequencer] End
+#            0 ns [AVL Driver] Start
+#            0 ns [UART Sequencer] Start
+#            0 ns [UART Sequencer] End
+#            0 ns [UART Driver] Start
+#            0 ns [UART Monitor] Start monitoring UART interface
+#            0 ns [Scoreboard RX] Start monitoring transactions
+#            0 ns [Scoreboard TX] Start monitoring transactions
+# *****************************************************************
+#           70 ns [AVL Driver] Handling SET_CLK_PER_BIT Transaction:
+# Timestamp  : 0 ns
+# Type       : SET_CLK_PER_BIT
+# Data       : 00001458
+# [AVL Driver] SET_CLK_PER_BIT Completed
+# *****************************************************************
+#          110 ns [AVL Driver] Handling WAIT_BEFORE_READ Transaction:
+# Timestamp  : 0 ns
+# Type       : WAIT_BEFORE_READ
+# Data       : 00000000
+# *****************************************************************
+# [AVL Driver] WAIT_BEFORE_READ Completed
+# *****************************************************************
+#      2083450 ns [AVL Driver] Handling RX_FIFO_IS_EMPTY Transaction:
+# Timestamp  : 0 ns
+# Type       : RX_FIFO_IS_EMPTY
+# Data       : 00000000
+# [AVL Driver] RX_FIFO_IS_EMPTY Completed
+# *****************************************************************
+#      2083510 ns [AVL Driver] Handling READ_RX Transaction:
+# Timestamp  : 0 ns
+# Type       : READ_RX
+# Data       : 00000000
+# [AVL Driver] READ_RX Completed
+# *****************************************************************
+#      2083570 ns [AVL Driver] Handling RX_FIFO_IS_EMPTY Transaction:
+# Timestamp  : 0 ns
+# Type       : RX_FIFO_IS_EMPTY
+# Data       : 00000000
+# [AVL Driver] RX_FIFO_IS_EMPTY Completed
+# [UART Driver] RECEIVE Completed
+# *****************************************************************
+#      2292652 ns [Scoreboard RX] Verification FAILED: data = 0x00000000, driver_data = 0x00054321
+# *********************** End of Simulation ***********************
+# 
+# *****************************************************************
+# RX Scoreboard: Total=1, Passed=0, Failed=1
+# *****************************************************************
+# 
+# *****************************************************************
+# TX Scoreboard: Total=0, Passed=0, Failed=0
+# *****************************************************************
+# 
+# 
+# *****************************************************************
+# ** Note: $stop    : ../src_tb/avl_uart_tb.sv(109)
+#    Time: 2342670 ns  Iteration: 2  Instance: /avl_uart_tb
+# Break in Module avl_uart_tb at ../src_tb/avl_uart_tb.sv line 109
+# Causality operation skipped due to absence of debug database file
+q
+do ../scripts/sim.do all 2 20 10 0
+# ../src_vhd
+# ../src_tb
+# QuestaSim-64 vcom 2020.1_1 Compiler 2020.03 Mar  4 2020
+# Start time: 17:49:36 on Dec 02,2024
+# vcom -reportprogress 300 -2008 -mixedsvvh ../src_vhd/fifo.vhd 
+# -- Loading package STANDARD
+# End time: 17:49:36 on Dec 02,2024, Elapsed time: 0:00:00
+# Errors: 0, Warnings: 0
+# QuestaSim-64 vcom 2020.1_1 Compiler 2020.03 Mar  4 2020
+# Start time: 17:49:36 on Dec 02,2024
+# vcom -reportprogress 300 -2008 -mixedsvvh ../src_vhd/uart.vhd 
+# -- Loading package STANDARD
+# End time: 17:49:36 on Dec 02,2024, Elapsed time: 0:00:00
+# Errors: 0, Warnings: 0
+# QuestaSim-64 vcom 2020.1_1 Compiler 2020.03 Mar  4 2020
+# Start time: 17:49:36 on Dec 02,2024
+# vcom -reportprogress 300 -2008 -mixedsvvh ../src_vhd/avl_uart_interface.vhd 
+# -- Loading package STANDARD
+# End time: 17:49:36 on Dec 02,2024, Elapsed time: 0:00:00
+# Errors: 0, Warnings: 0
+# QuestaSim-64 vlog 2020.1_1 Compiler 2020.03 Mar  4 2020
+# Start time: 17:49:36 on Dec 02,2024
+# vlog -reportprogress 300 "+acc" -sv -mixedsvvh ../src_tb/avl_uart_tb.sv 
+# -- Compiling package objections_pkg
+# -- Compiling package avl_uart_tb_sv_unit
+# -- Importing package objections_pkg
+# -- Compiling interface avalon_itf
+# -- Compiling interface uart_itf
+# -- Compiling module avl_uart_interface_assertions
+# -- Compiling module avl_uart_tb
+# 
+# Top level modules:
+# 	avl_uart_tb
+# End time: 17:49:36 on Dec 02,2024, Elapsed time: 0:00:00
+# Errors: 0, Warnings: 0
+# End time: 17:49:37 on Dec 02,2024, Elapsed time: 0:04:17
+# Errors: 0, Warnings: 0
+# vsim -assertdebug -t 1ns work.avl_uart_tb -GTESTCASE=2 -GDATASIZE=20 -GERRNO=0 -GFIFOSIZE=10 
+# Start time: 17:49:37 on Dec 02,2024
+# ** Note: (vsim-8009) Loading existing optimized design _opt
+# Loading sv_std.std
+# Loading work.objections_pkg(fast)
+# Loading work.avl_uart_tb_sv_unit(fast)
+# Loading work.avl_uart_tb(fast)
+# Loading work.avalon_itf(fast__2)
+# Loading work.uart_itf(fast__2)
+# Loading std.standard
+# Loading verilog.vl_resolve(body)
+# Loading std.textio(body)
+# Loading ieee.std_logic_1164(body)
+# Loading ieee.numeric_std(body)
+# Loading verilog.vl_types(body)
+# Loading work.avl_uart_interface_assertions(fast)
+# Loading work.avalon_itf(fast)
+# Loading work.uart_itf(fast)
+#            0 ns [AVL Sequencer] Start
+#            0 ns [AVL Sequencer] End
+#            0 ns [AVL Driver] Start
+#            0 ns [UART Sequencer] Start
+#            0 ns [UART Sequencer] End
+#            0 ns [UART Driver] Start
+#            0 ns [UART Monitor] Start monitoring UART interface
+#            0 ns [Scoreboard RX] Start monitoring transactions
+#            0 ns [Scoreboard TX] Start monitoring transactions
+# *****************************************************************
+#           70 ns [AVL Driver] Handling SET_CLK_PER_BIT Transaction:
+# Timestamp  : 0 ns
+# Type       : SET_CLK_PER_BIT
+# Data       : 00001458
+# [AVL Driver] SET_CLK_PER_BIT Completed
+# *****************************************************************
+#          110 ns [AVL Driver] Handling WAIT_BEFORE_READ Transaction:
+# Timestamp  : 0 ns
+# Type       : WAIT_BEFORE_READ
+# Data       : 00000000
+# *****************************************************************
+# [AVL Driver] WAIT_BEFORE_READ Completed
+# *****************************************************************
+#      2083450 ns [AVL Driver] Handling RX_FIFO_IS_EMPTY Transaction:
+# Timestamp  : 0 ns
+# Type       : RX_FIFO_IS_EMPTY
+# Data       : 00000000
+# [AVL Driver] RX_FIFO_IS_EMPTY Completed
+# *****************************************************************
+#      2083510 ns [AVL Driver] Handling READ_RX Transaction:
+# Timestamp  : 0 ns
+# Type       : READ_RX
+# Data       : 00000000
+# [AVL Driver] READ_RX Completed
+# *****************************************************************
+#      2083570 ns [AVL Driver] Handling RX_FIFO_IS_EMPTY Transaction:
+# Timestamp  : 0 ns
+# Type       : RX_FIFO_IS_EMPTY
+# Data       : 00000000
+# [AVL Driver] RX_FIFO_IS_EMPTY Completed
+# [UART Driver] RECEIVE Completed
+# *****************************************************************
+#      2292652 ns [Scoreboard RX] Verification FAILED: data = 0x00000000, driver_data = 0x00054321
+# *********************** End of Simulation ***********************
+# 
+# *****************************************************************
+# RX Scoreboard: Total=1, Passed=0, Failed=1
+# *****************************************************************
+# 
+# *****************************************************************
+# TX Scoreboard: Total=0, Passed=0, Failed=0
+# *****************************************************************
+# 
+# 
+# *****************************************************************
+# ** Note: $stop    : ../src_tb/avl_uart_tb.sv(109)
+#    Time: 2342670 ns  Iteration: 2  Instance: /avl_uart_tb
+# Break in Module avl_uart_tb at ../src_tb/avl_uart_tb.sv line 109
+do ../scripts/sim.do all 2 20 10 0
+# ../src_vhd
+# ../src_tb
+# QuestaSim-64 vcom 2020.1_1 Compiler 2020.03 Mar  4 2020
+# Start time: 17:52:10 on Dec 02,2024
+# vcom -reportprogress 300 -2008 -mixedsvvh ../src_vhd/fifo.vhd 
+# -- Loading package STANDARD
+# End time: 17:52:10 on Dec 02,2024, Elapsed time: 0:00:00
+# Errors: 0, Warnings: 0
+# QuestaSim-64 vcom 2020.1_1 Compiler 2020.03 Mar  4 2020
+# Start time: 17:52:10 on Dec 02,2024
+# vcom -reportprogress 300 -2008 -mixedsvvh ../src_vhd/uart.vhd 
+# -- Loading package STANDARD
+# End time: 17:52:10 on Dec 02,2024, Elapsed time: 0:00:00
+# Errors: 0, Warnings: 0
+# QuestaSim-64 vcom 2020.1_1 Compiler 2020.03 Mar  4 2020
+# Start time: 17:52:10 on Dec 02,2024
+# vcom -reportprogress 300 -2008 -mixedsvvh ../src_vhd/avl_uart_interface.vhd 
+# -- Loading package STANDARD
+# End time: 17:52:10 on Dec 02,2024, Elapsed time: 0:00:00
+# Errors: 0, Warnings: 0
+# QuestaSim-64 vlog 2020.1_1 Compiler 2020.03 Mar  4 2020
+# Start time: 17:52:10 on Dec 02,2024
+# vlog -reportprogress 300 "+acc" -sv -mixedsvvh ../src_tb/avl_uart_tb.sv 
+# -- Compiling package objections_pkg
+# -- Compiling package avl_uart_tb_sv_unit
+# -- Importing package objections_pkg
+# -- Compiling interface avalon_itf
+# -- Compiling interface uart_itf
+# -- Compiling module avl_uart_interface_assertions
+# -- Compiling module avl_uart_tb
+# 
+# Top level modules:
+# 	avl_uart_tb
+# End time: 17:52:10 on Dec 02,2024, Elapsed time: 0:00:00
+# Errors: 0, Warnings: 0
+# End time: 17:52:11 on Dec 02,2024, Elapsed time: 0:02:34
+# Errors: 0, Warnings: 0
+# vsim -assertdebug -t 1ns work.avl_uart_tb -GTESTCASE=2 -GDATASIZE=20 -GERRNO=0 -GFIFOSIZE=10 
+# Start time: 17:52:11 on Dec 02,2024
+# ** Note: (vsim-3813) Design is being optimized due to module recompilation...
+# Loading sv_std.std
+# Loading work.objections_pkg(fast)
+# Loading work.avl_uart_tb_sv_unit(fast)
+# Loading work.avl_uart_tb(fast)
+# Loading work.avalon_itf(fast__2)
+# Loading work.uart_itf(fast__2)
+# Loading std.standard
+# Loading verilog.vl_resolve(body)
+# Loading std.textio(body)
+# Loading ieee.std_logic_1164(body)
+# Loading ieee.numeric_std(body)
+# Loading verilog.vl_types(body)
+# Loading work.avl_uart_interface_assertions(fast)
+# Loading work.avalon_itf(fast)
+# Loading work.uart_itf(fast)
+#            0 ns [AVL Sequencer] Start
+#            0 ns [AVL Sequencer] End
+#            0 ns [AVL Driver] Start
+#            0 ns [UART Sequencer] Start
+#            0 ns [UART Sequencer] End
+#            0 ns [UART Driver] Start
+#            0 ns [UART Monitor] Start monitoring UART interface
+#            0 ns [Scoreboard RX] Start monitoring transactions
+#            0 ns [Scoreboard TX] Start monitoring transactions
+# *****************************************************************
+#           70 ns [AVL Driver] Handling SET_CLK_PER_BIT Transaction:
+# Timestamp  : 0 ns
+# Type       : SET_CLK_PER_BIT
+# Data       : 00001458
+# [AVL Driver] SET_CLK_PER_BIT Completed
+# *****************************************************************
+#          110 ns [AVL Driver] Handling WAIT_BEFORE_READ Transaction:
+# Timestamp  : 0 ns
+# Type       : WAIT_BEFORE_READ
+# Data       : 00000000
+# *****************************************************************
+# [UART Driver] RECEIVE Completed
+# [AVL Driver] WAIT_BEFORE_READ Completed
+# *****************************************************************
+#      4166770 ns [AVL Driver] Handling RX_FIFO_IS_EMPTY Transaction:
+# Timestamp  : 0 ns
+# Type       : RX_FIFO_IS_EMPTY
+# Data       : 00000000
+# ** Error: Assertion error.
+#    Time: 4166810 ns  Scope: avl_uart_tb_sv_unit.avalon_driver.avalon_driver__1.run File: ../src_tb/avalon_agent/avalon_driver.sv Line: 178
+# [AVL Driver] RX_FIFO_IS_EMPTY Completed
+# *****************************************************************
+#      4166830 ns [AVL Driver] Handling READ_RX Transaction:
+# Timestamp  : 0 ns
+# Type       : READ_RX
+# Data       : 00000000
+# [AVL Driver] READ_RX Completed
+# *****************************************************************
+# *****************************************************************
+#      4166890 ns [AVL Driver] Handling RX_FIFO_IS_EMPTY Transaction:
+# Timestamp  : 0 ns
+# Type       : RX_FIFO_IS_EMPTY
+# Data       : 00000000
+# [AVL Driver] RX_FIFO_IS_EMPTY Completed
+# *********************** End of Simulation ***********************
+# 
+# *****************************************************************
+# RX Scoreboard: Total=1, Passed=1, Failed=0
+# *****************************************************************
+# 
+# *****************************************************************
+# TX Scoreboard: Total=0, Passed=0, Failed=0
+# *****************************************************************
+# 
+# 
+# *****************************************************************
+# ** Note: $stop    : ../src_tb/avl_uart_tb.sv(109)
+#    Time: 4216950 ns  Iteration: 2  Instance: /avl_uart_tb
+# Break in Module avl_uart_tb at ../src_tb/avl_uart_tb.sv line 109
+do ../scripts/sim.do all 2 20 10 0
+# ../src_vhd
+# ../src_tb
+# QuestaSim-64 vcom 2020.1_1 Compiler 2020.03 Mar  4 2020
+# Start time: 17:55:05 on Dec 02,2024
+# vcom -reportprogress 300 -2008 -mixedsvvh ../src_vhd/fifo.vhd 
+# -- Loading package STANDARD
+# End time: 17:55:05 on Dec 02,2024, Elapsed time: 0:00:00
+# Errors: 0, Warnings: 0
+# QuestaSim-64 vcom 2020.1_1 Compiler 2020.03 Mar  4 2020
+# Start time: 17:55:05 on Dec 02,2024
+# vcom -reportprogress 300 -2008 -mixedsvvh ../src_vhd/uart.vhd 
+# -- Loading package STANDARD
+# End time: 17:55:05 on Dec 02,2024, Elapsed time: 0:00:00
+# Errors: 0, Warnings: 0
+# QuestaSim-64 vcom 2020.1_1 Compiler 2020.03 Mar  4 2020
+# Start time: 17:55:05 on Dec 02,2024
+# vcom -reportprogress 300 -2008 -mixedsvvh ../src_vhd/avl_uart_interface.vhd 
+# -- Loading package STANDARD
+# End time: 17:55:05 on Dec 02,2024, Elapsed time: 0:00:00
+# Errors: 0, Warnings: 0
+# QuestaSim-64 vlog 2020.1_1 Compiler 2020.03 Mar  4 2020
+# Start time: 17:55:05 on Dec 02,2024
+# vlog -reportprogress 300 "+acc" -sv -mixedsvvh ../src_tb/avl_uart_tb.sv 
+# -- Compiling package objections_pkg
+# -- Compiling package avl_uart_tb_sv_unit
+# -- Importing package objections_pkg
+# -- Compiling interface avalon_itf
+# -- Compiling interface uart_itf
+# -- Compiling module avl_uart_interface_assertions
+# -- Compiling module avl_uart_tb
+# 
+# Top level modules:
+# 	avl_uart_tb
+# End time: 17:55:05 on Dec 02,2024, Elapsed time: 0:00:00
+# Errors: 0, Warnings: 0
+# End time: 17:55:06 on Dec 02,2024, Elapsed time: 0:02:55
+# Errors: 1, Warnings: 0
+# vsim -assertdebug -t 1ns work.avl_uart_tb -GTESTCASE=2 -GDATASIZE=20 -GERRNO=0 -GFIFOSIZE=10 
+# Start time: 17:55:06 on Dec 02,2024
+# ** Note: (vsim-8009) Loading existing optimized design _opt
+# Loading sv_std.std
+# Loading work.objections_pkg(fast)
+# Loading work.avl_uart_tb_sv_unit(fast)
+# Loading work.avl_uart_tb(fast)
+# Loading work.avalon_itf(fast__2)
+# Loading work.uart_itf(fast__2)
+# Loading std.standard
+# Loading verilog.vl_resolve(body)
+# Loading std.textio(body)
+# Loading ieee.std_logic_1164(body)
+# Loading ieee.numeric_std(body)
+# Loading verilog.vl_types(body)
+# Loading work.avl_uart_interface_assertions(fast)
+# Loading work.avalon_itf(fast)
+# Loading work.uart_itf(fast)
+#            0 ns [AVL Sequencer] Start
+#            0 ns [AVL Sequencer] End
+#            0 ns [AVL Driver] Start
+#            0 ns [UART Sequencer] Start
+#            0 ns [UART Sequencer] End
+#            0 ns [UART Driver] Start
+#            0 ns [UART Monitor] Start monitoring UART interface
+#            0 ns [Scoreboard RX] Start monitoring transactions
+#            0 ns [Scoreboard TX] Start monitoring transactions
+# *****************************************************************
+#           70 ns [AVL Driver] Handling SET_CLK_PER_BIT Transaction:
+# Timestamp  : 0 ns
+# Type       : SET_CLK_PER_BIT
+# Data       : 00001458
+# [AVL Driver] SET_CLK_PER_BIT Completed
+# *****************************************************************
+#          110 ns [AVL Driver] Handling WAIT_BEFORE_READ Transaction:
+# Timestamp  : 0 ns
+# Type       : WAIT_BEFORE_READ
+# Data       : 00000000
+# *****************************************************************
+# [UART Driver] RECEIVE Completed
+# [AVL Driver] WAIT_BEFORE_READ Completed
+# *****************************************************************
+#      4166770 ns [AVL Driver] Handling RX_FIFO_IS_EMPTY Transaction:
+# Timestamp  : 0 ns
+# Type       : RX_FIFO_IS_EMPTY
+# Data       : 00000000
+# ** Error: Assertion error.
+#    Time: 4166810 ns  Scope: avl_uart_tb_sv_unit.avalon_driver.avalon_driver__1.run File: ../src_tb/avalon_agent/avalon_driver.sv Line: 178
+# [AVL Driver] RX_FIFO_IS_EMPTY Completed
+# *****************************************************************
+#      4166830 ns [AVL Driver] Handling READ_RX Transaction:
+# Timestamp  : 0 ns
+# Type       : READ_RX
+# Data       : 00000000
+# [AVL Driver] READ_RX Completed
+# *****************************************************************
+# *****************************************************************
+#      4166890 ns [AVL Driver] Handling RX_FIFO_IS_EMPTY Transaction:
+# Timestamp  : 0 ns
+# Type       : RX_FIFO_IS_EMPTY
+# Data       : 00000000
+# [AVL Driver] RX_FIFO_IS_EMPTY Completed
+# *********************** End of Simulation ***********************
+# 
+# *****************************************************************
+# RX Scoreboard: Total=1, Passed=1, Failed=0
+# *****************************************************************
+# 
+# *****************************************************************
+# TX Scoreboard: Total=0, Passed=0, Failed=0
+# *****************************************************************
+# 
+# 
+# *****************************************************************
+# ** Note: $stop    : ../src_tb/avl_uart_tb.sv(109)
+#    Time: 4216950 ns  Iteration: 2  Instance: /avl_uart_tb
+# Break in Module avl_uart_tb at ../src_tb/avl_uart_tb.sv line 109
+do ../scripts/sim.do all 1 20 10 0
+# ../src_vhd
+# ../src_tb
+# QuestaSim-64 vcom 2020.1_1 Compiler 2020.03 Mar  4 2020
+# Start time: 17:55:20 on Dec 02,2024
+# vcom -reportprogress 300 -2008 -mixedsvvh ../src_vhd/fifo.vhd 
+# -- Loading package STANDARD
+# End time: 17:55:20 on Dec 02,2024, Elapsed time: 0:00:00
+# Errors: 0, Warnings: 0
+# QuestaSim-64 vcom 2020.1_1 Compiler 2020.03 Mar  4 2020
+# Start time: 17:55:20 on Dec 02,2024
+# vcom -reportprogress 300 -2008 -mixedsvvh ../src_vhd/uart.vhd 
+# -- Loading package STANDARD
+# End time: 17:55:20 on Dec 02,2024, Elapsed time: 0:00:00
+# Errors: 0, Warnings: 0
+# QuestaSim-64 vcom 2020.1_1 Compiler 2020.03 Mar  4 2020
+# Start time: 17:55:20 on Dec 02,2024
+# vcom -reportprogress 300 -2008 -mixedsvvh ../src_vhd/avl_uart_interface.vhd 
+# -- Loading package STANDARD
+# End time: 17:55:20 on Dec 02,2024, Elapsed time: 0:00:00
+# Errors: 0, Warnings: 0
+# QuestaSim-64 vlog 2020.1_1 Compiler 2020.03 Mar  4 2020
+# Start time: 17:55:20 on Dec 02,2024
+# vlog -reportprogress 300 "+acc" -sv -mixedsvvh ../src_tb/avl_uart_tb.sv 
+# -- Compiling package objections_pkg
+# -- Compiling package avl_uart_tb_sv_unit
+# -- Importing package objections_pkg
+# -- Compiling interface avalon_itf
+# -- Compiling interface uart_itf
+# -- Compiling module avl_uart_interface_assertions
+# -- Compiling module avl_uart_tb
+# 
+# Top level modules:
+# 	avl_uart_tb
+# End time: 17:55:20 on Dec 02,2024, Elapsed time: 0:00:00
+# Errors: 0, Warnings: 0
+# End time: 17:55:21 on Dec 02,2024, Elapsed time: 0:00:15
+# Errors: 1, Warnings: 0
+# vsim -assertdebug -t 1ns work.avl_uart_tb -GTESTCASE=1 -GDATASIZE=20 -GERRNO=0 -GFIFOSIZE=10 
+# Start time: 17:55:21 on Dec 02,2024
+# ** Note: (vsim-8009) Loading existing optimized design _opt1
+# Loading sv_std.std
+# Loading work.objections_pkg(fast)
+# Loading work.avl_uart_tb_sv_unit(fast)
+# Loading work.avl_uart_tb(fast)
+# Loading work.avalon_itf(fast__2)
+# Loading work.uart_itf(fast__2)
+# Loading std.standard
+# Loading verilog.vl_resolve(body)
+# Loading std.textio(body)
+# Loading ieee.std_logic_1164(body)
+# Loading ieee.numeric_std(body)
+# Loading verilog.vl_types(body)
+# Loading work.avl_uart_interface_assertions(fast)
+# Loading work.avalon_itf(fast)
+# Loading work.uart_itf(fast)
+#            0 ns [AVL Sequencer] Start
+#            0 ns [AVL Sequencer] End
+#            0 ns [AVL Driver] Start
+#            0 ns [UART Sequencer] Start
+#            0 ns [UART Sequencer] End
+#            0 ns [UART Driver] Start
+#            0 ns [UART Monitor] Start monitoring UART interface
+#            0 ns [Scoreboard RX] Start monitoring transactions
+#            0 ns [Scoreboard TX] Start monitoring transactions
+# *****************************************************************
+#           70 ns [AVL Driver] Handling SET_CLK_PER_BIT Transaction:
+# Timestamp  : 0 ns
+# Type       : SET_CLK_PER_BIT
+# Data       : 00001458
+# [AVL Driver] SET_CLK_PER_BIT Completed
+# *****************************************************************
+#          110 ns [AVL Driver] Handling TX_FIFO_IS_EMPTY Transaction:
+# Timestamp  : 0 ns
+# Type       : TX_FIFO_IS_EMPTY
+# Data       : 00000000
+# [AVL Driver] TX_FIFO_IS_EMPTY Completed
+# *****************************************************************
+#          170 ns [AVL Driver] Handling WRITE_TX Transaction:
+# Timestamp  : 0 ns
+# Type       : WRITE_TX
+# Data       : 00011111
+# [AVL Driver] WRITE_TX Completed
+# *****************************************************************
+#          210 ns [AVL Driver] Handling TX_FIFO_IS_NOT_EMPTY Transaction:
+# Timestamp  : 0 ns
+# Type       : TX_FIFO_IS_NOT_EMPTY
+# Data       : 00000000
+# *****************************************************************
+#          230 ns [UART Monitor] Detected start bit on tx_o
+# [AVL Driver] TX_FIFO_IS_NOT_EMPTY Completed
+#      2239799 ns [UART Monitor] Transaction captured and sent to scoreboard: Timestamp   : 2239799 ns
+# Type        : SEND
+# Data        : 11111
+# 
+# *****************************************************************
+# *********************** End of Simulation ***********************
+# 
+# *****************************************************************
+# RX Scoreboard: Total=0, Passed=0, Failed=0
+# *****************************************************************
+# 
+# *****************************************************************
+# TX Scoreboard: Total=1, Passed=1, Failed=0
+# *****************************************************************
+# 
+# 
+# *****************************************************************
+# ** Note: $stop    : ../src_tb/avl_uart_tb.sv(109)
+#    Time: 2289810 ns  Iteration: 4  Instance: /avl_uart_tb
+# Break in Module avl_uart_tb at ../src_tb/avl_uart_tb.sv line 109
+do ../scripts/sim.do all 1 20 10 0
+# ../src_vhd
+# ../src_tb
+# QuestaSim-64 vcom 2020.1_1 Compiler 2020.03 Mar  4 2020
+# Start time: 17:55:41 on Dec 02,2024
+# vcom -reportprogress 300 -2008 -mixedsvvh ../src_vhd/fifo.vhd 
+# -- Loading package STANDARD
+# End time: 17:55:41 on Dec 02,2024, Elapsed time: 0:00:00
+# Errors: 0, Warnings: 0
+# QuestaSim-64 vcom 2020.1_1 Compiler 2020.03 Mar  4 2020
+# Start time: 17:55:41 on Dec 02,2024
+# vcom -reportprogress 300 -2008 -mixedsvvh ../src_vhd/uart.vhd 
+# -- Loading package STANDARD
+# End time: 17:55:41 on Dec 02,2024, Elapsed time: 0:00:00
+# Errors: 0, Warnings: 0
+# QuestaSim-64 vcom 2020.1_1 Compiler 2020.03 Mar  4 2020
+# Start time: 17:55:41 on Dec 02,2024
+# vcom -reportprogress 300 -2008 -mixedsvvh ../src_vhd/avl_uart_interface.vhd 
+# -- Loading package STANDARD
+# End time: 17:55:41 on Dec 02,2024, Elapsed time: 0:00:00
+# Errors: 0, Warnings: 0
+# QuestaSim-64 vlog 2020.1_1 Compiler 2020.03 Mar  4 2020
+# Start time: 17:55:41 on Dec 02,2024
+# vlog -reportprogress 300 "+acc" -sv -mixedsvvh ../src_tb/avl_uart_tb.sv 
+# -- Compiling package objections_pkg
+# -- Compiling package avl_uart_tb_sv_unit
+# -- Importing package objections_pkg
+# -- Compiling interface avalon_itf
+# -- Compiling interface uart_itf
+# -- Compiling module avl_uart_interface_assertions
+# -- Compiling module avl_uart_tb
+# 
+# Top level modules:
+# 	avl_uart_tb
+# End time: 17:55:41 on Dec 02,2024, Elapsed time: 0:00:00
+# Errors: 0, Warnings: 0
+# End time: 17:55:41 on Dec 02,2024, Elapsed time: 0:00:20
+# Errors: 0, Warnings: 0
+# vsim -assertdebug -t 1ns work.avl_uart_tb -GTESTCASE=1 -GDATASIZE=20 -GERRNO=0 -GFIFOSIZE=10 
+# Start time: 17:55:41 on Dec 02,2024
+# ** Note: (vsim-3813) Design is being optimized due to module recompilation...
+# Loading sv_std.std
+# Loading work.objections_pkg(fast)
+# Loading work.avl_uart_tb_sv_unit(fast)
+# Loading work.avl_uart_tb(fast)
+# Loading work.avalon_itf(fast__2)
+# Loading work.uart_itf(fast__2)
+# Loading std.standard
+# Loading verilog.vl_resolve(body)
+# Loading std.textio(body)
+# Loading ieee.std_logic_1164(body)
+# Loading ieee.numeric_std(body)
+# Loading verilog.vl_types(body)
+# Loading work.avl_uart_interface_assertions(fast)
+# Loading work.avalon_itf(fast)
+# Loading work.uart_itf(fast)
+#            0 ns [AVL Sequencer] Start
+#            0 ns [AVL Sequencer] End
+#            0 ns [AVL Driver] Start
+#            0 ns [UART Sequencer] Start
+#            0 ns [UART Sequencer] End
+#            0 ns [UART Driver] Start
+#            0 ns [UART Monitor] Start monitoring UART interface
+#            0 ns [Scoreboard RX] Start monitoring transactions
+#            0 ns [Scoreboard TX] Start monitoring transactions
+# *****************************************************************
+#           70 ns [AVL Driver] Handling SET_CLK_PER_BIT Transaction:
+# Timestamp  : 0 ns
+# Type       : SET_CLK_PER_BIT
+# Data       : 00001458
+# [AVL Driver] SET_CLK_PER_BIT Completed
+# *****************************************************************
+#          110 ns [AVL Driver] Handling TX_FIFO_IS_EMPTY Transaction:
+# Timestamp  : 0 ns
+# Type       : TX_FIFO_IS_EMPTY
+# Data       : 00000000
+# [AVL Driver] TX_FIFO_IS_EMPTY Completed
+# *****************************************************************
+#          170 ns [AVL Driver] Handling WRITE_TX Transaction:
+# Timestamp  : 0 ns
+# Type       : WRITE_TX
+# Data       : 00011111
+# [AVL Driver] WRITE_TX Completed
+# *****************************************************************
+#          210 ns [AVL Driver] Handling TX_FIFO_IS_NOT_EMPTY Transaction:
+# Timestamp  : 0 ns
+# Type       : TX_FIFO_IS_NOT_EMPTY
+# Data       : 00000000
+# *****************************************************************
+#          230 ns [UART Monitor] Detected start bit on tx_o
+# [AVL Driver] TX_FIFO_IS_NOT_EMPTY Completed
+#      2239799 ns [UART Monitor] Transaction captured and sent to scoreboard: Timestamp   : 2239799 ns
+# Type        : SEND
+# Data        : 11111
+# 
+# *****************************************************************
+# *********************** End of Simulation ***********************
+# 
+# *****************************************************************
+# RX Scoreboard: Total=0, Passed=0, Failed=0
+# *****************************************************************
+# 
+# *****************************************************************
+# TX Scoreboard: Total=1, Passed=1, Failed=0
+# *****************************************************************
+# 
+# 
+# *****************************************************************
+# ** Note: $stop    : ../src_tb/avl_uart_tb.sv(109)
+#    Time: 2289810 ns  Iteration: 4  Instance: /avl_uart_tb
+# Break in Module avl_uart_tb at ../src_tb/avl_uart_tb.sv line 109

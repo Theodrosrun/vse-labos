@@ -42,7 +42,7 @@ class avalon_sequencer#(int DATASIZE=20, int FIFOSIZE=10);
 
     int NS_PER_BIT    = 1_000_000_000 / 9600;      // 104167 ns
     int CLOCK_PERIOD  = 20;                        // 20 ns
-    int CLOCK_PER_BIT = NS_PER_BIT / CLOCK_PERIOD; // 104167 / 20 = 5208 clock cycles per bit.
+    int CLOCK_PER_BIT = NS_PER_BIT / CLOCK_PERIOD; // 104167 / 20 = 5208 clock cycles per bit
 
     // ***********************************************
     // ****************** Methods ********************

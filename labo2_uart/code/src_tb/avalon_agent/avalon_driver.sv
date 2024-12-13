@@ -125,20 +125,12 @@ class avalon_driver#(int DATASIZE=20, int FIFOSIZE=10);
                     $display("[AVL Driver] SET_CLK_PER_BIT Completed");
                 end
 
-                WAIT_BEFORE_READ: begin
-                    $display("%t [AVL Driver] Handling WAIT_BEFORE_READ Transaction:\n%s", $time, transaction.toString());
+                WAIT_CLK_CYCLE: begin
+                    $display("%t [AVL Driver] Handling WAIT_CLK_CYCLE Transaction:\n%s", $time, transaction.toString());
                     for (integer i = 0; i < transaction.data; ++i) begin
                         @(posedge vif.clk_i);
                     end
-                    $display("[AVL Driver] WAIT_BEFORE_READ Completed");
-                end
-
-                WAIT_CLK: begin
-                    $display("%t [AVL Driver] Handling WAIT_CLK Transaction:\n%s", $time, transaction.toString());
-                    for (integer i = 0; i < transaction.data; ++i) begin
-                        @(posedge vif.clk_i);
-                    end
-                    $display("[AVL Driver] WAIT_CLK Completed");
+                    $display("[AVL Driver] WAIT_CLK_CYCLE Completed");
                 end
 
                 WRITE_TX: begin

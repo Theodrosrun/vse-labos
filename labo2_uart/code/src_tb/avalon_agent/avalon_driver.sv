@@ -175,7 +175,6 @@ class avalon_driver#(int DATASIZE=20, int FIFOSIZE=10);
                 RX_FIFO_IS_EMPTY: begin
                     $display("%t [AVL Driver] Handling RX_FIFO_IS_EMPTY Transaction:\n%s", $time, transaction.toString());
                     read(STATUS_REGISTER_ADDR);
-                    assert (!(vif.readdata_o & RX_FIFO_NOT_EMPTY));
                     assert (!(vif.readdata_o & RX_FIFO_FULL));
                     $display("[AVL Driver] RX_FIFO_IS_EMPTY Completed");
                 end

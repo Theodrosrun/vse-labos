@@ -40,9 +40,13 @@ class avalon_sequencer#(int DATASIZE=20, int FIFOSIZE=10);
     // ******************* Params ********************
     // ***********************************************
 
+    // Clock per bit
     int NS_PER_BIT    = 1_000_000_000 / 9600;      // 104167 ns
     int CLOCK_PERIOD  = 20;                        // 20 ns
     int CLOCK_PER_BIT = NS_PER_BIT / CLOCK_PERIOD; // 104167 / 20 = 5208 clock cycles per bit
+
+    // Wait time before read, add margin for ensuring that RX is ready
+    int WAIT_TIME_BEFORE_READ = CLOCK_PER_BIT * 20 * 2;
 
     // ***********************************************
     // ****************** Methods ********************
@@ -72,7 +76,7 @@ class avalon_sequencer#(int DATASIZE=20, int FIFOSIZE=10);
 
     task test_read;
         set_clk_per_bit();
-        send_transaction(WAIT_BEFORE_READ);
+        send_transaction(WAIT_BEFORE_READ, WAIT_TIME_BEFORE_READ);
         send_transaction(RX_FIFO_IS_EMPTY);
         send_transaction(READ_RX);
         send_transaction(RX_FIFO_IS_EMPTY);
@@ -92,7 +96,7 @@ class avalon_sequencer#(int DATASIZE=20, int FIFOSIZE=10);
    task test_rx_fifo_is_full;
         set_clk_per_bit();
         for (int i = 0; i < FIFOSIZE + 1; ++i) begin
-            send_transaction(WAIT_BEFORE_READ);
+            send_transaction(WAIT_BEFORE_READ, WAIT_TIME_BEFORE_READ);
             send_transaction(READ_RX);
         end
         send_transaction(RX_FIFO_IS_FULL);

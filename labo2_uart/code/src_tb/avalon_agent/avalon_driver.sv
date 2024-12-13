@@ -127,7 +127,7 @@ class avalon_driver#(int DATASIZE=20, int FIFOSIZE=10);
 
                 WAIT_BEFORE_READ: begin
                     $display("%t [AVL Driver] Handling WAIT_BEFORE_READ Transaction:\n%s", $time, transaction.toString());
-                    for (integer i = 0; i < (1_000_000_000 / 9600) * 2; ++i) begin
+                    for (integer i = 0; i < transaction.data; ++i) begin
                         @(posedge vif.clk_i);
                     end
                     $display("[AVL Driver] WAIT_BEFORE_READ Completed");

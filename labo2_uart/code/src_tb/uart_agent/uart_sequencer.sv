@@ -57,16 +57,17 @@ class uart_sequencer#(int DATASIZE=20, int FIFOSIZE=10);
 
     task test_rx_fifo_is_full;
         for (int i = 0; i < FIFOSIZE + 1; ++i) begin
-            send_transaction(RECEIVE, i + 10);
+            send_transaction(RECEIVE, i + FIFOSIZE);
         end
     endtask
 
     task select_test(int TESTCASE);
         case (TESTCASE)
             1:;
-            2: test_read();
+            2:test_read();
             3:;
             4:test_rx_fifo_is_full();
+            5:;
             default: begin
                 $display("Unknown TESTCASE: %d", TESTCASE);
             end

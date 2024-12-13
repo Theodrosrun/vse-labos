@@ -40,12 +40,9 @@ class avalon_sequencer#(int DATASIZE=20, int FIFOSIZE=10);
     // ******************* Params ********************
     // ***********************************************
 
-    // Calculates the number of clock cycles needed to transmit one UART bit at 9600 baudrate. 
-    // Each bit takes approximately 104167 ns, and the clock has a period of 20 ns (50 MHz frequency). 
-    // This results in 104167/20 =  5208 clock cycles per bit.
-    int NS_PER_BIT    = 1_000_000_000 / 9600;
-    int CLOCK_PERIOD  = 20;
-    int CLOCK_PER_BIT = NS_PER_BIT / CLOCK_PERIOD;
+    int NS_PER_BIT    = 1_000_000_000 / 9600;      // 104167 ns
+    int CLOCK_PERIOD  = 20;                        // 20 ns
+    int CLOCK_PER_BIT = NS_PER_BIT / CLOCK_PERIOD; // 104167 / 20 = 5208 clock cycles per bit.
 
     // ***********************************************
     // ****************** Methods ********************

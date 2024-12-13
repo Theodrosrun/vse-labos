@@ -96,11 +96,14 @@ class avalon_sequencer#(int DATASIZE=20, int FIFOSIZE=10);
 
    task test_rx_fifo_is_full;
         set_clk_per_bit();
+        send_transaction(RX_FIFO_IS_EMPTY);
+
         for (int i = 0; i < FIFOSIZE + 1; ++i) begin
             send_transaction(WAIT_CLK_CYCLE, NB_CLK_CYCLE_BEFORE_READ);
             send_transaction(READ_RX);
         end
-        send_transaction(RX_FIFO_IS_FULL);
+        
+        send_transaction(RX_FIFO_IS_EMPTY);
     endtask
     
     task select_test(int TESTCASE);

@@ -89,6 +89,7 @@ class avalon_sequencer#(int DATASIZE=20, int FIFOSIZE=10);
 
         for (int i = 0; i < FIFOSIZE + 1; ++i) begin
             send_transaction(WRITE_TX, i + FIFOSIZE);
+            send_transaction(TX_FIFO_IS_NOT_EMPTY);
         end
 
         send_transaction(TX_FIFO_IS_FULL);
@@ -101,8 +102,9 @@ class avalon_sequencer#(int DATASIZE=20, int FIFOSIZE=10);
         for (int i = 0; i < FIFOSIZE + 1; ++i) begin
             send_transaction(WAIT_CLK_CYCLE, NB_CLK_CYCLE_BEFORE_READ);
             send_transaction(READ_RX);
+            send_transaction(RX_FIFO_IS_EMPTY);
         end
-        
+
         send_transaction(RX_FIFO_IS_EMPTY);
     endtask
     

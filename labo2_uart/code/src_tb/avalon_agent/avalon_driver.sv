@@ -133,6 +133,14 @@ class avalon_driver#(int DATASIZE=20, int FIFOSIZE=10);
                     $display("[AVL Driver] WAIT_BEFORE_READ Completed");
                 end
 
+                WAIT_CLK: begin
+                    $display("%t [AVL Driver] Handling WAIT_CLK Transaction:\n%s", $time, transaction.toString());
+                    for (integer i = 0; i < transaction.data; ++i) begin
+                        @(posedge vif.clk_i);
+                    end
+                    $display("[AVL Driver] WAIT_CLK Completed");
+                end
+
                 WRITE_TX: begin
                     $display("%t [AVL Driver] Handling WRITE_TX Transaction:\n%s", $time, transaction.toString());
                     write(WRITE_ADDR, transaction.data);

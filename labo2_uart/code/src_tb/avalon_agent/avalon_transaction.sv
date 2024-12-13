@@ -33,6 +33,7 @@ Ver   Date        Person     Comments
 typedef enum int {
     SET_CLK_PER_BIT,
     WAIT_BEFORE_READ,
+    WAIT_CLK,
     WRITE_TX,
     READ_RX, 
     TX_FIFO_IS_EMPTY,
@@ -66,6 +67,7 @@ class avalon_transaction#(int DATASIZE=20, int FIFOSIZE=10);
         case (this.transaction_type)
             SET_CLK_PER_BIT:      return "SET_CLK_PER_BIT";
             WAIT_BEFORE_READ:     return "WAIT_BEFORE_READ";
+            WAIT_CLK:             return "WAIT_CLK";
             READ_RX:              return "READ_RX";
             WRITE_TX:             return "WRITE_TX";
             TX_FIFO_IS_EMPTY:     return "TX_FIFO_IS_EMPTY";

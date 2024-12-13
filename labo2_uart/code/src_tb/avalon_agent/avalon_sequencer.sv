@@ -49,6 +49,10 @@ class avalon_sequencer#(int DATASIZE=20, int FIFOSIZE=10);
     // Add margin for ensuring that RX is ready
     int NB_CLK_CYCLE_BEFORE_READ = CLOCK_PER_BIT * 20 * 2;
 
+    // Number of clock cycle to wait before write
+    // Add margin for ensuring that RX is ready
+    int NB_CLK_CYCLE_BEFORE_WRITE = CLOCK_PER_BIT * 20 * 2;
+
     // ***********************************************
     // ****************** Methods ********************
     // ***********************************************
@@ -64,6 +68,14 @@ class avalon_sequencer#(int DATASIZE=20, int FIFOSIZE=10);
         send_transaction(SET_CLK_PER_BIT, CLOCK_PER_BIT);
     endtask
 
+    task wait_before_write();
+        send_transaction(WAIT_CLK_CYCLE, NB_CLK_CYCLE_BEFORE_WRITE);
+    endtask
+
+    task wait_before_read();
+        send_transaction(WAIT_CLK_CYCLE, NB_CLK_CYCLE_BEFORE_READ);
+    endtask
+
     // ***********************************************
     // ******************* Tests *********************
     // ***********************************************
@@ -77,7 +89,7 @@ class avalon_sequencer#(int DATASIZE=20, int FIFOSIZE=10);
 
     task test_read;
         set_clk_per_bit();
-        send_transaction(WAIT_CLK_CYCLE, NB_CLK_CYCLE_BEFORE_READ);
+        wait_before_read();
         send_transaction(RX_FIFO_IS_EMPTY);
         send_transaction(READ_RX);
         send_transaction(RX_FIFO_IS_EMPTY);
@@ -89,7 +101,7 @@ class avalon_sequencer#(int DATASIZE=20, int FIFOSIZE=10);
 
         for (int i = 0; i < FIFOSIZE + 1; ++i) begin
             send_transaction(WRITE_TX, i + FIFOSIZE);
-            send_transaction(TX_FIFO_IS_NOT_EMPTY);
+            wait_before_write();
         end
 
         send_transaction(TX_FIFO_IS_FULL);
@@ -99,8 +111,8 @@ class avalon_sequencer#(int DATASIZE=20, int FIFOSIZE=10);
         set_clk_per_bit();
         send_transaction(RX_FIFO_IS_EMPTY);
 
-        for (int i = 0; i < FIFOSIZE + 1; ++i) begin
-            send_transaction(WAIT_CLK_CYCLE, NB_CLK_CYCLE_BEFORE_READ);
+        for (int i = 0; i < FIFOSIZE; ++i) begin
+            wait_before_read();
             send_transaction(READ_RX);
             send_transaction(RX_FIFO_IS_EMPTY);
         end
@@ -112,7 +124,7 @@ class avalon_sequencer#(int DATASIZE=20, int FIFOSIZE=10);
         set_clk_per_bit();
         send_transaction(TX_FIFO_IS_EMPTY);
         send_transaction(WRITE_TX, 20'hFFFFF);
-        send_transaction(TX_FIFO_IS_NOT_EMPTY);
+        wait_before_write();
         send_transaction(WRITE_TX, 20'h00000);
         send_transaction(TX_FIFO_IS_NOT_EMPTY);
     endtask

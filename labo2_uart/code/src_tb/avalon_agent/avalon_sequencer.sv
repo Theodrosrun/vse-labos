@@ -142,7 +142,6 @@ class avalon_sequencer#(int DATASIZE=20, int FIFOSIZE=10);
 
     task test_write_boundaries;
         set_clk_per_bit();
-        // send_transaction(TX_FIFO_IS_EMPTY);
         send_transaction(WRITE_TX, 20'hFFFFF);
         send_transaction(TX_FIFO_IS_NOT_EMPTY);
         wait_before_write();

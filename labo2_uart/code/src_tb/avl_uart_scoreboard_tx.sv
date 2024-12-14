@@ -84,7 +84,7 @@ class avl_uart_scoreboard_tx#(int DATASIZE=20, int FIFOSIZE=10);
             passed_checks++;
         end else begin
             failed_checks++;
-            $display("%t [Scoreboard TX] Verification FAILED: data = 0x%h, monitor_data = 0x%h", $time, data, monitor_data);
+            $error("%t [Scoreboard TX] Verification FAILED: data = 0x%h, monitor_data = 0x%h", $time, data, monitor_data);
         end
     endfunction : compare_transactions
 

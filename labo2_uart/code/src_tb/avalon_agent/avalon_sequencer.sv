@@ -111,6 +111,7 @@ class avalon_sequencer#(int DATASIZE=20, int FIFOSIZE=10);
 
         for (int i = 0; i < FIFOSIZE; ++i) begin
             wait_before_read();
+            send_transaction(RX_FIFO_IS_NOT_EMPTY);
         end
 
         send_transaction(RX_FIFO_IS_FULL);
@@ -118,11 +119,12 @@ class avalon_sequencer#(int DATASIZE=20, int FIFOSIZE=10);
 
     task test_tx_fifo_is_full;
         set_clk_per_bit();
-        send_transaction(TX_FIFO_IS_EMPTY);
+        // send_transaction(TX_FIFO_IS_EMPTY);
 
         for (int i = 0; i < FIFOSIZE + 1; ++i) begin
-            wait_before_write();
+            // wait_before_write();
             send_transaction(WRITE_TX, i + FIFOSIZE);
+            send_transaction(TX_FIFO_IS_NOT_EMPTY);
         end
 
         send_transaction(TX_FIFO_IS_FULL);
@@ -139,7 +141,7 @@ class avalon_sequencer#(int DATASIZE=20, int FIFOSIZE=10);
 
     task test_write_boundaries;
         set_clk_per_bit();
-        send_transaction(TX_FIFO_IS_EMPTY);
+        // send_transaction(TX_FIFO_IS_EMPTY);
         send_transaction(WRITE_TX, 20'hFFFFF);
         wait_before_write();
         send_transaction(WRITE_TX, 20'h00000);

@@ -61,6 +61,11 @@ class uart_sequencer#(int DATASIZE=20, int FIFOSIZE=10);
         end
     endtask
 
+    task test_read_boundaries;
+        send_transaction(RECEIVE, 20'hFFFFF);
+        send_transaction(RECEIVE, 20'h00000);
+    endtask
+
     task select_test(int TESTCASE);
         case (TESTCASE)
             1: test_read();
@@ -69,7 +74,8 @@ class uart_sequencer#(int DATASIZE=20, int FIFOSIZE=10);
             4: ;
             5: test_rx_fifo_is_full();
             6: ;
-            7: ;
+            7: test_read_boundaries();
+            8: ;
             default: begin
                 $display("Unknown TESTCASE: %d", TESTCASE);
             end
@@ -80,7 +86,7 @@ class uart_sequencer#(int DATASIZE=20, int FIFOSIZE=10);
         $display("%t [UART Sequencer] Start", $time);
 
         if (testcase == 0) begin
-            for (integer i = 1; i <= 7; i++) begin
+            for (integer i = 1; i <= 8; i++) begin
                 select_test(i);
             end
         end else begin

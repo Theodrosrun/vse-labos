@@ -112,7 +112,6 @@ class avalon_sequencer#(int DATASIZE=20, int FIFOSIZE=10);
         for (int i = 0; i < FIFOSIZE; ++i) begin
             wait_before_read();
             send_transaction(READ_RX);
-            send_transaction(RX_FIFO_IS_EMPTY);
         end
 
         send_transaction(RX_FIFO_IS_EMPTY);
@@ -130,7 +129,16 @@ class avalon_sequencer#(int DATASIZE=20, int FIFOSIZE=10);
         send_transaction(TX_FIFO_IS_FULL);
     endtask
     
-    task test_limits;
+    task test_read_boundaries;
+        set_clk_per_bit();
+        wait_before_read();
+        send_transaction(READ_RX);
+        wait_before_read();
+        send_transaction(READ_RX);
+        send_transaction(RX_FIFO_IS_EMPTY);
+    endtask
+
+    task test_write_boundaries;
         set_clk_per_bit();
         send_transaction(TX_FIFO_IS_EMPTY);
         send_transaction(WRITE_TX, 20'hFFFFF);
@@ -147,7 +155,8 @@ class avalon_sequencer#(int DATASIZE=20, int FIFOSIZE=10);
             4: test_tx_fifo_is_empty();
             5: test_rx_fifo_is_full();
             6: test_tx_fifo_is_full();
-            7: test_limits();
+            7: test_read_boundaries();
+            8: test_write_boundaries();
             default: begin
                 $display("Unknown TESTCASE: %d", TESTCASE);
             end
@@ -159,7 +168,7 @@ class avalon_sequencer#(int DATASIZE=20, int FIFOSIZE=10);
         $display("%t [AVL Sequencer] Start", $time);
 
         if (testcase == 0) begin
-            for (integer i = 1; i <= 7; i++) begin
+            for (integer i = 1; i <= 8; i++) begin
                 select_test(i);
             end
         end else begin

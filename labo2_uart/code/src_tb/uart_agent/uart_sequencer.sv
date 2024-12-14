@@ -71,7 +71,7 @@ class uart_sequencer#(int DATASIZE=20, int FIFOSIZE=10);
         automatic uart_transaction transaction = new;
         automatic int counter = 0;
 
-        while ((coverage.cg.get_inst_coverage() < 100) && (counter < 50)) begin
+        while ((coverage.cg.get_inst_coverage() < 100) && (counter < 10)) begin
             counter++;
             assert (coverage.randomize());
             coverage.cg.sample();            

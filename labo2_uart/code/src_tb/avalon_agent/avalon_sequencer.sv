@@ -151,6 +151,7 @@ class avalon_sequencer#(int DATASIZE=20, int FIFOSIZE=10);
         automatic int counter = 0;
 
         set_clk_per_bit();
+
         while (counter < 50) begin
             counter++;
             wait_before_read();

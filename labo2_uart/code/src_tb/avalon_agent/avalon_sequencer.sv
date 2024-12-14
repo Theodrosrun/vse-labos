@@ -111,10 +111,9 @@ class avalon_sequencer#(int DATASIZE=20, int FIFOSIZE=10);
 
         for (int i = 0; i < FIFOSIZE; ++i) begin
             wait_before_read();
-            send_transaction(READ_RX);
         end
 
-        send_transaction(RX_FIFO_IS_EMPTY);
+        send_transaction(RX_FIFO_IS_FULL);
     endtask
 
     task test_tx_fifo_is_full;

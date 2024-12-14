@@ -68,12 +68,12 @@ class avalon_sequencer#(int DATASIZE=20, int FIFOSIZE=10);
         send_transaction(SET_CLK_PER_BIT, CLOCK_PER_BIT);
     endtask
 
-    task wait_before_write();
-        send_transaction(WAIT_CLK_CYCLE, NB_CLK_CYCLE_BEFORE_WRITE);
-    endtask
-
     task wait_before_read();
         send_transaction(WAIT_CLK_CYCLE, NB_CLK_CYCLE_BEFORE_READ);
+    endtask
+
+    task wait_before_write();
+        send_transaction(WAIT_CLK_CYCLE, NB_CLK_CYCLE_BEFORE_WRITE);
     endtask
 
     // ***********************************************

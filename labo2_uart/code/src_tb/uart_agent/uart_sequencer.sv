@@ -66,6 +66,20 @@ class uart_sequencer#(int DATASIZE=20, int FIFOSIZE=10);
         send_transaction(RECEIVE, 20'h00000);
     endtask
 
+    task test_rx_randomization;
+        automatic uart_transaction coverage = new;
+        automatic uart_transaction transaction = new;
+        automatic int counter = 0;
+
+        while ((coverage.cg.get_inst_coverage() < 100) && (counter < 50)) begin
+            counter++;
+            assert (coverage.randomize());
+            coverage.cg.sample();            
+            transaction.data = coverage.data;
+            send_transaction(RECEIVE, transaction.data);
+        end
+    endtask
+
     task select_test(int TESTCASE);
         case (TESTCASE)
             1: test_read();
@@ -76,7 +90,8 @@ class uart_sequencer#(int DATASIZE=20, int FIFOSIZE=10);
             6: ;
             7: test_read_boundaries();
             8: ;
-            9: ;
+            9: test_rx_randomization();
+            10:;
             default: begin
                 $display("Unknown TESTCASE: %d", TESTCASE);
             end

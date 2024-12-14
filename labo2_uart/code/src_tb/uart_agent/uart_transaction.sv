@@ -45,11 +45,27 @@ class uart_transaction#(int DATASIZE=20, int FIFOSIZE=10);
     // UART-specific data
     logic [DATASIZE-1:0] data;  // Data to be sent or received (configurable size)
 
+    // Max
+    int max = (2 ** DATASIZE) - 1;
+
+    // Covergroup
+    covergroup cg;
+        option.get_inst_coverage = 1;
+
+        coverpoint data[DATASIZE-1:0]{
+            bins min    = {0};
+            bins middle = {max/2};
+            bins max    = {max};
+            bins values[4] = {[0:max]};
+        }
+    endgroup
+
     // Constructor
     function new();
         this.timestamp        = $time;
         this.transaction_type = SEND;
         this.data             = '0;
+        cg                    = new;
     endfunction
 
     // Function to get the transaction type as a string

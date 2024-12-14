@@ -140,6 +140,7 @@ class avalon_sequencer#(int DATASIZE=20, int FIFOSIZE=10);
 
     task test_write_boundaries;
         set_clk_per_bit();
+        // send_transaction(TX_FIFO_IS_EMPTY);
         send_transaction(WRITE_TX, 20'hFFFFF);
         send_transaction(TX_FIFO_IS_NOT_EMPTY);
         wait_before_write();
@@ -198,7 +199,7 @@ class avalon_sequencer#(int DATASIZE=20, int FIFOSIZE=10);
         $display("%t [AVL Sequencer] Start", $time);
 
         if (testcase == 0) begin
-            for (integer i = 1; i <= 8; i++) begin
+            for (integer i = 1; i <= 10; i++) begin
                 select_test(i);
             end
         end else begin

@@ -1,0 +1,124 @@
+<?xml version="1.0" ?>
+<rmdb version="1.0" toprunnables="directed">
+  <!-- ============== -->
+  <!-- DIRECTED TESTS -->
+  <!-- ============== -->
+  <runnable name="directed" type="group">
+    <parameters>
+        <parameter name="ucdbfile">../(%INSTANCE%).ucdb</parameter>
+    </parameters>
+    <members>
+      <member>test_0_0_20_10</member>
+      <member>test_0_1_20_10</member>
+      <member>test_0_2_20_10</member>
+      <member>test_0_10_20_10</member>
+      <member>test_0_11_20_10</member>
+      <member>test_0_12_20_10</member>
+      <member>test_0_13_20_10</member>
+      <member>test_0_14_20_10</member>
+      <member>test_0_15_20_10</member>
+      <member>test_0_16_20_10</member>
+    </members>
+
+    <execScript>
+      <command>file delete -force work</command>
+      <command>set Path_DUV "(%RMDBDIR%)/src_vhd"</command>
+      <command>set Path_TB  "(%RMDBDIR%)/src_tb"</command>
+      <command>global Path_DUV</command>
+      <command>global Path_TB</command>
+      <command>vcom -2008 -work work $Path_DUV/fifo.vhd</command>
+      <command>vcom -2008 -work work $Path_DUV/uart.vhd</command>
+      <command>vcom -2008 -work work $Path_DUV/avl_uart_interface.vhd</command>
+      <command>vlog +acc -sv -mixedsvvh $Path_TB/avl_uart_tb.sv</command>
+      <command>vsim -t 10ps -GDATASIZE=(%datasize%) -GFIFOSIZE=(%fifosize%) -GERRNO=(%errno%) -GTESTCASE=(%testcase%) work.avl_uart_tb</command>
+      <command>set StdArithNoWarnings 1</command>
+      <command>set NumericStdNoWarnings 1</command>
+      <command>run 2 ns</command>
+      <command>set StdArithNoWarnings 0</command>
+      <command>set NumericStdNoWarnings 0</command>
+      <command>run -all</command>
+      <command>coverage attribute -name ERRNO -value (%INSTANCE%)</command>
+      <command>coverage save (%ucdbfile%)</command>
+    </execScript>
+  </runnable>
+  <runnable name="test_0_0_20_10" type="task">
+    <parameters>
+      <parameter name="testcase">0</parameter>
+      <parameter name="errno">0</parameter>
+      <parameter name="datasize">20</parameter>
+      <parameter name="fifosize">10</parameter>
+    </parameters>
+  </runnable>
+  <runnable name="test_0_1_20_10" type="task">
+    <parameters>
+      <parameter name="testcase">0</parameter>
+      <parameter name="errno">1</parameter>
+      <parameter name="datasize">20</parameter>
+      <parameter name="fifosize">10</parameter>
+    </parameters>
+  </runnable>
+  <runnable name="test_0_2_20_10" type="task">
+    <parameters>
+      <parameter name="testcase">0</parameter>
+      <parameter name="errno">2</parameter>
+      <parameter name="datasize">20</parameter>
+      <parameter name="fifosize">10</parameter>
+    </parameters>
+  </runnable>
+  <runnable name="test_0_10_20_10" type="task">
+    <parameters>
+      <parameter name="testcase">0</parameter>
+      <parameter name="errno">10</parameter>
+      <parameter name="datasize">20</parameter>
+      <parameter name="fifosize">10</parameter>
+    </parameters>
+  </runnable>
+  <runnable name="test_0_11_20_10" type="task">
+    <parameters>
+      <parameter name="testcase">0</parameter>
+      <parameter name="errno">11</parameter>
+      <parameter name="datasize">20</parameter>
+      <parameter name="fifosize">10</parameter>
+    </parameters>
+  </runnable>
+  <runnable name="test_0_12_20_10" type="task">
+    <parameters>
+      <parameter name="testcase">0</parameter>
+      <parameter name="errno">12</parameter>
+      <parameter name="datasize">20</parameter>
+      <parameter name="fifosize">10</parameter>
+    </parameters>
+  </runnable>
+  <runnable name="test_0_13_20_10" type="task">
+    <parameters>
+      <parameter name="testcase">0</parameter>
+      <parameter name="errno">13</parameter>
+      <parameter name="datasize">20</parameter>
+      <parameter name="fifosize">10</parameter>
+    </parameters>
+  </runnable>
+  <runnable name="test_0_14_20_10" type="task">
+    <parameters>
+      <parameter name="testcase">0</parameter>
+      <parameter name="errno">14</parameter>
+      <parameter name="datasize">20</parameter>
+      <parameter name="fifosize">10</parameter>
+    </parameters>
+  </runnable>
+  <runnable name="test_0_15_20_10" type="task">
+    <parameters>
+      <parameter name="testcase">0</parameter>
+      <parameter name="errno">15</parameter>
+      <parameter name="datasize">20</parameter>
+      <parameter name="fifosize">10</parameter>
+    </parameters>
+  </runnable>
+  <runnable name="test_0_16_20_10" type="task">
+    <parameters>
+      <parameter name="testcase">0</parameter>
+      <parameter name="errno">16</parameter>
+      <parameter name="datasize">20</parameter>
+      <parameter name="fifosize">10</parameter>
+    </parameters>
+  </runnable>
+</rmdb>

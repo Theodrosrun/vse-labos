@@ -120,7 +120,7 @@ class avalon_sequencer#(int DATASIZE=20, int FIFOSIZE=10);
         send_transaction(RX_FIFO_IS_EMPTY);
     endtask
     
-    task test_send_only_0_and_1;
+    task test_limits;
         set_clk_per_bit();
         send_transaction(TX_FIFO_IS_EMPTY);
         send_transaction(WRITE_TX, 20'hFFFFF);
@@ -135,7 +135,7 @@ class avalon_sequencer#(int DATASIZE=20, int FIFOSIZE=10);
             2: test_read();
             3: test_tx_fifo_is_full();
             4: test_rx_fifo_is_full();
-            5: test_send_only_0_and_1();
+            5: test_limits();
             default: begin
                 $display("Unknown TESTCASE: %d", TESTCASE);
             end

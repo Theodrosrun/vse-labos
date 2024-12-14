@@ -79,7 +79,7 @@ class avl_uart_scoreboard_tx#(int DATASIZE=20, int FIFOSIZE=10);
         $display("%t [Scoreboard TX] Monitoring complete", $time);
     endtask : run
 
-    function void compare_transactions(logic[31:0] data, logic[31:0] monitor_data);
+    function void compare_transactions(logic[19:0] data, logic[19:0] monitor_data);
         if (data === monitor_data) begin
             passed_checks++;
         end else begin

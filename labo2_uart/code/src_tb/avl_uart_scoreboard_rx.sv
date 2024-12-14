@@ -80,7 +80,7 @@ class avl_uart_scoreboard_rx#(int DATASIZE=20, int FIFOSIZE=10);
         $display("%t [Scoreboard RX] Monitoring complete", $time);  
     endtask : run  
 
-    function void compare_transactions(logic[31:0] data, logic[31:0] driver_data);
+    function void compare_transactions(logic[19:0] data, logic[19:0] driver_data);
         if (data === driver_data) begin
             passed_checks++;
         end else begin

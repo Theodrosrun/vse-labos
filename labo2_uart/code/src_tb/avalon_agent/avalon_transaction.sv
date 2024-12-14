@@ -52,13 +52,29 @@ class avalon_transaction#(int DATASIZE=20, int FIFOSIZE=10);
     avalon_transaction_type_t transaction_type;
 
     // Data
-    logic[31:0] data;
+    rand logic[31:0] data;
+
+    // Max
+    int max = (2 ** DATASIZE) - 1;
+
+    // Covergroup
+    covergroup cg;
+        option.get_inst_coverage = 1;
+
+        coverpoint data[DATASIZE-1:0]{
+            bins min    = {0};
+            bins middle = {max/2};
+            bins max    = {max};
+            bins values[4] = {[0:max]};
+        }
+    endgroup
 
     // Constructor
     function new();
         this.timestamp        = $time;
         this.transaction_type = SET_CLK_PER_BIT;
         this.data             = '0;
+        cg                    = new;
     endfunction
 
     // Get the name of the transaction type

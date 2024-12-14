@@ -76,6 +76,7 @@ class uart_sequencer#(int DATASIZE=20, int FIFOSIZE=10);
             6: ;
             7: test_read_boundaries();
             8: ;
+            9: ;
             default: begin
                 $display("Unknown TESTCASE: %d", TESTCASE);
             end
@@ -86,7 +87,7 @@ class uart_sequencer#(int DATASIZE=20, int FIFOSIZE=10);
         $display("%t [UART Sequencer] Start", $time);
 
         if (testcase == 0) begin
-            for (integer i = 1; i <= 8; i++) begin
+            for (integer i = 1; i <= 9; i++) begin
                 select_test(i);
             end
         end else begin

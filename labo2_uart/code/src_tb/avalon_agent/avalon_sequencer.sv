@@ -147,6 +147,22 @@ class avalon_sequencer#(int DATASIZE=20, int FIFOSIZE=10);
         send_transaction(TX_FIFO_IS_NOT_EMPTY);
     endtask
 
+    task test_randomization;
+        automatic avalon_transaction coverage = new;
+        automatic avalon_transaction transaction = new;
+        automatic int counter = 0;
+
+        set_clk_per_bit();
+        while ((coverage.cg.get_inst_coverage() < 100) && (counter < 50)) begin
+            counter++;
+            assert (coverage.randomize());
+            coverage.cg.sample();            
+            transaction.data = coverage.data;
+            wait_before_write();
+            send_transaction(WRITE_TX, transaction.data);
+        end
+    endtask
+
     task select_test(int TESTCASE);
         case (TESTCASE)
             1: test_read();
@@ -157,6 +173,7 @@ class avalon_sequencer#(int DATASIZE=20, int FIFOSIZE=10);
             6: test_tx_fifo_is_full();
             7: test_read_boundaries();
             8: test_write_boundaries();
+            9: test_randomization();
             default: begin
                 $display("Unknown TESTCASE: %d", TESTCASE);
             end
@@ -168,7 +185,7 @@ class avalon_sequencer#(int DATASIZE=20, int FIFOSIZE=10);
         $display("%t [AVL Sequencer] Start", $time);
 
         if (testcase == 0) begin
-            for (integer i = 1; i <= 8; i++) begin
+            for (integer i = 1; i <= 9; i++) begin
                 select_test(i);
             end
         end else begin

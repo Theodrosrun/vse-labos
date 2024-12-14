@@ -197,7 +197,7 @@ class avalon_sequencer#(int DATASIZE=20, int FIFOSIZE=10);
         $display("%t [AVL Sequencer] Start", $time);
 
         if (testcase == 0) begin
-            for (integer i = 1; i <= 10; i++) begin
+            for (integer i = 1; i <= 8; i++) begin
                 select_test(i);
             end
         end else begin

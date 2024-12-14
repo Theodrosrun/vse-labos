@@ -53,7 +53,6 @@ class uart_monitor#(int DATASIZE=20, int FIFOSIZE=10);
         #20; // Delay for stabilization if needed
 
         while (1) begin
-            automatic int i;
             automatic uart_transaction#(DATASIZE, FIFOSIZE) transaction = new;
 
             @(negedge vif.tx_o);

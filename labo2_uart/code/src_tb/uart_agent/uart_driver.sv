@@ -44,7 +44,6 @@ class uart_driver#(int DATASIZE=20, int FIFOSIZE=10);
     virtual uart_itf vif;
 
     task run;
-        automatic uart_transaction transaction;
         $display("%t [UART Driver] Start", $time);
 
         vif.rx_i = 1;
@@ -54,6 +53,7 @@ class uart_driver#(int DATASIZE=20, int FIFOSIZE=10);
 
         // Loop to process transactions
         while (1) begin
+            automatic uart_transaction transaction;
             sequencer_to_driver_fifo.get(transaction);
             objections_pkg::objection::get_inst().raise();
 

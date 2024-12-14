@@ -41,7 +41,7 @@ class uart_sequencer#(int DATASIZE=20, int FIFOSIZE=10);
     // ******************* Params ********************
     // ***********************************************
 
-    int MAX_ITERATION = 10;
+    int MAX_ITERATION = 50;
 
     // ***********************************************
     // ****************** Methods ********************
@@ -78,7 +78,7 @@ class uart_sequencer#(int DATASIZE=20, int FIFOSIZE=10);
         automatic uart_transaction transaction = new;
         automatic int counter = 0;
 
-        while ((coverage.cg.get_inst_coverage() < 100) && (counter < MAX_ITERATION)) begin
+        while ((coverage.cg.get_coverage() < 100) && (counter < MAX_ITERATION)) begin
             counter++;
             assert (coverage.randomize());
             coverage.cg.sample();            

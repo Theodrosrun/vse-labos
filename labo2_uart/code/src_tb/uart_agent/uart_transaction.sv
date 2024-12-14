@@ -50,8 +50,6 @@ class uart_transaction#(int DATASIZE=20, int FIFOSIZE=10);
 
     // Covergroup
     covergroup cg;
-        option.get_inst_coverage = 1;
-
         coverpoint data[DATASIZE-1:0]{
             bins min    = {0};
             bins middle = {max/2};

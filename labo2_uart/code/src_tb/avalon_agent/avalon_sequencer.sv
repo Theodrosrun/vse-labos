@@ -53,7 +53,7 @@ class avalon_sequencer#(int DATASIZE=20, int FIFOSIZE=10);
     // Add margin for ensuring that TX is ready
     int NB_CLK_CYCLE_BEFORE_WRITE = CLOCK_PER_BIT * 20 * 2;
 
-    int MAX_ITERATION = 10;
+    int MAX_ITERATION = 50;
 
     // ***********************************************
     // ****************** Methods ********************
@@ -167,7 +167,7 @@ class avalon_sequencer#(int DATASIZE=20, int FIFOSIZE=10);
         automatic int counter = 0;
 
         set_clk_per_bit();
-        while ((coverage.cg.get_inst_coverage() < 100) && (counter < MAX_ITERATION)) begin
+        while ((coverage.cg.get_coverage() < 100) && (counter < MAX_ITERATION)) begin
             counter++;
             assert (coverage.randomize());
             coverage.cg.sample();            

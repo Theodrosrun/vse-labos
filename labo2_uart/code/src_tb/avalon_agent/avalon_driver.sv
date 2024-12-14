@@ -133,13 +133,6 @@ class avalon_driver#(int DATASIZE=20, int FIFOSIZE=10);
                     $display("[AVL Driver] WAIT_CLK_CYCLE Completed");
                 end
 
-                WRITE_TX: begin
-                    $display("%t [AVL Driver] Handling WRITE_TX Transaction:\n%s", $time, transaction.toString());
-                    write(WRITE_ADDR, transaction.data);
-                    avalon_to_scoreboard_tx_fifo.put(transaction);
-                    $display("[AVL Driver] WRITE_TX Completed");
-                end
-
                 READ_RX: begin
                     automatic int i;
                     $display("%t [AVL Driver] Handling READ_RX Transaction:\n%s", $time, transaction.toString());
@@ -147,6 +140,35 @@ class avalon_driver#(int DATASIZE=20, int FIFOSIZE=10);
                     transaction.data = vif.readdata_o;
                     avalon_to_scoreboard_rx_fifo.put(transaction);
                     $display("[AVL Driver] READ_RX Completed");
+                end
+                
+                WRITE_TX: begin
+                    $display("%t [AVL Driver] Handling WRITE_TX Transaction:\n%s", $time, transaction.toString());
+                    write(WRITE_ADDR, transaction.data);
+                    avalon_to_scoreboard_tx_fifo.put(transaction);
+                    $display("[AVL Driver] WRITE_TX Completed");
+                end
+
+                RX_FIFO_IS_EMPTY: begin
+                    $display("%t [AVL Driver] Handling RX_FIFO_IS_EMPTY Transaction:\n%s", $time, transaction.toString());
+                    read(STATUS_REGISTER_ADDR);
+                    assert (!(vif.readdata_o & RX_FIFO_FULL));
+                    $display("[AVL Driver] RX_FIFO_IS_EMPTY Completed");
+                end
+
+                RX_FIFO_IS_NOT_EMPTY: begin
+                    $display("%t [AVL Driver] Handling RX_FIFO_IS_NOT_EMPTY Transaction:\n%s", $time, transaction.toString());
+                    read(STATUS_REGISTER_ADDR);
+                    assert (vif.readdata_o & RX_FIFO_NOT_EMPTY);
+                    $display("[AVL Driver] RX_FIFO_IS_NOT_EMPTY Completed");
+                end
+
+                RX_FIFO_IS_FULL: begin
+                    $display("%t [AVL Driver] Handling RX_FIFO_IS_FULL Transaction:\n%s", $time, transaction.toString());
+                    read(STATUS_REGISTER_ADDR);
+                    assert (vif.readdata_o & RX_FIFO_NOT_EMPTY);
+                    assert (vif.readdata_o & RX_FIFO_FULL);
+                    $display("[AVL Driver] RX_FIFO_IS_FULL Completed");
                 end
 
                 TX_FIFO_IS_EMPTY: begin
@@ -170,28 +192,6 @@ class avalon_driver#(int DATASIZE=20, int FIFOSIZE=10);
                     assert (!(vif.readdata_o & TX_FIFO_EMPTY));
                     assert (vif.readdata_o & TX_FIFO_FULL);
                     $display("[AVL Driver] TX_FIFO_IS_FULL Completed");
-                end
-                
-                RX_FIFO_IS_EMPTY: begin
-                    $display("%t [AVL Driver] Handling RX_FIFO_IS_EMPTY Transaction:\n%s", $time, transaction.toString());
-                    read(STATUS_REGISTER_ADDR);
-                    assert (!(vif.readdata_o & RX_FIFO_FULL));
-                    $display("[AVL Driver] RX_FIFO_IS_EMPTY Completed");
-                end
-
-                RX_FIFO_IS_NOT_EMPTY: begin
-                    $display("%t [AVL Driver] Handling RX_FIFO_IS_NOT_EMPTY Transaction:\n%s", $time, transaction.toString());
-                    read(STATUS_REGISTER_ADDR);
-                    assert (vif.readdata_o & RX_FIFO_NOT_EMPTY);
-                    $display("[AVL Driver] RX_FIFO_IS_NOT_EMPTY Completed");
-                end
-
-                RX_FIFO_IS_FULL: begin
-                    $display("%t [AVL Driver] Handling RX_FIFO_IS_FULL Transaction:\n%s", $time, transaction.toString());
-                    read(STATUS_REGISTER_ADDR);
-                    assert (vif.readdata_o & RX_FIFO_NOT_EMPTY);
-                    assert (vif.readdata_o & RX_FIFO_FULL);
-                    $display("[AVL Driver] RX_FIFO_IS_FULL Completed");
                 end
 
                 default: begin

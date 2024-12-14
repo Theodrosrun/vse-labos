@@ -33,14 +33,14 @@ Ver   Date        Person     Comments
 typedef enum int {
     SET_CLK_PER_BIT,
     WAIT_CLK_CYCLE,
-    WRITE_TX,
     READ_RX, 
-    TX_FIFO_IS_EMPTY,
-    TX_FIFO_IS_NOT_EMPTY,
-    TX_FIFO_IS_FULL,
+    WRITE_TX,
     RX_FIFO_IS_EMPTY,
     RX_FIFO_IS_NOT_EMPTY,
-    RX_FIFO_IS_FULL
+    RX_FIFO_IS_FULL,
+    TX_FIFO_IS_EMPTY,
+    TX_FIFO_IS_NOT_EMPTY,
+    TX_FIFO_IS_FULL
     } avalon_transaction_type_t;
 
 class avalon_transaction#(int DATASIZE=20, int FIFOSIZE=10);

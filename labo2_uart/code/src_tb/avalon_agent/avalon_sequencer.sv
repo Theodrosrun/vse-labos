@@ -80,13 +80,6 @@ class avalon_sequencer#(int DATASIZE=20, int FIFOSIZE=10);
     // ******************* Tests *********************
     // ***********************************************
 
-    task test_write();
-        set_clk_per_bit();
-        send_transaction(TX_FIFO_IS_EMPTY);
-        send_transaction(WRITE_TX, 20'h11111);
-        send_transaction(TX_FIFO_IS_NOT_EMPTY);
-    endtask
-
     task test_read;
         set_clk_per_bit();
         wait_before_read();
@@ -95,13 +88,33 @@ class avalon_sequencer#(int DATASIZE=20, int FIFOSIZE=10);
         send_transaction(RX_FIFO_IS_EMPTY);
     endtask
 
+    task test_write();
+        set_clk_per_bit();
+        send_transaction(TX_FIFO_IS_EMPTY);
+        send_transaction(WRITE_TX, 20'h11111);
+        send_transaction(TX_FIFO_IS_NOT_EMPTY);
+    endtask
+
+    task test_rx_fifo_is_empty;
+        set_clk_per_bit();
+        send_transaction(RX_FIFO_IS_EMPTY);
+    endtask
+
     task test_tx_fifo_is_empty;
         set_clk_per_bit();
         send_transaction(TX_FIFO_IS_EMPTY);
     endtask
 
-    task test_rx_fifo_is_empty;
+    task test_rx_fifo_is_full;
         set_clk_per_bit();
+        send_transaction(RX_FIFO_IS_EMPTY);
+
+        for (int i = 0; i < FIFOSIZE; ++i) begin
+            wait_before_read();
+            send_transaction(READ_RX);
+            send_transaction(RX_FIFO_IS_EMPTY);
+        end
+
         send_transaction(RX_FIFO_IS_EMPTY);
     endtask
 
@@ -116,19 +129,6 @@ class avalon_sequencer#(int DATASIZE=20, int FIFOSIZE=10);
 
         send_transaction(TX_FIFO_IS_FULL);
     endtask
-
-   task test_rx_fifo_is_full;
-        set_clk_per_bit();
-        send_transaction(RX_FIFO_IS_EMPTY);
-
-        for (int i = 0; i < FIFOSIZE; ++i) begin
-            wait_before_read();
-            send_transaction(READ_RX);
-            send_transaction(RX_FIFO_IS_EMPTY);
-        end
-
-        send_transaction(RX_FIFO_IS_EMPTY);
-    endtask
     
     task test_limits;
         set_clk_per_bit();
@@ -141,12 +141,12 @@ class avalon_sequencer#(int DATASIZE=20, int FIFOSIZE=10);
 
     task select_test(int TESTCASE);
         case (TESTCASE)
-            1: test_write();
-            2: test_read();
-            3: test_tx_fifo_is_empty();
-            4: test_rx_fifo_is_empty();
-            5: test_tx_fifo_is_full();
-            6: test_rx_fifo_is_full();
+            1: test_read();
+            2: test_write();
+            3: test_rx_fifo_is_empty();
+            4: test_tx_fifo_is_empty();
+            5: test_rx_fifo_is_full();
+            6: test_tx_fifo_is_full();
             7: test_limits();
             default: begin
                 $display("Unknown TESTCASE: %d", TESTCASE);

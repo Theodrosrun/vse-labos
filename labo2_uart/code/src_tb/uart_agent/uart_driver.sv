@@ -54,7 +54,6 @@ class uart_driver#(int DATASIZE=20, int FIFOSIZE=10);
 
         // Loop to process transactions
         while (1) begin
-            // Get a transaction from the sequencer-to-driver FIFO
             sequencer_to_driver_fifo.get(transaction);
             objections_pkg::objection::get_inst().raise();
 

@@ -44,6 +44,10 @@ class avl_uart_scoreboard_tx#(int DATASIZE=20, int FIFOSIZE=10);
     int passed_checks;
     int failed_checks;
 
+    // Allow to know if there is one Avalon transaction get from the FIFO
+    // that has not yet a corresponding UART one at the end of simulation
+    logic waiting_avalon_trans = 0;  
+
     // Constructor to initialize scoreboard
     function new();
         total_checks = 0;
@@ -59,10 +63,11 @@ class avl_uart_scoreboard_tx#(int DATASIZE=20, int FIFOSIZE=10);
         $display("%t [Scoreboard TX] Start monitoring transactions", $time);
 
         while (1) begin
-            // Get transactions from FIFOs
             avalon_to_scoreboard_tx_fifo.get(avalon_transaction);
+            waiting_avalon_trans = 1;
             uart_to_scoreboard_tx_fifo.get(uart_transaction);
             objections_pkg::objection::get_inst().raise();
+            waiting_avalon_trans = 0;
 
             $display("*****************************************************************");
 

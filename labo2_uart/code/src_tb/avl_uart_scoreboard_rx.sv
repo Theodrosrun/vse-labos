@@ -64,9 +64,11 @@ class avl_uart_scoreboard_rx#(int DATASIZE=20, int FIFOSIZE=10);
         $display("%t [Scoreboard RX] Start monitoring transactions", $time);  
 
         while (1) begin  
-            avalon_to_scoreboard_rx_fifo.get(avalon_transaction);  
             uart_to_scoreboard_rx_fifo.get(uart_transaction);  
+            waiting_avalon_trans = 1;
+            avalon_to_scoreboard_rx_fifo.get(avalon_transaction);  
             objections_pkg::objection::get_inst().raise();
+            waiting_avalon_trans = 0;
 
             $display("*****************************************************************");
 

@@ -95,6 +95,16 @@ class avalon_sequencer#(int DATASIZE=20, int FIFOSIZE=10);
         send_transaction(RX_FIFO_IS_EMPTY);
     endtask
 
+    task test_tx_fifo_is_empty;
+        set_clk_per_bit();
+        send_transaction(TX_FIFO_IS_EMPTY);
+    endtask
+
+    task test_rx_fifo_is_empty;
+        set_clk_per_bit();
+        send_transaction(RX_FIFO_IS_EMPTY);
+    endtask
+
     task test_tx_fifo_is_full;
         set_clk_per_bit();
         send_transaction(TX_FIFO_IS_EMPTY);
@@ -133,9 +143,11 @@ class avalon_sequencer#(int DATASIZE=20, int FIFOSIZE=10);
         case (TESTCASE)
             1: test_write();
             2: test_read();
-            3: test_tx_fifo_is_full();
-            4: test_rx_fifo_is_full();
-            5: test_limits();
+            3: test_tx_fifo_is_empty();
+            4: test_rx_fifo_is_empty();
+            5: test_tx_fifo_is_full();
+            6: test_rx_fifo_is_full();
+            7: test_limits();
             default: begin
                 $display("Unknown TESTCASE: %d", TESTCASE);
             end

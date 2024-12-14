@@ -63,11 +63,13 @@ class uart_sequencer#(int DATASIZE=20, int FIFOSIZE=10);
 
     task select_test(int TESTCASE);
         case (TESTCASE)
-            1:;
-            2:test_read();
-            3:;
-            4:test_rx_fifo_is_full();
-            5:;
+            1: ;
+            2: test_read();
+            3: ;
+            4: ;
+            5: ;
+            6: test_rx_fifo_is_full();
+            7: ;
             default: begin
                 $display("Unknown TESTCASE: %d", TESTCASE);
             end

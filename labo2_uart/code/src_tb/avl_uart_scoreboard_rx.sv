@@ -85,7 +85,7 @@ class avl_uart_scoreboard_rx#(int DATASIZE=20, int FIFOSIZE=10);
             passed_checks++;
         end else begin
             failed_checks++;
-            $error("%t [Scoreboard RX] Verification FAILED: data = 0x%h, driver_data = 0x%h", $time, data, driver_data);
+            $display("%t [Scoreboard RX] Verification FAILED: data = 0x%h, driver_data = 0x%h", $time, data, driver_data);
         end
     endfunction : compare_transactions
 

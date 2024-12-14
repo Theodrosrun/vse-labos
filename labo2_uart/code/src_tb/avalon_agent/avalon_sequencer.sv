@@ -50,7 +50,7 @@ class avalon_sequencer#(int DATASIZE=20, int FIFOSIZE=10);
     int NB_CLK_CYCLE_BEFORE_READ = CLOCK_PER_BIT * 20 * 2;
 
     // Number of clock cycle to wait before write
-    // Add margin for ensuring that RX is ready
+    // Add margin for ensuring that TX is ready
     int NB_CLK_CYCLE_BEFORE_WRITE = CLOCK_PER_BIT * 20 * 2;
 
     // ***********************************************

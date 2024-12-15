@@ -60,6 +60,7 @@ class uart_monitor#(int DATASIZE=20, int FIFOSIZE=10);
 
             $display("%t [UART Monitor] Detected start bit on tx_o", $time);
 
+            // Add offset to ensure bit is stable
             #(ns_per_bit + (ns_per_bit / 2));
             for (int i = DATASIZE; i > 0; i--) begin
                 transaction.data[i-1] = vif.tx_o;

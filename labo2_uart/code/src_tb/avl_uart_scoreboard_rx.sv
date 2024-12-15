@@ -70,8 +70,6 @@ class avl_uart_scoreboard_rx#(int DATASIZE=20, int FIFOSIZE=10);
             objections_pkg::objection::get_inst().raise();
             waiting_avalon_trans = 0;
 
-            $display("*****************************************************************");
-
             total_checks++;  
             compare_transactions(avalon_transaction.data, uart_transaction.data);
             objections_pkg::objection::get_inst().drop();    

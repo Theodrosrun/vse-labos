@@ -58,7 +58,6 @@ class uart_monitor#(int DATASIZE=20, int FIFOSIZE=10);
             @(negedge vif.tx_o);
             objections_pkg::objection::get_inst().raise();
 
-            $display("*****************************************************************");
             $display("%t [UART Monitor] Detected start bit on tx_o", $time);
 
             #(ns_per_bit + (ns_per_bit / 2));

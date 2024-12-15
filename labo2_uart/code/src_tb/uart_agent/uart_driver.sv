@@ -57,8 +57,6 @@ class uart_driver#(int DATASIZE=20, int FIFOSIZE=10);
             sequencer_to_driver_fifo.get(transaction);
             objections_pkg::objection::get_inst().raise();
 
-            $display("*****************************************************************");
-
             vif.rx_i = 0;
             #ns_per_bit;
 

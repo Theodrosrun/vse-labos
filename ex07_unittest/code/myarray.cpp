@@ -108,4 +108,3 @@ TYPED_TEST(MyArrayTest, DoNotTouchOthers) {
 TYPED_TEST(MyArrayTest, BadAccess) {
     this->testBadAccess();
 }
-

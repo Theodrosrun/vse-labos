@@ -1,4 +1,7 @@
 #include <gtest/gtest.h>
+#include <array>
+#include <stdexcept>
+#include <sstream>
 
 using namespace std;
 
@@ -9,83 +12,81 @@ public:
     MyArray() = default;
 
     void set(size_t index, T value) {
+        if (index >= SIZE) {
+            throw std::runtime_error("Index out of bounds");
+        }
         internalArray[index] = value;
     }
 
-    T get(size_t index) {
+    T get(size_t index) const {
         if (index >= SIZE) {
-            throw std::runtime_error("Index too high");
+            throw std::runtime_error("Index out of bounds");
         }
         return internalArray[index];
     }
 
 private:
-    std::array<T, SIZE> internalArray;
-
+    std::array<T, SIZE> internalArray = {};
 };
-
 
 template<typename T>
 class MyArrayTest : public ::testing::Test
 {
 protected:
 
-    ///
-    /// \brief testSimpleDirected
-    ///
-    /// This test shall display some set() and get() at specific indices.
-    ///
+    // Test de base pour set() et get()
     void testSimpleDirected() {
-        ASSERT_EQ(true, false);
+        MyArray<T, 5> array;
+        array.set(2, static_cast<T>(42));
+        EXPECT_EQ(array.get(2), static_cast<T>(42)); // Vérifie que la valeur est correcte
     }
 
-    ///
-    /// \brief testConsecutiveSetGet
-    ///
-    /// This test shall show some write and consecutive read accesses.
-    /// They can be hardcoded or can use a for loop, with each time a
-    /// write followed by a read at the same index.
+    // Écriture et lecture consécutives
     void testConsecutiveSetGet() {
-        ASSERT_EQ(true, false);
+        MyArray<T, 5> array;
+        for (size_t i = 0; i < 5; ++i) {
+            array.set(i, static_cast<T>(i * 10));
+            EXPECT_EQ(array.get(i), static_cast<T>(i * 10)); // Lecture immédiate après écriture
+        }
     }
 
-    ///
-    /// \brief testFullSetGet
-    ///
-    /// This test shall show writes in the entire array, and then reads of
-    /// the entire array.
+    // Écriture et lecture de toute la plage d'indices
     void testFullSetGet() {
-        ASSERT_EQ(true, false);
+        MyArray<T, 5> array;
+        for (size_t i = 0; i < 5; ++i) {
+            array.set(i, static_cast<T>(i * 5));
+        }
+        for (size_t i = 0; i < 5; ++i) {
+            EXPECT_EQ(array.get(i), static_cast<T>(i * 5)); // Lecture de toutes les valeurs
+        }
     }
 
-    ///
-    /// \brief testDoNotTouchOthers
-    ///
-    /// This test is meant to show that if we fill the array with values,
-    /// then if we write at one address, it shouldn't change all other
-    /// indices values.
-    ///
+    // Vérifie que l'écriture à un indice ne touche pas les autres indices
     void testDoNotTouchOthers() {
-        ASSERT_EQ(true, false);
+        MyArray<T, 5> array;
+        for (size_t i = 0; i < 5; ++i) {
+            array.set(i, static_cast<T>(0)); // Initialisation à 0
+        }
+        array.set(2, static_cast<T>(99)); // Modification à l'indice 2
+        for (size_t i = 0; i < 5; ++i) {
+            if (i == 2) {
+                EXPECT_EQ(array.get(i), static_cast<T>(99)); // Vérifie la modification
+            } else {
+                EXPECT_EQ(array.get(i), static_cast<T>(0)); // Les autres valeurs restent inchangées
+            }
+        }
     }
 
-    ///
-    /// \brief testBadAccess
-    ///
-    /// This test is meant to detect exception throwned if bad accesses happen.
-    ///
+    // Vérifie que les accès incorrects déclenchent des exceptions
     void testBadAccess() {
-        ASSERT_EQ(true, false);
+        MyArray<T, 5> array;
+        EXPECT_THROW(array.get(5), std::runtime_error); // Indice hors limite (lecture)
+        EXPECT_THROW(array.set(5, static_cast<T>(42)), std::runtime_error); // Indice hors limite (écriture)
+        EXPECT_THROW(array.get(-1), std::runtime_error); // Indice négatif simulé (lecture)
     }
-
-
 };
 
-using MyTypes = ::testing::Types<int,
-                                 float,
-                                 double
-                                 >;
-
+using MyTypes = ::testing::Types<int, float, double>;
 TYPED_TEST_SUITE(MyArrayTest, MyTypes);
 
 TYPED_TEST(MyArrayTest, SimpleDirected) {
@@ -104,8 +105,6 @@ TYPED_TEST(MyArrayTest, DoNotTouchOthers) {
     this->testDoNotTouchOthers();
 }
 
-
 TYPED_TEST(MyArrayTest, BadAccess) {
     this->testBadAccess();
 }
-

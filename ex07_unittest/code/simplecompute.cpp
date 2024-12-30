@@ -19,7 +19,7 @@ TEST(TestCompute, test16_2) {
 
 TEST(TestCompute, test16_0) {
     // Not that good
-    compute(16.0, 0);
+    ASSERT_THROW(compute(16.0, 0), std::runtime_error);
 }
 
 

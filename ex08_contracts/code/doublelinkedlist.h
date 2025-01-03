@@ -21,17 +21,18 @@ class DoubleLinkedList
     size_t nbElements{0};
 public:
 
-    // In case you want invariants
-    // INVARIANTS(
-    //    INVARIANT(cond, "message")
-    //    INVARIANT(cond, "message")
-    //   )
+     INVARIANTS(
+        INVARIANT(cond, "message")
+        INVARIANT(cond, "message")
+       )
 
     ///
     /// \brief Adds a node at the end of the list
     /// \param node Node to be added
     ///
     void pushBack(Node<T>* node) {
+        PRE_CONDITION(node != nullptr, "Node should not be null");
+        PRE_CONDITION(!isNodeInList(node), "Node should not be in the list");
         if (last != nullptr) {
             node->prev = last;
             last->next = node;
@@ -41,6 +42,8 @@ public:
             first = node;
         }
         nbElements ++;
+        POST_CONDITION(isNodeInList(node), "Node should be in the list");
+        POST_CONDITION(getLastNode() == node, "Node should be the last node");
     }
 
     ///
@@ -48,6 +51,7 @@ public:
     /// \param node Node to be added
     ///
     void pushFront(Node<T>* node) {
+        PRE_CONDITION(node != nullptr, "Node should not be null");
         if (first != nullptr) {
             node->next = first;
             first->prev = node;
@@ -57,6 +61,7 @@ public:
             last = node;
         }
         nbElements ++;
+        POST_CONDITION(isNodeInList(node), "Node should be in the list");
     }
 
     ///

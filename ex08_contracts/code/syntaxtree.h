@@ -33,17 +33,23 @@ public:
     void setRight(std::unique_ptr<Factor> node) {
         right = std::move(node);
     }
-
+    
     INVARIANTS_OVERRIDE(
         // TODO : Add invariants
-        INVARIANT((true), "Always true");
+        INVARIANT((left != nullptr), "Left child must not be null");
+        INVARIANT((right != nullptr), "Right child must not be null");
         )
 
     double evaluate() override {
         // Actually we should check NAN as well
         checkInvariants();
+
         // TODO : Add pre-conditions
-        PRE_CONDITION((true), "Always true");
+        PRE_CONDITION((left != nullptr && right != nullptr), "Children must be valid");
+        if (operation == operation_t::Division) {
+            PRE_CONDITION((right->evaluate() != 0), "Division by zero is not allowed");
+        }
+        
         switch (operation) {
         case operation_t::Addition : return left->evaluate() + right->evaluate();
         case operation_t::Subtraction : return left->evaluate() - right->evaluate();
@@ -67,8 +73,7 @@ public:
     };
 
     INVARIANTS_OVERRIDE(
-        // TODO : Add invariants
-        INVARIANT((true), "Always true");
+        INVARIANT((child != nullptr), "Child must not be null");
         LAMBDA_INVARIANT({if (child == nullptr) { return false;}return child->checkInvariants();}, "Invalid child");
         )
 
@@ -92,14 +97,16 @@ private:
 class Number : public Factor {
 public:
     Number(double value) : value(value){ }
-    Number() {}
+    Number() {
+        POST_CONDITION((!std::isnan(value)), "Value must not be NaN");
+    }
 
     INVARIANTS_OVERRIDE(
-        // TODO : Add invariants
-        INVARIANT((true), "Always true");
+        INVARIANT((!std::isnan(value)), "Value must not be NaN");
         )
 
     double evaluate() override {
+        POST_CONDITION((!std::isnan(value)), "Value must not be NaN");
         return value;
     }
 private:

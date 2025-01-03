@@ -334,4 +334,120 @@ Voici un résumé des résultats obtenus pour chaque test lors de l'exécution a
 
    ---
 
-   
+   ### **Résumé des résultats avec ThreadSanitizer**
+
+Voici une analyse des sorties générées par **ThreadSanitizer** pour chaque test.
+
+---
+
+### **Test 0 : `testingNoLeak()`**
+- **Description :** Aucune utilisation de threads.
+- **Résultat :**
+  - Pas de problèmes détectés.
+  - ThreadSanitizer n'indique aucun avertissement ou erreur.
+
+---
+
+### **Test 1 : `testingLeak()`**
+- **Description :** Test de fuite mémoire, sans threads.
+- **Résultat :**
+  - Pas de problèmes détectés.
+  - **ThreadSanitizer** ne détecte pas les fuites mémoire. Utilisez **AddressSanitizer** pour cela.
+
+---
+
+### **Test 2 : `testBadPointer()`**
+- **Description :** Manipulation de pointeurs non valides.
+- **Résultat :**
+  - **Erreur critique détectée : segmentation fault (SEGV).**
+  - La cause :
+    - Écriture dans un pointeur nul (`nullptr`).
+    - Adresse : `0x0`.
+    - **ThreadSanitizer** ne fournit pas d'informations supplémentaires, car ce problème n'est pas lié à la concurrence.
+
+---
+
+### **Test 3 : `testBadVector()`**
+- **Description :** Accès hors limites dans un vecteur.
+- **Résultat :**
+  - **Erreur critique détectée : segmentation fault (SEGV).**
+  - La cause :
+    - Accès à une adresse non valide (`0xC`) dans le vecteur.
+    - **ThreadSanitizer** ne fournit pas d'informations supplémentaires, car ce problème n'est pas lié à la concurrence.
+
+---
+
+### **Test 4 : `testBadPointer2()`**
+- **Description :** Utilisation d'un pointeur après libération.
+- **Résultat :**
+  - **Erreur détectée : heap-use-after-free.**
+  - Détails :
+    - Lecture après la libération d'un pointeur.
+    - Localisation :
+      - Allocation : Ligne 50 dans `testBadPointer2()`.
+      - Lecture après libération : Ligne 52 dans `testBadPointer2()`.
+  - **ThreadSanitizer** fournit des détails clairs sur la mémoire libérée et utilisée à tort.
+
+---
+
+### **Test 5 : `testBadMultiThread()`**
+- **Description :** Accès non synchronisé à une variable partagée par plusieurs threads.
+- **Résultat :**
+  - **Erreur détectée : data race.**
+  - Détails :
+    - Conflit sur la variable `sharedVariable`.
+    - Threads impliqués :
+      - `Thread T1` écrit dans `sharedVariable`.
+      - `Thread T2` écrit dans la même variable sans synchronisation.
+    - ThreadSanitizer indique les points d'écriture dans les threads et fournit une trace de pile pour chaque accès.
+  - **Avertissements supplémentaires :**
+    - Fuite de threads signalée (les threads ne sont pas correctement joints).
+
+---
+
+### **Test 6 : `testMultiThread()`**
+- **Description :** Similaire au test 5, mais avec `pthread_join`.
+- **Résultat :**
+  - **Erreur détectée : data race.**
+  - Détails :
+    - Conflit sur la variable `sharedVariable`, comme dans le test 5.
+    - Threads impliqués :
+      - `Thread T1` écrit dans `sharedVariable`.
+      - `Thread T2` écrit dans la même variable sans synchronisation.
+    - ThreadSanitizer fournit une trace de pile détaillée.
+
+---
+
+### **Test 7 : `testBetterMultiThread()`**
+- **Description :** Synchronisation correcte avec un mutex.
+- **Résultat :**
+  - Aucun problème détecté.
+  - Le programme fonctionne correctement.
+
+---
+
+### **Synthèse des résultats**
+
+| **Test** | **Description**                   | **Résultat ThreadSanitizer**              | **Remarque**                                    |
+|----------|-----------------------------------|-------------------------------------------|------------------------------------------------|
+| **0**    | Test sans threads                 | Aucun problème détecté                    | Fonctionne correctement.                        |
+| **1**    | Test de fuite mémoire             | Aucun problème détecté                    | Pas pertinent pour ThreadSanitizer.            |
+| **2**    | Manipulation de pointeurs invalides | Segmentation fault                        | Problème hors du scope de ThreadSanitizer.     |
+| **3**    | Accès hors limites dans un vecteur | Segmentation fault                        | Problème hors du scope de ThreadSanitizer.     |
+| **4**    | Utilisation après libération      | Heap-use-after-free détecté               | Fournit des détails utiles pour la correction. |
+| **5**    | Accès concurrent non synchronisé  | Data race et fuite de threads détectés    | Synchronisation nécessaire.                    |
+| **6**    | Accès concurrent avec join        | Data race détectée                        | Synchronisation nécessaire.                    |
+| **7**    | Synchronisation avec mutex        | Aucun problème détecté                    | Fonctionne correctement.                       |
+
+---
+
+### **Recommandations**
+1. **Synchronisez les threads dans les tests 5 et 6 :**
+   - Ajoutez un mutex ou un autre mécanisme de verrouillage pour éviter les **data races** sur `sharedVariable`.
+
+2. **Corrigez les problèmes de gestion mémoire :**
+   - Pour le test 4, assurez-vous que les pointeurs ne sont pas utilisés après avoir été libérés.
+
+3. **Utilisez des outils spécialisés pour les autres types d'erreurs :**
+   - **AddressSanitizer** pour les problèmes de mémoire.
+   - **ThreadSanitizer** pour les problèmes liés à la concurrence.

@@ -1,3 +1,786 @@
+```cpp
+/************************************************************************************
+ * classes_and_tests_example.cpp
+ * -----------------------------
+ * Exemple où on définit une classe, puis on définit directement les tests associés.
+ *
+ * Pour compiler (exemple) :
+ *    g++ -std=c++17 -pthread classes_and_tests_example.cpp -lgtest -lgtest_main -lgmock -lgmock_main -o run_tests
+ * Puis exécutez :
+ *    ./run_tests
+ ************************************************************************************/
+
+#include <gtest/gtest.h>
+#include <gmock/gmock.h>
+
+#include <stdexcept>
+#include <thread>
+#include <cmath>
+#include <fstream>
+#include <mutex>
+#include <array>
+
+/************************************************************************************
+ * 1) MyComponent
+ *    - Composant basique pour tests de set/get
+ ************************************************************************************/
+
+class MyComponent {
+public:
+    void setValue(int v) {
+        value_ = v;
+    }
+
+    int getValue() const {
+        return value_;
+    }
+
+private:
+    int value_ = 0;
+};
+
+/*******************************
+ * Tests de MyComponent
+ *******************************/
+TEST(MyComponentTest, BasicSetAndGet) {
+    MyComponent comp;
+    comp.setValue(10);
+    EXPECT_EQ(comp.getValue(), 10);
+}
+
+/************************************************************************************
+ * 2) MyArray
+ *    - Tableau simple pour tester les accès hors limites, etc.
+ ************************************************************************************/
+
+template <typename T, int SIZE>
+class MyArray {
+public:
+    void set(size_t index, T value) {
+        if (index >= SIZE || index < 0) {
+            throw std::runtime_error("Index out of bounds");
+        }
+        internalArray_[index] = value;
+    }
+
+    T get(size_t index) const {
+        if (index >= SIZE || index < 0) {
+            throw std::runtime_error("Index out of bounds");
+        }
+        return internalArray_[index];
+    }
+
+    size_t size() const {
+        return SIZE;
+    }
+
+private:
+    std::array<T, SIZE> internalArray_ = {};
+};
+
+/*******************************
+ * Tests de MyArray
+ *******************************/
+TEST(MyArrayTest, OutOfBoundsAccess) {
+    MyArray<int, 5> arr;
+    // OK
+    EXPECT_NO_THROW(arr.set(0, 42));
+    EXPECT_EQ(arr.get(0), 42);
+
+    // Hors limites
+    EXPECT_THROW(arr.get(5), std::runtime_error);
+    EXPECT_THROW(arr.set(5, 100), std::runtime_error);
+    EXPECT_THROW(arr.set(-1, 100), std::runtime_error);
+}
+
+TEST(MyArrayTest, StressTest) {
+    constexpr size_t size = 10000;
+    MyArray<int, size> bigArr;
+    for (size_t i = 0; i < size; i++) {
+        bigArr.set(i, static_cast<int>(i * 2));
+    }
+    for (size_t i = 0; i < size; i++) {
+        EXPECT_EQ(bigArr.get(i), static_cast<int>(i * 2));
+    }
+}
+
+/************************************************************************************
+ * 3) MyClass
+ *    - Classe qui doit être initialisée avant usage (test d'usage non-initialisé)
+ ************************************************************************************/
+
+class MyClass {
+public:
+    void init(int value) {
+        initialized_ = true;
+        value_ = value;
+    }
+
+    int getValue() const {
+        if (!initialized_) {
+            throw std::runtime_error("MyClass not initialized");
+        }
+        return value_;
+    }
+
+private:
+    bool initialized_ = false;
+    int value_ = 0;
+};
+
+/*******************************
+ * Tests de MyClass
+ *******************************/
+TEST(MyClassTest, UninitializedUsage) {
+    MyClass obj;
+    // Sans init => exception
+    EXPECT_THROW(obj.getValue(), std::runtime_error);
+
+    // Après init => OK
+    obj.init(123);
+    EXPECT_NO_THROW(obj.getValue());
+    EXPECT_EQ(obj.getValue(), 123);
+}
+
+/************************************************************************************
+ * 4) sqrtSafe
+ *    - Fonction exemple pour tester les valeurs spéciales (négatives, etc.)
+ ************************************************************************************/
+
+double sqrtSafe(double x) {
+    if (x < 0.0) {
+        throw std::domain_error("Negative value for sqrt");
+    }
+    return std::sqrt(x);
+}
+
+/*******************************
+ * Tests de sqrtSafe
+ *******************************/
+TEST(MathTest, NegativeSqrtThrows) {
+    EXPECT_THROW(sqrtSafe(-1.0), std::domain_error);
+}
+
+TEST(MathTest, SqrtPositive) {
+    EXPECT_NEAR(sqrtSafe(4.0), 2.0, 1e-6);
+}
+
+/************************************************************************************
+ * 5) MyThreadSafeComponent
+ *    - Composant simplifié thread-safe pour tester l'accès concurrent
+ ************************************************************************************/
+
+class MyThreadSafeComponent {
+public:
+    MyThreadSafeComponent() : counter_(0) {}
+
+    void increment() {
+        std::lock_guard<std::mutex> lock(mutex_);
+        ++counter_;
+    }
+
+    int getValue() const {
+        std::lock_guard<std::mutex> lock(mutex_);
+        return counter_;
+    }
+
+private:
+    mutable std::mutex mutex_;
+    int counter_;
+};
+
+/*******************************
+ * Tests de MyThreadSafeComponent
+ *******************************/
+TEST(MyThreadSafeComponentTest, ConcurrentAccess) {
+    MyThreadSafeComponent comp;
+
+    auto threadFunc = [&comp]() {
+        for (int i = 0; i < 1000; i++) {
+            comp.increment();
+        }
+    };
+
+    std::thread t1(threadFunc);
+    std::thread t2(threadFunc);
+
+    t1.join();
+    t2.join();
+
+    // 2 threads * 1000
+    EXPECT_EQ(comp.getValue(), 2000);
+}
+
+/************************************************************************************
+ * 6) processData
+ *    - Fonction pour tester le passage de pointeur null (nullptr)
+ ************************************************************************************/
+
+int processData(int* data) {
+    if (!data) {
+        throw std::runtime_error("Null pointer passed to processData");
+    }
+    return *data + 10;
+}
+
+/*******************************
+ * Tests de processData
+ *******************************/
+TEST(ProcessDataTest, NullPointer) {
+    // Pointeur nul => exception
+    EXPECT_THROW(processData(nullptr), std::runtime_error);
+
+    // Pointeur valide => OK
+    int value = 10;
+    EXPECT_NO_THROW(processData(&value));
+    EXPECT_EQ(processData(&value), 20);
+}
+
+/************************************************************************************
+ * 7) loadDataFromFile
+ *    - Fonction pour tester l'accès fichier (fichier inexistant, etc.)
+ ************************************************************************************/
+
+bool loadDataFromFile(const std::string& filename) {
+    std::ifstream file(filename);
+    if (!file.is_open()) {
+        return false;
+    }
+    // On simule un chargement...
+    return true;
+}
+
+/*******************************
+ * Tests de loadDataFromFile
+ *******************************/
+TEST(FileLoaderTest, NonExistentFile) {
+    EXPECT_FALSE(loadDataFromFile("fichier_inexistant.xyz"));
+}
+
+TEST(FileLoaderTest, ExistingFile) {
+    // On crée un fichier test
+    std::string filename = "testfile.txt";
+    {
+        std::ofstream ofs(filename);
+        ofs << "Hello world";
+    }
+    EXPECT_TRUE(loadDataFromFile(filename));
+
+    // Nettoyage du fichier
+    remove(filename.c_str());
+}
+
+/************************************************************************************
+ * 8) ComplexSetup
+ *    - Classe nécessitant un paramètre avant l'initialisation
+ ************************************************************************************/
+
+class ComplexSetup {
+public:
+    void setParam(int x) {
+        x_ = x;
+    }
+
+    void initialize() {
+        if (x_ == -1) {
+            throw std::runtime_error("Param x not set before initialization");
+        }
+        initialized_ = true;
+    }
+
+    int computeResult() {
+        if (!initialized_) {
+            throw std::runtime_error("Not initialized before computeResult");
+        }
+        return x_ * 2;
+    }
+
+private:
+    int x_ = -1;
+    bool initialized_ = false;
+};
+
+/*******************************
+ * Tests de ComplexSetup
+ *******************************/
+TEST(ComplexSetupTest, MissingSetup) {
+    ComplexSetup obj;
+    // Pas de setParam => x_ = -1 => exception
+    EXPECT_THROW(obj.initialize(), std::runtime_error);
+    EXPECT_THROW(obj.computeResult(), std::runtime_error);
+
+    obj.setParam(5);
+    EXPECT_NO_THROW(obj.initialize());
+    EXPECT_EQ(obj.computeResult(), 10);
+}
+
+/************************************************************************************
+ * 9) IDatabase + MockDatabase
+ *    - Interface et mock pour tester les dépendances externes
+ ************************************************************************************/
+
+class IDatabase {
+public:
+    virtual ~IDatabase() = default;
+    virtual int getData() const = 0;
+};
+
+class MockDatabase : public IDatabase {
+public:
+    MOCK_CONST_METHOD0(getData, int());
+};
+
+/************************************************************************************
+ * 10) MyService
+ *     - Dépend d'IDatabase (testable via Mock)
+ ************************************************************************************/
+
+class MyService {
+public:
+    MyService(IDatabase* db) : db_(db) {}
+
+    int process() {
+        if (!db_) {
+            throw std::runtime_error("No database provided");
+        }
+        int val = db_->getData();
+        return val * 2;  
+    }
+
+private:
+    IDatabase* db_;
+};
+
+/*******************************
+ * Tests de MyService + MockDatabase
+ *******************************/
+using ::testing::Return;
+using ::testing::Throw;
+
+TEST(MyServiceTest, HandleDatabaseOk) {
+    MockDatabase db;
+    EXPECT_CALL(db, getData())
+        .WillOnce(Return(21));
+
+    MyService service(&db);
+    EXPECT_EQ(service.process(), 42);
+}
+
+TEST(MyServiceTest, HandleDatabaseError) {
+    MockDatabase db;
+    EXPECT_CALL(db, getData())
+        .WillRepeatedly(Throw(std::runtime_error("DB error")));
+
+    MyService service(&db);
+    EXPECT_THROW(service.process(), std::runtime_error);
+}
+
+TEST(MyServiceTest, NoDatabaseProvided) {
+    MyService service(nullptr);
+    EXPECT_THROW(service.process(), std::runtime_error);
+}
+
+/************************************************************************************
+ * main() - Point d'entrée des tests
+ ************************************************************************************/
+int main(int argc, char** argv) {
+    ::testing::InitGoogleTest(&argc, argv);
+    ::testing::InitGoogleMock(&argc, argv);
+    return RUN_ALL_TESTS();
+}
+```
+
+### Explications
+
+1. **`MyComponent`** (classe + tests)  
+2. **`MyArray`** (classe + tests)  
+3. **`MyClass`** (classe + tests)  
+4. **`sqrtSafe`** (fonction + tests)  
+5. **`MyThreadSafeComponent`** (classe + tests)  
+6. **`processData`** (fonction + tests)  
+7. **`loadDataFromFile`** (fonction + tests)  
+8. **`ComplexSetup`** (classe + tests)  
+9. **`IDatabase` + `MockDatabase`** (interfaces + mocks)  
+10. **`MyService`** (classe + tests, utilisant le mock)
+
+Chaque **classe/fonction** est suivie **immédiatement** par ses **tests**.  
+Vous avez ainsi un **format linéaire** : définition, puis test associé.
+
+---
+
+Voici une **liste élargie** d’exemples de **Design by Contract** (invariants, préconditions et postconditions) pour des **situations courantes** que rencontrent souvent les programmeurs. Tous ces exemples peuvent s’adapter à votre style de macros (`PRE_CONDITION`, `POST_CONDITION`, `INVARIANTS(...)`, etc.).  
+L’objectif est de **fournir des modèles** réutilisables dans différents domaines :
+
+---
+
+## 1. **Gestion de connexion réseau**  
+**Scénario** : Vous avez un objet `NetworkConnection` qui doit être “ouvert” avant d’envoyer/recevoir des données.
+
+```cpp
+INVARIANTS(
+    INVARIANT(isOpen_ || socket_ == INVALID_SOCKET,
+              "If isOpen_ is false, the socket should be invalid (closed).")
+)
+
+// Méthode pour se connecter
+void connect(const std::string& host, int port) {
+    PRE_CONDITION(!host.empty(), "Host name cannot be empty");
+    PRE_CONDITION(port > 0, "Port number must be positive");
+
+    // ... code qui fait la connexion ...
+    isOpen_ = true;  
+    socket_ = /*socket créé*/;
+
+    POST_CONDITION(isOpen_, "After connect(), isOpen_ must be true");
+}
+
+// Méthode pour envoyer
+void sendData(const std::string& data) {
+    PRE_CONDITION(isOpen_, "Connection must be open before sending data");
+    PRE_CONDITION(!data.empty(), "Data to send cannot be empty");
+    // ... envoi des données ...
+}
+
+// Méthode pour fermer la connexion
+void close() {
+    PRE_CONDITION(isOpen_, "Cannot close a connection that is not open");
+    // ... fermeture socket ...
+    socket_ = INVALID_SOCKET;
+    isOpen_ = false;
+
+    POST_CONDITION(!isOpen_, "After close(), isOpen_ must be false");
+}
+```
+
+### Points clés
+- **Préconditions** : la connexion doit être ouverte pour envoyer, un hôte non vide, un port > 0, etc.  
+- **Invariants** : si la connexion est fermée, le socket doit être “invalid” ou nul.
+
+---
+
+## 2. **Parser JSON**  
+**Scénario** : Une classe `JsonParser` prend un fichier ou une chaîne JSON, parse le contenu, et fournit un accès aux valeurs.
+
+```cpp
+INVARIANTS(
+    // Invariant : si parsed_ est vrai, alors internalData_ ne doit pas être vide
+    INVARIANT(!parsed_ || !internalData_.empty(), 
+              "If parsed_ == true, then internalData_ should not be empty")
+)
+
+void parse(const std::string& jsonText) {
+    PRE_CONDITION(!jsonText.empty(), "Input JSON text cannot be empty");
+    // ... parsing ...
+    parsed_ = true;
+    internalData_ = /*structure issue du parsing*/;
+
+    POST_CONDITION(parsed_, "After parse(), the parser must be in 'parsed' state");
+}
+
+std::string getString(const std::string& key) const {
+    PRE_CONDITION(parsed_, "Must parse JSON before accessing data");
+    // ... cherche la clé ...
+    return /*valeur trouvée ou erreur*/;
+}
+```
+
+### Points clés
+- **Préconditions** : on ne peut pas parser une chaîne vide, on ne peut pas appeler `getString()` si on n’a pas encore fait `parse()`.  
+- **Invariant** : si `parsed_` est `true`, alors la structure interne ne doit pas être vide/invalide.
+
+---
+
+## 3. **Gestion de threads**  
+**Scénario** : Un objet `ThreadPool` qui gère plusieurs threads ; on doit s’assurer qu’on ne lance pas un job après la fermeture du pool.
+
+```cpp
+INVARIANTS(
+    // Ex : la liste de threads doit être cohérente
+    INVARIANT(threadCount_ >= 0, "Thread count must not be negative")
+    INVARIANT((threadCount_ == 0) == (threads_.empty()),
+              "If threadCount_ is 0, threads_ list should be empty (and vice versa)")
+)
+
+void start(int n) {
+    PRE_CONDITION(n > 0, "Number of threads must be positive");
+    threadCount_ = n;
+    // ... création des threads ...
+    POST_CONDITION(threadCount_ == n, "threadCount_ must match the requested number");
+}
+
+void shutdown() {
+    PRE_CONDITION(threadCount_ > 0, "No threads to shut down");
+    // ... on stoppe tous les threads ...
+    threadCount_ = 0;
+    threads_.clear();
+    POST_CONDITION(threadCount_ == 0, "All threads must be shut down");
+}
+
+void enqueueJob(const Job& job) {
+    PRE_CONDITION(threadCount_ > 0, "Cannot enqueue a job if the thread pool is not started");
+    // ... on place le job dans une queue ...
+}
+```
+
+### Points clés
+- **Préconditions** : on ne peut pas démarrer un pool avec `n <= 0`, on ne peut pas enqueuer un job si le pool n’est pas lancé.  
+- **Invariants** : cohérence entre `threadCount_` et la liste interne `threads_`.
+
+---
+
+## 4. **Gestion d’un buffer circulaire** (circular buffer)  
+**Scénario** : on a un buffer de taille fixe, on veut éviter les dépassements ou accès invalides.
+
+```cpp
+INVARIANTS(
+    INVARIANT((tail_ >= 0 && tail_ < capacity_), "tail_ index out of range")
+    INVARIANT((head_ >= 0 && head_ < capacity_), "head_ index out of range")
+    // Invariant : size_ ne doit pas excéder capacity_
+    INVARIANT(size_ <= capacity_, "Circular buffer size cannot exceed capacity")
+)
+
+void push(int value) {
+    PRE_CONDITION(size_ < capacity_, "Cannot push into a full circular buffer");
+    buffer_[tail_] = value;
+    tail_ = (tail_ + 1) % capacity_;
+    size_++;
+
+    POST_CONDITION(size_ > 0, "Size must be > 0 after push");
+}
+
+int pop() {
+    PRE_CONDITION(size_ > 0, "Cannot pop from an empty buffer");
+    int val = buffer_[head_];
+    head_ = (head_ + 1) % capacity_;
+    size_--;
+
+    POST_CONDITION(size_ >= 0, "Size must not be negative after pop");
+    return val;
+}
+```
+
+### Points clés
+- **Préconditions** : on ne pousse pas si le buffer est plein, ni on ne pop si c’est vide.  
+- **Invariant** : `size_ <= capacity_`, et les indices (`head_`, `tail_`) restent dans la plage `[0, capacity_-1]`.
+
+---
+
+## 5. **Sémaphore ou verrous** (mutex, lock)  
+**Scénario** : un objet qui gère un verrou doit s’assurer qu’on ne le relâche pas s’il n’a pas été pris, etc.
+
+```cpp
+INVARIANTS(
+    INVARIANT(count_ >= 0, "Semaphore count must never be negative")
+)
+
+void acquire() {
+    PRE_CONDITION(count_ > 0, "Cannot acquire if semaphore count is zero");
+    count_--;
+    POST_CONDITION(count_ >= 0, "After acquire, semaphore count cannot be negative");
+}
+
+void release() {
+    count_++;
+    // Pas forcément de post-condition stricte, mais on peut dire :
+    POST_CONDITION(count_ > 0, "After release, semaphore count must be > 0");
+}
+```
+
+### Points clés
+- **Préconditions** : on n’acquiert pas (bloquant) si le compteur est déjà à 0, ou on gère autrement.  
+- **Invariant** : le compteur ne doit jamais tomber sous zéro.
+
+---
+
+## 6. **Gestion de transactions** (base de données)  
+**Scénario** : objet `Transaction` qui doit être démarré avant d’insérer, validé ou annulé seulement s’il est en cours.
+
+```cpp
+INVARIANTS(
+    // Invariant : isActive_ => on s'attend à un certain handle sur la DB
+    INVARIANT(!isActive_ || dbHandle_ != nullptr,
+              "If the transaction is active, dbHandle_ must not be null")
+)
+
+void begin() {
+    PRE_CONDITION(!isActive_, "Cannot begin a transaction if one is already active");
+    isActive_ = true;
+    dbHandle_ = /* ... */;
+    POST_CONDITION(isActive_, "After begin(), transaction must be active");
+}
+
+void commit() {
+    PRE_CONDITION(isActive_, "Cannot commit if no active transaction");
+    // ... commit ...
+    isActive_ = false;
+    POST_CONDITION(!isActive_, "After commit(), transaction must not be active");
+}
+
+void rollback() {
+    PRE_CONDITION(isActive_, "Cannot rollback if no active transaction");
+    // ... rollback ...
+    isActive_ = false;
+}
+```
+
+### Points clés
+- **Préconditions** : on ne `commit()` ou `rollback()` que si la transaction est active.  
+- **Invariant** : si `isActive_` est vrai, il faut un handle DB valide.
+
+---
+
+## 7. **Gestion d’un cache**  
+**Scénario** : un objet `Cache` avec une taille max, un nombre d’objets courants, etc.
+
+```cpp
+INVARIANTS(
+    INVARIANT(currentSize_ <= maxSize_,
+              "Cache size must not exceed the maximum allowed")
+)
+
+void put(const Key& k, const Value& v) {
+    PRE_CONDITION(currentSize_ < maxSize_, 
+                  "Cache is full, cannot put new item");
+    // ... insertion ...
+    currentSize_++;
+    POST_CONDITION(currentSize_ <= maxSize_, 
+                   "After put, currentSize_ must still not exceed maxSize_");
+}
+
+Value get(const Key& k) {
+    PRE_CONDITION(exists(k), "Key must exist in cache to get its value");
+    // ...
+    // Post-condition non obligatoire, on peut vérifier que 
+    // l'accès n'a pas altéré la structure s’il y a un usage en lecture seule.
+    return /*val*/;
+}
+```
+
+### Points clés
+- **Préconditions** : on ne fait pas de `put()` si le cache est plein (ou alors on gère un eviction policy).  
+- **Invariant** : `currentSize_ <= maxSize_`.
+
+---
+
+## 8. **Système de login**  
+**Scénario** : authentification, on ne peut accéder à certaines fonctionnalités que si on est connecté.
+
+```cpp
+INVARIANTS(
+    // ex: isLoggedIn_ => userName_ non vide
+    INVARIANT(!isLoggedIn_ || !userName_.empty(),
+              "If user is logged in, userName must not be empty")
+)
+
+void login(const std::string& user, const std::string& pass) {
+    PRE_CONDITION(!user.empty(), "User name cannot be empty");
+    PRE_CONDITION(!pass.empty(), "Password cannot be empty");
+    // ... vérification ...
+    isLoggedIn_ = true;
+    userName_ = user;
+    POST_CONDITION(isLoggedIn_, "After login, user must be logged in");
+}
+
+void logout() {
+    PRE_CONDITION(isLoggedIn_, "Cannot logout if not logged in");
+    isLoggedIn_ = false;
+    userName_.clear();
+    POST_CONDITION(!isLoggedIn_, "After logout, user must not be logged in");
+}
+
+void accessRestrictedFeature() {
+    PRE_CONDITION(isLoggedIn_, "User must be logged in to access restricted features");
+    // ...
+}
+```
+
+### Points clés
+- **Préconditions** : on ne `logout()` qu’en étant loggé, on n’accède pas à certaines fonctions sans être loggé.  
+- **Invariant** : si on est loggé (`isLoggedIn_ == true`), alors `userName_` est non vide.
+
+---
+
+## 9. **Gestion de ressources GPU** (ex. `Texture`)  
+**Scénario** : on charge une texture en VRAM, la décharge quand on n’en a plus besoin.
+
+```cpp
+INVARIANTS(
+    // isLoaded_ => handleGPU_ doit être non nul
+    INVARIANT(!isLoaded_ || handleGPU_ != 0, 
+              "If isLoaded_ is true, GPU handle must be valid")
+)
+
+void loadFromFile(const std::string& filename) {
+    PRE_CONDITION(!filename.empty(), "Filename cannot be empty");
+    // ... charge la texture ...
+    isLoaded_ = true;
+    handleGPU_ = /*...*/;
+    POST_CONDITION(isLoaded_, "After loadFromFile, texture must be marked as loaded");
+}
+
+void unload() {
+    PRE_CONDITION(isLoaded_, "Cannot unload if not loaded");
+    // ... libérer la resource ...
+    handleGPU_ = 0;
+    isLoaded_ = false;
+    POST_CONDITION(!isLoaded_, "After unload, texture must not be loaded");
+}
+```
+
+### Points clés
+- **Préconditions** : on ne décharge pas une texture qui n’a pas été chargée, on ne peut pas loader un fichier vide.  
+- **Invariant** : si la texture est “chargée”, on doit avoir un handle GPU valide.
+
+---
+
+## 10. **Gestion d’un timer / horloge**  
+**Scénario** : on démarre un timer, on ne peut l’arrêter que s’il a démarré, etc.
+
+```cpp
+INVARIANTS(
+    // Ex : si isRunning_ est vrai, startTime_ doit être défini
+    INVARIANT(!isRunning_ || startTime_ > 0, 
+              "If timer is running, startTime_ should be > 0")
+)
+
+void start() {
+    PRE_CONDITION(!isRunning_, "Cannot start if timer is already running");
+    isRunning_ = true;
+    startTime_ = getSystemTime();
+    POST_CONDITION(isRunning_, "After start, timer must be running");
+}
+
+void stop() {
+    PRE_CONDITION(isRunning_, "Cannot stop if timer is not running");
+    isRunning_ = false;
+    // ...
+    POST_CONDITION(!isRunning_, "After stop, timer must not be running");
+}
+
+double elapsed() const {
+    PRE_CONDITION(isRunning_, "Timer must be running to get elapsed time (or define another logic)");
+    return getSystemTime() - startTime_;
+}
+```
+
+### Points clés
+- **Préconditions** : on ne `start()` pas un timer déjà démarré, on ne `stop()` pas un timer déjà stoppé.  
+- **Invariant** : si le timer est en cours, on a un `startTime_` valide.
+
+---
+
+### Conclusion
+
+Dans toutes ces situations **courantes** (gestion réseau, parsing, threads, transactions, cache, etc.), on retrouve le même schéma de **Design by Contract** :
+
+1. **Invariants** pour assurer la cohérence globale de l’objet (et de ses champs).  
+2. **Préconditions** pour **empêcher** un appel en situation illégitime (fichier non chargé, ressource déjà fermée, etc.).  
+3. **Postconditions** pour **garantir** que l’état après exécution est conforme (taille qui a augmenté/diminué, compte débité, etc.).
+
+Ces **exemples de contrats** sont **indépendants** des macros ; vous pouvez les implémenter avec vos propres macros (`INVARIANT(...)`, `PRE_CONDITION(...)`, `POST_CONDITION(...)`) ou les placer directement dans des `if`/`throw`. L’important est de **définir clairement** les règles qui doivent être satisfaites **avant**, **après**, et **en permanence** pour chaque objet ou méthode critique.
+
+---
+
 # Exercice 12, memory check
 
 ### **Résumé des observations avec Valgrind**

@@ -1,3 +1,14 @@
+
+
+### Remarques
+
+- Les macros `EXPECT_XXX` signalent un échec **sans interrompre** le test en cours.  
+- Les macros `ASSERT_XXX` **interrompent** immédiatement le test en cas d’échec.  
+- `EXPECT_TRUE(condition)` vérifie qu’une condition booléenne est vraie, sans interrompre le test.  
+- `EXPECT_EQ(a, b)` compare les valeurs `a` et `b` et ne provoque pas d’arrêt immédiat si elles différent.  
+- L’utilisation de l’une ou l’autre forme (EXPECT ou ASSERT) dépend de votre stratégie de tests : si un échec empêche tout test ultérieur d’avoir du sens, `ASSERT` est plus adapté, sinon `EXPECT` vous permettra de voir davantage de points d’échec potentiels.
+
+
 ```cpp
 /************************************************************************************
  * classes_and_tests_example.cpp
@@ -45,7 +56,12 @@ private:
 TEST(MyComponentTest, BasicSetAndGet) {
     MyComponent comp;
     comp.setValue(10);
+
+    // On n’interrompt pas le test si ça échoue
     EXPECT_EQ(comp.getValue(), 10);
+
+    // Exemple d’EXPECT_TRUE
+    EXPECT_TRUE(comp.getValue() == 10) << "La valeur du composant devrait être 10";
 }
 
 /************************************************************************************
@@ -91,15 +107,20 @@ TEST(MyArrayTest, OutOfBoundsAccess) {
     EXPECT_THROW(arr.get(5), std::runtime_error);
     EXPECT_THROW(arr.set(5, 100), std::runtime_error);
     EXPECT_THROW(arr.set(-1, 100), std::runtime_error);
+
+    // Petite vérification supplémentaire (optionnelle)
+    EXPECT_TRUE(arr.size() == 5) << "La taille du tableau devrait être 5";
 }
 
 TEST(MyArrayTest, StressTest) {
     constexpr size_t size = 10000;
     MyArray<int, size> bigArr;
     for (size_t i = 0; i < size; i++) {
-        bigArr.set(i, static_cast<int>(i * 2));
+        // Si ceci échoue, on arrête le test pour éviter trop d’erreurs en cascade
+        ASSERT_NO_THROW(bigArr.set(i, static_cast<int>(i * 2)));
     }
     for (size_t i = 0; i < size; i++) {
+        // Ici, on n’interrompt pas forcément le test
         EXPECT_EQ(bigArr.get(i), static_cast<int>(i * 2));
     }
 }
@@ -134,7 +155,7 @@ private:
 TEST(MyClassTest, UninitializedUsage) {
     MyClass obj;
     // Sans init => exception
-    EXPECT_THROW(obj.getValue(), std::runtime_error);
+    ASSERT_THROW(obj.getValue(), std::runtime_error);
 
     // Après init => OK
     obj.init(123);
@@ -158,11 +179,12 @@ double sqrtSafe(double x) {
  * Tests de sqrtSafe
  *******************************/
 TEST(MathTest, NegativeSqrtThrows) {
-    EXPECT_THROW(sqrtSafe(-1.0), std::domain_error);
+    ASSERT_THROW(sqrtSafe(-1.0), std::domain_error);
 }
 
 TEST(MathTest, SqrtPositive) {
-    EXPECT_NEAR(sqrtSafe(4.0), 2.0, 1e-6);
+    // Utilisation de ASSERT_FLOAT_EQ pour comparer des flottants
+    ASSERT_FLOAT_EQ(sqrtSafe(4.0), 2.0);
 }
 
 /************************************************************************************
@@ -208,7 +230,7 @@ TEST(MyThreadSafeComponentTest, ConcurrentAccess) {
     t2.join();
 
     // 2 threads * 1000
-    EXPECT_EQ(comp.getValue(), 2000);
+    ASSERT_EQ(comp.getValue(), 2000);
 }
 
 /************************************************************************************
@@ -232,7 +254,7 @@ TEST(ProcessDataTest, NullPointer) {
 
     // Pointeur valide => OK
     int value = 10;
-    EXPECT_NO_THROW(processData(&value));
+    ASSERT_NO_THROW(processData(&value));
     EXPECT_EQ(processData(&value), 20);
 }
 
@@ -254,7 +276,8 @@ bool loadDataFromFile(const std::string& filename) {
  * Tests de loadDataFromFile
  *******************************/
 TEST(FileLoaderTest, NonExistentFile) {
-    EXPECT_FALSE(loadDataFromFile("fichier_inexistant.xyz"));
+    // On teste que la fonction retourne false pour un fichier inexistant
+    EXPECT_TRUE(!loadDataFromFile("fichier_inexistant.xyz"));
 }
 
 TEST(FileLoaderTest, ExistingFile) {
@@ -264,6 +287,7 @@ TEST(FileLoaderTest, ExistingFile) {
         std::ofstream ofs(filename);
         ofs << "Hello world";
     }
+    // On attend true car le fichier existe
     EXPECT_TRUE(loadDataFromFile(filename));
 
     // Nettoyage du fichier
@@ -309,8 +333,9 @@ TEST(ComplexSetupTest, MissingSetup) {
     EXPECT_THROW(obj.initialize(), std::runtime_error);
     EXPECT_THROW(obj.computeResult(), std::runtime_error);
 
+    // On fournit le paramètre
     obj.setParam(5);
-    EXPECT_NO_THROW(obj.initialize());
+    ASSERT_NO_THROW(obj.initialize());
     EXPECT_EQ(obj.computeResult(), 10);
 }
 
@@ -363,6 +388,7 @@ TEST(MyServiceTest, HandleDatabaseOk) {
         .WillOnce(Return(21));
 
     MyService service(&db);
+    // On utilise EXPECT_EQ pour comparer
     EXPECT_EQ(service.process(), 42);
 }
 
@@ -372,12 +398,12 @@ TEST(MyServiceTest, HandleDatabaseError) {
         .WillRepeatedly(Throw(std::runtime_error("DB error")));
 
     MyService service(&db);
-    EXPECT_THROW(service.process(), std::runtime_error);
+    ASSERT_THROW(service.process(), std::runtime_error);
 }
 
 TEST(MyServiceTest, NoDatabaseProvided) {
     MyService service(nullptr);
-    EXPECT_THROW(service.process(), std::runtime_error);
+    ASSERT_THROW(service.process(), std::runtime_error);
 }
 
 /************************************************************************************
@@ -390,26 +416,13 @@ int main(int argc, char** argv) {
 }
 ```
 
-### Explications
+### Remarques
 
-1. **`MyComponent`** (classe + tests)  
-2. **`MyArray`** (classe + tests)  
-3. **`MyClass`** (classe + tests)  
-4. **`sqrtSafe`** (fonction + tests)  
-5. **`MyThreadSafeComponent`** (classe + tests)  
-6. **`processData`** (fonction + tests)  
-7. **`loadDataFromFile`** (fonction + tests)  
-8. **`ComplexSetup`** (classe + tests)  
-9. **`IDatabase` + `MockDatabase`** (interfaces + mocks)  
-10. **`MyService`** (classe + tests, utilisant le mock)
-
-Chaque **classe/fonction** est suivie **immédiatement** par ses **tests**.  
-Vous avez ainsi un **format linéaire** : définition, puis test associé.
-
----
-
-Voici une **liste élargie** d’exemples de **Design by Contract** (invariants, préconditions et postconditions) pour des **situations courantes** que rencontrent souvent les programmeurs. Tous ces exemples peuvent s’adapter à votre style de macros (`PRE_CONDITION`, `POST_CONDITION`, `INVARIANTS(...)`, etc.).  
-L’objectif est de **fournir des modèles** réutilisables dans différents domaines :
+- Les macros `EXPECT_XXX` signalent un échec **sans interrompre** le test en cours.  
+- Les macros `ASSERT_XXX` **interrompent** immédiatement le test en cas d’échec.  
+- `EXPECT_TRUE(condition)` vérifie qu’une condition booléenne est vraie, sans interrompre le test.  
+- `EXPECT_EQ(a, b)` compare les valeurs `a` et `b` et ne provoque pas d’arrêt immédiat si elles différent.  
+- L’utilisation de l’une ou l’autre forme (EXPECT ou ASSERT) dépend de votre stratégie de tests : si un échec empêche tout test ultérieur d’avoir du sens, `ASSERT` est plus adapté, sinon `EXPECT` vous permettra de voir davantage de points d’échec potentiels.
 
 ---
 

@@ -784,9 +784,11 @@ public:
 
 #endif // DOUBLELINKEDLIST_H
 ```
+Voici une correction et une amélioration des scénarios mentionnés avec des commentaires clairs pour les invariants, les préconditions et les postconditions. Les corrections portent sur des validations supplémentaires et une meilleure structuration du code.
 
-## 1. **Gestion de connexion réseau**  
-**Scénario** : Vous avez un objet `NetworkConnection` qui doit être “ouvert” avant d’envoyer/recevoir des données.
+---
+
+### **1. Gestion de connexion réseau**
 
 ```cpp
 INVARIANTS(
@@ -796,149 +798,159 @@ INVARIANTS(
 
 // Méthode pour se connecter
 void connect(const std::string& host, int port) {
+    CHECKINVARIANTS;
     PRE_CONDITION(!host.empty(), "Host name cannot be empty");
-    PRE_CONDITION(port > 0, "Port number must be positive");
+    PRE_CONDITION(port > 0 && port <= 65535, "Port number must be in range 1-65535");
 
-    // ... code qui fait la connexion ...
-    isOpen_ = true;  
-    socket_ = /*socket créé*/;
+    // Code pour ouvrir la connexion
+    socket_ = /* créer le socket */;
+    isOpen_ = (socket_ != INVALID_SOCKET);
 
     POST_CONDITION(isOpen_, "After connect(), isOpen_ must be true");
+    CHECKINVARIANTS;
 }
 
 // Méthode pour envoyer
 void sendData(const std::string& data) {
+    CHECKINVARIANTS;
     PRE_CONDITION(isOpen_, "Connection must be open before sending data");
     PRE_CONDITION(!data.empty(), "Data to send cannot be empty");
-    // ... envoi des données ...
+
+    // Code d'envoi des données...
+
+    CHECKINVARIANTS;
 }
 
 // Méthode pour fermer la connexion
 void close() {
+    CHECKINVARIANTS;
     PRE_CONDITION(isOpen_, "Cannot close a connection that is not open");
-    // ... fermeture socket ...
+
+    // Code pour fermer la connexion
     socket_ = INVALID_SOCKET;
     isOpen_ = false;
 
     POST_CONDITION(!isOpen_, "After close(), isOpen_ must be false");
+    CHECKINVARIANTS;
 }
 ```
 
-### Points clés
-- **Préconditions** : la connexion doit être ouverte pour envoyer, un hôte non vide, un port > 0, etc.  
-- **Invariants** : si la connexion est fermée, le socket doit être “invalid” ou nul.
-
 ---
 
-## 2. **Parser JSON**  
-**Scénario** : Une classe `JsonParser` prend un fichier ou une chaîne JSON, parse le contenu, et fournit un accès aux valeurs.
+### **2. Parser JSON**
 
 ```cpp
 INVARIANTS(
-    // Invariant : si parsed_ est vrai, alors internalData_ ne doit pas être vide
     INVARIANT(!parsed_ || !internalData_.empty(), 
               "If parsed_ == true, then internalData_ should not be empty")
 )
 
 void parse(const std::string& jsonText) {
+    CHECKINVARIANTS;
     PRE_CONDITION(!jsonText.empty(), "Input JSON text cannot be empty");
-    // ... parsing ...
+
+    // Code pour parser le JSON...
+    internalData_ = /* résultat du parsing */;
     parsed_ = true;
-    internalData_ = /*structure issue du parsing*/;
 
     POST_CONDITION(parsed_, "After parse(), the parser must be in 'parsed' state");
+    CHECKINVARIANTS;
 }
 
 std::string getString(const std::string& key) const {
+    CHECKINVARIANTS;
     PRE_CONDITION(parsed_, "Must parse JSON before accessing data");
-    // ... cherche la clé ...
-    return /*valeur trouvée ou erreur*/;
+
+    // Code pour obtenir la valeur associée à la clé...
+    return /* valeur */;
 }
 ```
 
-### Points clés
-- **Préconditions** : on ne peut pas parser une chaîne vide, on ne peut pas appeler `getString()` si on n’a pas encore fait `parse()`.  
-- **Invariant** : si `parsed_` est `true`, alors la structure interne ne doit pas être vide/invalide.
-
 ---
 
-## 3. **Gestion de threads**  
-**Scénario** : Un objet `ThreadPool` qui gère plusieurs threads ; on doit s’assurer qu’on ne lance pas un job après la fermeture du pool.
+### **3. Gestion de threads**
 
 ```cpp
 INVARIANTS(
-    // Ex : la liste de threads doit être cohérente
     INVARIANT(threadCount_ >= 0, "Thread count must not be negative")
-    INVARIANT((threadCount_ == 0) == (threads_.empty()),
+    INVARIANT((threadCount_ == 0) == threads_.empty(),
               "If threadCount_ is 0, threads_ list should be empty (and vice versa)")
 )
 
 void start(int n) {
+    CHECKINVARIANTS;
     PRE_CONDITION(n > 0, "Number of threads must be positive");
+
+    // Code pour démarrer les threads
     threadCount_ = n;
-    // ... création des threads ...
+
     POST_CONDITION(threadCount_ == n, "threadCount_ must match the requested number");
+    CHECKINVARIANTS;
 }
 
 void shutdown() {
+    CHECKINVARIANTS;
     PRE_CONDITION(threadCount_ > 0, "No threads to shut down");
-    // ... on stoppe tous les threads ...
+
+    // Code pour arrêter les threads
     threadCount_ = 0;
     threads_.clear();
+
     POST_CONDITION(threadCount_ == 0, "All threads must be shut down");
+    CHECKINVARIANTS;
 }
 
 void enqueueJob(const Job& job) {
+    CHECKINVARIANTS;
     PRE_CONDITION(threadCount_ > 0, "Cannot enqueue a job if the thread pool is not started");
-    // ... on place le job dans une queue ...
+
+    // Code pour ajouter le job à la queue
+
+    CHECKINVARIANTS;
 }
 ```
 
-### Points clés
-- **Préconditions** : on ne peut pas démarrer un pool avec `n <= 0`, on ne peut pas enqueuer un job si le pool n’est pas lancé.  
-- **Invariants** : cohérence entre `threadCount_` et la liste interne `threads_`.
-
 ---
 
-## 4. **Gestion d’un buffer circulaire** (circular buffer)  
-**Scénario** : on a un buffer de taille fixe, on veut éviter les dépassements ou accès invalides.
+### **4. Gestion d’un buffer circulaire**
 
 ```cpp
 INVARIANTS(
-    INVARIANT((tail_ >= 0 && tail_ < capacity_), "tail_ index out of range")
-    INVARIANT((head_ >= 0 && head_ < capacity_), "head_ index out of range")
-    // Invariant : size_ ne doit pas excéder capacity_
+    INVARIANT(tail_ >= 0 && tail_ < capacity_, "tail_ index out of range")
+    INVARIANT(head_ >= 0 && head_ < capacity_, "head_ index out of range")
     INVARIANT(size_ <= capacity_, "Circular buffer size cannot exceed capacity")
 )
 
 void push(int value) {
+    CHECKINVARIANTS;
     PRE_CONDITION(size_ < capacity_, "Cannot push into a full circular buffer");
+
     buffer_[tail_] = value;
     tail_ = (tail_ + 1) % capacity_;
     size_++;
 
     POST_CONDITION(size_ > 0, "Size must be > 0 after push");
+    CHECKINVARIANTS;
 }
 
 int pop() {
+    CHECKINVARIANTS;
     PRE_CONDITION(size_ > 0, "Cannot pop from an empty buffer");
+
     int val = buffer_[head_];
     head_ = (head_ + 1) % capacity_;
     size_--;
 
     POST_CONDITION(size_ >= 0, "Size must not be negative after pop");
+    CHECKINVARIANTS;
+
     return val;
 }
 ```
 
-### Points clés
-- **Préconditions** : on ne pousse pas si le buffer est plein, ni on ne pop si c’est vide.  
-- **Invariant** : `size_ <= capacity_`, et les indices (`head_`, `tail_`) restent dans la plage `[0, capacity_-1]`.
-
 ---
 
-## 5. **Sémaphore ou verrous** (mutex, lock)  
-**Scénario** : un objet qui gère un verrou doit s’assurer qu’on ne le relâche pas s’il n’a pas été pris, etc.
+### **5. Sémaphore ou verrous**
 
 ```cpp
 INVARIANTS(
@@ -946,198 +958,29 @@ INVARIANTS(
 )
 
 void acquire() {
+    CHECKINVARIANTS;
     PRE_CONDITION(count_ > 0, "Cannot acquire if semaphore count is zero");
+
     count_--;
+
     POST_CONDITION(count_ >= 0, "After acquire, semaphore count cannot be negative");
+    CHECKINVARIANTS;
 }
 
 void release() {
+    CHECKINVARIANTS;
+
     count_++;
-    // Pas forcément de post-condition stricte, mais on peut dire :
+
     POST_CONDITION(count_ > 0, "After release, semaphore count must be > 0");
-}
-```
-
-### Points clés
-- **Préconditions** : on n’acquiert pas (bloquant) si le compteur est déjà à 0, ou on gère autrement.  
-- **Invariant** : le compteur ne doit jamais tomber sous zéro.
-
----
-
-## 6. **Gestion de transactions** (base de données)  
-**Scénario** : objet `Transaction` qui doit être démarré avant d’insérer, validé ou annulé seulement s’il est en cours.
-
-```cpp
-INVARIANTS(
-    // Invariant : isActive_ => on s'attend à un certain handle sur la DB
-    INVARIANT(!isActive_ || dbHandle_ != nullptr,
-              "If the transaction is active, dbHandle_ must not be null")
-)
-
-void begin() {
-    PRE_CONDITION(!isActive_, "Cannot begin a transaction if one is already active");
-    isActive_ = true;
-    dbHandle_ = /* ... */;
-    POST_CONDITION(isActive_, "After begin(), transaction must be active");
-}
-
-void commit() {
-    PRE_CONDITION(isActive_, "Cannot commit if no active transaction");
-    // ... commit ...
-    isActive_ = false;
-    POST_CONDITION(!isActive_, "After commit(), transaction must not be active");
-}
-
-void rollback() {
-    PRE_CONDITION(isActive_, "Cannot rollback if no active transaction");
-    // ... rollback ...
-    isActive_ = false;
-}
-```
-
-### Points clés
-- **Préconditions** : on ne `commit()` ou `rollback()` que si la transaction est active.  
-- **Invariant** : si `isActive_` est vrai, il faut un handle DB valide.
-
----
-
-## 7. **Gestion d’un cache**  
-**Scénario** : un objet `Cache` avec une taille max, un nombre d’objets courants, etc.
-
-```cpp
-INVARIANTS(
-    INVARIANT(currentSize_ <= maxSize_,
-              "Cache size must not exceed the maximum allowed")
-)
-
-void put(const Key& k, const Value& v) {
-    PRE_CONDITION(currentSize_ < maxSize_, 
-                  "Cache is full, cannot put new item");
-    // ... insertion ...
-    currentSize_++;
-    POST_CONDITION(currentSize_ <= maxSize_, 
-                   "After put, currentSize_ must still not exceed maxSize_");
-}
-
-Value get(const Key& k) {
-    PRE_CONDITION(exists(k), "Key must exist in cache to get its value");
-    // ...
-    // Post-condition non obligatoire, on peut vérifier que 
-    // l'accès n'a pas altéré la structure s’il y a un usage en lecture seule.
-    return /*val*/;
-}
-```
-
-### Points clés
-- **Préconditions** : on ne fait pas de `put()` si le cache est plein (ou alors on gère un eviction policy).  
-- **Invariant** : `currentSize_ <= maxSize_`.
-
----
-
-## 8. **Système de login**  
-**Scénario** : authentification, on ne peut accéder à certaines fonctionnalités que si on est connecté.
-
-```cpp
-INVARIANTS(
-    // ex: isLoggedIn_ => userName_ non vide
-    INVARIANT(!isLoggedIn_ || !userName_.empty(),
-              "If user is logged in, userName must not be empty")
-)
-
-void login(const std::string& user, const std::string& pass) {
-    PRE_CONDITION(!user.empty(), "User name cannot be empty");
-    PRE_CONDITION(!pass.empty(), "Password cannot be empty");
-    // ... vérification ...
-    isLoggedIn_ = true;
-    userName_ = user;
-    POST_CONDITION(isLoggedIn_, "After login, user must be logged in");
-}
-
-void logout() {
-    PRE_CONDITION(isLoggedIn_, "Cannot logout if not logged in");
-    isLoggedIn_ = false;
-    userName_.clear();
-    POST_CONDITION(!isLoggedIn_, "After logout, user must not be logged in");
-}
-
-void accessRestrictedFeature() {
-    PRE_CONDITION(isLoggedIn_, "User must be logged in to access restricted features");
-    // ...
-}
-```
-
-### Points clés
-- **Préconditions** : on ne `logout()` qu’en étant loggé, on n’accède pas à certaines fonctions sans être loggé.  
-- **Invariant** : si on est loggé (`isLoggedIn_ == true`), alors `userName_` est non vide.
-
----
-
-## 9. **Gestion de ressources GPU** (ex. `Texture`)  
-**Scénario** : on charge une texture en VRAM, la décharge quand on n’en a plus besoin.
-
-```cpp
-INVARIANTS(
-    // isLoaded_ => handleGPU_ doit être non nul
-    INVARIANT(!isLoaded_ || handleGPU_ != 0, 
-              "If isLoaded_ is true, GPU handle must be valid")
-)
-
-void loadFromFile(const std::string& filename) {
-    PRE_CONDITION(!filename.empty(), "Filename cannot be empty");
-    // ... charge la texture ...
-    isLoaded_ = true;
-    handleGPU_ = /*...*/;
-    POST_CONDITION(isLoaded_, "After loadFromFile, texture must be marked as loaded");
-}
-
-void unload() {
-    PRE_CONDITION(isLoaded_, "Cannot unload if not loaded");
-    // ... libérer la resource ...
-    handleGPU_ = 0;
-    isLoaded_ = false;
-    POST_CONDITION(!isLoaded_, "After unload, texture must not be loaded");
-}
-```
-
-### Points clés
-- **Préconditions** : on ne décharge pas une texture qui n’a pas été chargée, on ne peut pas loader un fichier vide.  
-- **Invariant** : si la texture est “chargée”, on doit avoir un handle GPU valide.
-
----
-
-## 10. **Gestion d’un timer / horloge**  
-**Scénario** : on démarre un timer, on ne peut l’arrêter que s’il a démarré, etc.
-
-```cpp
-INVARIANTS(
-    // Ex : si isRunning_ est vrai, startTime_ doit être défini
-    INVARIANT(!isRunning_ || startTime_ > 0, 
-              "If timer is running, startTime_ should be > 0")
-)
-
-void start() {
-    PRE_CONDITION(!isRunning_, "Cannot start if timer is already running");
-    isRunning_ = true;
-    startTime_ = getSystemTime();
-    POST_CONDITION(isRunning_, "After start, timer must be running");
-}
-
-void stop() {
-    PRE_CONDITION(isRunning_, "Cannot stop if timer is not running");
-    isRunning_ = false;
-    // ...
-    POST_CONDITION(!isRunning_, "After stop, timer must not be running");
-}
-
-double elapsed() const {
-    PRE_CONDITION(isRunning_, "Timer must be running to get elapsed time (or define another logic)");
-    return getSystemTime() - startTime_;
+    CHECKINVARIANTS;
 }
 ```
 
 ### Points clés
 - **Préconditions** : on ne `start()` pas un timer déjà démarré, on ne `stop()` pas un timer déjà stoppé.  
 - **Invariant** : si le timer est en cours, on a un `startTime_` valide.
+- **Ajout de CHECKINVARIANTS systématique** : Pour garantir la cohérence avant et après chaque opération critique.
 
 ---
 

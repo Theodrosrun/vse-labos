@@ -33,23 +33,20 @@ public:
     void setRight(std::unique_ptr<Factor> node) {
         right = std::move(node);
     }
-    
+
     INVARIANTS_OVERRIDE(
-        // TODO : Add invariants
-        INVARIANT((left != nullptr), "Left child must not be null");
-        INVARIANT((right != nullptr), "Right child must not be null");
+        INVARIANT((left != nullptr), "The left side of a binary expression shall not be nullptr");
+        INVARIANT((right != nullptr), "The right side of a binary expression shall not be nullptr");
+        LAMBDA_INVARIANT({if (left == nullptr) { return false;}return left->checkInvariants();}, "Invalid left child");
+        LAMBDA_INVARIANT({if (right == nullptr) { return false;}return right->checkInvariants();}, "Invalid right child");
         )
 
     double evaluate() override {
         // Actually we should check NAN as well
-        checkInvariants();
-
-        // TODO : Add pre-conditions
-        PRE_CONDITION((left != nullptr && right != nullptr), "Children must be valid");
-        if (operation == operation_t::Division) {
-            PRE_CONDITION((right->evaluate() != 0), "Division by zero is not allowed");
-        }
-        
+        CHECKINVARIANTS;
+        PRE_CONDITION((!std::isnan(left->evaluate())), "The left side of a binary operation shall not be NAN");
+        PRE_CONDITION((!std::isnan(right->evaluate())), "The right side of a binary operation shall not be NAN");
+        PRE_CONDITION((operation != operation_t::Division || (right->evaluate() != 0.0)), "The right side of a division shall not be 0");
         switch (operation) {
         case operation_t::Addition : return left->evaluate() + right->evaluate();
         case operation_t::Subtraction : return left->evaluate() - right->evaluate();
@@ -73,7 +70,7 @@ public:
     };
 
     INVARIANTS_OVERRIDE(
-        INVARIANT((child != nullptr), "Child must not be null");
+        INVARIANT((child != nullptr), "The child node of a binary expression shall not be nullptr");
         LAMBDA_INVARIANT({if (child == nullptr) { return false;}return child->checkInvariants();}, "Invalid child");
         )
 
@@ -82,6 +79,7 @@ public:
     }
 
     double evaluate() override {
+        CHECKINVARIANTS;
         switch (operation) {
         case operation_t::Subtraction : return -child->evaluate();
         default : return 0.0;
@@ -97,16 +95,14 @@ private:
 class Number : public Factor {
 public:
     Number(double value) : value(value){ }
-    Number() {
-        POST_CONDITION((!std::isnan(value)), "Value must not be NaN");
-    }
+    Number() {}
 
     INVARIANTS_OVERRIDE(
-        INVARIANT((!std::isnan(value)), "Value must not be NaN");
+        INVARIANT((!std::isnan(value)), "A number shall not be NAN");
         )
 
     double evaluate() override {
-        POST_CONDITION((!std::isnan(value)), "Value must not be NaN");
+        CHECKINVARIANTS;
         return value;
     }
 private:

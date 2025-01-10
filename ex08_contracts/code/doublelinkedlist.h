@@ -21,18 +21,17 @@ class DoubleLinkedList
     size_t nbElements{0};
 public:
 
-     INVARIANTS(
-        INVARIANT(cond, "message")
-        INVARIANT(cond, "message")
-       )
+    INVARIANTS(
+        INVARIANT(((nbElements == 0) || (first != nullptr)), "The first element of a non-empty list cannot be nullptr")
+        INVARIANT((nbElements == 0) || (last != nullptr), "The last element of a non-empty list cannot be nullptr"))
 
     ///
     /// \brief Adds a node at the end of the list
     /// \param node Node to be added
     ///
     void pushBack(Node<T>* node) {
-        PRE_CONDITION(node != nullptr, "Node should not be null");
-        PRE_CONDITION(!isNodeInList(node), "Node should not be in the list");
+        CHECKINVARIANTS;
+        PRE_CONDITION((node != nullptr), "A node to be inserted cannot be nullptr");
         if (last != nullptr) {
             node->prev = last;
             last->next = node;
@@ -42,8 +41,7 @@ public:
             first = node;
         }
         nbElements ++;
-        POST_CONDITION(isNodeInList(node), "Node should be in the list");
-        POST_CONDITION(getLastNode() == node, "Node should be the last node");
+        CHECKINVARIANTS;
     }
 
     ///
@@ -51,7 +49,8 @@ public:
     /// \param node Node to be added
     ///
     void pushFront(Node<T>* node) {
-        PRE_CONDITION(node != nullptr, "Node should not be null");
+        CHECKINVARIANTS;
+        PRE_CONDITION((node != nullptr), "A node to be inserted cannot be nullptr");
         if (first != nullptr) {
             node->next = first;
             first->prev = node;
@@ -61,7 +60,7 @@ public:
             last = node;
         }
         nbElements ++;
-        POST_CONDITION(isNodeInList(node), "Node should be in the list");
+        CHECKINVARIANTS;
     }
 
     ///
@@ -70,6 +69,9 @@ public:
     /// \param afterThis Node after which the new node shall be added
     ///
     void insertAfter(Node<T>* node, Node<T>* afterThis) {
+        CHECKINVARIANTS;
+        PRE_CONDITION((node != nullptr), "A node to be inserted cannot be nullptr");
+        PRE_CONDITION(isNodeInList(afterThis), "We cannot add a node after a one that is not in the list");
         node->next = afterThis->next;
         if (afterThis->next != nullptr) {
             afterThis->next->prev = node;
@@ -80,6 +82,7 @@ public:
         node->prev = afterThis;
         afterThis->next = node;
         nbElements ++;
+        CHECKINVARIANTS;
     }
 
     ///
@@ -89,6 +92,9 @@ public:
     /// As an asumption the node should be in the list, else there is a misuse of this function
     ///
     void remove(Node<T>* node) {
+        CHECKINVARIANTS;
+        PRE_CONDITION(isNodeInList(node), "Try to remove a node that is not in the list");
+
         if (node->prev != nullptr) {
             node->prev->next = node->next;
         }
@@ -108,6 +114,7 @@ public:
             }
         }
         nbElements --;
+        CHECKINVARIANTS;
     }
 
     ///
@@ -117,6 +124,7 @@ public:
     ///
     [[nodiscard]]
     bool isNodeInList(Node<T> *node) const {
+        CHECKINVARIANTS;
         Node<T> *n = node;
         while (n != nullptr) {
             if (n == node) {
@@ -133,6 +141,7 @@ public:
     ///
     [[nodiscard]]
     Node<T>* getLastNode() const {
+        CHECKINVARIANTS;
         return last;
     }
 
@@ -142,6 +151,7 @@ public:
     ///
     [[nodiscard]]
     Node<T>* getFirstNode() const {
+        CHECKINVARIANTS;
         return first;
     }
 
@@ -153,6 +163,8 @@ public:
     ///
     [[nodiscard]]
     T getLastElement() const {
+        CHECKINVARIANTS;
+        PRE_CONDITION(last != nullptr, "Cannot get the last element if it doesn't exist");
         return last->element;
     }
 
@@ -164,6 +176,8 @@ public:
     ///
     [[nodiscard]]
     T getFirstElement() const {
+        CHECKINVARIANTS;
+        PRE_CONDITION(first != nullptr, "Cannot get the first element if it doesn't exist");
         return first->element;
     }
 
@@ -173,6 +187,7 @@ public:
     ///
     [[nodiscard]]
     size_t getNbElements() const {
+        CHECKINVARIANTS;
         return nbElements;
     }
 
@@ -182,6 +197,8 @@ public:
     /// The call is invalid if the list is empty.
     ///
     void popFront() {
+        CHECKINVARIANTS;
+        PRE_CONDITION(first != nullptr, "Cannot popFront an empty list");
         if (first != nullptr) {
             if (first->next != nullptr) {
                 first->next->prev = nullptr;
@@ -192,6 +209,7 @@ public:
         }
         first = first->next;
         nbElements --;
+        CHECKINVARIANTS;
     }
 
     ///
@@ -200,6 +218,8 @@ public:
     /// The call is invalid if the list is empty.
     ///
     void popBack() {
+        CHECKINVARIANTS;
+        PRE_CONDITION(last != nullptr, "Cannot popBack an empty list");
         if (last != nullptr) {
             if (last->prev != nullptr) {
                 last->prev->next = nullptr;
@@ -210,6 +230,7 @@ public:
         }
         last = last->prev;
         nbElements --;
+        CHECKINVARIANTS;
     }
 
 };

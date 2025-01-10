@@ -416,9 +416,10 @@ int main(int argc, char** argv) {
 }
 ```
 
-Le problème que le **mocking** vise à résoudre est celui du **dépendances** dans les tests unitaires. Voici une explication détaillée et les avantages du mocking dans l'exemple donné.
+<br><br><br>
 
----
+
+Le problème que le **mocking** vise à résoudre est celui du **dépendances** dans les tests unitaires. Voici une explication détaillée et les avantages du mocking dans l'exemple donné.
 
 ## **Problème avec les dépendances**
 
@@ -597,37 +598,6 @@ TEST(DriverTest, CanDrive) {
     delete car;
 }
 ```
-
----
-
-## **Que se passe-t-il si vous déclarez `EXPECT_CALL` après ?**
-
-Si vous essayez de déclarer un `EXPECT_CALL` **après l'appel à la méthode à tester**, le comportement attendu ne sera pas pris en compte, car Google Mock ne pourra pas observer les appels déjà effectués.
-
-### Code incorrect :
-
-```cpp
-TEST(DriverTest, IncorrectOrder) {
-    auto* car = new MockCar();
-
-    Driver driver;
-    driver.setCar(car);
-
-    // Exécution de la méthode AVANT de déclarer les attentes
-    driver.drive();
-
-    // Tentative d'ajout de `EXPECT_CALL` après l'exécution
-    EXPECT_CALL(*car, forward())
-        .Times(AtLeast(2)); // Trop tard ! forward() a déjà été appelé
-
-    delete car;
-}
-```
-
-### Résultat :
-- Le test **échouera ou ignorera les attentes** définies après l'exécution de `driver.drive()`.
-
----
 
 ## **Conclusion**
 

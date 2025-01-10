@@ -610,6 +610,34 @@ Toujours **déclarer les `EXPECT_CALL` avant d'exécuter le code** à tester. Ce
 
 # Invariants
 
+**LAMBDA_INVARIANT**
+
+- **But** : Permet de vérifier des invariants complexes ou dépendant de l'état courant en utilisant des lambdas.
+- **Fonctionnement :**
+  - Un lambda est exécuté, et son résultat est vérifié.
+  - Si le lambda retourne `false`, une exception est levée avec un message d'erreur.
+
+**Exemple** :
+
+```cpp
+LAMBDA_INVARIANT(
+    { return (value % 2 == 0); },
+    "Value must be even"
+);
+```
+
+### **Différences principales entre méthodes**
+
+| Méthode/Directive       | Quand s'applique-t-elle ?               | Active en mode DEBUG ? | Levée d'exception ? |
+|--------------------------|-----------------------------------------|-------------------------|---------------------|
+| `PRE_CONDITION`         | Avant une exécution                    | Oui                     | Oui                 |
+| `POST_CONDITION`        | Après une exécution                    | Oui                     | Oui                 |
+| `INVARIANT`             | Tout moment de l'existence d'un objet  | Oui                     | Oui                 |
+| `CHECKINVARIANTS`       | Vérification explicite des invariants  | Oui                     | Oui                 |
+| `EMPTYINVARIANTS`       | Fournit un `checkInvariants` trivial   | Oui                     | Non (retourne `true`) |
+
+
+
 ```cpp
 #ifndef SYNTAXTREE_H
 #define SYNTAXTREE_H

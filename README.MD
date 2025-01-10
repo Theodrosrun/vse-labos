@@ -416,6 +416,126 @@ int main(int argc, char** argv) {
 }
 ```
 
+Le problème que le **mocking** vise à résoudre est celui du **dépendances** dans les tests unitaires. Voici une explication détaillée et les avantages du mocking dans l'exemple donné.
+
+---
+
+## **Problème avec les dépendances**
+
+Quand une classe **C1** dépend d'une autre classe **C2**, pour tester **C1**, vous devez :
+1. Avoir une implémentation de **C2**.
+2. Être sûr que **C2** fonctionne correctement.
+3. Tester **C1** indépendamment des comportements de **C2**, mais cela est difficile si **C2** est directement utilisée par **C1**.
+
+---
+
+### Exemple concret (Classe `Driver` et `Car`)
+
+Dans votre exemple, la classe `Driver` dépend de la classe abstraite `Car` :
+
+```cpp
+class Driver {
+public:
+    void setCar(Car* car) { this->car = car; }
+    void drive() {
+        car->accelerate(1);
+        car->forward();
+        car->accelerate(2);
+        car->forward();
+        car->turnRight();
+        car->accelerate(2);
+        int speed = car->currentSpeed();
+        if (speed > 4) {
+            car->brake();
+        }
+    }
+
+private:
+    Car* car; // Dépendance directe à Car
+};
+```
+
+La méthode `Driver::drive()` appelle plusieurs fonctions de la classe `Car` (comme `accelerate`, `forward`, etc.), ce qui rend difficile de tester `Driver` sans une implémentation complète et fonctionnelle de `Car`.
+
+---
+
+## **Solution avec le mocking**
+
+Un **mock** est une classe qui simule le comportement de `Car`. Elle permet de :
+1. **Contrôler les retours des fonctions** comme `currentSpeed()` (ex. : forcer un retour précis pour un test).
+2. **Observer les appels faits par `Driver`** (compter le nombre d'appels à `accelerate` ou `brake`).
+3. Tester le comportement de `Driver` **sans avoir besoin d'une implémentation réelle de `Car`**.
+
+La classe `MockCar` est un exemple de mock utilisant une bibliothèque de mocking comme **Google Mock** :
+
+```cpp
+class MockCar : public Car {
+public:
+    MOCK_METHOD(void, forward, (), (override));
+    MOCK_METHOD(void, accelerate, (int acceleration), (override));
+    MOCK_METHOD(void, turnRight, (), (override));
+    MOCK_METHOD(int, currentSpeed, (), (const, override));
+    MOCK_METHOD(void, brake, (), (override));
+};
+```
+
+---
+
+## **Exemple de test**
+
+Voici un test pour `Driver::drive()` :
+
+```cpp
+TEST(DriverTest, CanDrive) {
+    auto* car = new MockCar(); // Création d'un mock pour Car
+
+    EXPECT_CALL(*car, forward())   // Vérifier que forward() est appelé
+        .Times(AtLeast(2));        // ... au moins 2 fois
+    EXPECT_CALL(*car, currentSpeed()) 
+        .WillOnce(Return(5));      // currentSpeed() retourne 5
+    EXPECT_CALL(*car, brake())     // Vérifier que brake() est appelé
+        .Times(1);                 // ... exactement 1 fois
+
+    Driver driver;
+    driver.setCar(car);            // Injecter le mock dans Driver
+    driver.drive();                // Appeler la méthode à tester
+
+    delete car; // Nettoyage
+}
+```
+
+---
+
+### **Explication du test**
+
+1. **Injection du mock dans `Driver` :**
+   - Au lieu d'une implémentation réelle de `Car`, on injecte un `MockCar` dans `Driver`.
+
+2. **Attentes (`EXPECT_CALL`) :**
+   - **`EXPECT_CALL(*car, forward())`** : On s'attend à ce que la méthode `forward()` soit appelée au moins deux fois.
+   - **`EXPECT_CALL(*car, currentSpeed())`** : On force le retour de `currentSpeed()` à `5`.
+   - **`EXPECT_CALL(*car, brake())`** : On vérifie que `brake()` est appelé exactement une fois si la vitesse dépasse 4.
+
+3. **Exécution :**
+   - On appelle `driver.drive()`, et les attentes définies dans `EXPECT_CALL` sont vérifiées pendant l'exécution.
+
+4. **Validation du comportement :**
+   - Si `Driver::drive()` n'appelle pas les méthodes de `Car` comme attendu, le test échoue.
+
+---
+
+## **Avantages du mocking**
+
+1. **Indépendance :** On peut tester `Driver` sans dépendre d'une implémentation réelle de `Car`.
+2. **Flexibilité :** On peut simuler des comportements précis de `Car`, comme une vitesse ou un état spécifique.
+3. **Observation :** On peut compter combien de fois une méthode est appelée ou vérifier les arguments passés.
+
+---
+
+## **Conclusion**
+
+Le mocking est utile pour tester une classe (comme `Driver`) **indépendamment des implémentations réelles** des classes qu'elle utilise (comme `Car`). Cela facilite le développement piloté par les tests (TDD) et garantit une séparation claire des responsabilités entre les classes.
+
 ### Remarques
 
 - Les macros `EXPECT_XXX` signalent un échec **sans interrompre** le test en cours.  
@@ -423,6 +543,98 @@ int main(int argc, char** argv) {
 - `EXPECT_TRUE(condition)` vérifie qu’une condition booléenne est vraie, sans interrompre le test.  
 - `EXPECT_EQ(a, b)` compare les valeurs `a` et `b` et ne provoque pas d’arrêt immédiat si elles différent.  
 - L’utilisation de l’une ou l’autre forme (EXPECT ou ASSERT) dépend de votre stratégie de tests : si un échec empêche tout test ultérieur d’avoir du sens, `ASSERT` est plus adapté, sinon `EXPECT` vous permettra de voir davantage de points d’échec potentiels.
+
+Oui, **les `EXPECT_CALL` doivent être déclarés avant d'exécuter le code à tester**, c'est une règle fondamentale dans l'utilisation de frameworks de mocking comme **Google Mock**. Voici pourquoi :
+
+---
+
+## **Pourquoi déclarer `EXPECT_CALL` avant ?**
+
+1. **Configuration des attentes :**
+   - Les `EXPECT_CALL` définissent ce que le mock doit observer ou retourner.
+   - Ces attentes doivent être configurées **avant** que le code testé (comme `driver.drive()`) soit exécuté. Sinon, le mock ne saura pas quoi surveiller.
+
+2. **Injection de comportements :**
+   - Si une méthode mockée doit retourner une valeur spécifique (par exemple, `currentSpeed()` retourne `5`), cela doit être configuré **avant** l'appel de la méthode.
+   - Exemple : `EXPECT_CALL(*car, currentSpeed()).WillOnce(Return(5));`.
+
+3. **Vérification après l'exécution :**
+   - Les attentes définies dans `EXPECT_CALL` sont vérifiées **après** l'exécution du code testé.
+   - Si les méthodes attendues ne sont pas appelées comme spécifié, le test échoue.
+
+---
+
+## **Exemple de séquence correcte**
+
+Voici la séquence correcte dans un test utilisant Google Mock :
+
+1. Créez et configurez votre mock (`MockCar`).
+2. Déclarez les attentes avec `EXPECT_CALL`.
+3. Exécutez la méthode à tester (`driver.drive()`).
+4. Validez que les attentes ont été respectées (Google Mock le fait automatiquement).
+
+### Code correct :
+
+```cpp
+TEST(DriverTest, CanDrive) {
+    // Étape 1 : Créez un mock
+    auto* car = new MockCar();
+
+    // Étape 2 : Configurez les attentes
+    EXPECT_CALL(*car, forward())
+        .Times(AtLeast(2)); // forward() doit être appelé au moins 2 fois
+    EXPECT_CALL(*car, currentSpeed())
+        .WillOnce(Return(5)); // currentSpeed() retourne 5 à son premier appel
+    EXPECT_CALL(*car, brake())
+        .Times(1); // brake() doit être appelé exactement 1 fois
+
+    // Étape 3 : Exécutez le code testé
+    Driver driver;
+    driver.setCar(car); // Injectez le mock
+    driver.drive();     // Appeler la méthode à tester
+
+    // Étape 4 : Nettoyez (si besoin)
+    delete car;
+}
+```
+
+---
+
+## **Que se passe-t-il si vous déclarez `EXPECT_CALL` après ?**
+
+Si vous essayez de déclarer un `EXPECT_CALL` **après l'appel à la méthode à tester**, le comportement attendu ne sera pas pris en compte, car Google Mock ne pourra pas observer les appels déjà effectués.
+
+### Code incorrect :
+
+```cpp
+TEST(DriverTest, IncorrectOrder) {
+    auto* car = new MockCar();
+
+    Driver driver;
+    driver.setCar(car);
+
+    // Exécution de la méthode AVANT de déclarer les attentes
+    driver.drive();
+
+    // Tentative d'ajout de `EXPECT_CALL` après l'exécution
+    EXPECT_CALL(*car, forward())
+        .Times(AtLeast(2)); // Trop tard ! forward() a déjà été appelé
+
+    delete car;
+}
+```
+
+### Résultat :
+- Le test **échouera ou ignorera les attentes** définies après l'exécution de `driver.drive()`.
+
+---
+
+## **Conclusion**
+
+Toujours **déclarer les `EXPECT_CALL` avant d'exécuter le code** à tester. Cela garantit que :
+1. Les comportements simulés (comme les retours de méthode) sont correctement injectés.
+2. Les appels et paramètres sont surveillés pendant l'exécution.
+3. Les validations (`Times`, `WillOnce`, etc.) peuvent être vérifiées après coup.
 
 <br><br><br><br><br><br><br><br><br><br>
 

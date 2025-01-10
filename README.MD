@@ -1,4 +1,4 @@
-
+# Test unitiare
 
 ### Remarques
 
@@ -424,7 +424,9 @@ int main(int argc, char** argv) {
 - `EXPECT_EQ(a, b)` compare les valeurs `a` et `b` et ne provoque pas d’arrêt immédiat si elles différent.  
 - L’utilisation de l’une ou l’autre forme (EXPECT ou ASSERT) dépend de votre stratégie de tests : si un échec empêche tout test ultérieur d’avoir du sens, `ASSERT` est plus adapté, sinon `EXPECT` vous permettra de voir davantage de points d’échec potentiels.
 
----
+<br><br><br><br><br><br><br><br><br><br>
+
+# Invariants
 
 ```cpp
 #ifndef SYNTAXTREE_H
@@ -1149,9 +1151,9 @@ Dans toutes ces situations **courantes** (gestion réseau, parsing, threads, tra
 
 Ces **exemples de contrats** sont **indépendants** des macros ; vous pouvez les implémenter avec vos propres macros (`INVARIANT(...)`, `PRE_CONDITION(...)`, `POST_CONDITION(...)`) ou les placer directement dans des `if`/`throw`. L’important est de **définir clairement** les règles qui doivent être satisfaites **avant**, **après**, et **en permanence** pour chaque objet ou méthode critique.
 
----
+<br><br><br><br><br><br><br><br><br><br>
 
-# Exercice 12, memory check
+# Memory check
 
 ### **Résumé des observations avec Valgrind**
 

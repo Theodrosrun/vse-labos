@@ -1,0 +1,1 @@
+/usr/bin/c++ CMakeFiles/VSE_unittests.dir/cardriver.cpp.o CMakeFiles/VSE_unittests.dir/floating.cpp.o CMakeFiles/VSE_unittests.dir/mathcomputer.cpp.o CMakeFiles/VSE_unittests.dir/myarray.cpp.o CMakeFiles/VSE_unittests.dir/simplecompute.cpp.o CMakeFiles/VSE_unittests.dir/main.cpp.o -o VSE_unittests  -lgtest -lgmock 

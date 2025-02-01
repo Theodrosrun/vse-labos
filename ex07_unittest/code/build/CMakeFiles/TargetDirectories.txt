@@ -1,0 +1,3 @@
+/home/theodros/Documents/HEIG-VD/Labos/VSE/vse-labos/ex07_unittest/code/build/CMakeFiles/VSE_unittests.dir
+/home/theodros/Documents/HEIG-VD/Labos/VSE/vse-labos/ex07_unittest/code/build/CMakeFiles/edit_cache.dir
+/home/theodros/Documents/HEIG-VD/Labos/VSE/vse-labos/ex07_unittest/code/build/CMakeFiles/rebuild_cache.dir
